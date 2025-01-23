@@ -1,0 +1,28 @@
+{
+  "All Jobs": {
+    "value": "Việc Làm IT",
+    "skills": "Việc làm IT theo kĩ năng",
+    "title": "Việc làm IT theo cấp bậc",
+    "company": "Việc làm IT theo công ty",
+    "city": "Việc làm IT theo thành phố",
+    "developer": "Lập trình viên",
+    "others": "Khác"
+  },
+  "IT Companies": {
+    "value": "Top Công ty IT",
+    "Best IT Companies": "Công ty IT tốt nhất",
+    "Company Reviews": "Review Công ty"
+  },
+  "Blog": {
+    "IT Salary Report": "Báo cáo lương IT",
+    "IT Career": "Sự nghiệp IT",
+    "Applying & Career Up": "Ứng tuyển & Thăng tiến",
+    "IT Expertise": "Chuyên môn IT"
+  },
+  "For Employers": "Nhà Tuyển Dụng",
+  "Sign in/Sign up": "Đăng Nhập/Đăng Ký",
+  "Settings": "Cài đặt",
+  "Sign out": "Đăng Xuất",
+  "View all Jobs by skill": "Xem tất cả",
+  "View all Jobs by company": "Xem tất cả"
+}

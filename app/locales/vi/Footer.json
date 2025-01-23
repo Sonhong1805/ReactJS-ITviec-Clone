@@ -1,0 +1,33 @@
+{
+  "About Us": {
+    "value": "Về ITviec",
+    "Home": "Trang Chủ",
+    "About ITviec": "Về ITviec.com",
+    "AI Match Service": "Dịch vụ gợi ý ứng viên",
+    "Contact Us": "Liên Hệ",
+    "All Jobs": "Việc Làm IT",
+    "FAQ": "Câu hỏi thường gặp"
+  },
+  "Campaign": {
+    "value": "Chương trình",
+    "IT Story": "Chuyện IT",
+    "Writing Contest": "Cuộc thi viết",
+    "Featured IT Jobs": "Việc làm IT nổi bật",
+    "Annual Survey": "Khảo sát thường niên"
+  },
+  "Terms & Conditions": {
+    "value": "Điều khoản chung",
+    "Privacy Policy": "Quy định bảo mật",
+    "Operating Regulation": "Quy chế hoạt động",
+    "Complaint Handling": "Giải quyết khiếu nại",
+    "Terms & Conditions": "Thoả thuận sử dụng",
+    "Press": "Thông cáo báo chí"
+  },
+  "Want to post a job?": {
+    "value": "Liên hệ để đăng tin tuyển dụng tại:",
+    "Ho Chi Minh": "Hồ Chí Minh: (+84) 977 460 519",
+    "Ha Noi": "Hà Nội: (+84) 983 131 351",
+    "Email": "Email: love@itviec.com",
+    "Submit": "Gửi thông tin liên hệ"
+  }
+}

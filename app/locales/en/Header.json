@@ -1,0 +1,28 @@
+{
+  "All Jobs": {
+    "value": "All Jobs",
+    "skills": "Jobs by Skill",
+    "title": "Jobs by Title",
+    "company": "Jobs by Company",
+    "city": "Jobs by City",
+    "developer": "Developer",
+    "others": "Others"
+  },
+  "IT Companies": {
+    "value": "IT Companies",
+    "Best IT Companies": "Best IT Companies",
+    "Company Reviews": "Company Reviews"
+  },
+  "Blog": {
+    "IT Salary Report": "IT Salary Report",
+    "IT Career": "IT Career",
+    "Applying & Career Up": "Applying & Career Up",
+    "IT Expertise": "IT Expertise"
+  },
+  "For Employers": "For Employers",
+  "Sign in/Sign up": "Sign in/Sign up",
+  "Settings": "Settings",
+  "Sign out": "Sign out",
+  "View all Jobs by skill": "View all Jobs by skill",
+  "View all Jobs by company": "View all Jobs by company"
+}

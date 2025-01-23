@@ -1,0 +1,33 @@
+{
+  "About Us": {
+    "value": "About Us",
+    "Home": "Home",
+    "About ITviec": "About Us",
+    "AI Match Service": "AI Match Service",
+    "Contact Us": "Contact Us",
+    "All Jobs": "All Jobs",
+    "FAQ": "FAQ"
+  },
+  "Campaign": {
+    "value": "Campaign",
+    "IT Story": "IT Story",
+    "Writing Contest": "Writing Contest",
+    "Featured IT Jobs": "Featured IT Jobs",
+    "Annual Survey": "Annual Survey"
+  },
+  "Terms & Conditions": {
+    "value": "Terms & Conditions",
+    "Privacy Policy": "Privacy Policy",
+    "Operating Regulation": "Operating Regulation",
+    "Complaint Handling": "Complaint Handling",
+    "Terms & Conditions": "Terms & Conditions",
+    "Press": "Press"
+  },
+  "Want to post a job?": {
+    "value": "Want to post a job? Contact us at:",
+    "Ho Chi Minh": "Ho Chi Minh: (+84) 977 460 519",
+    "Ha Noi": "Ha Noi: (+84) 983 131 351",
+    "Email": "Email: love@itviec.com",
+    "Submit": "Submit contact information"
+  }
+}

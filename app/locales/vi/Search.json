@@ -1,0 +1,54 @@
+{
+  "Company Spotlight": "Nhà Tuyển Dụng Nổi Bật",
+  "View": "Xem",
+  "Jobs": "Việc làm",
+  "Filter": "Bộ lọc",
+  "Posted": "Đăng",
+  "Time": {
+    "Hour": " giờ trước",
+    "Minute": " phút trước",
+    "Second": " giây trước",
+    "Day": " ngày trước",
+    "Month": " tháng trước",
+    "Year": " năm trước"
+  },
+  "Sign in to view salary": "Đăng nhập để xem mức lương",
+  "Apply now": "Ứng tuyển",
+  "Working Model": {
+    "value": "Hình thức làm việc",
+    "flexible": "Linh hoạt",
+    "remote": "Làm việc từ xa",
+    "office": "Tại văn phòng"
+  },
+  "Level": "Cấp bậc",
+  "Salary": "Mức lương",
+  "Company Type": {
+    "value": "Loại công ty",
+    "outsource": "Thuê ngoài",
+    "product": "Sản phẩm",
+    "headhunt": "Headhunt",
+    "service": "Dịch vụ và Tư vấn giải pháp",
+    "nonIT": "Non-IT"
+  },
+  "Reset filter": "Xoá bộ lọc",
+  "Apply": "Áp dụng",
+  "Skills": "Kỹ năng",
+  "Introduce": {
+    "Company type": "Mô hình công ty",
+    "Company size": "Quy mô công ty",
+    "Country": "Quốc gia",
+    "Working days": "Thời gian làm việc",
+    "Overtime policy": "Làm việc ngoài giờ"
+  },
+  "View company": "Xem công ty",
+  "Job description": "Mô tả công việc",
+  "Follow": "Theo dõi",
+  "Following": "Đang theo dõi",
+  "Unfollow": "Hủy theo dõi",
+  "General information": "Thông tin chung",
+  "Company overview": "Giới thiệu công ty",
+  "Our key skills": "Chuyên môn của chúng tôi",
+  "Company website": "Website công ty",
+  "job openings": "việc làm đang tuyển dụng",
+  "Why you'll love working here": "Tại sao bạn sẽ yêu thích làm việc tại đây?"
+}

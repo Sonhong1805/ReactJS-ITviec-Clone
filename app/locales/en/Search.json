@@ -1,0 +1,54 @@
+{
+  "Company Spotlight": "Company Spotlight",
+  "View": "View",
+  "Jobs": "jobs",
+  "Filter": "Filter",
+  "Posted": "Posted",
+  "Time": {
+    "Hour": "hours",
+    "Minute": "minutes",
+    "Second": "seconds",
+    "Day": "days",
+    "Month": "months",
+    "Year": "years"
+  },
+  "Sign in to view salary": "Sign in to view salary",
+  "Apply now": "Apply now",
+  "Working Model": {
+    "value": "Working Model",
+    "flexible": "Hybrid",
+    "remote": "Remote",
+    "office": "At Office"
+  },
+  "Level": "Level",
+  "Salary": "Salary",
+  "Company Type": {
+    "value": "Company Type",
+    "outsource": "IT Outsourcing",
+    "product": "IT Product",
+    "headhunt": "Headhunt",
+    "service": "IT Service and IT Consulting",
+    "nonIT": "Non-IT"
+  },
+  "Reset filter": "Reset filter",
+  "Apply": "Apply",
+  "Skills": "Skills",
+  "Introduce": {
+    "Company type": "Company type",
+    "Company size": "Company size",
+    "Country": "Country",
+    "Working days": "Working days",
+    "Overtime policy": "Overtime policy"
+  },
+  "View company": "View company",
+  "Job description": "Job description",
+  "Follow": "Follow",
+  "Following": "Following",
+  "Unfollow": "Unfollow",
+  "General information": "General information",
+  "Company overview": "Company overview",
+  "Our key skills": "Our key skills",
+  "Company website": "Company website",
+  "job openings": "job openings",
+  "Why you'll love working here": "Why you'll love working here"
+}
