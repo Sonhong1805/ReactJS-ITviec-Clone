@@ -11,6 +11,9 @@ import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

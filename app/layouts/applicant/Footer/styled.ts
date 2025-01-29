@@ -4,7 +4,7 @@ export const StyledFooter = styled.footer`
   background: linear-gradient(
     277.42deg,
     var(--i-brown) 0%,
-    var(--i-body-color) 43.92%
+    var(--i-black) 43.92%
   );
   padding-top: 4.8rem;
   position: relative;

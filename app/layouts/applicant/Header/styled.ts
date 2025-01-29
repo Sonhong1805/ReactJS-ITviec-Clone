@@ -5,7 +5,7 @@ export const StyledHeader = styled.header`
   background: linear-gradient(
     269.85deg,
     var(--i-brown) 0%,
-    var(--i-body-color) 54.89%
+    var(--i-black) 54.89%
   );
   position: fixed;
   top: 0;

@@ -56,7 +56,7 @@ const Header = () => {
           </HeaderList>
           <HeaderList $right>
             <HeaderListItem>
-              <Link to={"admin/login"} className="admin">
+              <Link to={"employer"} className="employer">
                 {t("For Employers")}
               </Link>
             </HeaderListItem>
