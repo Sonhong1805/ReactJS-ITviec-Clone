@@ -98,104 +98,6 @@ export const LoginMain = styled.main`
   }
 `;
 
-export const LoginEmailGroup = styled.div`
-  font-size: 1.4rem;
-  color: var(--i-black);
-  margin-bottom: 1.6rem;
-
-  label {
-    display: block;
-    margin-bottom: 0.4rem;
-    line-height: 2.1rem;
-  }
-
-  abbr {
-    color: rgb(var(--i-danger-rgb));
-    padding-inline: 0.227rem;
-  }
-
-  input {
-    border: 1px solid var(--i-silver-grey);
-    width: 100%;
-    padding: 1.1rem 1.6rem;
-    font-size: 1.6rem;
-    border-radius: 0.4rem;
-    font-weight: 400;
-    height: 4.46rem;
-
-    &.error {
-      border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
-    }
-
-    &.success {
-      border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
-    }
-  }
-`;
-
-export const LoginPasswordGroup = styled.div``;
-
-export const LoginPasswordLabel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.4rem;
-  color: var(--i-black);
-  margin-bottom: 0.4rem;
-
-  label {
-    display: block;
-    margin-bottom: 0.4rem;
-    line-height: 2.1rem;
-  }
-
-  abbr {
-    color: rgb(var(--i-danger-rgb));
-  }
-
-  a {
-    color: var(--i-hyperlink);
-    font-size: 1.6rem;
-  }
-`;
-
-export const LoginPasswordInput = styled.div`
-  margin-bottom: 1.6rem;
-
-  .password-group {
-    position: relative;
-  }
-
-  input {
-    border: 1px solid var(--i-silver-grey);
-    width: 100%;
-    padding: 1.1rem 1.6rem;
-    font-size: 1.6rem;
-    border-radius: 0.4rem;
-    font-weight: 400;
-    height: 4.46rem;
-
-    &.error {
-      border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
-    }
-
-    &.success {
-      border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
-    }
-  }
-
-  svg {
-    position: absolute;
-    right: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-`;
-
 export const LoginSubmit = styled.button`
   display: flex;
   align-items: center;
@@ -250,10 +152,4 @@ export const LoginFeatureItem = styled.li`
   svg {
     color: var(--i-success-color);
   }
-`;
-
-export const LoginError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
 `;

@@ -1,15 +1,11 @@
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import {
-  AuthenticationError,
   ForgotAlert,
   ForgotAside,
   ForgotContainer,
   ForgotError,
-  ForgotGroup,
   ForgotLogin,
   ForgotMain,
   ForgotSubmit,
@@ -19,6 +15,7 @@ import {
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import InputBase from "~/components/InputBase";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -70,22 +67,17 @@ const ForgotPassword = () => {
               {t("Oops! This email address doesn't exist, please try again")}
             </ForgotError>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <ForgotGroup>
-                <label htmlFor="email">
-                  <span>{t("Email Address")} </span>
-                  <abbr>*</abbr>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder={t("Email Address")}
-                  {...register("email")}
-                  className={errors.email?.message ? "error" : isValidEmail}
-                />
-                <AuthenticationError>
-                  {errors.email?.message}
-                </AuthenticationError>
-              </ForgotGroup>
+              <InputBase
+                id="email"
+                type="email"
+                name="email"
+                label={t("Email")}
+                placeholder={t("Email")}
+                required={true}
+                register={register}
+                className={errors.email?.message ? "error" : isValidEmail}
+                error={errors.email?.message}
+              />
               <ForgotSubmit type="submit">{t("Reset Password")}</ForgotSubmit>
             </form>
             <div className="forgot-or">{t("or")}</div>

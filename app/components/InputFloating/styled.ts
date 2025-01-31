@@ -4,11 +4,15 @@ export const InputWrapper = styled.div`
   position: relative;
   margin-bottom: 2.4rem;
 
-  .icon-dropdown {
+  svg {
     position: absolute;
     top: 50%;
-    right: 1.6rem;
+    right: 1.8rem;
     transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--i-rich-grey);
+    cursor: pointer;
   }
 `;
 
@@ -24,14 +28,24 @@ export const InputFloatingWrapper = styled.div`
     font-weight: 400;
     height: 5.6rem;
 
+    &:focus {
+      border-radius: 0.4rem;
+      border: 1px solid var(--i-rich-grey);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
     &.error {
       border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      }
     }
 
     &.success {
       border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      }
     }
 
     &:not(:placeholder-shown) + label,

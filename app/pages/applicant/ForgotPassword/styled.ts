@@ -70,46 +70,6 @@ export const ForgotError = styled.div`
   color: var(--i-error-color);
 `;
 
-export const ForgotGroup = styled.div`
-  font-size: 1.4rem;
-  color: var(--i-black);
-  margin-bottom: 1.6rem;
-
-  label {
-    display: block;
-    margin-bottom: 0.4rem;
-    line-height: 2.1rem;
-  }
-
-  abbr {
-    color: rgb(var(--i-danger-rgb));
-  }
-
-  input {
-    border: 1px solid var(--i-silver-grey);
-    width: 100%;
-    padding: 1.1rem 1.6rem;
-    font-size: 1.6rem;
-    border-radius: 0.4rem;
-    font-weight: 400;
-    height: 4.46rem;
-
-    &::placeholder {
-      font-size: 1.4rem;
-    }
-
-    &.error {
-      border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
-    }
-
-    &.success {
-      border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
-    }
-  }
-`;
-
 export const ForgotSubmit = styled.button`
   display: flex;
   align-items: center;
@@ -159,10 +119,4 @@ export const ForgotAside = styled.aside`
     width: 32rem;
     height: 31rem;
   }
-`;
-
-export const AuthenticationError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
 `;

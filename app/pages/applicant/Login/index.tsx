@@ -1,16 +1,11 @@
-import { FiCheck, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 import {
   LoginContainer,
-  LoginEmailGroup,
-  LoginError,
   LoginFeature,
   LoginFeatureItem,
   LoginFeatureList,
   LoginSubmit,
   LoginMain,
-  LoginPasswordGroup,
-  LoginPasswordInput,
-  LoginPasswordLabel,
   LoginRegister,
   LoginWrapper,
   UserLogin,
@@ -19,17 +14,14 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import LOGO_BLACK_TEXT from "/assets/images/logo_black_text.png";
 import GOOGLE_LOGO from "/assets/svg/google_logo.svg";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
-import { useState } from "react";
+import { Link } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import InputBase from "~/components/InputBase";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
-
-  const navigate = useNavigate();
-  const [togglePassword, setTogglePassword] = useState(false);
 
   const schema = z.object({
     email: z
@@ -96,48 +88,29 @@ const Login = () => {
               <span>{t("or")}</span>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <LoginEmailGroup>
-                <label htmlFor="email">
-                  <span>{t("Email")}</span>
-                  <abbr>*</abbr>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder={t("Email")}
-                  {...register("email")}
-                  className={errors.email?.message ? "error" : isValidEmail}
-                />
-                <LoginError>{errors.email?.message}</LoginError>
-              </LoginEmailGroup>
-              <LoginPasswordGroup>
-                <LoginPasswordLabel>
-                  <label htmlFor="password">
-                    <span>{t("Password")}</span>
-                    <abbr>*</abbr>
-                  </label>
-                  <Link to={"/forgot-password"}>{t("Forgot password?")}</Link>
-                </LoginPasswordLabel>
-                <LoginPasswordInput>
-                  <div className="password-group">
-                    <input
-                      type={togglePassword ? "text" : "password"}
-                      id="password"
-                      {...register("password")}
-                      placeholder={t("Password")}
-                      className={
-                        errors.password?.message ? "error" : isValidPassword
-                      }
-                    />
-                    {togglePassword ? (
-                      <FiEye onClick={() => setTogglePassword(false)} />
-                    ) : (
-                      <FiEyeOff onClick={() => setTogglePassword(true)} />
-                    )}
-                  </div>
-                  <LoginError>{errors.password?.message}</LoginError>
-                </LoginPasswordInput>
-              </LoginPasswordGroup>
+              <InputBase
+                id="email"
+                type="email"
+                name="email"
+                label={t("Email")}
+                placeholder={t("Email")}
+                required={true}
+                register={register}
+                className={errors.email?.message ? "error" : isValidEmail}
+                error={errors.email?.message}
+              />
+              <InputBase
+                id="password"
+                type="password"
+                name="password"
+                label={t("Password")}
+                placeholder={t("Password")}
+                required={true}
+                register={register}
+                className={errors.password?.message ? "error" : isValidPassword}
+                error={errors.password?.message}
+                isForgot={true}
+              />
               <LoginSubmit type="submit">{t("Sign In with Email")}</LoginSubmit>
             </form>
             <LoginRegister>

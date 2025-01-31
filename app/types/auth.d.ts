@@ -8,3 +8,14 @@ interface IResetPassword {
   newPassword: string;
   confirmPassword: string;
 }
+
+interface TRegisterEmployer {
+  username: string;
+  role: string;
+  email: string;
+  phone: string;
+  source?: string;
+  companyName: string;
+  companyAddress: string;
+  companyWebsite: string;
+}

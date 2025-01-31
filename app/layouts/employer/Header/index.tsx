@@ -46,7 +46,7 @@ const Header = () => {
         </HeaderLeft>
         <HeaderRight>
           <HeaderLogin>
-            <Link to={"/employer/login"} className="employer">
+            <Link to={"/employer/login"} className="employer" target="_blank">
               {t("Sign In")}
             </Link>
           </HeaderLogin>

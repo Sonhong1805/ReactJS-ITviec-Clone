@@ -20,12 +20,6 @@ export const SelectFloatingWrapper = styled.div`
   cursor: pointer;
   border: 1px solid transparent;
 
-  &.isFocus {
-    border-radius: 0.4rem;
-    border: 1px solid var(--i-rich-grey);
-    box-shadow: 0px 0px 2px 2px var(--i-light-red);
-  }
-
   input {
     border: 1px solid var(--i-silver-grey);
     width: 100%;
@@ -35,14 +29,32 @@ export const SelectFloatingWrapper = styled.div`
     font-weight: 400;
     height: 5.6rem;
 
+    &.isFocus {
+      border-radius: 0.4rem;
+      border: 1px solid var(--i-rich-grey);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
+    &.isValid {
+      border: 1px solid var(--i-silver-grey) !important;
+      &.isFocus {
+        border: 1px solid var(--i-rich-grey) !important;
+        box-shadow: 0px 0px 2px 2px var(--i-light-red) !important;
+      }
+    }
+
     &.error {
       border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      }
     }
 
     &.success {
       border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      }
     }
 
     &:not(:placeholder-shown) + label,

@@ -19,6 +19,11 @@ export default [
     ...prefix("employer", [index("routes/employer/home.tsx")]),
   ]),
 
-  route("/employer/login", "routes/employer/login.tsx"),
+  layout("layouts/employer/auth/Layout.tsx", [
+    route("employer/login", "routes/employer/login.tsx"),
+    route("employer/forgot-password", "routes/employer/forgot-password.tsx"),
+    route("employer/reset-password", "routes/employer/reset-password.tsx"),
+  ]),
+
   route("*", "routes/notFound.tsx"),
 ] satisfies RouteConfig;

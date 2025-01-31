@@ -204,14 +204,24 @@ export const RegisterGroup = styled.div`
     font-weight: 400;
     height: 4.76rem;
 
+    &:focus {
+      border-radius: 0.4rem;
+      border: 1px solid var(--i-rich-grey);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
     &.error {
       border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      }
     }
 
     &.success {
       border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      }
     }
   }
 `;
@@ -233,14 +243,24 @@ export const RegisterPasswordInput = styled.div`
     font-weight: 400;
     height: 4.76rem;
 
+    &:focus {
+      border-radius: 0.4rem;
+      border: 1px solid var(--i-rich-grey);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
     &.error {
       border: 1px solid var(--i-error-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      }
     }
 
     &.success {
       border: 1px solid var(--i-success-color);
-      box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      }
     }
   }
 

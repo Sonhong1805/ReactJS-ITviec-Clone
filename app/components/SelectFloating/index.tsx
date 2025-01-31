@@ -10,24 +10,36 @@ import { useEffect, useState } from "react";
 
 interface IProps {
   id: string;
+  name: string;
   label: string;
   required?: boolean;
-  message?: string;
+  error?: string;
+  className?: string;
   options: any[];
+  register: any;
+  onSetValue: (value: string) => void;
 }
 
 const SelectFloating = ({
   id,
+  name,
   label,
   required = false,
-  message,
+  error,
+  className,
   options,
+  register,
+  onSetValue,
 }: IProps) => {
   const [isShowOptions, setIsShowOptions] = useState(false);
   const [optionValue, setOptionValue] = useState("");
+
   const handleOptionValue = (value: string) => {
     setOptionValue(value);
     setIsShowOptions(false);
+    if (onSetValue) {
+      onSetValue(value);
+    }
   };
 
   useEffect(() => {
@@ -44,18 +56,20 @@ const SelectFloating = ({
 
   return (
     <SelectWrapper className={`${required && "required"}`}>
-      <SelectFloatingWrapper
-        onClick={() => setIsShowOptions(true)}
-        className={`${isShowOptions && "isFocus"}`}>
+      <SelectFloatingWrapper onClick={() => setIsShowOptions(true)}>
         <input
           type={id === "email" ? "email" : "text"}
           id={id}
           placeholder={" "}
           checked={isShowOptions}
+          {...register(name)}
           value={optionValue}
           onChange={() => {}}
           readOnly
           disabled
+          className={`${className} ${isShowOptions && "isFocus"} ${
+            optionValue && "isValid"
+          }`}
           style={
             options && options?.length > 0
               ? { paddingRight: "2.4rem", cursor: "pointer" }
@@ -74,7 +88,7 @@ const SelectFloating = ({
           />
         )}
       </SelectFloatingWrapper>
-      {required && <AlertError>*{message}</AlertError>}
+      {!optionValue && error && <AlertError>*{error}</AlertError>}
       {isShowOptions && (
         <OptionList>
           {options.map((option) => (

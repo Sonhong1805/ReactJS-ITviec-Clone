@@ -1,22 +1,22 @@
 import React from "react";
 import { HightValueServicesWrapper } from "./styled";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const HightValueServices = () => {
+  const { t } = useTranslation(["home"]);
   return (
     <HightValueServicesWrapper>
       <div className="hight-value-services-container">
         <div className="container">
-          <div className="h1">
-            Dịch vụ chất lượng cao dành cho Nhà tuyển dụng IT
-          </div>
+          <div className="h1">{t("High-value services for IT Employers")}</div>
           <div className="box-wrapper">
             <div className="box-content">
-              <div className="h1">Đăng tin tuyển dụng</div>
+              <div className="h1">{t("Job Posting")}</div>
               <p>
-                Đăng tuyển vị trí công việc IT, dễ dàng quản lý hồ sơ ứng viên
-                với giao diện trực quan, đội ngũ hỗ trợ, và công cụ mạnh mẽ từ
-                ITviec
+                {t(
+                  "Boost IT recruiting with our Tech and IT job platform. Manage top candidate CVs from ITviec with ease. Intuitive interface, prompt support, powerful tools."
+                )}
               </p>
               <div className="job-posting-content-box">
                 <div className="box-item">
@@ -25,7 +25,9 @@ const HightValueServices = () => {
                     alt="opportunities"
                   />
                   <p>
-                    Gia tăng cơ hội để tiếp cận ứng viên IT chất lượng từ ITviec
+                    {t(
+                      "Better opportunities to approach top IT candidates from ITviec"
+                    )}
                   </p>
                 </div>
                 <div className="box-item">
@@ -33,7 +35,7 @@ const HightValueServices = () => {
                     src="/assets/svg/right-skill-be.svg"
                     alt="right skill be"
                   />
-                  <p>Thu hút ứng viên phù hợp với yêu cầu về kỹ năng IT</p>
+                  <p>{t("Attract the right candidates by the right skills")}</p>
                 </div>
               </div>
             </div>
@@ -45,11 +47,11 @@ const HightValueServices = () => {
           </div>
           <div className="box-wrapper reverse">
             <div className="box-content">
-              <div className="h1">Gợi ý ứng viên AI Match</div>
+              <div className="h1">{t("AI Match")}</div>
               <p>
-                Kết nối với nguồn hồ sơ ứng viên IT đa dạng, hoạt động tích cực.
-                Dễ dàng tiếp cận ứng viên với thao tác đơn giản. Mở khóa để giúp
-                tìm kiếm ứng viên phù hợp.
+                {t(
+                  "Connect with a diverse pool of active IT Professionals. Effortlessly approach top candidates with one click. Unlock perfect matches."
+                )}
               </p>
               <div className="aim-content-box">
                 <div className="box-item">
@@ -58,8 +60,9 @@ const HightValueServices = () => {
                     alt="second candidate"
                   />
                   <p>
-                    Các ứng viên phù hợp nhất được lựa chọn dựa trên kỹ năng,
-                    kinh nghiệm, nhu cầu công việc và hơn thế nữa
+                    {t(
+                      "Best-fit candidates are matched based on their skills, experience, job preferences and more"
+                    )}
                   </p>
                 </div>
                 <div className="box-item">
@@ -68,8 +71,9 @@ const HightValueServices = () => {
                     alt="first candidate"
                   />
                   <p>
-                    Chỉ kết nối nhà tuyển dụng với những nhân tài IT đang có ý
-                    định chuyển việc
+                    {t(
+                      "Only connect with IT talents who are active in making a career jump"
+                    )}
                   </p>
                 </div>
               </div>
@@ -77,7 +81,7 @@ const HightValueServices = () => {
                 to={
                   "https://itviec.com/ai-match?itm_campaign=ai_match&itm_medium=service&itm_source=employer_page_vi"
                 }>
-                Xem thêm về AI Match
+                {t("Learn more")}
               </Link>
             </div>
             <div className="img-content">
@@ -88,11 +92,11 @@ const HightValueServices = () => {
           </div>
           <div className="box-wrapper">
             <div className="box-content">
-              <div className="h1">Thương hiệu tuyển dụng</div>
+              <div className="h1">{t("Employer Branding")}</div>
               <p>
-                Nâng cao nhận diện thương hiệu của Nhà tuyển dụng, tiếp cận các
-                chuyên gia IT trên ITviec qua các điểm chạm đặc biệt, và kết nối
-                với các ứng viên IT hàng đầu tại Việt Nam
+                {t(
+                  "Increase brand awareness, reach IT Professionals on ITviec through specialized touch points, and connect with top Vietnamese IT candidates."
+                )}
               </p>
               <div className="aim-content-box">
                 <div className="aim-item">
@@ -103,10 +107,11 @@ const HightValueServices = () => {
                     />
                   </figure>
                   <div>
-                    <p className="normal-text">Nhà tuyển dụng hàng đầu</p>
+                    <p className="normal-text">{t("Top Employers")}</p>
                     <p className="normal-paragraph">
-                      Xuất hiện với vị trí công ty IT nổi bật hàng đầu tại Việt
-                      Nam
+                      {t(
+                        "Appear as outstanding & leading IT companies in Vietnam"
+                      )}
                     </p>
                   </div>
                 </div>
@@ -118,10 +123,9 @@ const HightValueServices = () => {
                     />
                   </figure>
                   <div>
-                    <p className="normal-text">Nhà tuyển dụng nổi bật</p>
+                    <p className="normal-text">{t("Company Spotlight")}</p>
                     <p className="normal-paragraph">
-                      Tăng cường xây dựng thương hiệu nhà tuyển dụng đến với
-                      những nhân tài IT hàng đầu
+                      {t("Strengthen the employer branding to top IT talents")}
                     </p>
                   </div>
                 </div>
@@ -139,9 +143,9 @@ const HightValueServices = () => {
         </div>
       </div>
       <div className="contact">
-        <h3>Trải nghiệm dịch vụ của ITviec ngay hôm nay</h3>
+        <h3>{t("Experience ITviec's service today")}</h3>
         <Link to={"#employer-contact"} className="button">
-          Liên hệ ngay
+          {t("Contact now")}
         </Link>
       </div>
     </HightValueServicesWrapper>

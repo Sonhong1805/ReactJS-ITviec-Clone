@@ -40,7 +40,7 @@ export const LogoLink = styled(Link)`
   cursor: pointer;
 
   img {
-    width: 8rem;
+    width: 8.2rem;
     height: 3.2rem;
     margin-right: 1.6rem;
     object-fit: contain;

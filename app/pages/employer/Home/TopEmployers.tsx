@@ -1,19 +1,21 @@
-import React from "react";
 import { TopEmployersWrapper } from "./styled";
 import topCompanies from "~/constants/topCompanies";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import feedbackCompanies from "~/constants/feedbackCompanies";
+import { useTranslation } from "react-i18next";
 
 const TopEmployers = () => {
+  const { t } = useTranslation(["home"]);
   return (
     <TopEmployersWrapper>
       <div className="top-employer-container">
         <div className="companies">
-          <div className="h1">Top Công ty hàng đầu tại ITviec</div>
+          <div className="h1">{t("Top Companies on ITviec")}</div>
           <p>
-            Nhà tuyển dụng và đối tác của chúng tôi bao gồm các công ty IT hàng
-            đầu, và các công ty khởi nghiệp sáng tạo
+            {t(
+              "Our Customers and Partners include well-known IT firms as well as innovative startups."
+            )}
           </p>
           <div className="company-list">
             {topCompanies.map((logo: string, index: number) => (
@@ -26,7 +28,7 @@ const TopEmployers = () => {
           </div>
         </div>
         <div className="feedback">
-          <div className="h1">Khách hàng nói gì về chúng tôi?</div>
+          <div className="h1">{t("What do Customers say about us?")}</div>
           <div className="feedback-swiper">
             <Swiper
               pagination={{
@@ -45,7 +47,7 @@ const TopEmployers = () => {
               className="feedback-wrapper">
               {feedbackCompanies.map((feedback) => (
                 <SwiperSlide className="feedback-item" key={feedback.id}>
-                  <p>{feedback.content}</p>
+                  <p>{t(feedback.content)}</p>
                   <div className="recruiter-feedback-author">
                     <div className="author">
                       <h4>{feedback.author}</h4>

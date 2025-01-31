@@ -38,6 +38,7 @@ export const LogoLink = styled(Link)`
   img {
     width: 8.2rem;
     height: 3.2rem;
+    object-fit: contain;
   }
 `;
 

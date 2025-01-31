@@ -568,8 +568,8 @@ export const EmployerContactWrapper = styled.section`
               flex: 1;
             }
           }
-          &.off-bottom {
-            margin-bottom: 0;
+          &.set-mb {
+            margin-bottom: 3.2rem;
             .input-wrapper {
               margin-bottom: 0;
             }
@@ -621,7 +621,6 @@ export const AgreementCheck = styled.label`
   display: inline-block;
   cursor: pointer;
   margin-bottom: 2.4rem;
-  margin-top: 1.6rem;
 
   input {
     width: 4.8rem;
@@ -756,20 +755,6 @@ export const SubmitContact = styled.div`
     a {
       color: var(--i-hyperlink);
     }
-  }
-
-  button {
-    color: var(--i-white);
-    font-size: 1.6rem;
-    font-weight: 600;
-    padding: 1.1rem 2.4rem;
-    min-width: 18rem;
-    border-radius: 0.4rem;
-    background-color: var(--i-red);
-    border-color: var(--i-red);
-    line-height: 1.5;
-    border: 1px solid transparent;
-    text-align: center;
   }
 `;
 
@@ -908,5 +893,27 @@ export const BlogSalaryWrapper = styled.div`
       color: var(--i-hyperlink);
       align-items: end;
     }
+  }
+`;
+
+export const ContactButton = styled.button`
+  color: var(--i-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1.1rem 2.4rem;
+  min-width: 18rem;
+  border-radius: 0.4rem;
+  background-color: var(--i-dark-grey);
+  border-color: var(--i-dark-grey);
+  line-height: 1.5;
+  border: 1px solid transparent;
+  text-align: center;
+
+  &.active {
+    background: var(--i-red);
+  }
+
+  &.active:hover {
+    background: var(--i-dark-red);
   }
 `;

@@ -2,7 +2,7 @@ const feedbackCompanies = [
   {
     id: 1,
     content:
-      "Chúng tôi đã tuyển dụng được nhiều ứng viên đủ tiêu chuẩn thông qua các tin đăng tuyển dụng trên ITviec. ITviec cực kỳ chuyên nghiệp, hữu ích và thân thiện trong việc thu hút nhân tài trong lĩnh vực IT.  Thật tuyệt vời khi được làm việc cùng đội ngũ chăm sóc khách hàng của ITviec",
+      "We have successfully recruited several qualified candidates through our job advertisements on ITviec. ITviec's professionalism, helpfulness, and friendliness have made it an attractive platform for IT industry talent. Furthermore, our collaboration with ITviec's Customer Love Team has been highly valuable, and we wholeheartedly recommend their services.",
     author: "Ms. Đoàn Ái Nương",
     position: "HR Manager | BBV Vietnam",
     logo: "/assets/webp/bbv-logo.webp",
@@ -10,7 +10,7 @@ const feedbackCompanies = [
   {
     id: 2,
     content:
-      "ITviec là một trong những cộng đồng IT lớn nhất Việt Nam và là trang web đáng tin cậy cho các công ty IT. Đối với các kênh tuyển dụng nhằm tiếp cận các ứng viên chủ động, thì ITviec là có lượng ứng viên khá chất lượng giúp DEK đạt kết quả tuyển dụng nhanh chóng.",
+      "ITviec is one of the largest IT communities in Vietnam and a reliable website for IT companies. ITviec has a good quality of active candidates, which helps DEK achieve quick recruitment results.",
     author: "Ms. Ánh Trinh",
     position: "Talent Acquisition Lead | DEK technologies Vietnam",
     logo: "/assets/webp/DEK-logo.webp",
@@ -18,7 +18,7 @@ const feedbackCompanies = [
   {
     id: 3,
     content:
-      "Nexle Corporation luôn cảm thấy hài lòng và tin tưởng ITviec với những thế mạnh về chất lượng dịch vụ, giá cả, uy tín, và đặc biệt là độ phủ sóng trên thị trường IT. Chúng tôi chắc chắn sẽ tiếp tục song hành hợp tác phát triển cùng ITviec để mở rộng quy mô trong những năm tới.",
+      "Nexle Corporation is always satisfied and trusts ITviec for its strengths in terms of service quality, price, reputation, and especially market coverage in the IT industry. We are confident that we will continue to partner with ITviec to expand our scale in the coming years.",
     author: "Mr. Bùi Sơn Hải",
     position: "Co-Founder | Nexle Corporation",
     logo: "/assets/webp/nexle-corporation-logo.webp",
@@ -26,7 +26,7 @@ const feedbackCompanies = [
   {
     id: 4,
     content:
-      "ITviec luôn là sự lựa chọn đầu tiên để PG Bank tiếp cận với nguồn ứng viên IT trẻ trung, chất lượng và nhiều tiềm năng đặc biệt khi thị trường có mức độ cạnh tranh cao như hiện nay. ITviec luôn hỗ trợ nhiệt tình, chu đáo và chuyên nghiệp đúng như cam kết cả về chất và lượng.",
+      "ITviec is always the first choice for PG Bank to access young, quality, and potential IT candidates, especially when the market is highly competitive. ITviec always provides enthusiastic, attentive, and professional support, as promised in terms of both quality and quantity.",
     author: "Ms. Thanh",
     position: "Talent acquisition specialist | PG Bank",
     logo: "",
@@ -34,7 +34,7 @@ const feedbackCompanies = [
   {
     id: 5,
     content:
-      "Floware đã thành công trong việc tuyển dụng các ứng viên IT tài năng thông qua ITviec trong nhiều năm. Đội ngũ ITviec am hiểu thị trường và hỗ trợ rất tốt khách hàng trong suốt quá trình tuyển dụng.",
+      "Floware has successfully recruited IT talented candidates via ITviec for many years. The ITviec team is knowledgeable about the market and support the customer very well throughout the recruitment process.",
     author: "Ms. Thi",
     position: "HR Manager | Floware",
     logo: "/assets/webp/floware-logo.webp",
@@ -42,7 +42,7 @@ const feedbackCompanies = [
   {
     id: 6,
     content:
-      "Dịch vụ AI Match tại ITviec là lựa chọn ưa thích, giúp chúng tôi tối đa hóa nguồn ứng viên phù hợp. Dịch vụ này vừa giúp công ty chủ động tìm kiếm và tận dụng tối đa nguồn CV chất lượng của ITviec, vừa là cách để công ty có thể truyền thông về văn hóa, con người của công ty.",
+      "AI Match service at ITviec is our preferred choice, helping us to maximize the source of suitable candidates. This service helps the company to actively search and fully utilize ITviec's quality CVs, and it is also a way for the company to communicate about the company culture and its people.",
     author: "Trần Thảo Linh",
     position: "Recruitment Executive | Panasonic Việt Nam",
     logo: "/assets/webp/Logo-min.webp",
@@ -50,7 +50,7 @@ const feedbackCompanies = [
   {
     id: 7,
     content:
-      "ITviec là kênh kết nối ứng viên IT hiệu quả. Dịch vụ đăng tuyển và AI Match giúp Rakus có thể tối đa hóa số lượng và chất lượng CV ứng tuyển. Khách hàng luôn được chăm sóc và hỗ trợ nhiệt tình.",
+      "ITviec is an effective IT candidate matching platform. Job posting service and AI Match help Rakus to maximize the number and quality of CVs received. Customers are always warmly cared and supported by ITviec.",
     author: "Trần Thị Ngọc Hiếu",
     position: "Recruitment Lead | Rakus Vietnam Co., Ltd.",
     logo: "/assets/webp/rakus-vietnam-company-logo.webp",
@@ -58,7 +58,7 @@ const feedbackCompanies = [
   {
     id: 8,
     content:
-      "MoMo có trải nghiệm tốt khi sử dụng dịch vụ của ITviec. ITviec là nền tảng chính tập trung vào IT và có nguồn ứng viên có nhiều kinh nghiệm. Đội ngũ chăm sóc khách hàng ITviec luôn hỗ trợ nhanh chóng, nhiệt tình và kịp thời khi cần.",
+      "MoMo has had a positive experience using ITviec's services. ITviec is a leading platform that focuses on IT and has a pool of experienced candidates. ITviec's customer service team is always quick, friendly, and responsive when needed.",
     author: "Trần Thị Thanh Trúc",
     position: "Talent Acquisition Lead | M_Service (MoMo)",
     logo: "/assets/webp/MoMo-Logo.webp",
@@ -66,7 +66,7 @@ const feedbackCompanies = [
   {
     id: 9,
     content:
-      "Dịch vụ đăng tuyển tại ITviec là lựa chọn yêu thích của ELCA’s Recruitment Team. ELCA’s Recruitment Team đã chọn được những ứng viên phù hợp cho những vị trí cần tuyển dụng. ITviec đã giúp chúng tôi giải quyết khó khăn trong nguồn ứng viên cho các vị trí senior.",
+      "ITviec's job posting service is ELCA’s Recruitment Team's favorite choice. ELCA’s Recruitment Team has selected suitable candidates for the positions to be recruited. ITviec has helped us to resolve difficulties in the source of candidates for senior positions.",
     author: "Trần Thị Lan Anh",
     position: "Talent Acquisition Lead | ELCA Vietnam",
     logo: "/assets/webp/elca-logo.webp",
@@ -74,7 +74,7 @@ const feedbackCompanies = [
   {
     id: 10,
     content:
-      "Samsung thật sự rất hài lòng về sự chuyên nghiệp, luôn luôn hỗ trợ khách hàng nhanh chóng. ITViec đã cung cấp những giải pháp tuyển dụng kịp thời giúp Samsung gia tăng nhận diện thương hiệu và hoàn thành kế hoạch tuyển dụng đã đề ra. Ngoài ra, còn có những hoạt động tri ân khách hàng vô cùng thiết thực.",
+      "Samsung is truly satisfied with the professionalism and always quick customer support from ITviec. ITViec has provided recruitment solutions to help Samsung increase brand awareness and meet the recruitment plan. In addition, ITviec also has meaningful and practical customer appreciation activities.",
     author: "Trương Tuấn Vinh",
     position:
       "Talent Acquisition Assistant Manager | Samsung Electronics HCMC CE Complex",

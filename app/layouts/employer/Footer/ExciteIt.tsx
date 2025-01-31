@@ -1,21 +1,21 @@
 import React from "react";
 import { ExciteItContainer, ExciteItWrapper } from "./styled";
+import { useTranslation } from "react-i18next";
 
 const ExciteIt = () => {
+  const { t } = useTranslation(["footer"]);
   return (
     <ExciteItWrapper>
       <img src="/assets/svg/excite-it-desktop.svg" alt="excite it desktop" />
       <ExciteItContainer>
         <div className="excite-content">
           <div className="h1">
-            Sẵn sàng Hứng Khởi ngành IT tại Việt Nam với Tuyển Dụng "Chất"
+            {t("Excite the IT in Vietnam by Great Hiring")}
           </div>
           <p>
-            Khởi đầu từ năm 2013, sứ mệnh của ITviec chính là luôn hướng đến
-            tuyển dụng "chất" ngành IT. Chúng tôi giúp nhân sự ngành IT thăng
-            tiến sự nghiệp, giúp doanh nghiệp tìm được những ứng viên tuyệt vời.
-            Hãy cùng chúng tôi hứng khởi ngành IT tại Việt Nam với tuyển dụng
-            "Chất"!
+            {t(
+              "Since 2013, ITviec has always been on the mission to achieve Great Hiring in IT. We help IT people to advance their careers. We help IT companies to find awesome candidates. Join us to excite the IT in Vietnam by Great Hiring!"
+            )}
           </p>
         </div>
         <div className="excite-video">

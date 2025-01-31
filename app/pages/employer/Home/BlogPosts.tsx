@@ -2,6 +2,7 @@ import React from "react";
 import { BlogPostsWrapper, BlogSalaryWrapper } from "./styled";
 import { Link } from "react-router";
 import { FiChevronRight } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 const posts = [
   {
@@ -30,16 +31,17 @@ const posts = [
 ];
 
 const BlogPosts = () => {
+  const { t } = useTranslation(["home"]);
   return (
     <BlogPostsWrapper>
       <div className="blog-posts-container">
         <div className="blog-heading">
-          <p>Tài nguyên hữu ích cho Nhà tuyển dụng</p>
+          <p>{t("Useful resources for Employers")}</p>
           <Link
             to={
               "https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/?itm_campaign=category&itm_medium=blog_article&itm_source=employer_page_vi"
             }>
-            Xem thêm
+            {t("See more articles")}
             <FiChevronRight />
           </Link>
         </div>
@@ -57,7 +59,7 @@ const BlogPosts = () => {
                 </div>
                 <div className="blog-link">
                   <Link to={post.href}>
-                    Bắt đầu đọc
+                    {t("Start reading")}
                     <FiChevronRight />
                   </Link>
                 </div>
@@ -74,15 +76,16 @@ const BlogPosts = () => {
             />
           </figure>
           <div className="blog-salary-content">
-            <div className="h1">Báo Cáo Lương & Thị Trường IT</div>
+            <div className="h1">
+              {t("IT Salary & Recruitment Market Report")}
+            </div>
             <p>
-              Khám phá thông tin về thị trường IT tại Việt Nam trong báo cáo mới
-              nhất của ITviec. Tìm hiểu về mức lương IT, nhu cầu tuyển dụng, kỳ
-              vọng công việc và hành trình tìm việc của các chuyên gia IT (30+
-              vị trí).
+              {t(
+                "Discover key insights from Vietnam's IT market in our latest report. Dive into IT salaries, hiring demand trends, job expectation, and the job search journey of professionals across 30+ IT roles."
+              )}
             </p>
             <Link to="https://itviec.com/bao-cao/luong-it-va-thi-truong-tuyen-dung-it-vietnam">
-              Tải báo cáo ngay <FiChevronRight />
+              {t("Download now")} <FiChevronRight />
             </Link>
           </div>
         </BlogSalaryWrapper>

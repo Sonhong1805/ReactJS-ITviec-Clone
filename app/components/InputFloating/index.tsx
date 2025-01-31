@@ -1,27 +1,52 @@
+import { useState } from "react";
 import "./styled";
 import { AlertError, InputFloatingWrapper, InputWrapper } from "./styled";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 interface IProps {
-  id: string;
+  name: string;
+  type?: "text" | "email" | "password";
   label: string;
+  error?: string;
+  register: any;
+  className?: string;
   required?: boolean;
-  message?: string;
 }
 
-const InputFloating = ({ id, label, required = false, message }: IProps) => {
+const InputFloating = ({
+  name,
+  type,
+  label,
+  error,
+  register,
+  className,
+  required,
+}: IProps) => {
+  const [togglePassword, setTogglePassword] = useState(false);
   return (
     <InputWrapper className="input-wrapper">
       <InputFloatingWrapper>
         <input
-          type={id === "email" ? "email" : "text"}
-          id={id}
+          type={togglePassword ? "text" : type}
+          id={name}
+          {...register(name)}
+          className={className}
           placeholder={" "}
         />
-        <label htmlFor={id}>
+        <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}
         </label>
+        {type === "password" && (
+          <>
+            {togglePassword ? (
+              <FiEye onClick={() => setTogglePassword(false)} />
+            ) : (
+              <FiEyeOff onClick={() => setTogglePassword(true)} />
+            )}
+          </>
+        )}
       </InputFloatingWrapper>
-      {required && <AlertError>*{message}</AlertError>}
+      {error && <AlertError>*{error}</AlertError>}
     </InputWrapper>
   );
 };

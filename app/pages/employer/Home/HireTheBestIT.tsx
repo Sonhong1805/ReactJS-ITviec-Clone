@@ -1,23 +1,27 @@
 import { Link } from "react-router";
 import { HireTheBestITWrapper } from "./styled";
 import HIRE_THE_BEST_IT from "/assets/webp/hire-the-best-it.webp";
+import { useTranslation } from "react-i18next";
 const HireTheBestIT = () => {
+  const { t } = useTranslation(["home"]);
   return (
     <HireTheBestITWrapper>
       <div className="banner-container">
         <div className="banner-left">
-          <h1>Tuyển dụng Nhân tài IT tại Việt Nam cùng ITviec</h1>
+          <h1>{t("Hire the best IT Professionals in Vietnam with ITviec")}</h1>
           <p className="parapraph">
-            Với hiểu biết sâu sắc về lĩnh vực IT và các kỹ năng chuyên môn,
-            chúng tôi có thể giúp bạn tiếp cận và tuyển dụng những ứng viên IT
-            tốt nhất.
+            {t(
+              "With in-depth understanding in the IT sector and specialized skills, we can help you reach and hire the best IT candidates."
+            )}
           </p>
           <Link to={"#employer-contact"} className="button">
-            Liên hệ ngay
+            {t("Contact now")}
           </Link>
           <div className="login">
-            <p>Đã có tài khoản Khách hàng?</p>
-            <Link to={"employer/login"}>Đăng nhập</Link>
+            <p>{t("Already have an Employer account?")}</p>
+            <Link to={"employer/login"} target="_blank">
+              {t("Sign in")}
+            </Link>
           </div>
         </div>
         <div className="banner-right">
