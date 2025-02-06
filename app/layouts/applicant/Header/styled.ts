@@ -68,7 +68,7 @@ export const HeaderListItem = styled.li`
     font-size: 1.6rem;
     transition: all 0.2s;
 
-    &.admin {
+    &.employer {
       padding-inline: 0;
     }
   }
@@ -77,7 +77,7 @@ export const HeaderListItem = styled.li`
     color: var(--i-white);
   }
 
-  &:hover a.admin {
+  &:hover a.employer {
     color: var(--i-white);
     text-decoration: underline;
   }

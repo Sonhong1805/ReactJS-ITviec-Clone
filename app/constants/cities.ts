@@ -1,4 +1,4 @@
-const companyAddresses = [
+const cities = [
   {
     id: 1,
     label: "Ho Chi Minh",
@@ -17,4 +17,4 @@ const companyAddresses = [
   },
 ];
 
-export default companyAddresses;
+export default cities;

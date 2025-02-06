@@ -14,6 +14,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import Logo from "/assets/images/logo.png";
+import { FiChevronDown } from "react-icons/fi";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -40,17 +41,19 @@ const Header = () => {
           <HeaderList>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
-                {t("All Jobs.value")} <IoIosArrowDown />
+                {t("All Jobs.value")}{" "}
+                <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
             </HeaderListItem>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
-                {t("IT Companies.value")} <IoIosArrowDown />
+                {t("IT Companies.value")}{" "}
+                <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
             </HeaderListItem>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
-                Blog <IoIosArrowDown />
+                Blog <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
             </HeaderListItem>
           </HeaderList>
@@ -63,7 +66,7 @@ const Header = () => {
             {location.pathname !== "/login" &&
               location.pathname !== "/register" && (
                 <HeaderListItem>
-                  <Link to={"login"} className="admin">
+                  <Link to={"login"} className="employer">
                     {t("Sign in/Sign up")}
                   </Link>
                 </HeaderListItem>

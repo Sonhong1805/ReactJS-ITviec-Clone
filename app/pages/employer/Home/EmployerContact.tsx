@@ -14,7 +14,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import IconCloudflare from "~/components/Icon/IconCloudflare";
 import sources from "~/constants/sources";
 import SelectFloating from "~/components/SelectFloating";
-import companyAddresses from "~/constants/companyAddresses";
+import cities from "~/constants/cities";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -192,7 +192,7 @@ const EmployerContact = () => {
                       ? "error"
                       : isValidCompanyAddress
                   }
-                  options={companyAddresses}
+                  options={cities}
                   onSetValue={(value) => setValue("companyAddress", value)}
                 />
               </div>
