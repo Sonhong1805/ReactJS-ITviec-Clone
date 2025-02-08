@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const InputWrapper = styled.div`
+export const FieldWrapper = styled.div`
   margin-bottom: 1.6rem;
 
   svg {
@@ -29,6 +29,7 @@ export const InputBaseWrapper = styled.div`
     border-radius: 0.4rem;
     font-weight: 400;
     height: 4.46rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     &::placeholder {
       font-size: 1.4rem;
@@ -38,6 +39,7 @@ export const InputBaseWrapper = styled.div`
       border-radius: 0.4rem;
       border: 1px solid var(--i-rich-grey);
       box-shadow: 0px 0px 2px 2px var(--i-light-red);
+      transition: all 0.2s;
     }
 
     &.error {

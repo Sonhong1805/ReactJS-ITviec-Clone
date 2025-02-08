@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./styled";
 import {
   AlertError,
+  FieldWrapper,
   InputBaseWrapper,
-  InputWrapper,
   LabelWrapper,
 } from "./styled";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -15,12 +15,13 @@ interface IProps {
   name: string;
   type?: "text" | "email" | "password";
   placeholder: string;
-  label: string;
+  label?: string;
   error?: string;
-  register: any;
+  register?: any;
   className?: string;
   required?: boolean;
   isForgot?: boolean;
+  onChange?: (event: any) => void;
 }
 
 const InputBase = ({
@@ -34,27 +35,31 @@ const InputBase = ({
   className,
   required,
   isForgot = false,
+  onChange,
 }: IProps) => {
   const { t } = useTranslation(["auth"]);
   const [togglePassword, setTogglePassword] = useState(false);
   return (
-    <InputWrapper>
+    <FieldWrapper className="field-wrapper">
       <InputBaseWrapper>
-        <LabelWrapper>
-          <label htmlFor={id}>
-            {label} {required && <abbr>*</abbr>}
-          </label>
-          {isForgot && (
-            <Link to={"/forgot-password"}>{t("Forgot password?")}</Link>
-          )}
-        </LabelWrapper>
+        {label && (
+          <LabelWrapper>
+            <label htmlFor={id}>
+              {label} {required && <abbr>*</abbr>}
+            </label>
+            {isForgot && (
+              <Link to={"/forgot-password"}>{t("Forgot password?")}</Link>
+            )}
+          </LabelWrapper>
+        )}
         <div className="input-wrapper">
           <input
             type={togglePassword ? "text" : type}
             id={id}
-            {...register(name)}
+            {...(register && register(name))}
             className={className}
             placeholder={placeholder}
+            onChange={onChange}
           />
           {type === "password" && (
             <>
@@ -68,7 +73,7 @@ const InputBase = ({
         </div>
       </InputBaseWrapper>
       {error && <AlertError>{error}</AlertError>}
-    </InputWrapper>
+    </FieldWrapper>
   );
 };
 

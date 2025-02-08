@@ -109,13 +109,16 @@ export const SearchKeyword = styled.div`
     border-radius: 4px;
     width: 100%;
     height: 100%;
-    padding: 1.1rem 4rem 1.1rem 1.6rem;
+    padding: 1.1rem 1.6rem;
     font-size: 1.8rem;
     border: 1px solid var(--i-silver-grey);
     background-color: var(--i-white);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    line-height: 1.5;
 
     &::placeholder {
       font-size: 1.6rem;
+      line-height: 1.5;
     }
 
     &:focus {
@@ -149,6 +152,7 @@ export const SearchButton = styled.button`
   font-size: 1.6rem;
   font-weight: 600;
   transition: background-color 0.2s;
+  line-height: 0.1rem;
 
   &:hover {
     background-color: var(--i-dark-red);

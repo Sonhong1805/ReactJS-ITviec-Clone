@@ -27,6 +27,7 @@ export const InputFloatingWrapper = styled.div`
     border-radius: 0.4rem;
     font-weight: 400;
     height: 5.6rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     &:focus {
       border-radius: 0.4rem;

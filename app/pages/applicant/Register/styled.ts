@@ -203,6 +203,7 @@ export const RegisterGroup = styled.div`
     border-radius: 0.4rem;
     font-weight: 400;
     height: 4.76rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     &:focus {
       border-radius: 0.4rem;
@@ -242,6 +243,7 @@ export const RegisterPasswordInput = styled.div`
     border-radius: 0.4rem;
     font-weight: 400;
     height: 4.76rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     &:focus {
       border-radius: 0.4rem;

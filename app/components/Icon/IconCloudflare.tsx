@@ -1,5 +1,3 @@
-import React from "react";
-
 const IconCloudflare = () => {
   const svg = {
     width: "7.3rem",
