@@ -22,11 +22,11 @@ export const PageItem = styled.li`
   padding: 0 0.4rem;
   cursor: pointer;
 
-  &:not(.dot):hover {
+  &:hover:not(.dot, .active) {
     color: var(--i-red);
     background-color: var(--i-white-red);
     border-color: var(--i-red);
-    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
   }
 
   &.active {
@@ -38,6 +38,7 @@ export const PageItem = styled.li`
     border: none;
     user-select: none;
     cursor: text;
+    border: 1px solid var(--i-silver-grey);
   }
 
   svg {

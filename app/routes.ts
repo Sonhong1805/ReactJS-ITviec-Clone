@@ -13,6 +13,7 @@ export default [
     route("forgot-password", "routes/applicant/forgot-password.tsx"),
     route("reset-password", "routes/applicant/reset-password.tsx"),
     route("it-jobs", "routes/applicant/it-jobs.tsx"),
+    route("company/:slug", "routes/applicant/company-detail.tsx"),
   ]),
 
   layout("layouts/employer/Layout.tsx", [

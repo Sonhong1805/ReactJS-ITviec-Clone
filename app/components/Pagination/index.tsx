@@ -3,7 +3,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const Pagination = () => {
   return (
-    <PaginationWrapper>
+    <PaginationWrapper className="pagination-wrapper">
       <PageItem className={false ? "hide" : "show"}>
         <FiChevronLeft />
       </PageItem>

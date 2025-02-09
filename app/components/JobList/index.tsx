@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import robby_404 from "/assets/svg/robby-404.svg";
 import { JobCard, JobEmpty, JobLabel, JobListContainer } from "./styled";
 import IconFire from "../Icon/IconFire";
+import IconWorkingModel from "../Icon/IconWorkingModel";
+import { FiMapPin } from "react-icons/fi";
 
 const JobList = () => {
   const { t } = useTranslation(["search"]);
@@ -60,11 +62,11 @@ const JobList = () => {
                     )}
                   </div>
                   <div className="form-of-work">
-                    <HiOutlineBuildingOffice2 />
+                    <IconWorkingModel />
                     <span>{t(`remote`)}</span>
                   </div>
                   <div className="job-address">
-                    <GrLocation />
+                    <FiMapPin />
                     <span>Ha Noi - Ho Chi Minh</span>
                   </div>
                   <ul className="job-tags">

@@ -14,6 +14,7 @@ import i18n from "./i18n";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { ToastContainer } from "react-toastify";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -51,6 +52,7 @@ export default function App() {
   return (
     <I18nextProvider i18n={i18n}>
       <Outlet />
+      <ToastContainer />
     </I18nextProvider>
   );
 }

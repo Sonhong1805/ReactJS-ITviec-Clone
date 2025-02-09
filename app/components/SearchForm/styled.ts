@@ -16,6 +16,7 @@ export const Select = styled.div`
   border: 1px solid var(--i-silver-grey);
 
   &.select-active {
+    border: 1px solid var(--i-rich-grey);
     box-shadow: 0px 0px 2px 2px var(--i-light-red);
     z-index: 1001;
   }
@@ -123,6 +124,7 @@ export const SearchKeyword = styled.div`
 
     &:focus {
       box-shadow: 0px 0px 2px 2px var(--i-light-red);
+      border: 1px solid var(--i-rich-grey);
     }
   }
 
