@@ -188,24 +188,3 @@ export const JobContainer = styled.div`
   display: flex;
   align-items: flex-start;
 `;
-
-export const BreadcrumbWrapper = styled.div`
-  border-top: 1px solid var(--i-gray-300);
-  background-color: var(--i-light-grey);
-  color: var(--i-rich-grey);
-  padding: 1.6rem 3rem;
-
-  .breadcrumb-container {
-    max-width: 134rem;
-    margin: auto;
-  }
-
-  a {
-    font-size: 1.6rem;
-  }
-
-  span {
-    font-size: 1.6rem;
-    padding-inline: 0.8rem;
-  }
-`;

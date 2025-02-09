@@ -14,6 +14,7 @@ export default [
     route("reset-password", "routes/applicant/reset-password.tsx"),
     route("it-jobs", "routes/applicant/it-jobs.tsx"),
     route("company/:slug", "routes/applicant/company-detail.tsx"),
+    route("job/:slug", "routes/applicant/job-detail.tsx"),
   ]),
 
   layout("layouts/employer/Layout.tsx", [

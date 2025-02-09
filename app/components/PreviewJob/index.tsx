@@ -18,6 +18,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
 import IconWorkingModel from "../Icon/IconWorkingModel";
+import { FiMapPin } from "react-icons/fi";
 
 const PreviewJob = () => {
   const { t, i18n } = useTranslation(["search"]);
@@ -43,7 +44,7 @@ const PreviewJob = () => {
               <Link to={""} className="logo-company">
                 <img
                   src={"/assets/images/Thankslab-Logo.png"}
-                  alt="logo-company"
+                  alt="logo company"
                 />
               </Link>
               <div className="job-info">
@@ -76,7 +77,7 @@ const PreviewJob = () => {
           <PreviewJobBody>
             <PreviewJobOverview>
               <div className="overview-item">
-                <GrLocation />
+                <FiMapPin />
                 <div>
                   <span>Ha Noi - Ho Chi Minh</span>
                 </div>

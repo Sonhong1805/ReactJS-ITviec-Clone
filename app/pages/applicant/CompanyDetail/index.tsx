@@ -11,7 +11,7 @@ import Overview from "./Overview";
 import Employer from "./Employer";
 import { useState } from "react";
 import Reviews from "./Reviews";
-import Breadcrumb from "./Breadcrumb";
+import Breadcrumb from "~/components/Breadcrumb";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
@@ -45,7 +45,13 @@ const CompanyDetail = () => {
         </CompanyInfoMain>
         <JobListing />
       </CompanyInfoContainer>
-      <Breadcrumb />
+      <Breadcrumb
+        primaryLinkLabel={t("For Employers")}
+        primaryLinkUrl="/employer"
+        secondaryLinkLabel="Persol Career Tech Studio Vietnam"
+        secondaryLinkUrl="/"
+        viewCount={29720}
+      />
     </CompanyDetailWrapper>
   );
 };
