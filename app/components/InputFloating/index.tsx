@@ -46,7 +46,7 @@ const InputFloating = ({
           </>
         )}
       </InputFloatingWrapper>
-      {error && <AlertError>*{error}</AlertError>}
+      {error && <AlertError>{error}</AlertError>}
     </InputWrapper>
   );
 };

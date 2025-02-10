@@ -2,6 +2,7 @@ import {
   type RouteConfig,
   index,
   layout,
+  prefix,
   route,
 } from "@react-router/dev/routes";
 
@@ -17,15 +18,19 @@ export default [
     route("job/:slug", "routes/applicant/job-detail.tsx"),
   ]),
 
+  ...prefix("/", [route("apply/:slug", "routes/applicant/apply-job.tsx")]),
+
   layout("layouts/employer/Layout.tsx", [
     route("employer", "routes/employer/home.tsx"),
   ]),
 
   layout("layouts/employer/auth/Layout.tsx", [
-    route("employer/login", "routes/employer/login.tsx"),
-    route("employer/forgot-password", "routes/employer/forgot-password.tsx"),
-    route("employer/reset-password", "routes/employer/reset-password.tsx"),
+    ...prefix("/employer", [
+      route("login", "routes/employer/login.tsx"),
+      route("forgot-password", "routes/employer/forgot-password.tsx"),
+      route("reset-password", "routes/employer/reset-password.tsx"),
+    ]),
   ]),
 
-  route("*", "routes/notFound.tsx"),
+  route("*", "routes/not-found.tsx"),
 ] satisfies RouteConfig;

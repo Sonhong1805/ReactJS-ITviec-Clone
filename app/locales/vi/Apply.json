@@ -3,7 +3,7 @@
   "Your name": "Tên",
   "Your CV": "CV ứng tuyển",
   "Use your current CV": "Sử dụng CV hiện tại",
-  "Upload new CV": "Tải lên CV mới",
+  "Upload a new CV": "Tải lên CV mới",
   "We accept .doc .docx, .pdf files, no password protected, up to 3MB": "Hỗ trợ định dạng .doc .docx .pdf, không chứa mật khẩu bảo vệ, dung lượng dưới 3MB",
   "Cover Letter": "Thư xin việc",
   "Optional": "Không bắt buộc",
@@ -15,5 +15,14 @@
   "Continue applying": "Tiếp tục ứng tuyển",
   "Confirm": "Đồng ý",
   "Can't be blank": "Không được để trống",
-  "Oops! Please attach a .doc .docx .pdf file": "Chỉ hỗ trợ định dạng .doc .docx .pdf"
+  "Oops! Please attach a .doc .docx .pdf file": "Chỉ hỗ trợ định dạng .doc .docx .pdf",
+  "Choose file": "Chọn file",
+  "No file chosen": "Chưa có file nào được chọn",
+  "Please upload a .doc, .docx, or .pdf file, maximum 3MB and no password protection": "Hỗ trợ định dạng .doc, .docx hoặc .pdf, dưới 3MB và không chứa mật khẩu bảo vệ",
+  "Personal information": "Thông tin cơ bản",
+  "This field is required.": "Đây là thông tin bắt buộc..",
+  "Preferred work location": "Nơi làm việc mong muốn",
+  "Upload date:": "Ngày tải lên:",
+  "Use .doc, .docx, or .pdf file format.": "Dùng định dạng .doc, .docx, hoặc .pdf file.",
+  "locations": "địa điểm"
 }

@@ -8,8 +8,8 @@ import HOME_EN from "../locales/en/Home.json";
 import HOME_VI from "../locales/vi/Home.json";
 import SEARCH_EN from "../locales/en/Search.json";
 import SEARCH_VI from "../locales/vi/Search.json";
-import CV_EN from "../locales/en/CV.json";
-import CV_VI from "../locales/vi/CV.json";
+import APPLY_EN from "../locales/en/Apply.json";
+import APPLY_VI from "../locales/vi/Apply.json";
 import SETTINGS_EN from "../locales/en/Settings.json";
 import SETTINGS_VI from "../locales/vi/Setttings.json";
 import AUTH_EN from "../locales/en/Auth.json";
@@ -21,7 +21,7 @@ const resources = {
     footer: FOOTER_EN,
     home: HOME_EN,
     search: SEARCH_EN,
-    cv: CV_EN,
+    apply: APPLY_EN,
     settings: SETTINGS_EN,
     auth: AUTH_EN,
   },
@@ -30,7 +30,7 @@ const resources = {
     footer: FOOTER_VI,
     home: HOME_VI,
     search: SEARCH_VI,
-    cv: CV_VI,
+    apply: APPLY_VI,
     settings: SETTINGS_VI,
     auth: AUTH_VI,
   },
@@ -42,7 +42,7 @@ i18n.use(initReactI18next).init({
   resources,
   lng: "vi",
   fallbackLng: "vi",
-  ns: ["header", "footer", "home", "search", "cv", "settings", "auth"],
+  ns: ["header", "footer", "home", "search", "apply", "settings", "auth"],
   defaultNS,
   interpolation: {
     escapeValue: false,

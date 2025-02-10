@@ -6,11 +6,7 @@
   box-sizing: border-box;
 }
 
-/* --primary: none;
-  --white: #ffffff;
-  --black: #121212;
-  --red: #ed1b2f;
-  --brown: #54151c;
+/* 
   --menu-link: #a6a6a6;
   --footer-head: #dedede;
   --border-icon: rgba(255, 255, 255, 0.1);
@@ -129,7 +125,8 @@ img {
 
 button,
 input,
-input::placeholder {
+input::placeholder,
+textarea {
   font-family: var(--i-body-font-family);
   outline: none !important;
   border: none;
@@ -284,10 +281,6 @@ canvas {
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
   background-color: #0000008a !important;
   z-index: 999;
-}
-
-.ReactModal__Content.ReactModal__Content--after-open {
-  height: calc(100% - 5.6rem) !important;
 }
 
 /* rc-slider */

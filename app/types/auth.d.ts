@@ -4,16 +4,17 @@ type TRegister = Pick<IUser, "username" | "email" | "password">;
 
 type TForgotPassword = Pick<IUser, "email">;
 
+type TApplyJob = Pick<IUser, "username" | "phone"> & {
+  letter?: string;
+  file: FileList | string;
+};
+
 interface IResetPassword {
   newPassword: string;
   confirmPassword: string;
 }
 
-interface TRegisterEmployer {
-  username: string;
-  role: string;
-  email: string;
-  phone: string;
+interface TRegisterEmployer extends IUser {
   source?: string;
   companyName: string;
   companyAddress: string;

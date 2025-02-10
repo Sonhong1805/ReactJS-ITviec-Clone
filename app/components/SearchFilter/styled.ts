@@ -140,6 +140,7 @@ export const customStyles = {
     padding: "0",
     border: "none",
     borderRadius: ".7rem",
+    height: "calc(100% - 5.6rem)",
   },
 };
 
