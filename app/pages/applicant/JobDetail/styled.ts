@@ -237,7 +237,6 @@ export const JobRelativeWrapper = styled.section`
 `;
 
 export const JobDetailLeft = styled.aside`
-  flex: 1;
   margin-top: 3.2rem;
   position: sticky;
   top: 6rem;

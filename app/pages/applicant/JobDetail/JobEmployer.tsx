@@ -10,7 +10,7 @@ import { FiExternalLink } from "react-icons/fi";
 const JobEmployer = () => {
   const { t } = useTranslation(["search"]);
   return (
-    <JobDetailLeft className="col-3">
+    <JobDetailLeft className="col-4">
       <JobDetailEmployer>
         <Link to={""} className="company-logo">
           <img src={"/assets/images/Thankslab-Logo.png"} alt="logo company" />

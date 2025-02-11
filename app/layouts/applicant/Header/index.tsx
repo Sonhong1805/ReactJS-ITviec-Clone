@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import {
   HeaderContainer,
-  HeaderLanguage,
   HeaderList,
   HeaderListItem,
   HeaderNavbar,
@@ -15,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import Logo from "/assets/images/logo.png";
 import { FiChevronDown } from "react-icons/fi";
+import SwitchLanguage from "~/components/SwitchLanguage";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -26,9 +26,6 @@ const Header = () => {
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (index: number) => {
     setActiveIndex(index);
-  };
-  const handleLanguage = (language: "en" | "vi") => {
-    i18n.changeLanguage(language);
   };
 
   return (
@@ -71,28 +68,7 @@ const Header = () => {
                   </Link>
                 </HeaderListItem>
               )}
-            <HeaderLanguage>
-              <div className="language-input">
-                <input
-                  type="radio"
-                  id="en"
-                  name="language"
-                  onChange={() => handleLanguage("en")}
-                />
-                <label htmlFor="en">EN</label>
-              </div>
-              <div className="reparate"></div>
-              <div className="language-input">
-                <input
-                  type="radio"
-                  id="vi"
-                  name="language"
-                  onChange={() => handleLanguage("vi")}
-                  defaultChecked
-                />
-                <label htmlFor="vi">VI</label>
-              </div>
-            </HeaderLanguage>
+            <SwitchLanguage />
           </HeaderList>
         </HeaderNavbar>
       </HeaderContainer>

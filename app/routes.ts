@@ -18,7 +18,11 @@ export default [
     route("job/:slug", "routes/applicant/job-detail.tsx"),
   ]),
 
-  ...prefix("/", [route("apply/:slug", "routes/applicant/apply-job.tsx")]),
+  ...prefix("/", [
+    route("apply/:slug", "routes/applicant/apply-job.tsx"),
+    route("apply/success", "routes/applicant/apply-success.tsx"),
+    route("review/:slug", "routes/applicant/company-review.tsx"),
+  ]),
 
   layout("layouts/employer/Layout.tsx", [
     route("employer", "routes/employer/home.tsx"),

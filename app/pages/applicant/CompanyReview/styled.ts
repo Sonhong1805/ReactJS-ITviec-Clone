@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const customStyles = {
   content: {
     top: "50%",
@@ -16,7 +15,7 @@ export const customStyles = {
   },
 };
 
-export const ApplyJobWrapper = styled.div`
+export const ReviewWrapper = styled.div`
   position: relative;
   overflow-x: hidden;
   height: 100vh;
@@ -37,14 +36,13 @@ export const ApplyJobWrapper = styled.div`
   }
 `;
 
-export const ApplyJobContainer = styled.main`
+export const ReviewContainer = styled.main`
   position: relative;
-  max-width: 88.4rem;
+  max-width: 134rem;
   margin: auto;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
 `;
 
-export const ApplyJobBranding = styled.div`
+export const ReviewBranding = styled.div`
   display: flex;
   height: 8rem;
   align-items: center;
@@ -67,45 +65,119 @@ export const ApplyJobBranding = styled.div`
     transform: translate(-50%, -50%);
   }
 `;
+export const ReviewContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2.8rem;
+`;
 
-export const ApplyJobBox = styled.div`
-  background: var(--i-white);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
-  border-radius: 0.8rem;
+export const ReviewLeft = styled.section`
+  margin-bottom: 6.4rem;
+`;
+
+export const ReviewForm = styled.form`
+  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
   padding: 3.2rem;
+  box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
 
   h2 {
     font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 2.4rem;
-  }
-`;
-
-export const ApplyJobForm = styled.form`
-  h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.2rem;
-    line-height: 1.5;
-    font-weight: 700;
+    margin-bottom: 0.8rem;
   }
 
-  textarea {
-    &.success {
-      border: 1px solid var(--i-success-color);
+  p {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.8;
+    margin-bottom: 1.6rem;
+  }
+
+  .form-group {
+    margin-block: 2.4rem;
+
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+
+      abbr {
+        color: var(--i-red);
+      }
+    }
+
+    textarea {
+      width: 100%;
+      height: 12rem;
+      border: 1px solid var(--i-silver-grey);
+      border-radius: 0.4rem;
+      background: var(--i-white);
+      resize: none;
+      padding: 1.1rem 1.6rem;
+      font-size: 1.6rem;
+
+      &::placeholder {
+        color: var(--i-dark-grey);
+      }
+
       &:focus {
-        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+        border-radius: 0.4rem;
+        border: 1px solid var(--i-rich-grey);
+        box-shadow: 0px 0px 2px 2px var(--i-light-red);
+      }
+
+      &.error {
+        border: 1px solid var(--i-error-color);
+        &:focus {
+          box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+        }
+      }
+
+      &.success {
+        border: 1px solid var(--i-success-color);
+        &:focus {
+          box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+        }
+      }
+    }
+
+    .characters {
+      color: var(--i-dark-grey);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-top: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .stars {
+      margin-left: 6rem;
+      align-self: end;
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 2.6rem;
+        height: 2.6rem;
+        cursor: pointer;
+        color: var(--i-dark-grey);
+      }
+
+      .description {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 1.8;
+        margin-left: 1rem;
       }
     }
   }
 `;
 
-export const ApplyJobFile = styled.label`
-  background-color: var(--i-white);
-  border: 1px solid var(--i-silver-grey);
+export const ReviewRadio = styled.label`
   border-radius: 0.4rem;
-  padding: 1.6rem;
   display: flex;
-  margin-bottom: 1.6rem;
   color: var(--i-rich-grey);
   z-index: 0;
   position: relative;
@@ -116,8 +188,8 @@ export const ApplyJobFile = styled.label`
     height: 4.8rem;
     z-index: -1;
     position: absolute;
-    left: 0.4rem;
-    top: 0.4rem;
+    left: -1.2rem;
+    top: -1.2rem;
     display: block;
     margin: 0;
     border-radius: 50%;
@@ -184,138 +256,70 @@ export const ApplyJobFile = styled.label`
     border-color: var(--i-rich-grey);
   }
 
-  &.active {
-    background-color: var(--i-white-red);
-    border: 1px solid var(--i-red);
-  }
-
-  .upload-cv {
+  .text {
     font-size: 1.6rem;
-    flex: 1;
-
-    input {
-      font-size: inherit;
-      margin-top: 1.2rem;
-    }
-
-    .current-project {
-      font-size: 1.6rem;
-      color: var(--i-hyperlink);
-      line-height: 1.5;
-      margin-top: 0.8rem;
-      display: flex;
-      align-items: center;
-
-      a {
-        margin-left: 0.8rem;
-        display: flex;
-
-        svg {
-          width: 1.6rem;
-          height: 1.6rem;
-        }
-      }
-    }
-
-    .time-upload {
-      margin-top: 0.4rem;
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--i-dark-grey);
-    }
-  }
-
-  .upload-file {
-    margin-top: 1.2rem;
-    display: flex;
-    align-items: center;
-
-    label {
-      font-size: 1.6rem;
-      font-weight: 500;
-      padding: 0.7rem 2rem;
-      min-width: 14rem;
-      border-radius: 0.4rem;
-      color: var(--i-red);
-      background-color: var(--i-white);
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      line-height: 1.5;
-      user-select: none;
-      border: 1px solid transparent;
-      border-color: var(--i-red);
-      gap: 0.8rem;
-    }
-
-    input {
-      all: unset;
-      display: none;
-    }
-
-    .file-name {
-      margin-left: 1.2rem;
-    }
-  }
-
-  .file-error {
-    color: var(--i-error-color);
-    font-size: 1.4rem;
-    margin-top: 0.4rem;
-  }
-  .file-alert {
-    margin-top: 0.8rem;
-    font-size: 1.4rem;
     font-weight: 400;
-    color: var(--i-dark-grey);
+    line-height: 1.5;
   }
 `;
 
-export const ApplyJobGroup = styled.div`
-  margin-bottom: 2.4rem;
+export const RatingItemWrapper = styled.div`
+  display: flex;
+  margin-bottom: 1.6rem;
 
-  label {
-    top: 1.4rem;
-    font-size: 1.4rem;
+  .rating-name {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.8;
   }
 
-  .input-wrapper {
+  .stars {
+    margin-left: 1.6rem !important;
+  }
+`;
+
+export const ReviewRight = styled.aside`
+  box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 3.2rem;
+  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
+
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
     margin-bottom: 1.6rem;
   }
-`;
 
-export const ApplyJobLetter = styled.div`
-  margin-bottom: 2.4rem;
-
-  span,
-  .characters {
-    color: var(--i-dark-grey);
+  p,
+  li {
     font-size: 1.6rem;
     font-weight: 400;
+    line-height: 1.8;
+    margin-bottom: 1.6rem;
   }
 
-  .advantages {
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem;
-  }
+  ul {
+    padding-left: 1.6rem;
+    margin-bottom: 1.6rem;
 
-  textarea {
-    width: 100%;
-    height: 12rem;
-    border: 1px solid var(--i-silver-grey);
-    border-radius: 0.4rem;
-    background: var(--i-white);
-    resize: none;
-    padding: 1.1rem 1.6rem;
-    font-size: 1.6rem;
+    li {
+      margin-bottom: 0.8rem;
+      list-style: disc;
 
-    &::placeholder {
-      color: var(--i-dark-grey);
+      &::marker {
+        color: var(--i-red);
+      }
     }
   }
 `;
 
-export const ApplyJobSubmit = styled.button`
+export const AlertError = styled.div`
+  font-size: 1.4rem;
+  margin-top: 0.4rem;
+  color: var(--i-error-color);
+`;
+
+export const ButtonSubmit = styled.button`
   width: 100%;
   background: var(--i-red);
   color: var(--i-white);
@@ -324,7 +328,7 @@ export const ApplyJobSubmit = styled.button`
   padding: 1.45rem 2.4rem;
   min-width: 18rem;
   border-radius: 0.4rem;
-  min-height: 4.76rem;
+  min-height: 5.56rem;
 `;
 
 export const ModalForm = styled.div`

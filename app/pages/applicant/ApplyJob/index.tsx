@@ -1,4 +1,4 @@
-import logo from "/assets/images/logo.png";
+import LOGO from "/assets/images/logo.png";
 import { Link, useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -16,7 +16,6 @@ import {
   ApplyJobSubmit,
   ApplyJobWrapper,
   customStyles,
-  HeaderLanguage,
   ModalForm,
 } from "./styled";
 import { FiChevronLeft, FiEye, FiUpload } from "react-icons/fi";
@@ -26,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputSelect from "~/components/InputSelect";
 import locationService from "~/services/locationService";
+import SwitchLanguage from "~/components/SwitchLanguage";
 
 const ApplyJob = () => {
   const { id } = useParams();
@@ -118,10 +118,6 @@ const ApplyJob = () => {
     })();
   }, []);
 
-  const handleLanguage = (language: "en" | "vi") => {
-    i18n.changeLanguage(language);
-  };
-
   return (
     <ApplyJobWrapper>
       <ApplyJobContainer>
@@ -130,29 +126,8 @@ const ApplyJob = () => {
             <FiChevronLeft />
             <span>{t("Back")}</span>
           </button>
-          <img src={logo} alt="logo-itviec" />
-          <HeaderLanguage>
-            <div className="language-input">
-              <input
-                type="radio"
-                id="en"
-                name="language"
-                onChange={() => handleLanguage("en")}
-              />
-              <label htmlFor="en">EN</label>
-            </div>
-            <div className="reparate"></div>
-            <div className="language-input">
-              <input
-                type="radio"
-                id="vi"
-                name="language"
-                onChange={() => handleLanguage("vi")}
-                defaultChecked
-              />
-              <label htmlFor="vi">VI</label>
-            </div>
-          </HeaderLanguage>
+          <img src={LOGO} alt="logo itviec" />
+          <SwitchLanguage />
         </ApplyJobBranding>
         <ApplyJobBox>
           <h2>[Urgent] Technical Business Analyst tại CUBICSTACK SOLUTIONS</h2>
