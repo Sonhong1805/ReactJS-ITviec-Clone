@@ -14,6 +14,10 @@ interface IResetPassword {
   confirmPassword: string;
 }
 
+interface IChangePassword extends IResetPassword {
+  currentPassword: string;
+}
+
 interface TRegisterEmployer extends IUser {
   source?: string;
   companyName: string;

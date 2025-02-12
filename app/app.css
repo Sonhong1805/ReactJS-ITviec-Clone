@@ -182,7 +182,6 @@ hr:not([size]) {
   color: inherit;
   background-color: var(--i-dark-grey);
   border: 0;
-  width: 148rem;
   margin: auto;
 }
 
@@ -470,4 +469,18 @@ svg.css-tj5bde-Svg {
 .swiper-pagination.swiper-pagination-fraction.swiper-pagination-horizontal {
   font-size: 1.6rem;
   z-index: 0;
+}
+
+/* animate */
+
+@keyframes progressCircle {
+  0% {
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+  }
+
+  100% {
+    transform: rotate(calc(var(--progress-degree) - 180deg));
+    -webkit-transform: rotate(calc(var(--progress-degree) - 180deg));
+  }
 }

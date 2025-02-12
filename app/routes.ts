@@ -16,6 +16,12 @@ export default [
     route("it-jobs", "routes/applicant/it-jobs.tsx"),
     route("company/:slug", "routes/applicant/company-detail.tsx"),
     route("job/:slug", "routes/applicant/job-detail.tsx"),
+    layout("layouts/applicant/profile/Layout.tsx", [
+      ...prefix("/profile", [
+        route("dashboard", "routes/applicant/profile-dashboard.tsx"),
+        route("settings", "routes/applicant/profile-settings.tsx"),
+      ]),
+    ]),
   ]),
 
   ...prefix("/", [

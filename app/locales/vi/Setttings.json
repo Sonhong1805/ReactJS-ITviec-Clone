@@ -1,11 +1,12 @@
 {
   "My Account": "Tài khoản",
   "General Information": "Thông tin chung",
-  "Username": "Tên người dùng",
+  "Full name": "Họ và tên",
   "Save": "Lưu",
   "Cancel": "Huỷ",
   "Delete Account": "Xoá tài khoản",
-  "Account deletion": "Thao tác xóa tài khoản là vĩnh viễn và không thể hoàn tác. Nếu bạn xóa tài khoản vì nhận quá nhiều email từ ITviec.",
+  "Account deletion is a permanent action and cannot be undone. If you are deleting your account due to an excessive email notifications, you can unsubscribe from emails": "Thao tác xóa tài khoản là vĩnh viễn và không thể hoàn tác. Nếu bạn xóa tài khoản vì nhận quá nhiều email từ ITviec, bạn có thể hủy đăng ký email",
+  "here.": "tại đây.",
   "Delete your account": "Xoá tài khoản",
   "Are you sure you want to delete your account?": "Bạn có chắc chắn muốn xoá tài khoản?",
   "Account deletion removes": "Việc xóa tài khoản sẽ xoá thông tin của bạn khỏi cơ sở dữ liệu hoạt động của chúng tôi. Tuy nhiên, chúng tôi vẫn lưu giữ lại một số thông tin cho mục đích pháp lý.",
@@ -21,5 +22,12 @@
   "Update new password": "Cập nhật mật khẩu mới",
   "You can't change your login email": "Không thể thay đổi email đăng nhập",
   "New password saved successfully!": "Lưu mật khẩu mới thành công!",
-  "Password change failed! Enter your current password correctly": "Đổi mật khẩu thất bại! Nhập mật khẩu hiện tại chính xác"
+  "Password change failed! Enter your current password correctly": "Đổi mật khẩu thất bại! Nhập mật khẩu hiện tại chính xác",
+  "Please enter your current password": "Vui lòng nhập mật khẩu hiện tại của bạn",
+  "Please enter your new password": "",
+  "Minimum 12 characters": "Nhập ít nhất 12 ký tự",
+  "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter.": "Ít nhất 12 ký tự bao gồm ký tự đặc biệt, số, chữ HOA, chữ thường",
+  "Please re-enter your new password": "Vui lòng nhập lại mật khẩu mới",
+  "Please re-enter new password correctly": "Vui lòng nhập lại mật khẩu mới chính xác",
+  "Re-enter new password": "Nhập lại mật khẩu mới"
 }
