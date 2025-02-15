@@ -20,6 +20,7 @@ export const InputBaseWrapper = styled.div`
   position: relative;
   font-size: 1.4rem;
   color: var(--i-black);
+  height: 100%;
 
   input {
     border: 1px solid var(--i-silver-grey);

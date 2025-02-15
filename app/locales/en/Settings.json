@@ -29,5 +29,9 @@
   "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter.": "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter.",
   "Please re-enter your new password": "Please re-enter your new password",
   "Please re-enter new password correctly": "Please re-enter new password correctly",
-  "Re-enter new password": "Re-enter new password"
+  "Re-enter new password": "Re-enter new password",
+  "year": "year",
+  "years": "years",
+  "More than 10 year": "More than 10 year",
+  "Less than 1 year": "Less than 1 year"
 }

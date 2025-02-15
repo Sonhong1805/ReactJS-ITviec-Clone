@@ -312,6 +312,26 @@ export const ApplyJobLetter = styled.div`
     &::placeholder {
       color: var(--i-dark-grey);
     }
+
+    &:focus {
+      border-radius: 0.4rem;
+      border: 1px solid var(--i-rich-grey);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
+    &.error {
+      border: 1px solid var(--i-error-color);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-error);
+      }
+    }
+
+    &.success {
+      border: 1px solid var(--i-success-color);
+      &:focus {
+        box-shadow: 0 0 0 0.4rem var(--i-shadow-success);
+      }
+    }
   }
 `;
 

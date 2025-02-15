@@ -3,8 +3,8 @@ import { SearchBox, SearchFilterContainer } from "./styled";
 import { useTranslation } from "react-i18next";
 import { FiFilter } from "react-icons/fi";
 import ModalFilter from "./ModalFilter";
-import Modal from "react-modal";
 import BoxFilter from "./BoxFilter";
+import Modal from "react-modal";
 
 const SearchFilter = () => {
   const { t, i18n } = useTranslation(["search"]);

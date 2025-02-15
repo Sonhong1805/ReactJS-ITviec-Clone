@@ -29,5 +29,9 @@
   "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter.": "Ít nhất 12 ký tự bao gồm ký tự đặc biệt, số, chữ HOA, chữ thường",
   "Please re-enter your new password": "Vui lòng nhập lại mật khẩu mới",
   "Please re-enter new password correctly": "Vui lòng nhập lại mật khẩu mới chính xác",
-  "Re-enter new password": "Nhập lại mật khẩu mới"
+  "Re-enter new password": "Nhập lại mật khẩu mới",
+  "year": "năm",
+  "years": "năm",
+  "Less than 1 year": "Dưới 1 năm",
+  "More than 10 year": "Trên 10 năm"
 }

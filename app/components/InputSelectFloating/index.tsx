@@ -17,12 +17,12 @@ interface IProps {
   maxLengh?: number;
   field?: string;
 }
-const InputSelect = ({
+const InputSelectFloating = ({
   name,
   label,
   error,
   className,
-  required,
+  required = false,
   options,
   maxLengh,
   field,
@@ -41,7 +41,7 @@ const InputSelect = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [showOptions]);
+  }, []);
 
   const handleToggle = () => {
     setShowOptions((prev) => {
@@ -97,12 +97,14 @@ const InputSelect = ({
           ))}
         </OptionsDropdown>
       )}
-      <div className="counter">
-        0/{maxLengh} {field}{" "}
-      </div>
+      {maxLengh && (
+        <div className="counter">
+          0/{maxLengh} {field}{" "}
+        </div>
+      )}
       {error && <AlertError>{error}</AlertError>}
     </InputWrapper>
   );
 };
 
-export default InputSelect;
+export default InputSelectFloating;

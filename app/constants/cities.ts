@@ -1,18 +1,18 @@
 const cities = [
   {
-    id: 1,
+    value: "Ho Chi Minh",
     label: "Ho Chi Minh",
   },
   {
-    id: 2,
+    value: "Ha Noi",
     label: "Ha Noi",
   },
   {
-    id: 3,
+    value: "Da Nang",
     label: "Da Nang",
   },
   {
-    id: 4,
+    value: "Others",
     label: "Others",
   },
 ];

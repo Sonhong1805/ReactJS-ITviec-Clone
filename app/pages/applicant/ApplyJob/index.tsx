@@ -23,7 +23,7 @@ import InputFloating from "~/components/InputFloating";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import InputSelect from "~/components/InputSelect";
+import InputSelectFloating from "~/components/InputSelectFloating";
 import locationService from "~/services/locationService";
 import SwitchLanguage from "~/components/SwitchLanguage";
 
@@ -219,7 +219,7 @@ const ApplyJob = () => {
                 error={errors.phone && "*" + t(errors.phone?.message + "")}
                 className={errors.phone?.message ? "error" : isValidPhone}
               />
-              <InputSelect
+              <InputSelectFloating
                 name="locations"
                 label={t("Preferred work location")}
                 required={true}

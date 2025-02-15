@@ -19,6 +19,10 @@ export default [
     layout("layouts/applicant/profile/Layout.tsx", [
       ...prefix("/profile", [
         route("dashboard", "routes/applicant/profile-dashboard.tsx"),
+        route("manage-cv", "routes/applicant/profile-manage-cv.tsx"),
+        route("cv", "routes/applicant/profile-cv.tsx"),
+        route("my-jobs", "routes/applicant/profile-my-jobs.tsx"),
+        route("job-invitation", "routes/applicant/profile-job-invitation.tsx"),
         route("settings", "routes/applicant/profile-settings.tsx"),
       ]),
     ]),

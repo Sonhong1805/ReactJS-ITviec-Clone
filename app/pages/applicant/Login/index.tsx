@@ -89,7 +89,6 @@ const Login = () => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputBase
-                id="email"
                 type="email"
                 name="email"
                 label={t("Email")}
@@ -100,7 +99,6 @@ const Login = () => {
                 error={errors.email?.message}
               />
               <InputBase
-                id="password"
                 type="password"
                 name="password"
                 label={t("Password")}

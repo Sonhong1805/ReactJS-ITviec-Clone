@@ -68,7 +68,6 @@ const ForgotPassword = () => {
             </ForgotError>
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputBase
-                id="email"
                 type="email"
                 name="email"
                 label={t("Email")}

@@ -26,12 +26,7 @@ const IndustryFilter = () => {
 
   return (
     <IndustryFilterWrapper className="industry-filter-wrapper">
-      <InputBase
-        id="industry"
-        name="industry"
-        placeholder={t("Search industry")}
-        onChange={handleFilterIndustry}
-      />
+      <InputBase name="industry" placeholder={t("Search industry")} />
       <IndustryFilterDropdown className="industry-filter-dropdown">
         {industryList.length > 0 ? (
           industryList.map((industry) => (

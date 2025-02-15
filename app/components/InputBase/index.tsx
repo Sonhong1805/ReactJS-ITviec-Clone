@@ -9,11 +9,9 @@ import {
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-
 interface IProps {
-  id: string;
   name: string;
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "number" | "salary";
   placeholder: string;
   label?: string;
   error?: string;
@@ -21,11 +19,10 @@ interface IProps {
   className?: string;
   required?: boolean;
   isForgot?: boolean;
-  onChange?: (event: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputBase = ({
-  id,
   name,
   type,
   placeholder,
@@ -41,10 +38,10 @@ const InputBase = ({
   const [togglePassword, setTogglePassword] = useState(false);
   return (
     <FieldWrapper className="field-wrapper">
-      <InputBaseWrapper>
+      <InputBaseWrapper className="input-base-w">
         {label && (
           <LabelWrapper>
-            <label htmlFor={id}>
+            <label htmlFor={name}>
               {label} {required && <abbr>*</abbr>}
             </label>
             {isForgot && (
@@ -54,12 +51,23 @@ const InputBase = ({
         )}
         <div className="input-wrapper">
           <input
+            id={name}
             type={togglePassword ? "text" : type}
-            id={id}
-            {...(register && register(name))}
+            {...register(name, {
+              setValueAs: (value: string) => {
+                const stringValue = String(value || "");
+                if (type === "salary") {
+                  const numericValue = stringValue.replace(/\D/g, "");
+                  return numericValue;
+                }
+                return stringValue;
+              },
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                if (onChange) onChange(e);
+              },
+            })}
             className={className}
             placeholder={placeholder}
-            onChange={onChange}
           />
           {type === "password" && (
             <>

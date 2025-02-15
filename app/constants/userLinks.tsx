@@ -3,7 +3,6 @@ import {
   FiFileText,
   FiGrid,
   FiInbox,
-  FiMail,
   FiSettings,
   FiUser,
 } from "react-icons/fi";
@@ -18,35 +17,29 @@ const userLinks = [
   {
     id: 2,
     icon: <FiFileText />,
-    url: "/",
+    url: "/profile/manage-cv",
     label: "Hồ sơ đính kèm",
   },
   {
     id: 3,
     icon: <FiUser />,
-    url: "/",
+    url: "/profile/cv",
     label: "Hồ sơ ITviec",
   },
   {
     id: 4,
     icon: <FiBriefcase />,
-    url: "/",
+    url: "/profile/my-jobs",
     label: "Việc làm của tôi",
   },
   {
     id: 5,
     icon: <FiInbox />,
-    url: "/",
+    url: "/profile/job-invitation",
     label: "Lời mời công việc",
   },
   {
     id: 6,
-    icon: <FiMail />,
-    url: "/",
-    label: "Đăng ký nhận email",
-  },
-  {
-    id: 7,
     icon: <FiSettings />,
     url: "/profile/settings",
     label: "Cài đặt",
