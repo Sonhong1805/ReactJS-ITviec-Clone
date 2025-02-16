@@ -35,8 +35,8 @@ const userLinks = [
   {
     id: 5,
     icon: <FiInbox />,
-    url: "/profile/job-invitation",
-    label: "Lời mời công việc",
+    url: "/profile/job-status",
+    label: "Trạng thái việc làm",
   },
   {
     id: 6,
