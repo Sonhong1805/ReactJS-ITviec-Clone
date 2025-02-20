@@ -38,7 +38,7 @@ const ForgotPassword = () => {
       confirmPassword: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<IResetPassword> = async (

@@ -6,10 +6,9 @@ import {
   SelectFloatingWrapper,
   SelectWrapper,
 } from "./styled";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface IProps {
-  id: string;
   name: string;
   label: string;
   required?: boolean;
@@ -21,7 +20,6 @@ interface IProps {
 }
 
 const SelectFloating = ({
-  id,
   name,
   label,
   required = false,
@@ -33,6 +31,7 @@ const SelectFloating = ({
 }: IProps) => {
   const [isShowOptions, setIsShowOptions] = useState(false);
   const [optionValue, setOptionValue] = useState("");
+  const selectWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleOptionValue = (value: string) => {
     setOptionValue(value);
@@ -43,23 +42,29 @@ const SelectFloating = ({
   };
 
   useEffect(() => {
-    const handleClickOutside = () => {
-      if (isShowOptions) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectWrapperRef.current &&
+        !selectWrapperRef.current.contains(event.target as Node)
+      ) {
         setIsShowOptions(false);
       }
     };
+
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [isShowOptions]);
+  }, []);
 
   return (
-    <SelectWrapper className={`${required && "required"}`}>
-      <SelectFloatingWrapper onClick={() => setIsShowOptions(true)}>
+    <SelectWrapper
+      className={`select-wrapper ${required && "required"}`}
+      ref={selectWrapperRef}>
+      <SelectFloatingWrapper onClick={() => setIsShowOptions(!isShowOptions)}>
         <input
-          type={id === "email" ? "email" : "text"}
-          id={id}
+          type={name === "email" ? "email" : "text"}
+          id={name}
           placeholder={" "}
           checked={isShowOptions}
           {...register(name)}
@@ -76,7 +81,7 @@ const SelectFloating = ({
               : undefined
           }
         />
-        <label htmlFor={id}>
+        <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}
         </label>
         {options && options?.length > 0 && (
@@ -84,16 +89,16 @@ const SelectFloating = ({
             color="#121212"
             cursor={"pointer"}
             className="icon-dropdown"
-            onClick={() => setIsShowOptions(true)}
+            onClick={() => setIsShowOptions(!isShowOptions)}
           />
         )}
       </SelectFloatingWrapper>
-      {!optionValue && error && <AlertError>*{error}</AlertError>}
-      {isShowOptions && (
+      {!optionValue && error && <AlertError>{error}</AlertError>}
+      {isShowOptions && options && (
         <OptionList>
           {options.map((option) => (
             <OptionItem
-              key={option.id}
+              key={option.value}
               onClick={() => handleOptionValue(option.label)}>
               {option.label}
             </OptionItem>

@@ -58,7 +58,7 @@ const Register = () => {
       password: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<TRegister> = async (data: TRegister) => {

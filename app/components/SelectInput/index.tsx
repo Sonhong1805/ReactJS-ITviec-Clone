@@ -1,4 +1,4 @@
-import { useState, type HTMLAttributes, type KeyboardEvent } from "react";
+import { useState } from "react";
 import { AlertError, SelectPane, SelectWrapper } from "./styled";
 import { FiChevronDown } from "react-icons/fi";
 import Options from "./Options";
@@ -15,7 +15,7 @@ interface IProps {
   disabled?: boolean;
 }
 
-const SelectBase = ({
+const SelectInput = ({
   name,
   options,
   placeholder,
@@ -39,15 +39,6 @@ const SelectBase = ({
     setIsShowOptions(false);
   };
 
-  const handleDeleteOption = (e: KeyboardEvent) => {
-    if (e.key === "Backspace" || e.key === "Delete") {
-      if (isShowOptions) {
-        onSetValue("");
-        setIsShowOptions(false);
-      }
-    }
-  };
-
   const handleClick = () => {
     if (!disabled) {
       setIsShowOptions(!isShowOptions);
@@ -62,17 +53,15 @@ const SelectBase = ({
           isShowOptions ? "select-active" : `select-wrapper ${className}`
         }
         style={disabled ? { backgroundColor: "#e9ecef" } : undefined}
-        onKeyDown={handleDeleteOption}
         tabIndex={0}>
         <SelectPane>
           <div className="select-value">
             <input
               id={name}
               {...register(name)}
-              readOnly
               value={selectedLabel}
+              readOnly
               placeholder={placeholder}
-              onKeyDown={handleDeleteOption}
               disabled={disabled}
             />
           </div>
@@ -87,4 +76,4 @@ const SelectBase = ({
   );
 };
 
-export default SelectBase;
+export default SelectInput;

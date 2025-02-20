@@ -77,7 +77,7 @@ const EmployerContact = () => {
       companyWebsite: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<TRegisterEmployer> = async (
@@ -152,7 +152,6 @@ const EmployerContact = () => {
               </div>
               <div className="form-group">
                 <SelectFloating
-                  id="sources"
                   name="source"
                   register={register}
                   label={t("How did you know ITviec?")}
@@ -178,7 +177,6 @@ const EmployerContact = () => {
               </div>
               <div className="form-group">
                 <SelectFloating
-                  id="companies"
                   name="companyAddress"
                   register={register}
                   label={t("Company location")}

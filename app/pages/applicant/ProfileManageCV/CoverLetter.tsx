@@ -22,7 +22,7 @@ const CoverLetter = () => {
       letter: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<{ letter: string }> = async (data: {

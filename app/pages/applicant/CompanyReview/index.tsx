@@ -94,7 +94,7 @@ const CompanyReview = () => {
       suggestion: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<IReview> = async (data: IReview) => {

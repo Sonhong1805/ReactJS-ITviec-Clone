@@ -38,7 +38,7 @@ const ForgotPassword = () => {
       email: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
   const onSubmit: SubmitHandler<TForgotPassword> = async (
     data: TForgotPassword

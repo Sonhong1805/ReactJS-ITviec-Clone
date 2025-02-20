@@ -11,6 +11,7 @@ interface IProps {
   register: any;
   className?: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
 const InputFloating = ({
@@ -21,17 +22,20 @@ const InputFloating = ({
   register,
   className,
   required,
+  disabled = false,
 }: IProps) => {
   const [togglePassword, setTogglePassword] = useState(false);
   return (
     <InputWrapper className="input-wrapper">
-      <InputFloatingWrapper>
+      <InputFloatingWrapper
+        style={disabled ? { backgroundColor: "#e9ecef" } : undefined}>
         <input
           type={togglePassword ? "text" : type}
           id={name}
           {...register(name)}
           className={className}
           placeholder={" "}
+          disabled={disabled}
         />
         <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}

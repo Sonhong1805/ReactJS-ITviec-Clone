@@ -75,7 +75,7 @@ const PersonalInformation = () => {
       file: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<TApplyJob> = async (data: TApplyJob) => {

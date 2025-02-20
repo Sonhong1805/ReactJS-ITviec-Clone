@@ -76,7 +76,7 @@ const ProfileSettings = () => {
       confirmPassword: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<IChangePassword> = async (

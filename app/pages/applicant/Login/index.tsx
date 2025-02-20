@@ -43,7 +43,7 @@ const Login = () => {
       password: "",
     },
     resolver: zodResolver(schema),
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
