@@ -1,18 +1,19 @@
 // React Router generated types for route:
-// routes/employer/home.tsx
+// routes/employer/dashboard.tsx
 
 import type * as T from "react-router/route-module"
 
 import type { Info as Parent0 } from "../../../+types/root.js"
 import type { Info as Parent1 } from "../../../layouts/employer/+types/Layout.js"
+import type { Info as Parent2 } from "../../../layouts/employer/company/+types/Layout.js"
 
-type Module = typeof import("../home.js")
+type Module = typeof import("../dashboard.js")
 
 export type Info = {
-  parents: [Parent0, Parent1],
-  id: "routes/employer/home"
-  file: "routes/employer/home.tsx"
-  path: "/employer"
+  parents: [Parent0, Parent1, Parent2],
+  id: "routes/employer/dashboard"
+  file: "routes/employer/dashboard.tsx"
+  path: "/employer/dashboard"
   params: {} & { [key: string]: string | undefined }
   module: Module
   loaderData: T.CreateLoaderData<Module>

@@ -35,7 +35,16 @@ export default [
   ]),
 
   layout("layouts/employer/Layout.tsx", [
-    route("employer", "routes/employer/home.tsx"),
+    ...prefix("/employer", [
+      index("routes/employer/home.tsx"),
+      layout("layouts/employer/company/Layout.tsx", [
+        route("dashboard", "routes/employer/dashboard.tsx"),
+        route("company-info", "routes/employer/company-info.tsx"),
+        route("manage-jobs", "routes/employer/manage-jobs.tsx"),
+        route("manage-cv", "routes/employer/manage-cv.tsx"),
+        route("manage-reviews", "routes/employer/manage-reviews.tsx"),
+      ]),
+    ]),
   ]),
 
   layout("layouts/employer/auth/Layout.tsx", [

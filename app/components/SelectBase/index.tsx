@@ -1,4 +1,9 @@
-import { useState, type HTMLAttributes, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useState,
+  type HTMLAttributes,
+  type KeyboardEvent,
+} from "react";
 import { AlertError, SelectPane, SelectWrapper } from "./styled";
 import { FiChevronDown } from "react-icons/fi";
 import Options from "./Options";
@@ -33,9 +38,21 @@ const SelectBase = ({
     return foundOption ? foundOption.label : "";
   });
 
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (isShowOptions && !event.target.closest(".select-active")) {
+        setIsShowOptions(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isShowOptions]);
+
   const handleGetOption = (option: Option) => {
     setSelectedLabel(option.label);
-    onSetValue(option.value);
+    onSetValue(option.value + "");
     setIsShowOptions(false);
   };
 

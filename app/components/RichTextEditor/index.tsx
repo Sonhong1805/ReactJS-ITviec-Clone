@@ -33,7 +33,7 @@ import { BsListOl } from "react-icons/bs";
 import { htmlToSlate } from "@slate-serializers/html";
 import countCharacters from "~/utils/countCharacters";
 import { convertHtmlToSlate, convertSlateToHtml } from "./convert";
-import { Button, Icon, Toolbar } from "./Components";
+import { Button, Icon, Toolbar } from "./components";
 
 const HOTKEYS: Record<string, string> = {
   "mod+b": "bold",
@@ -111,7 +111,6 @@ const RichTextEditor = ({ content, setContent }: IProps) => {
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder=""
-        autoFocus
         onKeyDown={(event) => {
           for (const hotkey in HOTKEYS) {
             if (isHotkey(hotkey, event as any)) {

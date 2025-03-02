@@ -24,7 +24,7 @@
   "New password saved successfully!": "Lưu mật khẩu mới thành công!",
   "Password change failed! Enter your current password correctly": "Đổi mật khẩu thất bại! Nhập mật khẩu hiện tại chính xác",
   "Please enter your current password": "Vui lòng nhập mật khẩu hiện tại của bạn",
-  "Please enter your new password": "",
+  "Please enter your new password": "Vui lòng nhập mật khẩu mới của bạn",
   "Minimum 12 characters": "Nhập ít nhất 12 ký tự",
   "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter.": "Ít nhất 12 ký tự bao gồm ký tự đặc biệt, số, chữ HOA, chữ thường",
   "Please re-enter your new password": "Vui lòng nhập lại mật khẩu mới",

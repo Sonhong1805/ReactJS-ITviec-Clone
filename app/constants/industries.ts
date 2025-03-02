@@ -1,154 +1,154 @@
 const industries = [
   {
-    id: 1,
+    value: "Consumer Goods",
     label: "Consumer Goods",
   },
   {
-    id: 2,
+    value: "E-commerce",
     label: "E-commerce",
   },
   {
-    id: 3,
+    value: "Education and Training",
     label: "Education and Training",
   },
   {
-    id: 4,
+    value: "Banking",
     label: "Banking",
   },
   {
-    id: 5,
+    value: "Food & Beverage",
     label: "Food & Beverage",
   },
   {
-    id: 6,
+    value: "Game",
     label: "Game",
   },
   {
-    id: 7,
+    value: "Government",
     label: "Government",
   },
   {
-    id: 8,
+    value: "IT Hardware and Computing",
     label: "IT Hardware and Computing",
   },
   {
-    id: 9,
+    value: "Non-Profit and Social Services",
     label: "Non-Profit and Social Services",
   },
   {
-    id: 10,
+    value: "Manufacturing",
     label: "Manufacturing and Engineering",
   },
   {
-    id: 11,
+    value: "Media",
     label: "Media, Advertising and Entertainment",
   },
   {
-    id: 12,
+    value: "Environment",
     label: "Environment",
   },
   {
-    id: 13,
+    value: "Pharmaceuticals",
     label: "Pharmaceuticals",
   },
   {
-    id: 14,
+    value: "Real Estate, Property and Construction",
     label: "Real Estate, Property and Construction",
   },
   {
-    id: 15,
+    value: "Retail and Wholesale",
     label: "Retail and Wholesale",
   },
   {
-    id: 16,
+    value: "IT Services and IT Consulting",
     label: "IT Services and IT Consulting",
   },
   {
-    id: 17,
+    value: "Telecommunication",
     label: "Telecommunication",
   },
   {
-    id: 18,
+    value: "Tourism & Hospitality Services",
     label: "Tourism & Hospitality Services",
   },
   {
-    id: 19,
+    value: "Transportation, Logistics and Warehouse",
     label: "Transportation, Logistics and Warehouse",
   },
   {
-    id: 20,
+    value: "Cyber Security",
     label: "Cyber Security",
   },
   {
-    id: 21,
+    value: "Trading and Commercial",
     label: "Trading and Commercial",
   },
   {
-    id: 22,
+    value: "Network and Infrastructure",
     label: "Network and Infrastructure",
   },
   {
-    id: 23,
+    value: "Software Development Outsourcing",
     label: "Software Development Outsourcing",
   },
   {
-    id: 24,
+    value: "Software Products and Web Services",
     label: "Software Products and Web Services",
   },
   {
-    id: 25,
+    value: "Agriculture",
     label: "Agriculture",
   },
   {
-    id: 26,
+    value: "Sports and Fitness",
     label: "Sports and Fitness",
   },
   {
-    id: 27,
+    value: "Apparel and Fashion",
     label: "Apparel and Fashion",
   },
   {
-    id: 28,
+    value: "Creative and Design",
     label: "Creative and Design",
   },
   {
-    id: 29,
+    value: "Staffing and Recruiting",
     label: "Staffing and Recruiting",
   },
   {
-    id: 30,
+    value: "Publishing and Printing",
     label: "Publishing and Printing",
   },
   {
-    id: 31,
+    value: "Facility Management",
     label: "Facility Management",
   },
   {
-    id: 32,
+    value: "AI, Blockchain and Deep Tech Services",
     label: "AI, Blockchain and Deep Tech Services",
   },
   {
-    id: 33,
+    value: "Research Services",
     label: "Research Services",
   },
   {
-    id: 34,
+    value: "Financial Services",
     label: "Financial Services",
   },
   {
-    id: 35,
+    value: "Healthcare",
     label: "Healthcare",
   },
   {
-    id: 36,
+    value: "Materials and Mining",
     label: "Materials and Mining",
   },
   {
-    id: 37,
+    value: "Utilities",
     label: "Utilities",
   },
   {
-    id: 38,
+    value: "Professional Services",
     label: "Professional Services",
   },
 ];

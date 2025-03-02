@@ -257,11 +257,10 @@ table {
   border-collapse: collapse;
   text-indent: 0;
   border-color: inherit;
-  border: 1px solid var(--i-silver-grey);
 }
 
 tr {
-  border: 1px solid var(--i-silver-grey);
+  border-bottom: 1px solid var(--i-silver-grey);
 }
 
 tr:nth-child(even) {
@@ -273,6 +272,18 @@ td {
   text-align: start;
   padding: 0.8rem 1.2rem;
   font-size: 1.6rem;
+}
+
+th:last-child {
+  text-align: center;
+}
+
+td .icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--i-red);
+  cursor: pointer;
 }
 
 td:first-child {

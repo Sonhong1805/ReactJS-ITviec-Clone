@@ -8,12 +8,13 @@ import {
   HeaderWrapper,
   LogoLink,
 } from "./styled";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import Logo from "/assets/images/logo.png";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
+  const location = useLocation();
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleLanguage = (language: "en" | "vi") => {
@@ -35,6 +36,16 @@ const Header = () => {
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (headerContainerRef?.current) {
+      if (location.pathname !== "/employer") {
+        headerContainerRef.current.style.paddingInline = "2rem";
+      } else {
+        headerContainerRef.current.style.paddingInline = "6rem";
+      }
+    }
+  }, []);
+
   return (
     <HeaderWrapper>
       <HeaderContainer ref={headerContainerRef}>
@@ -45,11 +56,13 @@ const Header = () => {
           </LogoLink>
         </HeaderLeft>
         <HeaderRight>
-          <HeaderLogin>
-            <Link to={"/employer/login"} className="employer" target="_blank">
-              {t("Sign In")}
-            </Link>
-          </HeaderLogin>
+          {location.pathname === "/employer" && (
+            <HeaderLogin>
+              <Link to={"/employer/login"} className="employer" target="_blank">
+                {t("Sign In")}
+              </Link>
+            </HeaderLogin>
+          )}
           <HeaderLanguage>
             <div className="language-input">
               <input

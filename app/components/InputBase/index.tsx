@@ -53,19 +53,20 @@ const InputBase = ({
           <input
             id={name}
             type={togglePassword ? "text" : type}
-            {...register(name, {
-              setValueAs: (value: string) => {
-                const stringValue = String(value || "");
-                if (type === "salary") {
-                  const numericValue = stringValue.replace(/\D/g, "");
-                  return numericValue;
-                }
-                return stringValue;
-              },
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                if (onChange) onChange(e);
-              },
-            })}
+            {...(register &&
+              register(name, {
+                setValueAs: (value: string) => {
+                  const stringValue = String(value || "");
+                  if (type === "salary") {
+                    const numericValue = stringValue.replace(/\D/g, "");
+                    return numericValue;
+                  }
+                  return stringValue;
+                },
+                onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (onChange) onChange(e);
+                },
+              }))}
             className={className}
             placeholder={placeholder}
           />

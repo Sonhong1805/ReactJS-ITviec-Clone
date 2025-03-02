@@ -8,10 +8,11 @@ interface IProps {
   type?: "text" | "email" | "password";
   label: string;
   error?: string;
-  register: any;
+  register?: any;
   className?: string;
   required?: boolean;
   disabled?: boolean;
+  defaultValue?: string;
 }
 
 const InputFloating = ({
@@ -23,6 +24,7 @@ const InputFloating = ({
   className,
   required,
   disabled = false,
+  defaultValue,
 }: IProps) => {
   const [togglePassword, setTogglePassword] = useState(false);
   return (
@@ -32,10 +34,11 @@ const InputFloating = ({
         <input
           type={togglePassword ? "text" : type}
           id={name}
-          {...register(name)}
+          {...(register && register(name))}
           className={className}
           placeholder={" "}
           disabled={disabled}
+          defaultValue={defaultValue}
         />
         <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}

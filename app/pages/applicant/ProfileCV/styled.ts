@@ -1,42 +1,42 @@
 import { styled } from "styled-components";
 
 export const ProfileCVWrapper = styled.div`
-  padding-top: 2.4rem;
-  padding-bottom: 4.8rem;
-  padding-left: 2.8rem;
-  display: flex;
+  padding-top: 24px !important;
+  padding-bottom: 48px !important;
+  padding-left: 28px;
+  display: flex !important;
   flex: 1;
 `;
 
 export const ProfileCVContent = styled.div`
-  margin-right: 2.8rem;
-  flex-grow: 1;
+  margin-right: 28px !important;
+  flex-grow: 1 !important;
 `;
 
 export const ProgressBarWrapper = styled.aside`
   position: sticky;
-  top: 89rem;
+  top: 89px;
   height: fit-content;
-  border: 1rem solid #dedede;
-  box-shadow: 0rem 4rem 20rem rgba(0, 0, 0, 0.06);
-  border-radius: 8rem;
-  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
+  border: 1px solid #dedede;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity)) !important;
 
   .progress-bar-card {
-    width: 330rem;
+    width: 330px;
 
     .card-header {
-      padding: 16rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: column;
+      padding: 16px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-direction: column !important;
 
       h4 {
-        font-size: 16rem;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.5;
-        margin-bottom: 16rem;
+        margin-bottom: 16px !important;
       }
 
       .profile-progress {
@@ -101,20 +101,20 @@ export const ProgressBarWrapper = styled.aside`
     }
 
     .card-body {
-      padding-left: 16rem;
-      padding-right: 16rem;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
       .message {
-        display: flex;
-        align-items: center;
-        gap: 16rem;
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
 
         .speech-bubble {
-          border: 1rem solid #414042;
-          box-shadow: 0rem 4rem 20rem rgba(0, 0, 0, 0.06);
-          border-radius: 8rem;
-          padding: 8rem;
-          position: relative;
-          font-size: 14rem;
+          border: 1px solid #414042;
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+          border-radius: 8px;
+          padding: 8px !important;
+          position: relative !important;
+          font-size: 14px;
           font-weight: 400;
 
           &:before,
@@ -126,29 +126,29 @@ export const ProgressBarWrapper = styled.aside`
           }
 
           &:before {
-            right: -10rem;
-            top: calc(50% - 6rem);
-            border: 5rem solid;
+            right: -10px;
+            top: calc(50% - 6px);
+            border: 5px solid;
             border-color: transparent transparent #414042 #414042;
           }
 
           &:after {
-            right: -8rem;
-            top: calc(50% - 5rem);
-            border: 4rem solid;
+            right: -8px;
+            top: calc(50% - 5px);
+            border: 4px solid;
             border-color: transparent transparent #fff #fff;
           }
 
           span {
             font-weight: 700;
-            color: #ed1b2f;
+            color: #ed1b2f !important;
           }
         }
 
         figure {
           img {
-            width: 48rem;
-            height: 48rem;
+            width: 48px;
+            height: 48px;
           }
         }
       }
@@ -160,15 +160,15 @@ export const ProgressBarWrapper = styled.aside`
 
       .add-button,
       .toogle-button {
-        display: flex;
-        align-items: center;
+        display: flex !important;
+        align-items: center !important;
         color: #0e2eed;
         font-size: 1.6rem;
-        margin-top: 16rem;
-        cursor: pointer;
+        margin-top: 16px !important;
+        cursor: pointer !important;
 
         p {
-          margin-left: 4rem;
+          margin-left: 4px !important;
         }
       }
 
@@ -178,46 +178,46 @@ export const ProgressBarWrapper = styled.aside`
     }
 
     .card-footer {
-      padding-top: 12rem;
-      padding-bottom: 12rem;
-      padding-left: 16rem;
-      padding-right: 16rem;
+      padding-top: 12px !important;
+      padding-bottom: 12px !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
     }
   }
 `;
 
 export const ContactInfoWrapper = styled.section`
-  box-shadow: 0rem 4rem 20rem rgba(0, 0, 0, 0.06);
-  border-radius: 8rem;
-  padding: 16rem;
-  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 16px !important;
+  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity)) !important;
   position: relative;
 
   .header {
-    margin-bottom: 24rem;
-    display: flex;
+    margin-bottom: 24px !important;
+    display: flex !important;
     figure {
       img {
-        width: 80rem;
-        height: 80rem;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         object-fit: cover;
         image-rendering: auto;
       }
     }
     .username {
-      margin-left: 16rem;
-      padding-right: 32rem;
+      margin-left: 16px !important;
+      padding-right: 32px !important;
 
       h1 {
-        font-size: 28rem;
+        font-size: 28px;
         font-weight: 700;
         line-height: 1.5;
-        margin-bottom: 8rem;
+        margin-bottom: 8px !important;
       }
 
       h3 {
-        font-size: 18rem;
+        font-size: 18px;
         font-weight: 700;
         color: #a6a6a6;
       }
@@ -227,29 +227,29 @@ export const ContactInfoWrapper = styled.section`
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 24rem;
-    row-gap: 16rem;
+    column-gap: 24px;
+    row-gap: 16px;
 
     .item {
-      display: flex;
+      display: flex !important;
       align-items: center;
       svg {
-        width: 16rem;
-        height: 16rem;
+        width: 16px;
+        height: 16px;
         color: #a6a6a6;
       }
 
       p {
-        max-width: 200rem;
+        max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-left: 8rem;
-        color: #a6a6a6;
-        font-size: 16rem;
+        margin-left: 8px !important;
+        color: #a6a6a6 !important;
+        font-size: 16px !important;
 
         &.active {
-          color: #414042;
+          color: #414042 !important;
         }
       }
     }
@@ -263,26 +263,26 @@ export const ContactInfoWrapper = styled.section`
 `;
 
 export const CardWrapper = styled.div`
-  box-shadow: 0rem 4rem 20rem rgba(0, 0, 0, 0.06);
-  border-radius: 8rem;
-  margin-top: 20rem;
-  padding: 16rem;
-  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  margin-top: 20px !important;
+  padding: 16px !important;
+  background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity)) !important;
 
   .content {
     position: relative;
 
     .title {
       h2 {
-        font-size: 22rem;
+        font-size: 22px;
         font-weight: 700;
         line-height: 1.5;
       }
 
       p {
-        font-size: 16rem;
-        color: #a6a6a6;
-        margin-top: 8rem;
+        font-size: 16px;
+        color: #a6a6a6 !important;
+        margin-top: 8px !important;
       }
     }
 
@@ -290,18 +290,18 @@ export const CardWrapper = styled.div`
       position: absolute;
       bottom: 50%;
       transform: translate(0, 50%);
-      right: 48rem;
+      right: 48px;
 
       img {
-        width: 64rem;
-        height: 64rem;
+        width: 64px;
+        height: 64px;
       }
     }
 
     .add-button {
       position: absolute;
       right: 0;
-      top: calc(50% - 10rem);
+      top: calc(50% - 10px);
     }
   }
 `;
@@ -312,7 +312,7 @@ export const ModalContainer = styled.form`
   flex-direction: column;
 
   h4 {
-    font-size: 16rem;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1.5;
   }
@@ -322,15 +322,15 @@ export const ModalContainer = styled.form`
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    padding-left: 32rem;
-    padding-right: 20rem;
-    padding-top: 16rem;
-    padding-bottom: 16rem;
-    border-bottom: 1rem solid #dee2e6;
+    padding-left: 32px !important;
+    padding-right: 20px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 1px solid #dee2e6;
 
     h2 {
       flex: 1;
-      font-size: 22rem;
+      font-size: 22px;
       font-weight: 700;
       line-height: 1.5;
     }
@@ -352,7 +352,7 @@ export const ModalContainer = styled.form`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border-top: 1rem solid var(--i-gray-300);
+    border-top: 1px solid var(--i-gray-300);
 
     div {
       font-size: 1.6rem;
@@ -368,19 +368,19 @@ export const ModalContainer = styled.form`
       align-items: center;
       line-height: 1.5;
       user-select: none;
-      border: 1rem solid transparent;
-      gap: 8rem;
-      font-size: 16rem;
+      border: 1px solid transparent;
+      gap: 8px;
+      font-size: 16px;
       font-weight: 500;
-      padding: 7rem 20rem;
-      min-width: 140rem;
-      border-radius: 4rem;
+      padding: 7px 20px;
+      min-width: 140px;
+      border-radius: 4px;
 
       &.cancel {
         color: var(--i-rich-grey);
         background-color: var(--i-white);
         border-color: var(--i-white);
-        margin-right: 20rem;
+        margin-right: 20px !important;
 
         &:hover {
           background-color: var(--i-light-grey);
@@ -404,17 +404,17 @@ export const ModalContainer = styled.form`
   .placeholder-tips {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 24rem;
+    margin-bottom: 24px !important;
 
     .icon {
       background-color: var(--i-warning-color);
-      border-radius: 4rem;
-      padding: 4rem;
+      border-radius: 4px;
+      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 20rem;
-      height: 20rem;
+      width: 20px;
+      height: 20px;
 
       svg {
         color: var(--i-white);
@@ -422,9 +422,9 @@ export const ModalContainer = styled.form`
     }
 
     .tips {
-      font-size: 16rem;
+      font-size: 16px;
       font-weight: 400;
-      margin-left: 8rem;
+      margin-left: 8px !important;
 
       strong {
         color: var(--i-warning-color);
@@ -441,12 +441,12 @@ export const PersonalDetailsContent = styled.div`
   .avatar {
     flex: 0 0 auto;
     width: 25%;
-    text-align: center;
+    text-align: center !important;
 
     figure {
       img {
-        width: 12rem;
-        height: 12rem;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
         object-fit: cover;
         image-rendering: auto;
@@ -454,15 +454,15 @@ export const PersonalDetailsContent = styled.div`
     }
 
     label {
-      display: flex;
-      margin-top: 1.6rem;
-      align-items: center;
-      justify-content: center;
-      color: #ed1b2f;
-      cursor: pointer;
+      display: flex !important;
+      margin-top: 16px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #ed1b2f !important;
+      cursor: pointer !important;
       p {
-        font-size: 1.6rem;
-        margin-left: 0.4rem;
+        font-size: 16px !important;
+        margin-left: 4px !important;
       }
     }
   }
@@ -488,11 +488,11 @@ export const EducationContent = styled.div`
   .form-group.date {
     display: flex;
     gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px !important;
 
     .form-select {
       h4 {
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px !important;
       }
     }
 
@@ -502,11 +502,11 @@ export const EducationContent = styled.div`
 
       .select-wrapper,
       .select-active {
-        width: 21.5rem;
+        width: 215px !important;
 
         input {
-          max-width: 6rem;
-          min-width: 0;
+          max-width: 6rem !important;
+          min-width: 0 !important;
         }
       }
     }
@@ -517,14 +517,14 @@ export const WorkExperienceContent = styled.div`
   .form-group.date {
     display: flex;
     gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px !important;
 
     .form-select {
       h4 {
-        font-size: 1.6rem;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.5;
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px !important;
       }
     }
 
@@ -534,22 +534,22 @@ export const WorkExperienceContent = styled.div`
 
       .select-wrapper,
       .select-active {
-        width: 21.5rem;
+        width: 215px !important;
 
         input {
-          max-width: 6rem;
-          min-width: 0;
+          max-width: 6rem !important;
+          min-width: 0 !important;
         }
       }
     }
   }
 
   .form-group.texteditor {
-    margin-top: 2.4rem;
+    margin-top: 24px !important;
   }
 
   .placeholder-tips {
-    margin-top: 0.8rem;
+    margin-top: 8px !important;
   }
 `;
 
@@ -557,14 +557,14 @@ export const CertificatesContent = styled.div`
   .form-group.date {
     display: flex;
     gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px !important;
 
     .form-select {
       h4 {
-        font-size: 1.6rem;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.5;
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px !important;
       }
     }
 
@@ -574,29 +574,29 @@ export const CertificatesContent = styled.div`
 
       .select-wrapper,
       .select-active {
-        width: 21.5rem;
+        width: 215px !important;
 
         input {
-          max-width: 6rem;
-          min-width: 0;
+          max-width: 6rem !important;
+          min-width: 0 !important;
         }
       }
     }
   }
 
   .form-group.texteditor {
-    margin-top: 2.4rem;
+    margin-top: 24px !important;
   }
 
   .placeholder-tips {
-    margin-top: 0.8rem;
+    margin-top: 8px !important;
   }
 `;
 
 export const SkillsContent = styled.div`
   .form-group {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
 
     .form-select {
       &:first-child {
@@ -605,27 +605,27 @@ export const SkillsContent = styled.div`
 
       .counter {
         font-weight: 400;
-        font-size: 1.4rem;
-        line-height: 2.4rem;
+        font-size: 14px;
+        line-height: 24px;
         color: #868686;
       }
     }
   }
 
   button {
-    font-size: 1.6rem;
+    font-size: 16px;
     font-weight: 600;
-    padding: 1.1rem 2.4rem;
-    min-width: 18rem;
-    border-radius: 0.4rem;
+    padding: 11px 24px;
+    min-width: 180px;
+    border-radius: 4px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     line-height: 1.5;
     user-select: none;
-    border: 0.1rem solid transparent;
-    gap: 0.8rem;
-    width: 100%;
+    border: 1px solid transparent;
+    gap: 8px;
+    width: 100% !important;
     color: #ed1b2f;
     background-color: #fff;
     border-color: #ed1b2f;
@@ -633,46 +633,46 @@ export const SkillsContent = styled.div`
 
   .skill-wrapper {
     .skill-item {
-      padding-top: 2.4rem;
+      padding-top: 24px !important;
 
       .skill-box {
-        display: flex;
-        align-items: center;
+        display: flex !important;
+        align-items: center !important;
 
         svg {
-          color: #a6a6a6;
-          padding-left: 0.4rem;
+          color: #a6a6a6 !important;
+          padding-left: 4px !important;
         }
       }
       .skill-display {
-        padding-top: 1.2rem;
-        font-size: 1.4rem;
+        padding-top: 12px !important;
+        font-size: 14px;
         font-weight: 400;
         color: #a6a6a6;
       }
 
       .skill-tags {
-        padding-top: 1.2rem;
+        padding-top: 12px !important;
         .skill-tag {
-          margin-bottom: 0.8rem;
-          margin-right: 0.8rem;
+          margin-bottom: 8px !important;
+          margin-right: 8px !important;
           display: inline-flex;
           justify-content: center;
           align-items: center;
           line-height: 1.5;
           user-select: none;
-          border-radius: 2rem;
-          border: 0.1rem solid transparent;
+          border-radius: 20px;
+          border: 1px solid transparent;
           cursor: pointer;
-          padding: 0.4rem 1.2rem;
-          font-size: 1.4rem;
-          gap: 0.4rem;
+          padding: 4px 12px;
+          font-size: 14px;
+          gap: 4px;
           color: #414042;
           background-color: #fff;
           border-color: #dedede;
 
           span {
-            font-size: 1.6rem;
+            font-size: 16px;
             font-weight: 400;
           }
 
@@ -690,14 +690,14 @@ export const PersonalProjectContent = styled.div`
   .form-group.date {
     display: flex;
     gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px !important;
 
     .form-select {
       h4 {
-        font-size: 1.6rem;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.5;
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px !important;
       }
     }
 
@@ -707,22 +707,22 @@ export const PersonalProjectContent = styled.div`
 
       .select-wrapper,
       .select-active {
-        width: 21.5rem;
+        width: 215px !important;
 
         input {
-          max-width: 6rem;
-          min-width: 0;
+          max-width: 6rem !important;
+          min-width: 0 !important;
         }
       }
     }
   }
 
   .form-group.texteditor {
-    margin-top: 2.4rem;
+    margin-top: 24px !important;
   }
 
   .placeholder-tips {
-    margin-top: 0.8rem;
+    margin-top: 8px !important;
   }
 `;
 
@@ -730,14 +730,14 @@ export const AwardsContent = styled.div`
   .form-group.date {
     display: flex;
     gap: 2.4rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px !important;
 
     .form-select {
       h4 {
-        font-size: 1.6rem;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.5;
-        margin-bottom: 1.2rem;
+        margin-bottom: 12px !important;
       }
     }
 
@@ -747,22 +747,22 @@ export const AwardsContent = styled.div`
 
       .select-wrapper,
       .select-active {
-        width: 21.5rem;
+        width: 215px !important;
 
         input {
-          max-width: 6rem;
-          min-width: 0;
+          max-width: 6rem !important;
+          min-width: 0 !important;
         }
       }
     }
   }
 
   .form-group.texteditor {
-    margin-top: 2.4rem;
+    margin-top: 24px !important;
   }
 
   .placeholder-tips {
-    margin-top: 0.8rem;
+    margin-top: 8px !important;
   }
 `;
 

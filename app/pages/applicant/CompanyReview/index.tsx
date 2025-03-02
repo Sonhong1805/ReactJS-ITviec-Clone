@@ -23,10 +23,10 @@ import InputFloating from "~/components/InputFloating";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import RatingItem from "./RatingItem";
 import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
 import { useNavigate } from "react-router";
+import RatingItem from "~/components/RatingItem";
 
 const CompanyReview = () => {
   const [isOpen, setIsOpen] = useState(false);

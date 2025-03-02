@@ -19,6 +19,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import InputBase from "~/components/InputBase";
+import { useEffect } from "react";
+import jobService from "~/services/jobService";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
@@ -48,21 +50,28 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
     console.log(data);
-    toast.error(t("Email or password is incorrect"), {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
+    // toast.error(t("Email or password is incorrect"), {
+    //   position: "top-right",
+    //   autoClose: 5000,
+    //   hideProgressBar: true,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   transition: Bounce,
+    // });
   };
 
   const isValidEmail = watch("email") !== "" ? "success" : "";
   const isValidPassword = watch("password") !== "" ? "success" : "";
+
+  useEffect(() => {
+    (async () => {
+      const response = await jobService.getAll({});
+      console.log(response);
+    })();
+  }, []);
 
   return (
     <LoginWrapper>
