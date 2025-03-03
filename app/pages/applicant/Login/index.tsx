@@ -21,6 +21,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import InputBase from "~/components/InputBase";
 import { useEffect } from "react";
 import jobService from "~/services/jobService";
+import authService from "~/services/authService";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
@@ -49,24 +50,42 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
-    console.log(data);
-    // toast.error(t("Email or password is incorrect"), {
-    //   position: "top-right",
-    //   autoClose: 5000,
-    //   hideProgressBar: true,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    //   transition: Bounce,
-    // });
+    const response = await authService.login(data);
+    console.log(response);
+    if (response.isSuccess && response.data) {
+      localStorage.setItem("access_token", response.data.accessToken as string);
+      toast.success("Đăng nhập thành công", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(t("Email or password is incorrect"), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   const isValidEmail = watch("email") !== "" ? "success" : "";
   const isValidPassword = watch("password") !== "" ? "success" : "";
 
+  console.log("Component re-rendered");
   useEffect(() => {
+    console.log("useEffect triggered");
     (async () => {
       const response = await jobService.getAll({});
       console.log(response);

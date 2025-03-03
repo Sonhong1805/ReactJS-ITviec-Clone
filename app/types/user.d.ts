@@ -1,17 +1,12 @@
 interface IUser {
+  id: number;
   username: string;
   email: string;
-  phone?: string;
-  password: string;
-  loginType: LOGIN_TYPE;
-  role: ROLE;
-  avatar: FileList | string;
-  title: string;
-  link: string;
-  city: string;
-  address: string;
-  dateOfBird: string;
-  gender: string;
+  loginType: "EMAIL" | "GOOGLE";
+  role: "APPLICANT" | "COMPANY" | "ADMIN";
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
 type IPersonalDetails = Pick<

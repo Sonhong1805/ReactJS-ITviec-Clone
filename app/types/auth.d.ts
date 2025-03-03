@@ -1,4 +1,7 @@
-type TLogin = Pick<IUser, "email" | "password">;
+interface TLogin {
+  email: string;
+  password: string;
+}
 
 type TRegister = Pick<IUser, "username" | "email" | "password">;
 
