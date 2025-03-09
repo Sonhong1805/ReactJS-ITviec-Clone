@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   NoteAccount,
   ResetAside,
@@ -8,16 +7,26 @@ import {
   ResetWrapper,
   UserReset,
 } from "./styled";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate, useSearchParams } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputBase from "~/components/InputBase";
+import useValidation from "~/hooks/useValidation";
+import authService from "~/services/authService";
+import showToast from "~/utils/showToast";
 
 const ResetPassword = () => {
   const { t } = useTranslation(["auth"]);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const emailParams = searchParams.get("email");
+  const emailStorage = localStorage.getItem("email");
+
+  if (!emailParams || emailParams !== emailStorage)
+    return <Navigate to={"/login"} replace />;
 
   const schema = z
     .object({
@@ -49,7 +58,6 @@ const ResetPassword = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
     watch,
   } = useForm<IResetPassword>({
     defaultValues: {
@@ -62,12 +70,27 @@ const ResetPassword = () => {
   const onSubmit: SubmitHandler<IResetPassword> = async (
     data: IResetPassword
   ) => {
-    console.log(data);
+    const response = await authService.resetPassword(
+      emailParams,
+      data.newPassword
+    );
+    if (response.isSuccess) {
+      showToast("success", t("Đổi mật khẩu thành công"));
+      setTimeout(() => {
+        navigate("/login");
+        localStorage.removeItem("email");
+      }, 3000);
+    } else {
+      const messages = response.message;
+      if (messages && messages.length > 0) {
+        const message = Array.isArray(messages) ? messages[0] : messages;
+        showToast("error", message);
+      }
+    }
   };
 
-  const isValidNewPassword = watch("newPassword") !== "" ? "success" : "";
-  const isValidConfirmPassword =
-    watch("confirmPassword") !== "" ? "success" : "";
+  const isValidNewPassword = useValidation(watch("newPassword"));
+  const isValidConfirmPassword = useValidation(watch("confirmPassword"));
 
   return (
     <ResetWrapper>
@@ -81,7 +104,6 @@ const ResetPassword = () => {
             <h1>{t("Reset Password")}</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputBase
-                id="newPassword"
                 type="password"
                 name="newPassword"
                 label={t("New Password")}
@@ -94,7 +116,6 @@ const ResetPassword = () => {
                 error={errors.newPassword?.message}
               />
               <InputBase
-                id="confirmPassword"
                 type="password"
                 name="confirmPassword"
                 label={t("Confirm Password")}

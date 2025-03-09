@@ -47,34 +47,6 @@ export const LoginMain = styled.main`
     }
   }
 
-  .Login-google {
-    display: flex;
-    font-family: var(--i-body-font-family);
-    align-items: center;
-    font-size: 1.6rem;
-    font-weight: 600;
-    padding: 1.1rem 2.4rem;
-    min-width: 18rem;
-    border-radius: 0.4rem;
-    color: var(--i-red);
-    border: 1px solid var(--i-red);
-    width: 100%;
-    justify-content: center;
-    gap: 0.8rem;
-    background: var(--i-white);
-    line-height: 2.4rem;
-    height: 4.76rem;
-
-    img {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    &:hover {
-      background: var(--i-white-red);
-    }
-  }
-
   .Login-separator {
     padding-block: 1.6rem;
     text-align: center;
@@ -95,6 +67,58 @@ export const LoginMain = styled.main`
       left: 0;
       top: 50%;
     }
+  }
+`;
+
+export const LoginGoogle = styled.div`
+  & > div:first-child {
+    height: 4.76rem !important;
+
+    & > div:first-child {
+      height: 100%;
+      & > div:first-child {
+        height: 100%;
+      }
+    }
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+    border: 1px solid var(--i-red);
+    height: 100%;
+
+    &:hover {
+      background: var(--i-white-red);
+    }
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+    height: 30px;
+    margin-right: 0px;
+    min-width: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg.LgbsSe-Bz112c {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  span.nsm7Bb-HzV7m-LgbsSe-BPrWId {
+    color: var(--i-red);
+    font-family: var(--i-body-font-family);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
   }
 `;
 

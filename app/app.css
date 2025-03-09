@@ -421,6 +421,10 @@ canvas {
   background: var(--i-light-success-color);
   border-left-color: var(--i-success-color);
 }
+.Toastify__toast-theme--light.Toastify__toast--info {
+  background: var(--i-light-info-color);
+  border-left-color: var(--i-info-color);
+}
 
 .Toastify__close-button > svg {
   width: 2rem;

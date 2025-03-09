@@ -1,4 +1,6 @@
 import axios from "axios";
+import showToast from "./showToast";
+import { useUserStore } from "~/stores/userStore";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -32,11 +34,13 @@ instance.interceptors.request.use(
 );
 
 const NO_RETRY_HEADER = "x-no-retry";
+
 instance.interceptors.response.use(
   function (response) {
     return response.data;
   },
   async function (error) {
+    const { logout } = useUserStore.getState();
     if (
       error.config &&
       error.response &&
@@ -51,7 +55,6 @@ instance.interceptors.response.use(
         return instance.request(error.config);
       }
     }
-
     if (
       error.config &&
       error.response &&
@@ -59,8 +62,16 @@ instance.interceptors.response.use(
       error.config.url === "/auth/refresh"
     ) {
       localStorage.removeItem("access_token");
-      window.location.href = "/login";
+      logout();
+      showToast(
+        "info",
+        "Phiên đăng nhập hết hạn rồi nhé. Vui lòng đăng nhập lại!"
+      );
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     }
+
     return error?.response?.data ?? Promise.reject(error);
   }
 );

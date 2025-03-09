@@ -36,41 +36,6 @@ export const RegisterMain = styled.main`
     line-height: 4.2rem;
   }
 
-  .register-google {
-    display: flex;
-    align-items: center;
-    font-size: 1.6rem;
-    font-weight: 600;
-    padding: 1.1rem 2.4rem;
-    min-width: 18rem;
-    border-radius: 0.4rem;
-    color: var(--i-dark-grey);
-    border: 1px solid var(--i-dark-grey);
-    width: 100%;
-    justify-content: center;
-    gap: 0.8rem;
-    background: var(--i-white);
-    height: 4.76rem;
-
-    &.active {
-      color: var(--i-red);
-      border: 1px solid var(--i-red);
-    }
-
-    img {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    &.active:hover {
-      background: var(--i-white-red);
-    }
-
-    span {
-      line-height: 2.4rem;
-    }
-  }
-
   .register-separator {
     margin-block: 2.4rem;
     text-align: center;
@@ -345,4 +310,69 @@ export const AuthenticationError = styled.div`
   font-size: 1.4rem;
   margin-top: 0.4rem;
   color: var(--i-error-color);
+`;
+
+export const RegisterGoogle = styled.div`
+  &.disable {
+    pointer-events: none;
+    user-select: none;
+    cursor: none;
+
+    span.nsm7Bb-HzV7m-LgbsSe-BPrWId {
+      color: var(--i-dark-grey);
+    }
+
+    .nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+      border: 1px solid var(--i-dark-grey);
+    }
+  }
+  & > div:first-child {
+    height: 4.76rem !important;
+
+    & > div:first-child {
+      height: 100%;
+      & > div:first-child {
+        height: 100%;
+      }
+    }
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+    border: 1px solid var(--i-red);
+    height: 100%;
+
+    &:hover {
+      background: var(--i-white-red);
+    }
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+    height: 30px;
+    margin-right: 0px;
+    min-width: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg.LgbsSe-Bz112c {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  span.nsm7Bb-HzV7m-LgbsSe-BPrWId {
+    color: var(--i-red);
+    font-family: var(--i-body-font-family);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+  }
 `;

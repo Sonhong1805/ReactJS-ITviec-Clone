@@ -1,9 +1,11 @@
-interface TLogin {
+interface ILogin {
   email: string;
   password: string;
 }
 
-type TRegister = Pick<IUser, "username" | "email" | "password">;
+interface IRegister extends ILogin {
+  username: string;
+}
 
 type TForgotPassword = Pick<IUser, "email">;
 

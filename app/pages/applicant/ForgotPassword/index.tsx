@@ -16,10 +16,15 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputBase from "~/components/InputBase";
+import useValidation from "~/hooks/useValidation";
+import { useState } from "react";
+import authService from "~/services/authService";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const { t } = useTranslation(["auth"]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const schema = z.object({
     email: z
@@ -31,7 +36,6 @@ const ForgotPassword = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
     watch,
   } = useForm<TForgotPassword>({
     defaultValues: {
@@ -43,10 +47,18 @@ const ForgotPassword = () => {
   const onSubmit: SubmitHandler<TForgotPassword> = async (
     data: TForgotPassword
   ) => {
-    console.log(data);
+    const response = await authService.forgotPassword(data.email);
+    if (response.isSuccess) {
+      setShowAlert(true);
+      setShowError(false);
+      localStorage.setItem("email", data.email);
+    } else {
+      setShowAlert(false);
+      setShowError(true);
+    }
   };
 
-  const isValidEmail = watch("email") !== "" ? "success" : "";
+  const isValidEmail = useValidation(watch("email"));
 
   return (
     <ForgotWrapper>
@@ -58,14 +70,18 @@ const ForgotPassword = () => {
         <ForgotContainer>
           <ForgotMain>
             <h1>{t("Forgot password?")}</h1>
-            <ForgotAlert>
-              {t(
-                "You will receive an email with instructions about how to reset your password in a few minutes."
-              )}
-            </ForgotAlert>
-            <ForgotError>
-              {t("Oops! This email address doesn't exist, please try again")}
-            </ForgotError>
+            {showAlert && (
+              <ForgotAlert>
+                {t(
+                  "You will receive an email with instructions about how to reset your password in a few minutes."
+                )}
+              </ForgotAlert>
+            )}
+            {showError && (
+              <ForgotError>
+                {t("Oops! This email address doesn't exist, please try again")}
+              </ForgotError>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputBase
                 type="email"
@@ -85,7 +101,7 @@ const ForgotPassword = () => {
             </ForgotLogin>
           </ForgotMain>
           <ForgotAside>
-            <img src="/assets/images/robby-sad.png" alt="robby-sad" />
+            <img src="/assets/images/robby-sad.png" alt="robby sad" />
           </ForgotAside>
         </ForgotContainer>
       </UserForgot>

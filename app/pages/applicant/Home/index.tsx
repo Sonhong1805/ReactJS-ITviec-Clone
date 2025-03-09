@@ -9,7 +9,7 @@ const Home = () => {
       <JobSearch />
       <CampaignHighlight />
       <TopEmployers />
-      <TopBlogs />
+      {/* <TopBlogs /> */}
     </>
   );
 };

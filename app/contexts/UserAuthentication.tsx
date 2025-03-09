@@ -1,30 +1,35 @@
-import { useEffect, type ReactNode } from "react";
-import { useLocation } from "react-router";
+import { useEffect, useRef, type ReactNode } from "react";
+import { Navigate, useLocation } from "react-router";
 import authService from "~/services/authService";
-import { useUserStore } from "~/store/userStore";
+import { useUserStore } from "~/stores/userStore";
 
 const UserAuthentication = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
-  const isLoading = useUserStore((state) => state.isLoading);
-  const login = useUserStore((state) => state.login);
+  const { isLoading, login } = useUserStore((state) => state);
+  const isFirstRender = useRef(true);
   const publicRoutes = [
     "/login",
     "/register",
     "/forgot-password",
     "/",
     "/it-jobs",
+    "/company-detail",
+    "/job-detail",
   ];
 
   useEffect(() => {
     (async () => {
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
       if (localStorage.getItem("access_token")) {
         const response = await authService.account();
-        if (response?.data) {
-          login(response.data.user);
+        if (response.isSuccess && response?.data) {
+          login(response.data);
         }
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

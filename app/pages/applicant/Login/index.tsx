@@ -9,22 +9,24 @@ import {
   LoginRegister,
   LoginWrapper,
   UserLogin,
+  LoginGoogle,
 } from "./styled";
-import { Bounce, ToastContainer, toast } from "react-toastify";
 import LOGO_BLACK_TEXT from "/assets/images/logo_black_text.png";
-import GOOGLE_LOGO from "/assets/svg/google_logo.svg";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import InputBase from "~/components/InputBase";
-import { useEffect } from "react";
-import jobService from "~/services/jobService";
 import authService from "~/services/authService";
+import { useUserStore } from "~/stores/userStore";
+import showToast from "~/utils/showToast";
+import useValidation from "~/hooks/useValidation";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
+  const navigate = useNavigate();
 
   const schema = z.object({
     email: z
@@ -40,7 +42,7 @@ const Login = () => {
     handleSubmit,
     reset,
     watch,
-  } = useForm<TLogin>({
+  } = useForm<ILogin>({
     defaultValues: {
       email: "",
       password: "",
@@ -49,48 +51,22 @@ const Login = () => {
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
+  const { login } = useUserStore((s) => s);
+
+  const onSubmit: SubmitHandler<ILogin> = async (data: ILogin) => {
     const response = await authService.login(data);
-    console.log(response);
     if (response.isSuccess && response.data) {
+      login(response.data.user);
       localStorage.setItem("access_token", response.data.accessToken as string);
-      toast.success("Đăng nhập thành công", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      navigate("/");
+      reset();
     } else {
-      toast.error(t("Email or password is incorrect"), {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      showToast("error", t("Email or password is incorrect"));
     }
   };
 
-  const isValidEmail = watch("email") !== "" ? "success" : "";
-  const isValidPassword = watch("password") !== "" ? "success" : "";
-
-  console.log("Component re-rendered");
-  useEffect(() => {
-    console.log("useEffect triggered");
-    (async () => {
-      const response = await jobService.getAll({});
-      console.log(response);
-    })();
-  }, []);
+  const isValidEmail = useValidation(watch("email"));
+  const isValidPassword = useValidation(watch("password"));
 
   return (
     <LoginWrapper>
@@ -108,10 +84,30 @@ const Login = () => {
               <span className="Login-rules">{t("Privacy Policy")}</span>{" "}
               {t("in relation to your privacy information.")}
             </div>
-            <button className="Login-google">
-              <img src={GOOGLE_LOGO} alt="google logo" />
-              <span>{t("Sign In with Google")}</span>
-            </button>
+            <LoginGoogle>
+              <GoogleLogin
+                onSuccess={async (credentialResponse) => {
+                  const credential = credentialResponse.credential + "";
+                  const response = await authService.loginGoogle(credential);
+                  if (response.isSuccess && response.data) {
+                    localStorage.setItem(
+                      "access_token",
+                      response.data.accessToken as string
+                    );
+                    login(response.data.user);
+                    navigate("/");
+                    showToast(
+                      "success",
+                      "Successfully authenticated from Google account."
+                    );
+                  }
+                }}
+                onError={() => {
+                  showToast("error", "Đăng nhập bằng google thất bại");
+                }}
+                text="signin_with"
+              />
+            </LoginGoogle>
             <div className="Login-separator">
               <span>{t("or")}</span>
             </div>
@@ -179,7 +175,6 @@ const Login = () => {
           </LoginFeature>
         </LoginContainer>
       </UserLogin>
-      <ToastContainer />
     </LoginWrapper>
   );
 };

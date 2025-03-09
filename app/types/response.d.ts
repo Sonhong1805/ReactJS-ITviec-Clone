@@ -1,5 +1,5 @@
 interface IResponse<T> {
   isSuccess: boolean;
-  message: string;
+  message: string | string[];
   data: T;
 }

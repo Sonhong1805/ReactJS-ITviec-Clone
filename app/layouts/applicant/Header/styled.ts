@@ -28,6 +28,7 @@ export const HeaderNavbar = styled.nav`
   flex: 1;
   display: flex;
   justify-content: space-between;
+  height: 6.4rem;
 `;
 
 export const LogoLink = styled(Link)`
@@ -66,15 +67,10 @@ export const HeaderListItem = styled.li`
   a {
     padding-inline: 0.8rem;
     font-size: 1.6rem;
-    transition: all 0.2s;
 
     &.employer {
       padding-inline: 0;
     }
-  }
-
-  &:hover a {
-    color: var(--i-white);
   }
 
   &:hover a.employer {
@@ -103,16 +99,25 @@ export const HeaderAccount = styled.div`
   .avatar {
     width: 3.2rem;
     height: 3.2rem;
+
+    img {
+      border: 1px solid #dedede;
+      border-radius: 50%;
+    }
   }
 
-  span {
+  span.username {
     margin-left: 1.2rem;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
 export const HeaderSubmenu = styled.ul`
   position: absolute;
   top: 100%;
+  right: 0;
   background: var(--i-black);
   display: none;
 
@@ -136,16 +141,21 @@ export const HeaderSubmenu = styled.ul`
   }
 
   li {
-    display: block;
     font-size: 1.4rem;
     line-height: 4.5rem;
     width: 25rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1019607843);
-    color: var(--i-menu-link);
+    color: var(--i-dark-grey);
     display: flex;
     align-items: center;
     padding-inline: 1.6rem;
-    gap: 0.8rem;
+
+    a {
+      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
     &.submenu-item {
       justify-content: space-between;
@@ -234,6 +244,51 @@ export const HeaderSubmenu = styled.ul`
     &:hover {
       background: var(--i-rich-grey);
       color: var(--i-white);
+    }
+  }
+`;
+
+export const ProfileSubmenu = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--i-black);
+  display: none;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.4rem;
+    line-height: 4.5rem;
+    width: 25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1019607843);
+    color: var(--i-dark-grey);
+    display: flex;
+    align-items: center;
+    padding-inline: 1.6rem;
+
+    span {
+      display: block;
+      color: var(--i-dark-grey);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 45px;
+    }
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: var(--i-dark-grey);
+    }
+
+    &:hover {
+      background: var(--i-rich-grey);
+
+      span,
+      svg {
+        color: var(--i-white);
+      }
     }
   }
 `;
