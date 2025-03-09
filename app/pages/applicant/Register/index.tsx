@@ -46,7 +46,7 @@ const Register = () => {
       .string()
       .nonempty({ message: t("Can't be blank") })
       .min(12, "12 characters")
-      .regex(/[!@#$%^&*(),.?":{}|<>_\/\\+\-=`~]/, "1 symbol")
+      .regex(/[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]/, "1 symbol")
       .regex(/\d/, "1 number")
       .regex(/[A-Z]/, "1 UPPERCASE")
       .regex(/[a-z]/, "1 lowercase"),
@@ -84,7 +84,7 @@ const Register = () => {
 
   const validationPassword = (passwordValue: string): IValidationPassword => ({
     has12Chars: passwordValue.length >= 12,
-    hasSymbol: /[!@#$%^&*(),.?":{}|<>_\/\\+\-=`~]/.test(passwordValue),
+    hasSymbol: /[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]/.test(passwordValue),
     hasNumber: /[0-9]/.test(passwordValue),
     hasUppercase: /[A-Z]/.test(passwordValue),
     hasLowercase: /[a-z]/.test(passwordValue),

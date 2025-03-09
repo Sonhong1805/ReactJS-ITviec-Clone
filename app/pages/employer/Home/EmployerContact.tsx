@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AgreementCheck,
   ContactButton,
@@ -12,23 +12,27 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { FaCheckCircle } from "react-icons/fa";
 import IconCloudflare from "~/components/Icon/IconCloudflare";
-import sources from "~/constants/sources";
 import SelectFloating from "~/components/SelectFloating";
 import cities from "~/constants/cities";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useValidation from "~/hooks/useValidation";
+import getSources from "~/constants/getSources";
+import authService from "~/services/authService";
+import showToast from "~/utils/showToast";
 
 const EmployerContact = () => {
   const { t } = useTranslation(["auth", "home"]);
   const [agreementCheck, setAgreementCheck] = useState(false);
+  const sources = getSources(t);
 
   const schema = z.object({
     username: z
       .string()
       .nonempty({ message: t("Please let us know your name") })
       .min(4, t("Please enter at least 4 characters")),
-    role: z
+    position: z
       .string()
       .nonempty({ message: t("Please let us know your title") })
       .min(3, t("Please enter at least 3 characters")),
@@ -36,7 +40,7 @@ const EmployerContact = () => {
       .string()
       .nonempty({ message: t("Please provide your work email address") })
       .email({ message: t("Please enter a valid email address") }),
-    phone: z
+    phoneNumber: z
       .string()
       .nonempty({ message: t("Please provide your phone number") })
       .regex(/^(0[1-9][0-9]{8,9})$/, {
@@ -69,9 +73,9 @@ const EmployerContact = () => {
   } = useForm<TRegisterEmployer>({
     defaultValues: {
       username: "",
-      role: "",
+      position: "",
       email: "",
-      phone: "",
+      phoneNumber: "",
       companyName: "",
       companyAddress: "",
       companyWebsite: "",
@@ -83,16 +87,31 @@ const EmployerContact = () => {
   const onSubmit: SubmitHandler<TRegisterEmployer> = async (
     data: TRegisterEmployer
   ) => {
-    console.log(data);
+    const response = await authService.registerCompany(data);
+    if (response.isSuccess) {
+      showToast(
+        "success",
+        "Bạn sẽ nhận được email hướng dẫn cách đăng nhập vào nhà tuyển dụng trong vài phút."
+      );
+    } else {
+      const messages = response.message;
+      if (messages && messages.length > 0) {
+        const message = Array.isArray(messages) ? messages[0] : messages;
+        showToast("error", message);
+      }
+    }
   };
 
-  const isValidUsername = watch("username") !== "" ? "success" : "";
-  const isValidRole = watch("role") !== "" ? "success" : "";
-  const isValidEmail = watch("email") !== "" ? "success" : "";
-  const isValidPhone = watch("phone") !== "" ? "success" : "";
-  const isValidCompanyName = watch("companyName") !== "" ? "success" : "";
-  const isValidCompanyAddress = watch("companyAddress") !== "" ? "success" : "";
-  const companyWebsiteValue = watch("companyWebsite");
+  const isValidUsername = useValidation(watch("username"));
+  const isValidPosition = useValidation(watch("position"));
+  const isValidEmail = useValidation(watch("email"));
+  const isValidPhoneNumber = useValidation(watch("phoneNumber"));
+  const isValidCompanyName = useValidation(watch("companyName"));
+  const isValidCompanyAddress = useValidation(watch("companyAddress"));
+  const companyWebsiteValue = useMemo(() => {
+    return watch("companyWebsite");
+  }, [watch("companyWebsite")]);
+
   const isValidCompanyWebsite =
     submitCount > 0 && !companyWebsiteValue
       ? "success"
@@ -123,12 +142,14 @@ const EmployerContact = () => {
                   }
                 />
                 <InputFloating
-                  name="role"
+                  name="position"
                   label={t("Work title")}
                   register={register}
                   required={true}
-                  error={errors.role && t(errors.role?.message + "")}
-                  className={errors.role?.message ? "error" : isValidRole}
+                  error={errors.position && t(errors.position?.message + "")}
+                  className={
+                    errors.position?.message ? "error" : isValidPosition
+                  }
                 />
               </div>
               <div className="form-group space">
@@ -142,12 +163,16 @@ const EmployerContact = () => {
                   className={errors.email?.message ? "error" : isValidEmail}
                 />
                 <InputFloating
-                  name="phone"
+                  name="phoneNumber"
                   register={register}
                   label={t("Phone number")}
                   required={true}
-                  error={errors.phone && t(errors.phone?.message + "")}
-                  className={errors.phone?.message ? "error" : isValidPhone}
+                  error={
+                    errors.phoneNumber && t(errors.phoneNumber?.message + "")
+                  }
+                  className={
+                    errors.phoneNumber?.message ? "error" : isValidPhoneNumber
+                  }
                 />
               </div>
               <div className="form-group">

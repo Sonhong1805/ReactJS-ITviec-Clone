@@ -25,6 +25,7 @@ interface IChangePassword extends IResetPassword {
 
 interface TRegisterEmployer extends IUser {
   source?: string;
+  position: string;
   companyName: string;
   companyAddress: string;
   companyWebsite: string;

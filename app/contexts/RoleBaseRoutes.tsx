@@ -1,4 +1,5 @@
 import React from "react";
+import Forbidden from "~/components/Forbidden";
 import { useUserStore } from "~/stores/userStore";
 
 const RoleBaseRoutes = ({ children }: { children: React.ReactNode }) => {
@@ -7,7 +8,7 @@ const RoleBaseRoutes = ({ children }: { children: React.ReactNode }) => {
   if (user.role && (user.role === "ADMIN" || user.role === "COMPANY")) {
     return children;
   } else {
-    return <div>Không có quyền</div>;
+    return <Forbidden />;
   }
 };
 

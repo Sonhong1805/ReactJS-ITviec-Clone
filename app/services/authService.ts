@@ -9,6 +9,9 @@ const authService = {
   register: (body: IRegister): Promise<IResponse<null>> => {
     return axios.post("/auth/register", body);
   },
+  registerCompany: (body: TRegisterEmployer): Promise<IResponse<null>> => {
+    return axios.post("/auth/register-company", body);
+  },
   refresh: () => {
     return axios.get("/auth/refresh");
   },
@@ -23,9 +26,13 @@ const authService = {
   logout: (): Promise<IResponse<null>> => {
     return axios.post("/auth/logout");
   },
-  forgotPassword: (email: string): Promise<IResponse<null>> => {
+  forgotPassword: (
+    email: string,
+    isCompany?: boolean
+  ): Promise<IResponse<null>> => {
     return axios.post("/auth/forgot-password", {
       email,
+      isCompany,
     });
   },
   resetPassword: (

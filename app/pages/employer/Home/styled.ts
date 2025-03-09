@@ -778,7 +778,7 @@ export const BlogPostsWrapper = styled.section`
         font-weight: 700;
       }
 
-      a {
+      span {
         display: flex;
         font-size: 1.6rem;
         color: var(--i-hyperlink);
@@ -813,14 +813,16 @@ export const BlogPostsWrapper = styled.section`
           flex: 1;
           flex-direction: column;
           justify-content: space-between;
+
           .blog-title {
             flex: 1;
+
             h2 {
               min-height: 4.8rem;
               margin: 1.6rem;
               font-size: 1.6rem;
 
-              a {
+              span {
                 color: var(--i-rich-grey);
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
@@ -834,7 +836,8 @@ export const BlogPostsWrapper = styled.section`
           .blog-link {
             margin-bottom: 2.4rem;
             padding-inline: 1.6rem;
-            a {
+
+            span {
               display: flex;
               font-size: 1.6rem;
               color: var(--i-hyperlink);

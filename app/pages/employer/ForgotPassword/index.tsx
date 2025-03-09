@@ -1,5 +1,5 @@
-import React from "react";
-import { SignInForm, ToastMessage } from "./styled";
+import React, { useState } from "react";
+import { ForgotAlert, SignInForm, ToastMessage } from "./styled";
 import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
 import { Link } from "react-router";
@@ -9,9 +9,13 @@ import IconToastError from "~/components/Icon/IconToastError";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import authService from "~/services/authService";
 
 const ForgotPassword = () => {
   const { t } = useTranslation(["auth"]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [showError, setShowError] = useState(false);
+
   const schema = z.object({
     email: z.string().optional(),
   });
@@ -22,17 +26,26 @@ const ForgotPassword = () => {
     handleSubmit,
     reset,
     watch,
-  } = useForm<TLogin>({
+  } = useForm<TForgotPassword>({
     defaultValues: {
       email: "",
-      password: "",
     },
     resolver: zodResolver(schema),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<TForgotPassword> = async (
+    data: TForgotPassword
+  ) => {
+    const response = await authService.forgotPassword(data.email, true);
+    if (response.isSuccess) {
+      setShowAlert(true);
+      setShowError(false);
+      localStorage.setItem("email-company", data.email);
+    } else {
+      setShowAlert(false);
+      setShowError(true);
+    }
   };
   return (
     <SignInForm>
@@ -47,16 +60,25 @@ const ForgotPassword = () => {
         </Link>
       </div>
       <h1>{t("Forgot password")}</h1>
-      <ToastMessage>
-        <div className="toast-icon">
-          <IconToastError />
-        </div>
-        <div className="toast-message">
+      {showAlert && (
+        <ForgotAlert>
           {t(
-            "This email address does not exist in our database, please contact our Customer Love Team for support"
+            "You will receive an email with instructions about how to reset your password in a few minutes."
           )}
-        </div>
-      </ToastMessage>
+        </ForgotAlert>
+      )}
+      {showError && (
+        <ToastMessage>
+          <div className="toast-icon">
+            <IconToastError />
+          </div>
+          <div className="toast-message">
+            {t(
+              "This email address does not exist in our database, please contact our Customer Love Team for support"
+            )}
+          </div>
+        </ToastMessage>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <InputFloating

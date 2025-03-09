@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router";
 import { AuthWrapper, SwitchLanguage } from "./styled";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -40,6 +41,7 @@ const Layout = () => {
           </div>
         </SwitchLanguage>
         <Outlet />
+        <ToastContainer />
       </div>
     </AuthWrapper>
   );

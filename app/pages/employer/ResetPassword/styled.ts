@@ -138,3 +138,14 @@ export const SignInForm = styled.div`
     }
   }
 `;
+
+export const NoteAccount = styled.div`
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 4.8rem;
+
+  p {
+    padding-inline: 0.4rem;
+  }
+`;

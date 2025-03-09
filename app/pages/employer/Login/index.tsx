@@ -1,30 +1,30 @@
 import { useTranslation } from "react-i18next";
-import { RememberMeCheck, SignInForm } from "./styled";
+import { RememberMeCheck, SignInForm, ToastMessage } from "./styled";
 import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import authService from "~/services/authService";
+import { useUserStore } from "~/stores/userStore";
+import IconToastError from "~/components/Icon/IconToastError";
 
 const Login = () => {
-  const { t, i18n } = useTranslation(["auth"]);
+  const { t } = useTranslation(["auth"]);
   const [isRememberMe, setIsRememberMe] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useUserStore((s) => s);
 
   const schema = z.object({
     email: z.string().optional(),
     password: z.string().optional(),
   });
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-    watch,
-  } = useForm<TLogin>({
+  const { register, handleSubmit, reset } = useForm<ILogin>({
     defaultValues: {
       email: "",
       password: "",
@@ -33,8 +33,16 @@ const Login = () => {
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<TLogin> = async (data: TLogin) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ILogin> = async (data: ILogin) => {
+    const response = await authService.login(data);
+    if (response.isSuccess && response.data) {
+      login(response.data.user);
+      localStorage.setItem("access_token", response.data.accessToken as string);
+      navigate("/employer/dashboard");
+      reset();
+    } else {
+      setShowError(true);
+    }
   };
 
   return (
@@ -44,6 +52,16 @@ const Login = () => {
         <h3>CUSTOMER ADMIN SITE</h3>
       </div>
       <h1>{t("Welcome to ITviec Customer")}</h1>
+      {showError && (
+        <ToastMessage>
+          <div className="toast-icon">
+            <IconToastError />
+          </div>
+          <h6 className="toast-message">
+            {t("Oops! Wrong username and/or password. Please try again.")}
+          </h6>
+        </ToastMessage>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <InputFloating

@@ -207,3 +207,40 @@ export const RememberMeCheck = styled.label`
     border-color: var(--i-rich-grey);
   }
 `;
+
+export const ToastMessage = styled.div`
+  z-index: 1056;
+  background-color: var(--i-light-error-color);
+  display: flex;
+  padding: 1.6rem 1.6rem 1.6rem 2.4rem;
+  border: none;
+  border-radius: 0.8rem;
+  margin-bottom: 2.4rem;
+  width: auto;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: inherit;
+    margin-right: 4.8rem;
+    width: 0.8rem;
+    height: 100%;
+    border-top-left-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+    background-color: var(--i-error-color);
+  }
+
+  .toast-icon {
+    padding-right: 0.8rem;
+    line-height: 0;
+  }
+
+  .toast-message {
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 1.4rem;
+    margin-right: 18px;
+  }
+`;

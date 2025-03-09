@@ -103,7 +103,7 @@ const Header = () => {
               location.pathname !== "/login" &&
               location.pathname !== "/register" && (
                 <HeaderListItem>
-                  <Link to={"login"} className="employer">
+                  <Link to={"employer"} className="employer">
                     {t("Sign in/Sign up")}
                   </Link>
                 </HeaderListItem>

@@ -44,7 +44,7 @@ const ProfileSettings = () => {
         .nonempty({ message: t("Please enter your new password") })
         .min(12, t("Minimum 12 characters"))
         .regex(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*(),.?":{}|<>_\/\\+\-=`~]).{12,}$/,
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]).{12,}$/,
           t(
             "At least 1 symbol, 1 number, 1 uppercase letter, 1 lowercase letter."
           )

@@ -35,7 +35,7 @@ const ResetPassword = () => {
         .nonempty({ message: t("Can't be blank") })
         .min(12, t("Minimum 12 characters"))
         .regex(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*(),.?":{}|<>_\/\\+\-=`~]).{12,}$/,
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]).{12,}$/,
           t(
             "Password must contain at least 12 characters. Combination of symbols, numbers, uppercase letters, lowercase letters."
           )

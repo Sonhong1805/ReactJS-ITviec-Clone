@@ -174,3 +174,14 @@ export const ToastMessage = styled.div`
     font-size: 1.4rem;
   }
 `;
+
+export const ForgotAlert = styled.div`
+  padding: 1.6rem;
+  margin-bottom: 1.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid transparent;
+  font-size: 1.4rem;
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+`;
