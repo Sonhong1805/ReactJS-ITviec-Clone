@@ -59,7 +59,6 @@ export const HeaderListItem = styled.li`
   color: var(--i-white);
   display: flex;
   align-items: center;
-  cursor: pointer;
   padding-block: 2rem;
   position: relative;
   cursor: pointer;
@@ -73,9 +72,9 @@ export const HeaderListItem = styled.li`
     }
   }
 
-  &:hover a.employer {
+  &:hover a {
     color: var(--i-white);
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   &:hover .submenu {
@@ -116,8 +115,8 @@ export const HeaderAccount = styled.div`
 
 export const HeaderSubmenu = styled.ul`
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: calc(100% - 1px);
+  left: 0px;
   background: var(--i-black);
   display: none;
 
@@ -171,6 +170,7 @@ export const HeaderSubmenu = styled.ul`
 
         ul.submenu-child {
           display: grid;
+          border-left: 1px solid rgba(255, 255, 255, 0.1019607843);
 
           &.skills {
             grid-template-columns: repeat(4, 1fr);
@@ -204,6 +204,14 @@ export const HeaderSubmenu = styled.ul`
 
             li {
               width: 21.04rem;
+
+              &:last-child {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                justify-content: center;
+                width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.1019607843);
+              }
             }
           }
 

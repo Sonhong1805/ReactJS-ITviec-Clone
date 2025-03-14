@@ -14,6 +14,8 @@ import SETTINGS_EN from "../locales/en/Settings.json";
 import SETTINGS_VI from "../locales/vi/Setttings.json";
 import AUTH_EN from "../locales/en/Auth.json";
 import AUTH_VI from "../locales/vi/Auth.json";
+import OPTION_EN from "../locales/en/Option.json";
+import OPTION_VI from "../locales/vi/Option.json";
 
 const resources = {
   en: {
@@ -24,6 +26,7 @@ const resources = {
     apply: APPLY_EN,
     settings: SETTINGS_EN,
     auth: AUTH_EN,
+    option: OPTION_EN,
   },
   vi: {
     header: HEADER_VI,
@@ -33,6 +36,7 @@ const resources = {
     apply: APPLY_VI,
     settings: SETTINGS_VI,
     auth: AUTH_VI,
+    option: OPTION_VI,
   },
 };
 
@@ -42,7 +46,16 @@ i18n.use(initReactI18next).init({
   resources,
   lng: "vi",
   fallbackLng: "vi",
-  ns: ["header", "footer", "home", "search", "apply", "settings", "auth"],
+  ns: [
+    "header",
+    "footer",
+    "home",
+    "search",
+    "apply",
+    "settings",
+    "auth",
+    "option",
+  ],
   defaultNS,
   interpolation: {
     escapeValue: false,

@@ -78,6 +78,10 @@ export const CompanyInfoMain = styled.div`
         font-size: 14px;
         line-height: 24px;
         color: #868686;
+
+        &.error {
+          color: var(--i-error-color);
+        }
       }
     }
   }

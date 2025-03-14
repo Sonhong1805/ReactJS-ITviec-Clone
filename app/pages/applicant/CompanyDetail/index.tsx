@@ -12,15 +12,22 @@ import Employer from "./Employer";
 import { useState } from "react";
 import Reviews from "./Reviews";
 import Breadcrumb from "~/components/Breadcrumb";
+import { useCompanyQuery } from "~/hooks/useCompanyQuery";
+import Loading from "~/components/Loading";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
-  const { t } = useTranslation(["search"]);
+
+  const { t } = useTranslation(["search", "header"]);
   const [showReviews, setShowReviews] = useState(false);
+
+  const { data, isPending, isSuccess } = useCompanyQuery(slug + "");
+  console.log(data);
 
   return (
     <CompanyDetailWrapper>
-      <Employer />
+      {isPending && <Loading />}
+      {data && isSuccess ? <Employer data={data} /> : <p>Loading</p>}
       <CompanyInfoContainer>
         <CompanyInfoMain>
           <Tabs>
@@ -41,15 +48,23 @@ const CompanyDetail = () => {
               </li>
             </ul>
           </Tabs>
-          {!showReviews ? <Overview /> : <Reviews />}
+          {data && isSuccess ? (
+            !showReviews ? (
+              <Overview data={data} />
+            ) : (
+              <Reviews />
+            )
+          ) : (
+            <div>loading</div>
+          )}
         </CompanyInfoMain>
         <JobListing />
       </CompanyInfoContainer>
       <Breadcrumb
-        primaryLinkLabel={t("For Employers")}
+        primaryLinkLabel={t("For Employers", { ns: "header" })}
         primaryLinkUrl="/employer"
-        secondaryLinkLabel="Persol Career Tech Studio Vietnam"
-        secondaryLinkUrl="/"
+        secondaryLinkLabel={data?.companyName ?? ""}
+        secondaryLinkUrl={"company/" + data?.slug || ""}
         viewCount={29720}
       />
     </CompanyDetailWrapper>

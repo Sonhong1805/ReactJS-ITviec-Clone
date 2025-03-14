@@ -15,6 +15,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,14 +49,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
-
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 export default function App() {
   return (
-    <I18nextProvider i18n={i18n}>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
-        <Outlet />
-      </GoogleOAuthProvider>
-    </I18nextProvider>
+    <QueryClientProvider client={queryClient}>
+      <I18nextProvider i18n={i18n}>
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
+          <Outlet />
+        </GoogleOAuthProvider>
+      </I18nextProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

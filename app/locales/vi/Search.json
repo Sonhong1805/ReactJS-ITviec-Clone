@@ -63,17 +63,10 @@
   },
   "Search industry": "Tìm kiếm lĩnh vực",
   "No results found": "Không tìm thấy kết quả",
-  "Company Type": {
-    "value": "Loại công ty",
-    "outsource": "Thuê ngoài",
-    "product": "Sản phẩm",
-    "headhunt": "Headhunt",
-    "service": "Dịch vụ và Tư vấn giải pháp",
-    "nonIT": "Non-IT"
-  },
   "Reset filter": "Xoá bộ lọc",
   "Apply": "Áp dụng",
   "Skills": "Kỹ năng",
+  "skills": "kỹ năng",
   "Introduce": {
     "Company type": "Mô hình công ty",
     "Company industry": "Lĩnh vực công ty",

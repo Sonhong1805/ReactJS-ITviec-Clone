@@ -8,6 +8,9 @@ interface UserState {
   isLoading: boolean;
   login: (payload: IUser) => void;
   logout: () => void;
+  updateCompanyInfo: (
+    payload: Pick<IUser, "username" | "email" | "phoneNumber">
+  ) => void;
 }
 
 const initialState: UserState = {
@@ -15,6 +18,7 @@ const initialState: UserState = {
     id: 0,
     username: "",
     email: "",
+    phoneNumber: "",
     loginType: "EMAIL",
     role: "APPLICANT",
     createdAt: null,
@@ -25,6 +29,7 @@ const initialState: UserState = {
   isLoading: true,
   login: () => {},
   logout: () => {},
+  updateCompanyInfo: () => {},
 };
 
 export const useUserStore = create<UserState>()(
@@ -43,6 +48,22 @@ export const useUserStore = create<UserState>()(
           state.user = initialState.user;
         });
         useUserStore.persist.clearStorage();
+      },
+      updateCompanyInfo: (payload) => {
+        set((state) => {
+          const currentUsername = state.user.username;
+          const currentEmail = state.user.email;
+          const currentPhoneNumber = state.user.phoneNumber;
+          if (currentUsername !== payload.username) {
+            state.user.username = payload.username;
+          }
+          if (currentEmail !== payload.email) {
+            state.user.email = payload.email;
+          }
+          if (currentPhoneNumber !== payload.phoneNumber) {
+            state.user.phoneNumber = payload.phoneNumber;
+          }
+        });
       },
     })),
     {

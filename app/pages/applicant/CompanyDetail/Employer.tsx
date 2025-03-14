@@ -13,8 +13,12 @@ import { Link } from "react-router";
 import { FiBriefcase, FiCheck, FiMapPin, FiX } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 
-const Employer = () => {
-  const { t } = useTranslation(["search"]);
+interface IProps {
+  data: Company;
+}
+
+const Employer = ({ data }: IProps) => {
+  const { t } = useTranslation(["search", "option"]);
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
@@ -31,15 +35,18 @@ const Employer = () => {
     <>
       <EmployerBg>
         <EmployerContainer>
-          <Link to={""} className="company-logo">
-            <img src={"/assets/images/Thankslab-Logo.png"} alt="company-logo" />
+          <Link to={"company/" + data.slug} className="company-logo">
+            <img
+              src={data.logo + "" || "/assets/svg/avatar-default.svg"}
+              alt="company logo"
+            />
           </Link>
           <EmployerInfo>
-            <h1>CJ OLIVENETWORKS VINA CO., LTD</h1>
+            <h1>{data.companyName}</h1>
             <EmployerGroup>
               <EmployerShow>
                 <FiMapPin />
-                <span>Ho Chi Minh</span>
+                <span>{t(data.location, { ns: "option" })}</span>
               </EmployerShow>
               <EmployerShow>
                 <FiBriefcase />
@@ -75,7 +82,7 @@ const Employer = () => {
           <EmployerContainer>
             <div className="employer">
               <div className="employer-name">
-                <h3>CJ OLIVENETWORKS VINA CO., LTD</h3>
+                <h3>{data.companyName}</h3>
               </div>
               <div className="employer-buttons">
                 <EmployerButtons $review>

@@ -1,13 +1,10 @@
-interface IUser {
+interface IUser extends IBase {
   id: number;
   username: string;
   email: string;
   phoneNumber: string;
   loginType: "EMAIL" | "GOOGLE";
   role: "APPLICANT" | "COMPANY" | "ADMIN";
-  createdAt: Date | null;
-  updatedAt: Date | null;
-  deletedAt: Date | null;
 }
 
 type IPersonalDetails = Pick<

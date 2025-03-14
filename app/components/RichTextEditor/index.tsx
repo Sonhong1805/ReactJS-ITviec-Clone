@@ -59,10 +59,10 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
 const initialValue: Descendant[] = [
-  {
-    type: "paragraph",
-    children: [{ text: "Nhập nội dung!" }],
-  },
+  // {
+  //   type: "paragraph",
+  //   children: [{ text: "Nhập nội dung!" }],
+  // },
 ] as CustomElement[];
 
 interface IProps {
@@ -70,11 +70,13 @@ interface IProps {
   setContent: Dispatch<SetStateAction<string>>;
 }
 const RichTextEditor = ({ content, setContent }: IProps) => {
-  const serializedToSlate = htmlToSlate(content, convertHtmlToSlate);
+  const [slate, setSlate] = useState<Descendant[]>(initialValue);
 
-  const [slate, setSlate] = useState<Descendant[]>(
-    serializedToSlate.length > 0 ? serializedToSlate : initialValue
-  );
+  useEffect(() => {
+    const serializedToSlate = htmlToSlate(content, convertHtmlToSlate);
+    setSlate(serializedToSlate.length > 0 ? serializedToSlate : initialValue);
+  }, [content]);
+
   const renderElement = useCallback((props: any) => <Element {...props} />, []);
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -89,6 +91,7 @@ const RichTextEditor = ({ content, setContent }: IProps) => {
 
   return (
     <Slate
+      key={JSON.stringify(slate)}
       editor={editor}
       initialValue={slate}
       onChange={(newValue) => setSlate(newValue)}>

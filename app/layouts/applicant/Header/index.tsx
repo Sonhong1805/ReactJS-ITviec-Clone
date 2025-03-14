@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   HeaderAccount,
   HeaderContainer,
@@ -13,20 +13,25 @@ import {
 } from "./styled";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import Logo from "/assets/images/logo.png";
 import { FiChevronDown, FiLogOut } from "react-icons/fi";
 import SwitchLanguage from "~/components/SwitchLanguage";
 import { useUserStore } from "~/stores/userStore";
 import userLinks from "~/constants/userLinks";
 import authService from "~/services/authService";
+import cities from "~/constants/cities";
+import skillService from "~/services/skillService";
+import { useQuery } from "@tanstack/react-query";
+import { useSkillStore } from "~/stores/skillStore";
 
 const Header = () => {
-  const { t } = useTranslation(["header"]);
+  const { t, i18n } = useTranslation(["header"]);
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
   const { isAuthenticated, user, logout } = useUserStore((s) => s);
+  const saveSkills = useSkillStore((s) => s.saveSkills);
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (index: number) => {
@@ -41,6 +46,18 @@ const Header = () => {
     }
   };
 
+  const { data: skills, isSuccess } = useQuery({
+    queryKey: ["skills"],
+    queryFn: skillService.getAll,
+    select: ({ data }) => data,
+  });
+
+  useEffect(() => {
+    if (isSuccess && skills) {
+      saveSkills(skills);
+    }
+  }, [isSuccess, skills, saveSkills]);
+
   return (
     <StyledHeader>
       <HeaderContainer ref={headerContainerRef}>
@@ -54,27 +71,139 @@ const Header = () => {
                 {t("All Jobs.value")}{" "}
                 <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
+              <HeaderSubmenu className={`submenu active-${activeIndex}`}>
+                <li
+                  className={`submenu-item ${
+                    activeIndex === 1 ? "active skills" : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(1)}>
+                  <span>{t("All Jobs.skills")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child skills">
+                    {skills?.slice(0, 32).map((skill) => (
+                      <li key={skill.id}>{skill.name}</li>
+                    ))}
+                    <li onClick={() => navigate("/find-job/skill")}>
+                      {t("View all Jobs by skill")}
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  className={`submenu-item ${
+                    activeIndex === 2 ? "active" : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(2)}>
+                  <span>{t("All Jobs.title")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child ranks">
+                    {skills?.slice(21, 42).map((skill) => (
+                      <li key={skill.id}>
+                        {i18n.language === "vi"
+                          ? `${t("All Jobs.developer")} ${skill.name}`
+                          : `${skill.name} ${t("All Jobs.developer")}`}
+                      </li>
+                    ))}
+                    <li>{t("View all Jobs by title")}</li>
+                  </ul>
+                </li>
+                <li
+                  className={`submenu-item ${
+                    activeIndex === 3 ? "active" : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(3)}>
+                  <span>{t("All Jobs.company")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child companies">
+                    {/* {companyList.map((company) => (
+                      <li
+                        key={company.id}
+                        onClick={() =>
+                          handleSubmenuItem("company", company.id)
+                        }>
+                        {company.name}
+                      </li>
+                    ))} */}
+                    <li onClick={() => navigate("/find-job/company")}>
+                      {t("View all Jobs by company")}
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  className={`submenu-item ${
+                    activeIndex === 4 ? "active" : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(4)}>
+                  <span>{t("All Jobs.city")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child cities">
+                    {cities.map((city) => (
+                      <li key={city.value}>{city.label}</li>
+                    ))}
+                  </ul>
+                </li>
+              </HeaderSubmenu>
             </HeaderListItem>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
                 {t("IT Companies.value")}{" "}
                 <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
+              <HeaderSubmenu className={`submenu active-${activeIndex}`}>
+                <li
+                  className={`submenu-item ${
+                    activeIndex === 5 ? "active skills" : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(5)}>
+                  <span>{t("IT Companies.Best IT Companies")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child">
+                    <li>{t("IT Companies.Best IT Companies")} 2024</li>
+                    <li>{t("IT Companies.Best IT Companies")} 2023</li>
+                    <li>{t("IT Companies.Best IT Companies")} 2022</li>
+                    <li>{t("IT Companies.Best IT Companies")} 2021</li>
+                    <li>{t("IT Companies.Best IT Companies")} 2020</li>
+                    <li>{t("IT Companies.Best IT Companies")} 2019</li>
+                  </ul>
+                </li>
+                <li className={`submenu-item`}>
+                  <span>{t("IT Companies.Company Reviews")}</span>
+                </li>
+              </HeaderSubmenu>
             </HeaderListItem>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
                 Blog <FiChevronDown size={24} className="arrow-down" />
               </MenuLink>
+              <HeaderSubmenu className={`submenu`}>
+                <li className={`submenu-item`}>
+                  <span>{t("Blog.IT Salary Report")}</span>
+                  <IoIosArrowForward />
+                  <ul className="submenu-child">
+                    <li>{t("Blog.IT Salary Report")} 2024-2025</li>
+                    <li>{t("Blog.IT Salary Report")} 2023-2024</li>
+                    <li>{t("Blog.IT Salary Report")} 2022-2023</li>
+                  </ul>
+                </li>
+                <li className={`submenu-item`}>
+                  <span>{t("Blog.IT Career")}</span>
+                </li>
+                <li className={`submenu-item`}>
+                  <span>{t("Blog.Applying & Career Up")}</span>
+                </li>
+                <li className={`submenu-item`}>
+                  <span>{t("Blog.IT Expertise")}</span>
+                </li>
+              </HeaderSubmenu>
             </HeaderListItem>
           </HeaderList>
           <HeaderList $right>
             <HeaderListItem>
-              <Link to={"employer"} className="employer" target="_blank">
+              <Link to={"/employer"} className="employer" target="_blank">
                 {t("For Employers")}
               </Link>
             </HeaderListItem>
-            <HeaderListItem>
-              {isAuthenticated && (
+            {isAuthenticated && (
+              <HeaderListItem>
                 <HeaderAccount>
                   <figure className="avatar">
                     <img
@@ -97,13 +226,13 @@ const Header = () => {
                     </a>
                   </ProfileSubmenu>
                 </HeaderAccount>
-              )}
-            </HeaderListItem>
+              </HeaderListItem>
+            )}
             {!isAuthenticated &&
               location.pathname !== "/login" &&
               location.pathname !== "/register" && (
                 <HeaderListItem>
-                  <Link to={"employer"} className="employer">
+                  <Link to={"/login"} className="employer">
                     {t("Sign in/Sign up")}
                   </Link>
                 </HeaderListItem>

@@ -7,6 +7,7 @@ import {
   SelectWrapper,
 } from "./styled";
 import { useEffect, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   name: string;
@@ -14,9 +15,10 @@ interface IProps {
   required?: boolean;
   error?: string;
   className?: string;
-  options: any[];
+  options: Option[];
   register: any;
   onSetValue: (value: string) => void;
+  defaultValue?: Option;
 }
 
 const SelectFloating = ({
@@ -28,16 +30,26 @@ const SelectFloating = ({
   options,
   register,
   onSetValue,
+  defaultValue,
 }: IProps) => {
+  const { t } = useTranslation(["option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
-  const [optionValue, setOptionValue] = useState("");
   const selectWrapperRef = useRef<HTMLDivElement>(null);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(
+    defaultValue || null
+  );
 
-  const handleOptionValue = (value: string) => {
-    setOptionValue(value);
+  useEffect(() => {
+    if (defaultValue && !selectedOption) {
+      setSelectedOption(defaultValue);
+    }
+  }, [defaultValue]);
+
+  const handleGetOption = (option: Option) => {
+    setSelectedOption(option);
     setIsShowOptions(false);
     if (onSetValue) {
-      onSetValue(value);
+      onSetValue(option.value as any);
     }
   };
 
@@ -68,12 +80,12 @@ const SelectFloating = ({
           placeholder={" "}
           checked={isShowOptions}
           {...register(name)}
-          value={optionValue}
+          value={t(selectedOption?.label + "")}
           onChange={() => {}}
           readOnly
           disabled
           className={`${className} ${isShowOptions && "isFocus"} ${
-            optionValue && "isValid"
+            selectedOption?.label && "isValid"
           }`}
           style={
             options && options?.length > 0
@@ -92,19 +104,19 @@ const SelectFloating = ({
             onClick={() => setIsShowOptions(!isShowOptions)}
           />
         )}
+        {isShowOptions && options && (
+          <OptionList>
+            {options?.map((option) => (
+              <OptionItem
+                key={option.value}
+                onClick={() => handleGetOption(option)}>
+                {t(option.label)}
+              </OptionItem>
+            ))}
+          </OptionList>
+        )}
       </SelectFloatingWrapper>
-      {!optionValue && error && <AlertError>{error}</AlertError>}
-      {isShowOptions && options && (
-        <OptionList>
-          {options.map((option) => (
-            <OptionItem
-              key={option.value}
-              onClick={() => handleOptionValue(option.label)}>
-              {option.label}
-            </OptionItem>
-          ))}
-        </OptionList>
-      )}
+      {!selectedOption?.label && error && <AlertError>{error}</AlertError>}
     </SelectWrapper>
   );
 };

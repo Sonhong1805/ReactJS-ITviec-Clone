@@ -63,17 +63,10 @@
   },
   "Search industry": "Search industry",
   "No results found": "No results found",
-  "Company Type": {
-    "value": "Company Type",
-    "outsource": "IT Outsourcing",
-    "product": "IT Product",
-    "headhunt": "Headhunt",
-    "service": "IT Service and IT Consulting",
-    "nonIT": "Non-IT"
-  },
   "Reset filter": "Reset filter",
   "Apply": "Apply",
   "Skills": "Skills",
+  "skills": "skills",
   "Introduce": {
     "Company type": "Company type",
     "Company industry": "Company industry",
