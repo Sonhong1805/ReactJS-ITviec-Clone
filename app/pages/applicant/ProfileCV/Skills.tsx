@@ -27,7 +27,7 @@ const Skills = () => {
     watch,
     setValue,
     setError,
-  } = useForm<ISkills>({
+  } = useForm<Skills>({
     defaultValues: {
       skillName: "",
       skillLevel: "",
@@ -36,7 +36,7 @@ const Skills = () => {
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<ISkills> = async (data: ISkills) => {
+  const onSubmit: SubmitHandler<Skills> = async (data: Skills) => {
     console.log(data);
   };
 

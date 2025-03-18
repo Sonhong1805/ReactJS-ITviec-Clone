@@ -107,14 +107,14 @@ export const BoxIndustry = styled.div`
     }
   }
 
-  .industry-filter-dropdown {
-    border: 1px solid transparent;
-    padding: 0;
-    max-height: 20rem;
-    margin-right: 1.6rem;
-    margin-bottom: 1.6rem;
-    margin-top: 0.4rem;
-    padding-left: 1.6rem;
+  .input-search-dropdown {
+    border: none;
+    margin-bottom: 16px;
+    margin-right: 16px;
+
+    &.empty {
+      padding-block: 0;
+    }
   }
 `;
 
@@ -140,7 +140,6 @@ export const customStyles = {
     padding: "0",
     border: "none",
     borderRadius: ".7rem",
-    height: "calc(100% - 5.6rem)",
   },
 };
 

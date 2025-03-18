@@ -1,14 +1,14 @@
 const workingModels = [
   {
-    id: 1,
+    value: "At office",
     label: "At office",
   },
   {
-    id: 2,
+    value: "Remote",
     label: "Remote",
   },
   {
-    id: 3,
+    value: "Hybrid",
     label: "Hybrid",
   },
 ];

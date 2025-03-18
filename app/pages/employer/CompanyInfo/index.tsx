@@ -40,6 +40,7 @@ const CompanyInfo = () => {
   const [overview, setOverview] = useState("");
   const [perks, setPerks] = useState("");
   const { t } = useTranslation(["search", "auth"]);
+
   const { selectedSkillIds, handleSelectedSkillIds, saveSelectedSkillIds } =
     useSkillStore((s) => s);
   const { email, phoneNumber, username } = useUserStore((s) => s.user);
@@ -241,7 +242,10 @@ const CompanyInfo = () => {
     queryKey: ["indutries"],
     queryFn: industryService.getAll,
     select: ({ data }) =>
-      data.map((item) => ({ value: item.id, label: item.name })),
+      data.map((item) => ({
+        value: item.id,
+        label: item.name_en,
+      })),
   });
 
   const skillIdsDebounce = useDebounce(watch("skillIds") + "", 1000);
@@ -422,7 +426,7 @@ const CompanyInfo = () => {
                   watch("industryId")
                     ? {
                         value: company?.industry?.id + "",
-                        label: company?.industry?.name + "",
+                        label: company?.industry?.name_en + "",
                       }
                     : undefined
                 }

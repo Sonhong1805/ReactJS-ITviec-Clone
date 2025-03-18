@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const Overview = ({ data }: IProps) => {
-  const { t } = useTranslation(["search", "option"]);
+  const { t, i18n } = useTranslation(["search", "option"]);
   return (
     <>
       <GeneralInformation>
@@ -27,7 +27,14 @@ const Overview = ({ data }: IProps) => {
             <div className="general-title">
               {t("Introduce.Company industry")}
             </div>
-            <p>{t(data.industry?.name + "", { ns: "option" })}</p>
+            <p>
+              {t(
+                data.industry?.[
+                  i18n.language === "en" ? "name_en" : "name_vi"
+                ] || "",
+                { ns: "option" }
+              )}
+            </p>
           </div>
           <div>
             <div className="general-title">{t("Introduce.Company size")}</div>

@@ -9,6 +9,9 @@ const companyService = {
   getDetail: (param: string | number): Promise<IResponse<Company>> => {
     return axios.get(`/company/${param}`);
   },
+  getAll: (): Promise<IResponse<Company[]>> => {
+    return axios.get(`/company`);
+  },
   update: ({
     id,
     body,

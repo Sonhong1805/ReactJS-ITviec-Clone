@@ -38,14 +38,25 @@ export const PreviewJobCompany = styled.div`
     gap: 0.8rem;
 
     .job-name {
-      font-size: 2.2rem;
-      line-height: 3.3rem;
-      color: var(--i-rich-grey);
+      h2 {
+        color: var(--i-rich-grey);
+        transition-duration: 300ms;
+        font-size: 2.2rem;
+        line-height: 3.3rem;
+      }
+
+      &:hover h2 {
+        color: var(--i-red);
+      }
     }
 
     .company-name {
       color: var(--i-rich-grey);
       font-size: 1.6rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .job-salary {
@@ -91,6 +102,14 @@ export const PreviewJobRecruitment = styled.div`
     font-size: 1.6rem;
     font-weight: 600;
     border-radius: 4px;
+    background-color: var(--i-red);
+    border-color: var(--i-red);
+
+    &:hover {
+      background: var(--i-dark-red);
+      background-color: var(--i-dark-red);
+      border-color: var(--i-dark-red);
+    }
   }
 
   svg {
@@ -177,24 +196,16 @@ export const PreviewJobOverview = styled.section`
 
 export const PreviewJobReasons = styled.section`
   h2 {
-    font-size: 2.2rem;
-    line-height: 3.3rem;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 16px !important;
   }
 
-  ul {
-    font-size: 1.6rem;
+  .rich-text {
+    font-size: 16px;
     font-weight: 400;
-    margin-block: 0.8rem;
-    padding-left: 1.8rem;
-
-    li {
-      list-style-type: disc;
-      padding-block: 0.4rem;
-
-      &::marker {
-        color: var(--i-red);
-      }
-    }
+    line-height: 1.8 !important;
   }
 `;
 

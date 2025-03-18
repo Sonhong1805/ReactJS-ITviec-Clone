@@ -14,6 +14,7 @@ import Reviews from "./Reviews";
 import Breadcrumb from "~/components/Breadcrumb";
 import { useCompanyQuery } from "~/hooks/useCompanyQuery";
 import Loading from "~/components/Loading";
+import Skeleton from "react-loading-skeleton";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
@@ -22,12 +23,11 @@ const CompanyDetail = () => {
   const [showReviews, setShowReviews] = useState(false);
 
   const { data, isPending, isSuccess } = useCompanyQuery(slug + "");
-  console.log(data);
 
   return (
     <CompanyDetailWrapper>
       {isPending && <Loading />}
-      {data && isSuccess ? <Employer data={data} /> : <p>Loading</p>}
+      {data && isSuccess ? <Employer data={data} /> : <Loading />}
       <CompanyInfoContainer>
         <CompanyInfoMain>
           <Tabs>

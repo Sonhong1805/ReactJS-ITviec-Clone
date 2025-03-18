@@ -8,37 +8,27 @@ import {
   SelectPane,
   Overlay,
 } from "./styled";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState, type SyntheticEvent } from "react";
+import { createSearchParams, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { FiX } from "react-icons/fi";
 
 import SearchOptions from "./SearchOptions";
 import CityOptions from "./CityOptions";
+import { routes } from "~/constants/routes";
 
 interface IProps {
-  valueCity?: string;
-  valueKeyword?: string;
+  paramCity?: string;
+  paramKeyword?: string;
 }
 
-const SearchForm = ({ valueCity, valueKeyword }: IProps) => {
-  const { t, i18n } = useTranslation(["home"]);
+const SearchForm = ({ paramCity, paramKeyword }: IProps) => {
+  const { t } = useTranslation(["home", "option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
-  const [optionValue, setOptionValue] = useState(valueCity || t("All Cities"));
-  const [keywords, setKeywords] = useState("");
+  const [optionValue, setOptionValue] = useState(paramCity || t("All Cities"));
+  const [keyword, setKeyword] = useState(paramKeyword || "");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (valueKeyword) {
-      setKeywords(valueKeyword);
-    }
-  }, [valueKeyword]);
-
-  useEffect(() => {
-    setOptionValue(t("All Cities"));
-  }, [t, i18n.language]);
-
   const handleOptions = () => {
     setIsShowOptions(!isShowOptions);
   };
@@ -58,15 +48,6 @@ const SearchForm = ({ valueCity, valueKeyword }: IProps) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [isShowOptions]);
-
-  const handleSearch = () => {
-    let city = optionValue || "";
-    city =
-      optionValue === "All Cities" || optionValue === "Tất cả thành phố"
-        ? ""
-        : city;
-    navigate(`/search?city=${city}&keywords=${keywords}`);
-  };
 
   useEffect(() => {
     const preventScroll = (event: any) => {
@@ -88,20 +69,43 @@ const SearchForm = ({ valueCity, valueKeyword }: IProps) => {
     };
   }, [isInputFocused, isShowOptions]);
 
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    let city = optionValue || "";
+    city = optionValue === "All Cities" ? "" : city;
+
+    const searchParams: Record<string, string> = {
+      city,
+      keyword,
+    };
+
+    const filteredParams = Object.fromEntries(
+      Object.entries(searchParams).filter(([_, value]) => value !== "")
+    );
+
+    navigate({
+      pathname: routes.ITJobs,
+      search: createSearchParams(filteredParams).toString(),
+    });
+
+    setIsShowOptions(false);
+    setIsInputFocused(false);
+  };
+
   return (
     <>
-      <Form onSubmit={(e) => e.preventDefault()}>
+      <Form onSubmit={handleSubmit}>
         <Select
           onClick={handleOptions}
           className={isShowOptions ? "select-active" : ""}>
           <SelectPane>
             <div className="select-value">
               <FiMapPin />
-              <span>{valueCity || optionValue}</span>
+              <span>{t(optionValue, { ns: "option" })}</span>
             </div>
             <FiChevronDown size={24} className="arrow-down" />
           </SelectPane>
-          {isShowOptions && <CityOptions />}
+          {isShowOptions && <CityOptions onOptionValue={handleOptionValue} />}
         </Select>
         <SearchBox>
           <SearchKeyword className={isInputFocused ? "focus" : "unfocus"}>
@@ -109,26 +113,26 @@ const SearchForm = ({ valueCity, valueKeyword }: IProps) => {
               <input
                 type="text"
                 placeholder={t("Placeholder")}
-                onChange={(e) => setKeywords(e.target.value)}
-                value={keywords}
+                onChange={(e) => setKeyword(e.target.value)}
+                value={keyword}
                 onFocus={() => setIsInputFocused(true)}
               />
               <FiX
-                className={keywords && "show"}
+                className={keyword && "show"}
                 onClick={() => {
-                  setKeywords("");
+                  setKeyword("");
                   setIsInputFocused(false);
                 }}
               />
             </div>
             {isInputFocused && (
               <SearchOptions
-                keywords={keywords}
+                keyword={keyword}
                 setIsInputFocused={setIsInputFocused}
               />
             )}
           </SearchKeyword>
-          <SearchButton onClick={handleSearch}>
+          <SearchButton type="submit">
             <FiSearch />
             {t("Search")}
           </SearchButton>

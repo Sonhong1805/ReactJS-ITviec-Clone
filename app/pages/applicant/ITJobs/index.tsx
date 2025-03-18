@@ -4,14 +4,19 @@ import CompanySpotlight from "./CompanySpotlight";
 import SearchResult from "./SearchResult";
 import Breadcrumb from "~/components/Breadcrumb";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
 
 const ITJobs = () => {
   const { t } = useTranslation(["home"]);
+  const [searchParams] = useSearchParams();
   return (
     <>
       <ITJobsWrapper>
         <JobsContainer>
-          <SearchForm />
+          <SearchForm
+            paramCity={searchParams.get("city") || ""}
+            paramKeyword={searchParams.get("keyword") || ""}
+          />
         </JobsContainer>
       </ITJobsWrapper>
       <ITJobsContainer>

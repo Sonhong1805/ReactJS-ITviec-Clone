@@ -51,8 +51,8 @@ const EmployerContact = () => {
       .string()
       .nonempty({ message: t("Please let us know your company name") })
       .min(4, t("Please enter at least 4 characters")),
-    companyAddress: z.string().nonempty({ message: t("Please select a city") }),
-    companyWebsite: z
+    location: z.string().nonempty({ message: t("Please select a city") }),
+    website: z
       .string()
       .optional()
       .refine(
@@ -77,8 +77,8 @@ const EmployerContact = () => {
       email: "",
       phoneNumber: "",
       companyName: "",
-      companyAddress: "",
-      companyWebsite: "",
+      location: "",
+      website: "",
     },
     resolver: zodResolver(schema),
     mode: "onTouched",
@@ -107,15 +107,15 @@ const EmployerContact = () => {
   const isValidEmail = useValidation(watch("email"));
   const isValidPhoneNumber = useValidation(watch("phoneNumber"));
   const isValidCompanyName = useValidation(watch("companyName"));
-  const isValidCompanyAddress = useValidation(watch("companyAddress"));
-  const companyWebsiteValue = useMemo(() => {
-    return watch("companyWebsite");
-  }, [watch("companyWebsite")]);
+  const isValidLocation = useValidation(watch("location"));
+  const websiteValue = useMemo(() => {
+    return watch("website");
+  }, [watch("website")]);
 
-  const isValidCompanyWebsite =
-    submitCount > 0 && !companyWebsiteValue
+  const isValidwebsite =
+    submitCount > 0 && !websiteValue
       ? "success"
-      : errors.companyWebsite?.message
+      : errors.website?.message
       ? "error"
       : "";
 
@@ -183,6 +183,7 @@ const EmployerContact = () => {
                   required={false}
                   options={sources}
                   onSetValue={(value) => setValue("source", value)}
+                  defaultValue={{ value: "", label: "" }}
                 />
               </div>
               <h3>{t("Company information")}</h3>
@@ -202,34 +203,27 @@ const EmployerContact = () => {
               </div>
               <div className="form-group">
                 <SelectFloating
-                  name="companyAddress"
+                  name="location"
                   register={register}
                   label={t("Company location")}
                   required={true}
-                  error={
-                    errors.companyAddress &&
-                    t(errors.companyAddress?.message + "")
-                  }
+                  error={errors.location && t(errors.location?.message + "")}
                   className={
-                    errors.companyAddress?.message
-                      ? "error"
-                      : isValidCompanyAddress
+                    errors.location?.message ? "error" : isValidLocation
                   }
                   options={cities}
-                  onSetValue={(value) => setValue("companyAddress", value)}
+                  onSetValue={(value) => setValue("location", value)}
+                  defaultValue={{ value: "", label: "" }}
                 />
               </div>
               <div className="form-group set-mb">
                 <InputFloating
-                  name="companyWebsite"
+                  name="website"
                   register={register}
                   label="Địa chỉ website"
                   required={false}
-                  error={
-                    errors.companyWebsite &&
-                    t(errors.companyWebsite?.message + "")
-                  }
-                  className={isValidCompanyWebsite}
+                  error={errors.website && t(errors.website?.message + "")}
+                  className={isValidwebsite}
                 />
                 <div className="helper-text">
                   {t(

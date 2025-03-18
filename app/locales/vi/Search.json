@@ -5,12 +5,12 @@
   "Filter": "Bộ lọc",
   "Posted": "Đăng",
   "Time": {
-    "Hour": " giờ trước",
-    "Minute": " phút trước",
-    "Second": " giây trước",
-    "Day": " ngày trước",
-    "Month": " tháng trước",
-    "Year": " năm trước"
+    "hours": "giờ trước",
+    "minutes": "phút trước",
+    "seconds": "giây trước",
+    "days": "ngày trước",
+    "months": "tháng trước",
+    "years": "năm trước"
   },
   "Sign in to view salary": "Đăng nhập để xem mức lương",
   "Apply now": "Ứng tuyển",
@@ -67,6 +67,7 @@
   "Apply": "Áp dụng",
   "Skills": "Kỹ năng",
   "skills": "kỹ năng",
+  "Company Type": "Loại công ty",
   "Introduce": {
     "Company type": "Mô hình công ty",
     "Company industry": "Lĩnh vực công ty",
@@ -139,5 +140,7 @@
   "Needs improvement": "Cần cải thiện nhiều",
   "Good": "Tốt",
   "Really good": "Rất tốt",
-  "Fanstatic!": "Tuyệt vời!"
+  "Fanstatic!": "Tuyệt vời!",
+  "Your skills and experience": "Yêu cầu công việc",
+  "Oops! The job you're looking for doesn't exist.": "Không tìm thấy kết quả nào phù hợp"
 }

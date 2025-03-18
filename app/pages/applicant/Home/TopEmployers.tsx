@@ -1,20 +1,83 @@
-import React from "react";
 import { MainContainer, MainWrapper, TopEmployersWrapper } from "./styled";
 import { Link } from "react-router";
-import { FaRegDotCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import IconOnline from "~/components/Icon/IconOnline";
+import { useQuery } from "@tanstack/react-query";
+import companyService from "~/services/companyService";
+import Loading from "~/components/Loading";
+import Skeleton from "react-loading-skeleton";
 
 const TopEmployers = () => {
   const { t } = useTranslation(["home"]);
+  const { data: companies, isPending } = useQuery({
+    queryKey: ["companies"],
+    queryFn: companyService.getAll,
+    select: ({ data }) => data as Company[],
+  });
+
   return (
     <MainWrapper>
       <MainContainer>
         <TopEmployersWrapper>
           <div className="employer-heading">{t("Top Employers")}</div>
           <div className="employer-container">
-            <Link to={""} className="employer-card">
+            {isPending ? (
+              <>
+                <Skeleton
+                  style={{ minHeight: "43.6rem", borderRadius: "8px" }}
+                />
+                <Skeleton
+                  style={{ minHeight: "43.6rem", borderRadius: "8px" }}
+                />
+                <Skeleton
+                  style={{ minHeight: "43.6rem", borderRadius: "8px" }}
+                />
+              </>
+            ) : (
+              companies?.map((company) => (
+                <Link
+                  key={company.id}
+                  to={"/company/" + company.slug}
+                  className="employer-card">
+                  <div className="card-background">
+                    <img
+                      src={"/assets/svg/bg_employee.svg"}
+                      alt="background grid image"
+                    />
+                  </div>
+                  <div className="card-body">
+                    <figure className="company-logo">
+                      <img
+                        src={
+                          company.logo + "" || "/assets/svg/avatar-default.svg"
+                        }
+                        alt="logo company"
+                      />
+                    </figure>
+                    <h3 className="company-name">{company.companyName}</h3>
+                    <div className="company-skills">
+                      <ul>
+                        {company.skills?.map((skill) => (
+                          <li key={skill.id}>{skill.name}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="card-footer">
+                    <div className="company-addresses">{company.location}</div>
+                    <div className="company-jobs">
+                      <IconOnline />
+                      <span>
+                        {company.jobs.length} {t("Jobs")}
+                      </span>
+                      <IoIosArrowForward />
+                    </div>
+                  </div>
+                </Link>
+              ))
+            )}
+            {/* <Link to={""} className="employer-card">
               <div className="card-background">
                 <img
                   src={"/assets/svg/bg_employee.svg"}
@@ -111,7 +174,7 @@ const TopEmployers = () => {
                   <IoIosArrowForward />
                 </div>
               </div>
-            </Link>
+            </Link> */}
           </div>
           {/* <EmployerContainer>
             <EmployerCard to={`/company/${companyList[11]?.id}`}>

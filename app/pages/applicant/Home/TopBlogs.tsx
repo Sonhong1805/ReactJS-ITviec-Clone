@@ -28,17 +28,17 @@ const TopBlogs = () => {
                   <div className="blog-body">
                     <div className="blog-title">
                       <h2>
-                        <Link to={blog.href}>{blog.title}</Link>
+                        <a>{blog.title}</a>
                       </h2>
                       {blog.content && <p>{blog.content}</p>}
                     </div>
                   </div>
                 </div>
                 <div className="blog-link">
-                  <Link to={blog.href}>
+                  <a>
                     {t("Start reading")}
                     <FiChevronRight />
-                  </Link>
+                  </a>
                 </div>
               </Link>
             ))}

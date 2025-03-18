@@ -54,7 +54,7 @@ interface IWorkExperience {
   project: string;
 }
 
-interface ISkills {
+interface Skills {
   skillName: string;
   skillLevel: string;
 }

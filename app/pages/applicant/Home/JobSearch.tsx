@@ -1,30 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BackgroundSearch, ContainerSearch, Heading } from "./styled";
 import { useTranslation } from "react-i18next";
 import SearchForm from "~/components/SearchForm";
 import SkillsList from "~/components/SkillsList";
+import { useUserStore } from "~/stores/userStore";
+import jobService from "~/services/jobService";
 
 const JobSearch = () => {
   const [quantity, setQuantity] = useState(0);
   const { i18n } = useTranslation();
   const language = i18n.language;
+  const { isAuthenticated, user } = useUserStore();
 
-  const username = "Son";
+  useEffect(() => {
+    (async () => {
+      const response = await jobService.getQuantity();
+      if (response.isSuccess && response.data) {
+        setQuantity(response.data);
+      }
+    })();
+  }, []);
+
   return (
     <BackgroundSearch>
       <ContainerSearch>
         <Heading>
           {language === "en" ? (
-            username ? (
+            isAuthenticated ? (
               <>
-                {quantity} IT Jobs &quot;Chất&quot; {username}
+                {quantity} IT Jobs &quot;Chất&quot; {user.username}
               </>
             ) : (
               <>{quantity} IT Jobs For &quot;Chất&quot; Developers</>
             )
-          ) : username ? (
+          ) : isAuthenticated ? (
             <>
-              {quantity} Việc Làm IT &quot;Chất&quot; Dành Cho {username}
+              {quantity} Việc Làm IT &quot;Chất&quot; Dành Cho {user.username}
             </>
           ) : (
             <>{quantity} Việc làm IT cho Developer &quot;Chất&quot;</>

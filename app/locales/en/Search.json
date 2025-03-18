@@ -5,12 +5,12 @@
   "Filter": "Filter",
   "Posted": "Posted",
   "Time": {
-    "Hour": "hours",
-    "Minute": "minutes",
-    "Second": "seconds",
-    "Day": "days",
-    "Month": "months",
-    "Year": "years"
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "days": "days",
+    "months": "months",
+    "years": "years"
   },
   "Sign in to view salary": "Sign in to view salary",
   "Apply now": "Apply now",
@@ -67,6 +67,7 @@
   "Apply": "Apply",
   "Skills": "Skills",
   "skills": "skills",
+  "Company Type": "Company Type",
   "Introduce": {
     "Company type": "Company type",
     "Company industry": "Company industry",
@@ -139,5 +140,7 @@
   "Needs improvement": "Needs improvement",
   "Good": "Good",
   "Really good": "Really good",
-  "Fanstatic!": "Fanstatic!"
+  "Fanstatic!": "Fanstatic!",
+  "Your skills and experience": "Your skills and experience",
+  "Oops! The job you're looking for doesn't exist.": "Oops! The job you're looking for doesn't exist."
 }

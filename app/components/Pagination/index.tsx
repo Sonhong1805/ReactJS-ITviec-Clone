@@ -1,7 +1,11 @@
 import { PageItem, PaginationWrapper } from "./styled";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-const Pagination = () => {
+interface IProps {
+  pagination: Pagination;
+}
+
+const Pagination = ({ pagination }: IProps) => {
   return (
     <PaginationWrapper className="pagination-wrapper">
       <PageItem className={false ? "hide" : "show"}>

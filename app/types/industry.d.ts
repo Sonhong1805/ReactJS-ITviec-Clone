@@ -1,4 +1,5 @@
-interface IIndustry extends IBase {
+interface Industry extends IBase {
   id: number;
-  name: string;
+  name_en: string;
+  name_vi: string;
 }

@@ -6,16 +6,10 @@ type Company = IBase &
     position: string;
     companyName: string;
     skillIds?: string | number[];
-    skills?: {
-      id: number;
-      name: string;
-    }[];
+    skills?: Skill[];
     companyType: string;
     industryId?: string | number;
-    industry?: {
-      id: number;
-      name: string;
-    };
+    industry?: Industry;
     companySize: string;
     country: string;
     workingDay: string;
@@ -24,4 +18,5 @@ type Company = IBase &
     perks: string;
     location: string;
     website: string;
+    jobs: Job[];
   };

@@ -12,7 +12,20 @@ import Modal from "react-modal";
 import { FiCheck, FiPlus } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import Slider from "rc-slider";
-import IndustryFilter from "../IndustryFilter";
+import useDebounce from "~/hooks/useDebounce";
+import { useForm } from "react-hook-form";
+import { useQueriesParams } from "~/hooks/useQueriesParams";
+import InputSearch from "../InputSearch";
+import { useIndustriesQuery } from "~/hooks/useIndustriesQuery";
+import { useJobStore } from "~/stores/jobStore";
+import formatSalary from "~/utils/formatSalary";
+import { createSearchParams, useNavigate } from "react-router";
+import { useMemo } from "react";
+import { routes } from "~/constants/routes";
+import useGetSelectedValue from "~/hooks/useGetSelectedValue";
+
+export const MIN_RANGE = 500;
+export const MAX_RANGE = 10000;
 
 interface IProps {
   showModal: boolean;
@@ -20,14 +33,121 @@ interface IProps {
 }
 
 const ModalFilter = ({ showModal, closeModal }: IProps) => {
-  const { t } = useTranslation(["search"]);
+  const navigate = useNavigate();
+  const { queryParams } = useQueriesParams();
+  const {
+    selectedLevels,
+    selectedWorkingModels,
+    selectedCompanyTypes,
+    handleSelectedCompanyTypes,
+    selectedIndustries,
+    selectedMinSalary,
+    handleSelectedMinSalary,
+    selectedMaxSalary,
+    handleSelectedMaxSalary,
+    handleSaveLevels,
+    handleSaveWorkingModels,
+    handleSaveIndustries,
+    handleResetAllSelected,
+  } = useJobStore();
+
+  const { t, i18n } = useTranslation(["search", "option"]);
+  const language = i18n.language;
+
+  const { register, watch, handleSubmit } = useForm<{ industry: string }>({
+    defaultValues: {
+      industry: "",
+    },
+  });
+
+  const industryDebounce = useDebounce(watch("industry"), 1000);
+
+  const { data, isPending } = useIndustriesQuery(industryDebounce, language);
+
+  const handleSliderChange = (e: number | number[]) => {
+    if (Array.isArray(e)) {
+      const [min, max] = e;
+      handleSelectedMinSalary(min);
+      handleSelectedMaxSalary(max);
+    }
+  };
+
+  const { getValues: getLevels, handleGetValues: handleGetLevels } =
+    useGetSelectedValue(selectedLevels);
+  const {
+    getValues: getWorkingModels,
+    handleGetValues: handleGetWorkingModels,
+  } = useGetSelectedValue(selectedWorkingModels);
+  const { getValues: getIndustries, handleGetValues: handleGetIndustries } =
+    useGetSelectedValue(selectedIndustries);
+
+  const handleOnSubmit = (data: { industry: string }) => {
+    handleSaveLevels(getLevels.map((item) => item + ""));
+    handleSaveWorkingModels(getWorkingModels.map((item) => item + ""));
+    handleSaveIndustries(getIndustries.map((item) => item + ""));
+    const searchParams: Record<string, string | string[]> = {
+      page: queryParams.page || "",
+      limit: queryParams.limit || "",
+      keyword: queryParams.keyword || "",
+      city: queryParams.city || "",
+      levels: getLevels.map((item) => item + ""),
+      industries: getIndustries.map((item) => item + ""),
+      workingModels: getWorkingModels.map((item) => item + ""),
+      companyTypes: selectedCompanyTypes,
+      minSalary:
+        selectedMinSalary === MIN_RANGE ? "" : selectedMinSalary.toString(),
+      maxSalary:
+        selectedMaxSalary === MAX_RANGE ? "" : selectedMaxSalary.toString(),
+    };
+
+    const filteredParams = Object.fromEntries(
+      Object.entries(searchParams).filter(([_, value]) => value !== "")
+    );
+
+    navigate({
+      pathname: routes.ITJobs,
+      search: createSearchParams(filteredParams).toString(),
+    });
+    closeModal();
+  };
+
+  const countSelected = useMemo(() => {
+    let countSalary = 0;
+    if (selectedMinSalary > 500) {
+      countSalary++;
+    }
+    if (selectedMaxSalary < 10000) {
+      countSalary++;
+    }
+    return (
+      selectedLevels.length +
+      selectedWorkingModels.length +
+      selectedIndustries.length +
+      selectedCompanyTypes.length +
+      countSalary
+    );
+  }, [
+    selectedLevels,
+    selectedWorkingModels,
+    selectedIndustries,
+    selectedCompanyTypes,
+    selectedMinSalary,
+    selectedMaxSalary,
+  ]);
+
+  const handleResetFilter = () => {
+    handleResetAllSelected();
+    navigate(routes.ITJobs);
+    closeModal();
+  };
+
   return (
     <Modal
       isOpen={showModal}
       onRequestClose={closeModal}
       style={customStyles}
       contentLabel="Example Modal">
-      <ModalForm>
+      <ModalForm onSubmit={handleSubmit(handleOnSubmit)}>
         <ModalHead>
           <h2>{t("Filter")}</h2>
           <IoCloseOutline onClick={closeModal} />
@@ -39,46 +159,54 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               <input
                 type="checkbox"
                 hidden
-                name="rank"
-                value="fresher"
-                id="fresher"
+                name="level"
+                value="Fresher"
+                id="Fresher"
+                checked={getLevels.includes("Fresher")}
+                onChange={() => handleGetLevels("Fresher")}
               />
-              <ModalLabel htmlFor="fresher">
+              <ModalLabel htmlFor="Fresher">
                 Fresher
-                {false ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Fresher") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="junior"
-                name="rank"
-                value="junior"
+                id="Junior"
+                name="level"
+                value="Junior"
+                checked={getLevels.includes("Junior")}
+                onChange={() => handleGetLevels("Junior")}
               />
-              <ModalLabel htmlFor="junior">
+              <ModalLabel htmlFor="Junior">
                 Junior
-                {false ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Junior") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="senior"
-                name="rank"
-                value="senior"
+                id="Senior"
+                name="level"
+                value="Senior"
+                checked={getLevels.includes("Senior")}
+                onChange={() => handleGetLevels("Senior")}
               />
-              <ModalLabel htmlFor="senior">
+              <ModalLabel htmlFor="Senior">
                 Senior
-                {false ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Senior") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="manager"
-                name="rank"
-                value="manager"
+                id="Manager"
+                name="level"
+                value="Manager"
+                checked={getLevels.includes("Manager")}
+                onChange={() => handleGetLevels("Manager")}
               />
-              <ModalLabel htmlFor="manager">
+              <ModalLabel htmlFor="Manager">
                 Manager
-                {false ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Manager") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
             </div>
           </ModalContainer>
@@ -87,36 +215,46 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
             <div className="modal-group">
               <input
                 type="checkbox"
-                id="office"
+                id="At office"
                 hidden
-                name="formOfWork"
-                value="office"
+                name="workingModel"
+                value="At office"
+                checked={getWorkingModels.includes("At office")}
+                onChange={() => handleGetWorkingModels("At office")}
               />
-              <ModalLabel htmlFor="office">
-                {t("office")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="At office">
+                {t("At office")}
+                {getWorkingModels.includes("At office") ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
               <input
                 type="checkbox"
-                id="remote"
+                id="Remote"
                 hidden
-                name="formOfWork"
-                value="remote"
+                name="workingModel"
+                value="Remote"
+                checked={getWorkingModels.includes("Remote")}
+                onChange={() => handleGetWorkingModels("Remote")}
               />
-              <ModalLabel htmlFor="remote">
-                {t("remote")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="Remote">
+                {t("Remote")}
+                {getWorkingModels.includes("Remote") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
               <input
                 type="checkbox"
-                id="flexible"
+                id="Hybrid"
                 hidden
-                name="formOfWork"
-                value="flexible"
+                name="workingModel"
+                value="Hybrid"
+                checked={getWorkingModels.includes("Hybrid")}
+                onChange={() => handleGetWorkingModels("Hybrid")}
               />
-              <ModalLabel htmlFor="flexible">
-                {t("flexible")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="Hybrid">
+                {t("Hybrid")}
+                {getWorkingModels.includes("Hybrid") ? <FiCheck /> : <FiPlus />}
               </ModalLabel>
             </div>
           </ModalContainer>
@@ -124,90 +262,134 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
             <h4>{t("Salary")}</h4>
             <div className="modal-group">
               <span className="salary">
-                {/* {new Intl.NumberFormat("en-IN").format(inputChecked.min)}$ -{" "}
-              {new Intl.NumberFormat("en-IN").format(inputChecked.max)}$ */}
-                500$ - 10,000$
+                {formatSalary(selectedMinSalary)}$ -{" "}
+                {formatSalary(selectedMaxSalary)}$
               </span>
               <div className="range">
                 <Slider
                   range
-                  min={500}
-                  max={10000}
-                  step={500}
-                  defaultValue={[500, 10000]}
+                  min={MIN_RANGE}
+                  max={MAX_RANGE}
+                  step={MIN_RANGE}
+                  defaultValue={[selectedMinSalary, selectedMaxSalary]}
                   pushable={true}
+                  onChange={handleSliderChange}
                 />
               </div>
             </div>
           </ModalContainer>
           <ModalContainer>
             <h4>{t("Industry.label")}</h4>
-            <IndustryFilter />
+            <InputSearch
+              name="industry"
+              register={register}
+              options={data ?? []}
+              isPending={isPending}
+              placeholder={t("Search industry")}
+              selectedIds={getIndustries}
+              handleSelectedIds={handleGetIndustries}
+            />
           </ModalContainer>
           <ModalContainer>
-            <h4>{t("Company Type.value")}</h4>
+            <h4>{t("Company Type")}</h4>
             <div className="modal-group">
               <input
                 type="checkbox"
-                id="outsource"
+                id="IT Outsourcing"
                 hidden
                 name="type"
-                value="outsource"
+                value="IT Outsourcing"
+                checked={selectedCompanyTypes.includes("IT Outsourcing")}
+                onChange={() => handleSelectedCompanyTypes("IT Outsourcing")}
               />
-              <ModalLabel htmlFor="outsource">
-                {t("Company Type.outsource")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="IT Outsourcing">
+                {t("IT Outsourcing", { ns: "option" })}
+                {selectedCompanyTypes.includes("IT Outsourcing") ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="product"
+                id="IT Product"
                 name="type"
-                value="product"
+                value="IT Product"
+                checked={selectedCompanyTypes.includes("IT Product")}
+                onChange={() => handleSelectedCompanyTypes("IT Product")}
               />
-              <ModalLabel htmlFor="product">
-                {t("Company Type.product")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="IT Product">
+                {t("IT Product", { ns: "option" })}
+                {selectedCompanyTypes.includes("IT Product") ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
               <input
                 type="checkbox"
-                id="headhunt"
+                id="Headhunt"
                 hidden
                 name="type"
-                value="headhunt"
+                value="Headhunt"
+                checked={selectedCompanyTypes.includes("Headhunt")}
+                onChange={() => handleSelectedCompanyTypes("Headhunt")}
               />
-              <ModalLabel htmlFor="headhunt">
-                {t("Company Type.headhunt")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="Headhunt">
+                Headhunt
+                {selectedCompanyTypes.includes("Headhunt") ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="service"
+                id="IT Service and IT Consulting"
                 name="type"
-                value="service"
+                value="IT Service and IT Consulting"
+                checked={selectedCompanyTypes.includes(
+                  "IT Service and IT Consulting"
+                )}
+                onChange={() =>
+                  handleSelectedCompanyTypes("IT Service and IT Consulting")
+                }
               />
-              <ModalLabel htmlFor="service">
-                {t("Company Type.service")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="IT Service and IT Consulting">
+                {t("IT Service and IT Consulting", { ns: "option" })}
+                {selectedCompanyTypes.includes(
+                  "IT Service and IT Consulting"
+                ) ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
               <input
                 type="checkbox"
                 hidden
-                id="nonIT"
+                id="Non-IT"
                 name="type"
-                value="nonIT"
+                value="Non-IT"
+                checked={selectedCompanyTypes.includes("Non-IT")}
+                onChange={() => handleSelectedCompanyTypes("Non-IT")}
               />
-              <ModalLabel htmlFor="nonIT">
-                {t("Company Type.nonIT")}
-                {false ? <FiCheck /> : <FiPlus />}
+              <ModalLabel htmlFor="Non-IT">
+                Non-IT
+                {selectedCompanyTypes.includes("Non-IT") ? (
+                  <FiCheck />
+                ) : (
+                  <FiPlus />
+                )}
               </ModalLabel>
             </div>
           </ModalContainer>
         </ModalBody>
         <ModalFoot>
-          <div>
-            {t("Reset filter")} {10 > 0 && `(${10})`}{" "}
+          <div onClick={handleResetFilter}>
+            {t("Reset filter")} {countSelected > 0 && `(${countSelected})`}{" "}
           </div>
           <button>{t("Apply")}</button>
         </ModalFoot>

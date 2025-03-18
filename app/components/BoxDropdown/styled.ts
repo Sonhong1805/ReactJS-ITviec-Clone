@@ -16,6 +16,12 @@ export const BoxDropdownWrapper = styled.div`
     font-size: 1.6rem;
     gap: 0.8rem;
     position: relative;
+
+    &.active {
+      color: var(--i-red);
+      background-color: var(--i-light-red);
+      border: 1px solid var(--i-red);
+    }
   }
 `;
 

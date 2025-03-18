@@ -1,18 +1,18 @@
 const levels = [
   {
-    id: 1,
+    value: "Fresher",
     label: "Fresher",
   },
   {
-    id: 2,
+    value: "Junior",
     label: "Junior",
   },
   {
-    id: 3,
+    value: "Senior",
     label: "Senior",
   },
   {
-    id: 4,
+    value: "Manager",
     label: "Manager",
   },
 ];

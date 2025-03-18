@@ -27,6 +27,6 @@ interface TRegisterEmployer extends IUser {
   source?: string;
   position: string;
   companyName: string;
-  companyAddress: string;
-  companyWebsite: string;
+  location: string;
+  website: string;
 }

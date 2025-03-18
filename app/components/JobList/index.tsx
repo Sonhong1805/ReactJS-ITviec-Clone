@@ -1,16 +1,28 @@
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
 import robby_404 from "/assets/svg/robby-404.svg";
 import { JobEmpty, JobListContainer } from "./styled";
 import JobCard from "~/components/JobCard";
+import { useEffect } from "react";
+import { useJobStore } from "~/stores/jobStore";
 
-const JobList = () => {
+interface IProps {
+  jobs: Job[];
+  isPending: boolean;
+}
+
+const JobList = ({ jobs, isPending }: IProps) => {
   const { t } = useTranslation(["search"]);
+  const { handleSelectedJob } = useJobStore((s) => s);
+
+  useEffect(() => {
+    handleSelectedJob(jobs[0]);
+  }, [jobs]);
+
   return (
     <>
       {" "}
-      {false ? (
+      {isPending ? (
         <JobListContainer>
           <Skeleton
             count={8}
@@ -18,18 +30,16 @@ const JobList = () => {
           />
         </JobListContainer>
       ) : (
-        <JobListContainer className={false ? "empty" : ""}>
-          {true ? (
-            <>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <JobCard key={index} />
-              ))}
-            </>
+        <JobListContainer className={jobs.length === 0 ? "empty" : ""}>
+          {jobs.length > 0 ? (
+            jobs.map((job, index) => <JobCard key={index} job={job} />)
           ) : (
             <JobEmpty>
               <figure>
                 <img src={robby_404} />
-                <figcaption>Không tìm thấy kết quả nào phù hợp</figcaption>
+                <figcaption>
+                  {t("Oops! The job you're looking for doesn't exist.")}
+                </figcaption>
               </figure>
             </JobEmpty>
           )}

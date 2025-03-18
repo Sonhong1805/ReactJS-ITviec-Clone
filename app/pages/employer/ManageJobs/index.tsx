@@ -21,7 +21,7 @@ import RichTextEditor from "~/components/RichTextEditor";
 import SelectBase from "~/components/SelectBase";
 import currencies from "~/constants/currencies";
 import InputBase from "~/components/InputBase";
-import formatSalary from "~/utils/formatSalary";
+import customSalary from "~/utils/customSalary";
 import { years } from "~/constants/dateOptions";
 import InputDate from "~/components/InputDate";
 
@@ -209,7 +209,7 @@ const ManageJobs = () => {
                           errors.minSalary?.message ? "error" : isValidMinSalary
                         }
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          e.target.value = formatSalary(e.target.value);
+                          e.target.value = customSalary(e.target.value);
                         }}
                       />
                       <span className="dash">-</span>
@@ -225,7 +225,7 @@ const ManageJobs = () => {
                           errors.maxSalary?.message ? "error" : isValidMaxSalary
                         }
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          e.target.value = formatSalary(e.target.value);
+                          e.target.value = customSalary(e.target.value);
                         }}
                       />
                     </div>

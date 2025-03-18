@@ -27,7 +27,8 @@ const InputSearch = ({
   return (
     <InputSearchWrapper className="input-search-wrapper">
       <InputBase name={name} register={register} placeholder={t(placeholder)} />
-      <InputSearchDropdown className="input-search-dropdown">
+      <InputSearchDropdown
+        className={`input-search-dropdown ${options.length === 0 && "empty"}`}>
         {options.length > 0 || isPending ? (
           options.map((option) => (
             <SearchLabel key={option.value} htmlFor={option.label}>

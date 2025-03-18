@@ -13,7 +13,7 @@ const SkillsList = () => {
       <SuggestList>
         {skills?.slice(0, 8).map((skill) => (
           <li key={skill.id}>
-            <Link to={""}>{skill.name}</Link>
+            <Link to={"/it-jobs?keyword=" + skill.name}>{skill.name}</Link>
           </li>
         ))}
       </SuggestList>

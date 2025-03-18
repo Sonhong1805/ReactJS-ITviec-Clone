@@ -1,8 +1,8 @@
 import axios from "~/utils/axiosCustom";
 
 const industryService = {
-  getAll: (): Promise<IResponse<IIndustry[]>> => {
-    return axios.get("/industry");
+  getAll: (params?: any): Promise<IResponse<Industry[]>> => {
+    return axios.get("/industry", { params });
   },
 };
 

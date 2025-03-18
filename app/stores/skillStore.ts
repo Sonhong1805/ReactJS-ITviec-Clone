@@ -2,9 +2,9 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 interface SkillState {
-  skills: ISkill[];
+  skills: Skill[];
   selectedSkillIds: (string | number)[];
-  saveSkills: (payload: ISkill[]) => void;
+  saveSkills: (payload: Skill[]) => void;
   saveSelectedSkillIds: (payload: number[]) => void;
   handleSelectedSkillIds: (payload: string | number) => void;
 }
@@ -24,11 +24,11 @@ export const useSkillStore = create<SkillState>()(
       set((state) => {
         state.skills = payload;
       }),
-    saveSelectedSkillIds: (payload: number[]) =>
+    saveSelectedSkillIds: (payload) =>
       set((state) => {
         state.selectedSkillIds = payload;
       }),
-    handleSelectedSkillIds: (payload: string | number) =>
+    handleSelectedSkillIds: (payload) =>
       set((state) => {
         const selectedSkillIds = state.selectedSkillIds;
         const index = selectedSkillIds.findIndex((item) => item === payload);

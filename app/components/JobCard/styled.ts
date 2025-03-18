@@ -126,7 +126,7 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     }
   }
 
-  .job-tags {
+  .job-skills {
     display: flex;
     align-items: baseline;
     gap: 4px;

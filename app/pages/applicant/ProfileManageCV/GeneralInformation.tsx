@@ -20,7 +20,7 @@ import InputSelectBase from "~/components/InputSelectBase";
 import getModels from "~/constants/getModels";
 import currencies from "~/constants/currencies";
 import InputBase from "~/components/InputBase";
-import formatSalary from "~/utils/formatSalary";
+import customSalary from "~/utils/customSalary";
 
 export const customStyles = {
   content: {
@@ -228,7 +228,7 @@ const GeneralInformation = () => {
                         errors.salaryFrom?.message ? "error" : isValidSalaryFrom
                       }
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        e.target.value = formatSalary(e.target.value);
+                        e.target.value = customSalary(e.target.value);
                       }}
                     />
                     <span className="dash">-</span>
@@ -244,7 +244,7 @@ const GeneralInformation = () => {
                         errors.salaryTo?.message ? "error" : isValidSalaryTo
                       }
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        e.target.value = formatSalary(e.target.value);
+                        e.target.value = customSalary(e.target.value);
                       }}
                     />
                   </div>
@@ -270,7 +270,7 @@ const GeneralInformation = () => {
                     register={register}
                     className={isValidCurrentSalary}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      e.target.value = formatSalary(e.target.value);
+                      e.target.value = customSalary(e.target.value);
                     }}
                   />
                 </div>
