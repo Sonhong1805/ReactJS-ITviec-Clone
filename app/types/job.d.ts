@@ -23,6 +23,7 @@ interface Job extends Base {
   }[];
   hasApplied?: Application;
   uploadAt?: Date;
+  wishlist?: boolean;
 }
 
 interface JobQueries {

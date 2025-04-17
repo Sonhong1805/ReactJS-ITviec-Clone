@@ -46,6 +46,7 @@ interface JobState {
   handleResetAllSelected: () => void;
   handleSaveJobDetail: (payload: Job) => void;
   handleAppliedSuccess: (payload: Application) => void;
+  handleWishlist: (payload: boolean) => void;
 }
 
 const initialState: JobState = {
@@ -77,6 +78,7 @@ const initialState: JobState = {
   handleResetAllSelected: () => {},
   handleSaveJobDetail: () => {},
   handleAppliedSuccess: () => {},
+  handleWishlist: () => {},
 };
 
 export const useJobStore = create<JobState>()(
@@ -192,6 +194,11 @@ export const useJobStore = create<JobState>()(
       set((state) => {
         state.selectedJob.hasApplied = payload;
         state.jobDetail.hasApplied = payload;
+      }),
+    handleWishlist: (payload) =>
+      set((state) => {
+        state.selectedJob.wishlist = payload;
+        state.jobDetail.wishlist = payload;
       }),
   }))
 );

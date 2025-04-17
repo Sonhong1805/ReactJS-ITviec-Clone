@@ -17,12 +17,13 @@ import DOMPurify from "dompurify";
 import { useJobStore } from "~/stores/jobStore";
 import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
 import formatDate from "~/utils/formatDate";
+import jobService from "~/services/jobService";
 
 const JobInfo = () => {
   const { t, i18n } = useTranslation(["search", "option", "apply"]);
   const language = i18n.language;
   const isAuthenticated = useUserStore((s) => s.isAuthenticated);
-  const { jobDetail } = useJobStore();
+  const { jobDetail, handleWishlist } = useJobStore();
   const navigate = useNavigate();
 
   const postedTime = getPostedTime(t, new Date(jobDetail?.createdAt + "") + "");
@@ -32,6 +33,13 @@ const JobInfo = () => {
       navigate(`/login?job=${jobDetail.slug}`);
     } else {
       navigate(`/apply/${jobDetail.slug}`);
+    }
+  };
+
+  const handleToggleWishlist = async () => {
+    const response = await jobService.wishlist(jobDetail?.id);
+    if (response.isSuccess) {
+      handleWishlist(response.data);
     }
   };
 
@@ -66,7 +74,11 @@ const JobInfo = () => {
         ) : (
           <JobDetailRecruitment>
             <button onClick={handleApply}>{t("Apply now")}</button>
-            {false ? <Heart fill="#ed1b2f" /> : <Heart />}
+            {jobDetail?.wishlist ? (
+              <Heart fill="#ed1b2f" onClick={handleToggleWishlist} />
+            ) : (
+              <Heart onClick={handleToggleWishlist} />
+            )}
           </JobDetailRecruitment>
         )}
       </JobDetailHeader>

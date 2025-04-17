@@ -18,6 +18,10 @@ const jobService = {
   getByCompany: (param: string | number): Promise<IResponse<Job[]>> => {
     return axios.get(`/job/company/${param}`);
   },
+
+  wishlist: (jobId: number): Promise<IResponse<boolean>> => {
+    return axios.post(`/job/wishlist/${jobId}`);
+  },
 };
 
 export default jobService;
