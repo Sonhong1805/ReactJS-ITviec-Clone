@@ -11,8 +11,8 @@ export type Info = {
   parents: [Parent0],
   id: "routes/applicant/apply-success"
   file: "routes/applicant/apply-success.tsx"
-  path: "/apply/success"
-  params: {} & { [key: string]: string | undefined }
+  path: "/apply/success/:slug"
+  params: {"slug": string} & { [key: string]: string | undefined }
   module: Module
   loaderData: T.CreateLoaderData<Module>
   actionData: T.CreateActionData<Module>

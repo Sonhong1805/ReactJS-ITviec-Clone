@@ -1,10 +1,11 @@
-type Company = IBase &
+type Company = Base &
   Pick<IUser, "username" | "email" | "phoneNumber"> & {
     id: number;
     slug: string;
     logo: File | string;
     position: string;
     companyName: string;
+    tagline: string;
     skillIds?: string | number[];
     skills?: Skill[];
     companyType: string;

@@ -19,6 +19,7 @@
     "@tanstack/react-query-devtools": "^5.67.2",
     "axios": "^1.7.9",
     "dompurify": "^3.2.4",
+    "feather-icons-react": "^0.8.1",
     "i18next": "^24.2.1",
     "is-hotkey": "^0.2.0",
     "isbot": "^5.1.17",

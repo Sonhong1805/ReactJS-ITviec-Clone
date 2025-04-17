@@ -1,4 +1,4 @@
-interface Job extends IBase {
+interface Job extends Base {
   id: number;
   title: string;
   slug: string;
@@ -12,6 +12,7 @@ interface Job extends IBase {
   currencySalary: string;
   descriptions: string;
   requirement: string;
+  reasons: string;
   quantity: number;
   status: "active" | "inactive";
   countView: number;
@@ -20,6 +21,8 @@ interface Job extends IBase {
     id: number;
     name: string;
   }[];
+  hasApplied?: Application;
+  uploadAt?: Date;
 }
 
 interface JobQueries {

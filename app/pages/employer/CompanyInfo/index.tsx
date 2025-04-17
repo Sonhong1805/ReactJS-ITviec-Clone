@@ -32,6 +32,7 @@ import companyService, {
 import { useUserStore } from "~/stores/userStore";
 import showToast from "~/utils/showToast";
 import { useCompanyStore } from "~/stores/companyStore";
+import Loading from "~/components/Loading";
 
 const MAX_SKILLS = 10;
 
@@ -178,7 +179,7 @@ const CompanyInfo = () => {
     }
   }, [isLoading, company]);
 
-  const updateCompany = useMutation({
+  const updateCompanyMutation = useMutation({
     mutationFn: ({ id, body }: UpdateCompanyPayload) =>
       companyService.update({ id, body }),
 
@@ -214,7 +215,7 @@ const CompanyInfo = () => {
       }
     });
     if (!company) return;
-    updateCompany.mutate({ id: company.id, body: formData });
+    updateCompanyMutation.mutate({ id: company.id, body: formData });
   };
 
   const isValidUsername = useValidation(watch("username"));
@@ -269,7 +270,7 @@ const CompanyInfo = () => {
 
   return (
     <CompanyInfoWrapper>
-      {(isLoading || updateCompany.isPending) && <p>Loading...</p>}
+      {(isLoading || updateCompanyMutation.isPending) && <Loading />}
       <div className="heading">
         <h2>Hồ sơ công ty</h2>
       </div>

@@ -9,11 +9,6 @@ interface IRegister extends ILogin {
 
 type TForgotPassword = Pick<IUser, "email">;
 
-type TApplyJob = Pick<IUser, "username" | "phone"> & {
-  letter?: string;
-  file: FileList | string;
-};
-
 interface IResetPassword {
   newPassword: string;
   confirmPassword: string;

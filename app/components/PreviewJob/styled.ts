@@ -10,6 +10,21 @@ export const PreviewJobContainer = styled.div`
 
 export const PreviewJobHeader = styled.div`
   padding: 2.4rem 2.4rem 0rem;
+
+  .job-applied {
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    background-color: #eaf9e9;
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
 `;
 
 export const PreviewJobCompany = styled.div`
@@ -38,15 +53,33 @@ export const PreviewJobCompany = styled.div`
     gap: 0.8rem;
 
     .job-name {
-      h2 {
-        color: var(--i-rich-grey);
-        transition-duration: 300ms;
-        font-size: 2.2rem;
-        line-height: 3.3rem;
+      display: flex;
+      align-items: start;
+      justify-content: start;
+
+      .job-title {
+        h2 {
+          color: var(--i-rich-grey);
+          transition-duration: 300ms;
+          font-size: 2.2rem;
+          line-height: 3.3rem;
+        }
+
+        &:hover h2 {
+          color: var(--i-red);
+        }
       }
 
-      &:hover h2 {
-        color: var(--i-red);
+      .job-icon {
+        display: block;
+        cursor: pointer;
+        color: var(--i-hyperlink);
+        margin-left: 8px;
+        margin-top: 4px;
+        svg {
+          width: 1.6rem;
+          height: 1.6rem;
+        }
       }
     }
 
@@ -60,6 +93,10 @@ export const PreviewJobCompany = styled.div`
     }
 
     .job-salary {
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
       span.salary-show {
         display: flex;
         align-items: center;

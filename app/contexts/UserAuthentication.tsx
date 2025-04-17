@@ -38,7 +38,7 @@ const UserAuthentication = ({ children }: { children: ReactNode }) => {
       publicRoutes.some((route) => location.pathname.startsWith(route)) ? (
         children
       ) : (
-        <div>loading</div>
+        <Loading />
       )}
     </>
   );

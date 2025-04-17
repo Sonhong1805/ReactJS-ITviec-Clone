@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
   cursor: pointer;
-  padding: 1.6rem 1.2rem 0.8rem;
+  padding-top: 0.8rem;
   border-radius: 8px;
   border: 1px solid transparent;
   position: relative;
@@ -45,6 +45,10 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-left: 8px solid red;
+  }
+
+  .job-card-content {
+    padding-inline: 1.2rem;
   }
 
   .posted-time {
@@ -122,6 +126,8 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     font-size: 1.4rem;
 
     svg {
+      width: 1.6rem;
+      height: 1.6rem;
       color: var(--i-dark-grey);
     }
   }
@@ -130,8 +136,13 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     display: flex;
     align-items: baseline;
     gap: 4px;
-    margin-top: 2.4rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
     padding-bottom: 0.8rem;
+
+    li {
+      display: contents;
+    }
 
     a {
       padding: 0.4rem 1rem;
@@ -146,6 +157,20 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
         border-color: var(--i-rich-grey);
       }
     }
+  }
+
+  .job-applied {
+    border-bottom-right-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+    padding-left: 12px !important;
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+    background-color: #eaf9e9;
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
   }
 `;
 

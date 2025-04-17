@@ -20,9 +20,18 @@
   "No file chosen": "Chưa có file nào được chọn",
   "Please upload a .doc, .docx, or .pdf file, maximum 3MB and no password protection": "Hỗ trợ định dạng .doc, .docx hoặc .pdf, dưới 3MB và không chứa mật khẩu bảo vệ",
   "Personal information": "Thông tin cơ bản",
-  "This field is required.": "Đây là thông tin bắt buộc..",
+  "This field is required.": "Đây là thông tin bắt buộc.",
   "Preferred work location": "Nơi làm việc mong muốn",
   "Upload date:": "Ngày tải lên:",
   "Use .doc, .docx, or .pdf file format.": "Dùng định dạng .doc, .docx, hoặc .pdf file.",
-  "locations": "địa điểm"
+  "locations": "địa điểm",
+  "We have received your CV": "Tuyệt vời! CV của bạn đã được ghi nhận",
+  "We have received your CV to:": "Chúng tôi đã nhận được CV của bạn cho:",
+  "Position": "Vị trí",
+  "Company": "Công ty",
+  "Your CV will be sent to the employer after it is approved by our review team. Please check email": "CV của bạn sẽ được gửi tới nhà tuyển dụng sau khi được ITviec xét duyệt. Vui lòng theo dõi email",
+  "to get updates on your CV status.": "để cập nhật thông tin về tình trạng CV. ",
+  "Have you seen these jobs?": "Việc làm tương tự",
+  "Search for other similar jobs": "Tìm kiếm việc làm tương tự khác",
+  "Applied": "Đã ứng tuyển"
 }

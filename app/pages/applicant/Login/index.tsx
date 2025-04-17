@@ -13,7 +13,7 @@ import {
 } from "./styled";
 import LOGO_BLACK_TEXT from "/assets/images/logo_black_text.png";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -52,13 +52,19 @@ const Login = () => {
   });
 
   const { login } = useUserStore((s) => s);
+  const [searchParams] = useSearchParams();
 
   const onSubmit: SubmitHandler<ILogin> = async (data: ILogin) => {
     const response = await authService.login(data);
     if (response.isSuccess && response.data) {
       login(response.data.user);
       localStorage.setItem("access_token", response.data.accessToken as string);
-      navigate("/");
+      if (searchParams.get("job")) {
+        navigate(`/apply/${searchParams.get("job")}`);
+      } else {
+        navigate("/");
+      }
+      showToast("success", t("Successfully authenticated from Email account."));
       reset();
     } else {
       showToast("error", t("Email or password is incorrect"));
@@ -95,7 +101,11 @@ const Login = () => {
                       response.data.accessToken as string
                     );
                     login(response.data.user);
-                    navigate("/");
+                    if (searchParams.get("job")) {
+                      navigate(`/apply/${searchParams.get("job")}`);
+                    } else {
+                      navigate("/");
+                    }
                     showToast(
                       "success",
                       "Successfully authenticated from Google account."

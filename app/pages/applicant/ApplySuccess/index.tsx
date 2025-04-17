@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import {
   ApplySuccessBranding,
   ApplySuccessContainer,
@@ -7,9 +7,37 @@ import {
 } from "./styled";
 import LOGO from "/assets/images/logo.png";
 import ROBBY_APPLY_SUCCESS from "/assets/svg/robby-apply-success.svg";
-import { LuCircleDollarSign } from "react-icons/lu";
+import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import { useTranslation } from "react-i18next";
+import { useUserStore } from "~/stores/userStore";
+import { useJobQuery } from "~/hooks/useJobQuery";
+import Loading from "~/components/Loading";
+import { useJobStore } from "~/stores/jobStore";
+import { useEffect } from "react";
 
 const ApplySuccess = () => {
+  const { slug } = useParams();
+  const { t } = useTranslation(["apply"]);
+  const { email } = useUserStore((s) => s.user);
+  const { selectedJob, jobDetail } = useJobStore();
+  const navigate = useNavigate();
+  const { data: job, isPending } = useJobQuery(slug as string);
+
+  useEffect(() => {
+    if (!slug) {
+      navigate("/it-jobs", { replace: true });
+      return;
+    }
+
+    if (!(selectedJob || jobDetail).hasApplied?.id) {
+      navigate(`/job/${slug}`, { replace: true });
+    }
+  }, []);
+
+  if (!slug || isPending) {
+    return <Loading />;
+  }
+
   return (
     <ApplySuccessWrapper>
       <ApplySuccessContainer>
@@ -21,24 +49,28 @@ const ApplySuccess = () => {
             <img src={ROBBY_APPLY_SUCCESS} alt="robby apply success" />
           </div>
           <div className="thankyou-message">
-            <h1>Tuyệt vời! CV của bạn đã được ghi nhận</h1>
-            <p>Chúng tôi đã nhận được CV của bạn cho:</p>
+            <h1>{t("Amazing! We have received your CV")}</h1>
+            <p>{t("We have received your CV to:")}</p>
             <ul>
               <li>
-                Vị trí: <strong>Frontend Software Engineer (ReactJs)</strong>{" "}
+                {t("Position")}
+                {": "} <strong>{job?.title}</strong>
               </li>
               <li>
-                Công ty: <strong>Employment Hero</strong>{" "}
+                {t("Company")}
+                {": "}
+                <strong>{job?.company?.companyName}</strong>
               </li>
             </ul>
             <div className="message">
-              CV của bạn sẽ được gửi tới nhà tuyển dụng sau khi được ITviec xét
-              duyệt. Vui lòng theo dõi email hongson180503@gmail.com để cập nhật
-              thông tin về tình trạng CV.
+              {t(
+                "Your CV will be sent to the employer after it is approved by our review team. Please check email"
+              )}{" "}
+              {email} {t("to get updates on your CV status.")}
             </div>
           </div>
           <div className="similar-jobs">
-            <h2>Việc làm tương tự tại Hồ Chí Minh</h2>
+            <h2> {t("Have you seen these jobs?")}</h2>
             <div className="job-list">
               {Array.from({ length: 4 }).map((_, index) => (
                 <div key={index} className="job-item">
@@ -53,7 +85,7 @@ const ApplySuccess = () => {
                       Remote Senior Fullstack Developer (NodeJS, ReactJS)
                     </Link>
                     <div className="job-salary">
-                      <LuCircleDollarSign />
+                      <IconCircleDollarSign />
                       <span>You&apos;ll love it</span>
                     </div>
                   </div>
@@ -61,7 +93,7 @@ const ApplySuccess = () => {
               ))}
             </div>
             <div className="search-button">
-              <Link to={"/it-jobs"}>Tìm kiếm việc làm tương tự khác</Link>
+              <Link to={"/it-jobs"}>{t("Search for other similar jobs")}</Link>
             </div>
           </div>
         </ApplySucsessBox>

@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BackgroundSearch, ContainerSearch, Heading } from "./styled";
 import { useTranslation } from "react-i18next";
 import SearchForm from "~/components/SearchForm";
 import SkillsList from "~/components/SkillsList";
 import { useUserStore } from "~/stores/userStore";
 import jobService from "~/services/jobService";
+import { useJobStore } from "~/stores/jobStore";
 
 const JobSearch = () => {
-  const [quantity, setQuantity] = useState(0);
   const { i18n } = useTranslation();
   const language = i18n.language;
   const { isAuthenticated, user } = useUserStore();
-
-  useEffect(() => {
-    (async () => {
-      const response = await jobService.getQuantity();
-      if (response.isSuccess && response.data) {
-        setQuantity(response.data);
-      }
-    })();
-  }, []);
+  const { totalItems } = useJobStore((s) => s.pagination);
 
   return (
     <BackgroundSearch>
@@ -28,17 +20,18 @@ const JobSearch = () => {
           {language === "en" ? (
             isAuthenticated ? (
               <>
-                {quantity} IT Jobs &quot;Chất&quot; {user.username}
+                {totalItems ?? 0} IT Jobs &quot;Chất&quot; {user.username}
               </>
             ) : (
-              <>{quantity} IT Jobs For &quot;Chất&quot; Developers</>
+              <>{totalItems ?? 0} IT Jobs For &quot;Chất&quot; Developers</>
             )
           ) : isAuthenticated ? (
             <>
-              {quantity} Việc Làm IT &quot;Chất&quot; Dành Cho {user.username}
+              {totalItems ?? 0} Việc Làm IT &quot;Chất&quot; Dành Cho{" "}
+              {user.username}
             </>
           ) : (
-            <>{quantity} Việc làm IT cho Developer &quot;Chất&quot;</>
+            <>{totalItems ?? 0} Việc làm IT cho Developer &quot;Chất&quot;</>
           )}
         </Heading>
         <SearchForm />

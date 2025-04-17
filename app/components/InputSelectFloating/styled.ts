@@ -48,6 +48,7 @@ export const InputSelectWrapper = styled.div`
   .selected-options {
     display: flex;
     flex: 1;
+    margin-right: 4px;
 
     .option {
       width: auto;
@@ -65,13 +66,9 @@ export const InputSelectWrapper = styled.div`
   input {
     font-size: 1.6rem;
     font-weight: 400;
-    margin: 0 4px;
+
     width: 100%;
     flex: 1;
-
-    &:focus {
-      margin: 0;
-    }
   }
 
   label {
@@ -84,6 +81,11 @@ export const InputSelectWrapper = styled.div`
     font-size: 1.6rem;
     pointer-events: none;
     transition: all 0.2s ease;
+
+    &.active {
+      top: 1.4rem;
+      font-size: 1.4rem;
+    }
 
     abbr {
       color: var(--i-red);
@@ -110,6 +112,11 @@ export const OptionsDropdown = styled.div`
   position: absolute;
   left: 0;
   right: 0;
+
+  .not-found {
+    font-size: 1.6rem;
+    padding: 3px 12px;
+  }
 `;
 
 export const Option = styled.div`
@@ -118,6 +125,10 @@ export const Option = styled.div`
   padding: 0.3rem 1.2rem;
   line-height: 2.4rem;
   cursor: pointer;
+
+  &.disabled {
+    display: none;
+  }
 
   &:hover {
     background-color: var(--i-white-red);

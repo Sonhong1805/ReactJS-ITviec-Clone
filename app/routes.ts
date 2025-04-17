@@ -30,7 +30,7 @@ export default [
 
   ...prefix("/", [
     route("apply/:slug", "routes/applicant/apply-job.tsx"),
-    route("apply/success", "routes/applicant/apply-success.tsx"),
+    route("apply/success/:slug", "routes/applicant/apply-success.tsx"),
     route("review/:slug", "routes/applicant/company-review.tsx"),
   ]),
 

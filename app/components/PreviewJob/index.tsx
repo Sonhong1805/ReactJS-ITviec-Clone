@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import {
   BorderDash,
   PreviewCompanyInfo,
@@ -10,29 +10,43 @@ import {
   PreviewJobReasons,
   PreviewJobRecruitment,
 } from "./styled";
-import { LuCircleDollarSign } from "react-icons/lu";
-import { FaRegHeart, FaRegClock, FaHeart } from "react-icons/fa";
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
 import IconWorkingModel from "../Icon/IconWorkingModel";
-import { FiMapPin } from "react-icons/fi";
 import { useJobStore } from "~/stores/jobStore";
 import formatSalary from "~/utils/formatSalary";
 import { useUserStore } from "~/stores/userStore";
 import DOMPurify from "dompurify";
 import getPostedTime from "~/utils/getPostedTime";
+import {
+  ExternalLink,
+  CheckCircle,
+  MapPin,
+  Heart,
+  Clock,
+} from "feather-icons-react";
+import IconCircleDollarSign from "../Icon/IconCircleDollarSign";
+import formatDate from "~/utils/formatDate";
 
 interface IProps {
   jobs: Job[];
   isPending: boolean;
 }
 const PreviewJob = ({ jobs, isPending }: IProps) => {
-  const { t } = useTranslation(["search", "option"]);
+  const { t } = useTranslation(["search", "option", "apply"]);
   const isAuthenticated = useUserStore((s) => s.isAuthenticated);
   const job = useJobStore((s) => s.selectedJob);
   const postedTime = getPostedTime(t, new Date(job?.createdAt + "") + "");
+  const navigate = useNavigate();
+
+  const handleApply = () => {
+    if (!isAuthenticated) {
+      navigate(`/login?job=${job?.slug}`);
+    } else {
+      navigate(`/apply/${job?.slug}`);
+    }
+  };
 
   return (
     <>
@@ -63,9 +77,17 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   />
                 </Link>
                 <div className="job-info">
-                  <Link to={`/job/${job?.slug}`} className="job-name">
-                    <h2>{job?.title}</h2>
-                  </Link>
+                  <div className="job-name">
+                    <Link to={`/job/${job?.slug}`} className="job-title">
+                      <h2>{job?.title}</h2>
+                    </Link>
+                    <Link
+                      to={`/job/${job?.slug}`}
+                      target="_blank"
+                      className="job-icon">
+                      <ExternalLink />
+                    </Link>
+                  </div>
                   <span>
                     <Link
                       to={`/company/${job?.company.slug}`}
@@ -76,29 +98,40 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   <div className="job-salary">
                     {isAuthenticated ? (
                       <span className="salary-show">
-                        <LuCircleDollarSign />
+                        <IconCircleDollarSign />
                         {formatSalary(+job?.minSalary)} -{" "}
                         {formatSalary(+job?.maxSalary)} {job?.currencySalary}
                         {/* You&apos;ll love it */}
                       </span>
                     ) : (
                       <Link to={"/login"} className="salary-hide">
-                        <LuCircleDollarSign />
+                        <IconCircleDollarSign />
                         {t("Sign in to view salary")}
                       </Link>
                     )}
                   </div>
                 </div>
               </PreviewJobCompany>
-              <PreviewJobRecruitment>
-                <button>{t("Apply now")}</button>
-                {false ? <FaHeart /> : <FaRegHeart />}
-              </PreviewJobRecruitment>
+              {job?.hasApplied && job.hasApplied.createdAt ? (
+                <div className="job-applied">
+                  <CheckCircle stroke="#0ab305" size={20} />
+                  <span>
+                    {t("Applied", { ns: "apply" })}{" "}
+                    {formatDate(job.hasApplied.createdAt)}
+                  </span>
+                </div>
+              ) : (
+                <PreviewJobRecruitment>
+                  <button onClick={handleApply}>{t("Apply now")}</button>
+                  {false ? <Heart fill="#ed1b2f" /> : <Heart />}
+                </PreviewJobRecruitment>
+              )}
             </PreviewJobHeader>
+            <hr style={{ marginInline: "2.4rem" }} />
             <PreviewJobBody>
               <PreviewJobOverview>
                 <div className="overview-item">
-                  <FiMapPin />
+                  <MapPin />
                   <div>
                     <span>{t(job?.location, { ns: "option" })}</span>
                   </div>
@@ -108,7 +141,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   <span>{t(job?.workingModel)}</span>
                 </div>
                 <div className="overview-item">
-                  <FaRegClock />
+                  <Clock />
                   <span>{postedTime}</span>
                 </div>
                 <div className="overview-item">
@@ -144,12 +177,12 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
               <PreviewCompanyInfo>
                 <div className="company-name">
                   <h2>{job?.company?.companyName}</h2>
-                  {job?.company.website && (
+                  {/* {job?.company.website && (
                     <Link to={job.company.website}>
                       <span>{t("View company")}</span>
-                      <FaArrowUpRightFromSquare />
+                      <ExternalLink />
                     </Link>
-                  )}
+                  )} */}
                 </div>
                 <p className="company-intro">
                   Tower Hanoi hoạt động trong lĩnh vực phát triển phần mềm, ứng

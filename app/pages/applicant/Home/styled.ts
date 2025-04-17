@@ -222,12 +222,19 @@ export const TopBlogsWrapper = styled.div`
       line-height: 1.5;
     }
 
-    a {
+    .link {
       display: flex;
       font-size: 1.6rem;
       color: var(--i-hyperlink);
-      align-items: center;
+      align-items: flex-end;
     }
+  }
+
+  span.link {
+    display: flex;
+    font-size: 1.6rem;
+    color: var(--i-hyperlink);
+    align-items: flex-end;
   }
 
   .blog-posts {
@@ -272,12 +279,6 @@ export const TopBlogsWrapper = styled.div`
           .blog-link {
             margin-bottom: 0.8rem;
             padding-inline: 1.6rem;
-            a {
-              display: flex;
-              font-size: 1.6rem;
-              color: var(--i-hyperlink);
-              align-items: flex-end;
-            }
           }
         }
       }

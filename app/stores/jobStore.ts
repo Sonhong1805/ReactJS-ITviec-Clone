@@ -26,6 +26,7 @@ interface JobState {
   selectedIndustries: (string | number)[];
   selectedMinSalary: number;
   selectedMaxSalary: number;
+  jobDetail: Job;
   handleSelectedJob: (payload: Job) => void;
   handleSavePagination: (payload: Pagination) => void;
   handleSelectedLevels: (payload: string) => void;
@@ -43,6 +44,8 @@ interface JobState {
   handleResetSelectedIndustries: () => void;
   handleResetSelectedSalary: () => void;
   handleResetAllSelected: () => void;
+  handleSaveJobDetail: (payload: Job) => void;
+  handleAppliedSuccess: (payload: Application) => void;
 }
 
 const initialState: JobState = {
@@ -54,6 +57,7 @@ const initialState: JobState = {
   selectedIndustries: getArrayParamsFromURL("industries"),
   selectedMinSalary: +getSingleParamFromURL("minSalary") || 500,
   selectedMaxSalary: +getSingleParamFromURL("maxSalary") || 10000,
+  jobDetail: {} as Job,
   handleSelectedJob: () => {},
   handleSavePagination: () => {},
   handleSelectedLevels: () => {},
@@ -71,6 +75,8 @@ const initialState: JobState = {
   handleResetSelectedIndustries: () => {},
   handleResetSelectedSalary: () => {},
   handleResetAllSelected: () => {},
+  handleSaveJobDetail: () => {},
+  handleAppliedSuccess: () => {},
 };
 
 export const useJobStore = create<JobState>()(
@@ -177,6 +183,15 @@ export const useJobStore = create<JobState>()(
         state.selectedCompanyTypes = initialState.selectedCompanyTypes;
         state.selectedMinSalary = initialState.selectedMinSalary;
         state.selectedMaxSalary = initialState.selectedMaxSalary;
+      }),
+    handleSaveJobDetail: (payload) =>
+      set((state) => {
+        state.jobDetail = payload;
+      }),
+    handleAppliedSuccess: (payload) =>
+      set((state) => {
+        state.selectedJob.hasApplied = payload;
+        state.jobDetail.hasApplied = payload;
       }),
   }))
 );

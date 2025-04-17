@@ -13,7 +13,7 @@ const TopBlogs = () => {
         <TopBlogsWrapper>
           <div className="blog-heading">
             <div className="h1">{t("Featured articles")}</div>
-            <Link to={"https://itviec.com/blog/"}>
+            <Link to={"https://itviec.com/blog/"} className="link">
               {t("View all articles")}
               <FiChevronRight />
             </Link>
@@ -27,18 +27,16 @@ const TopBlogs = () => {
                   </figure>
                   <div className="blog-body">
                     <div className="blog-title">
-                      <h2>
-                        <a>{blog.title}</a>
-                      </h2>
+                      <h2>{blog.title}</h2>
                       {blog.content && <p>{blog.content}</p>}
                     </div>
                   </div>
                 </div>
                 <div className="blog-link">
-                  <a>
+                  <span className="link">
                     {t("Start reading")}
                     <FiChevronRight />
-                  </a>
+                  </span>
                 </div>
               </Link>
             ))}

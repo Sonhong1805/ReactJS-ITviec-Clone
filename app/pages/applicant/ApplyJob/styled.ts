@@ -246,6 +246,13 @@ export const ApplyJobFile = styled.label`
       border: 1px solid transparent;
       border-color: var(--i-red);
       gap: 0.8rem;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--i-red);
+        background-color: var(--i-white-red);
+        border-color: var(--i-red);
+      }
     }
 
     input {
@@ -417,4 +424,10 @@ export const ModalForm = styled.div`
       }
     }
   }
+`;
+
+export const SkeletonWrapper = styled.div`
+  width: 88.4rem;
+  margin: auto;
+  margin-top: 8rem;
 `;

@@ -7,6 +7,7 @@ import {
   OptionsDropdown,
 } from "./styled";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useTranslation } from "react-i18next";
 interface IProps {
   name: string;
   label: string;
@@ -16,6 +17,12 @@ interface IProps {
   options: Option[];
   maxLengh?: number;
   field?: string;
+  register?: any;
+  value: string;
+  selectedOptions: Option[];
+  onAddOption: (option: Option) => void;
+  onRemoveOption: () => void;
+  onReset?: () => void;
 }
 const InputSelectFloating = ({
   name,
@@ -26,9 +33,17 @@ const InputSelectFloating = ({
   options,
   maxLengh,
   field,
+  register,
+  value,
+  selectedOptions,
+  onAddOption,
+  onRemoveOption,
+  onReset,
 }: IProps) => {
+  const { t } = useTranslation(["apply"]);
   const [showOptions, setShowOptions] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = () => {
@@ -41,27 +56,26 @@ const InputSelectFloating = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [showOptions]);
 
   const handleToggle = () => {
-    setShowOptions((prev) => {
-      const newState = !prev;
-      if (newState) {
-        inputRef.current?.focus();
-      } else {
-        inputRef.current?.blur();
-      }
-      return newState;
-    });
+    if (maxLengh && selectedOptions.length === maxLengh) return;
+    setShowOptions(!showOptions);
   };
 
   const handleSeletedOption = (option: Option) => {
-    console.log(option);
+    if (maxLengh && selectedOptions.length === maxLengh) return;
+    onAddOption(option);
+    if (onReset) onReset();
   };
 
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
+
   const handleDeletedOption = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace") {
-      console.log("Bạn vừa ấn Backspace!");
+    if (e.key !== "Backspace") return;
+    if (value === "") {
+      onRemoveOption();
     }
   };
 
@@ -71,16 +85,28 @@ const InputSelectFloating = ({
         className={showOptions ? "focus" : ""}
         onClick={handleToggle}>
         <div className="selected-options">
-          {/* <div className="option">Ha Noi</div>
-          <div className="option">Quang Ninh</div> */}
+          {selectedOptions?.map((location) => (
+            <div className="option" key={location.value}>
+              {location.label}
+            </div>
+          ))}
           <input
             ref={inputRef}
             type="text"
             id={name}
+            {...register(name)}
             className={className}
             onKeyDown={handleDeletedOption}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
-          <label htmlFor={name}>
+          <label
+            htmlFor={name}
+            className={
+              selectedOptions.length > 0 || value !== "" || isFocused
+                ? "active"
+                : ""
+            }>
             {label} {required && <abbr>*</abbr>}
           </label>
         </div>
@@ -88,18 +114,29 @@ const InputSelectFloating = ({
       </InputSelectWrapper>
       {showOptions && (
         <OptionsDropdown>
-          {options.map((option) => (
-            <Option
-              key={option.value}
-              onClick={() => handleSeletedOption(option)}>
-              <span>{option.label}</span>
-            </Option>
-          ))}
+          {options.length ? (
+            options.map((option) => (
+              <Option
+                key={option.value}
+                className={
+                  selectedOptions.some(
+                    (location) => location.value === option.value
+                  )
+                    ? "disabled"
+                    : ""
+                }
+                onClick={() => handleSeletedOption(option)}>
+                <span>{option.label}</span>
+              </Option>
+            ))
+          ) : (
+            <p className="not-found">No results found</p>
+          )}
         </OptionsDropdown>
       )}
       {maxLengh && (
         <div className="counter">
-          0/{maxLengh} {field}{" "}
+          {selectedOptions.length}/{maxLengh} {field}{" "}
         </div>
       )}
       {error && <AlertError>{error}</AlertError>}

@@ -31,8 +31,7 @@ const Overview = ({ data }: IProps) => {
               {t(
                 data.industry?.[
                   i18n.language === "en" ? "name_en" : "name_vi"
-                ] || "",
-                { ns: "option" }
+                ] || ""
               )}
             </p>
           </div>

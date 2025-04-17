@@ -37,6 +37,7 @@ export const JobDetailRight = styled.div`
 export const JobDetailHeader = styled.div`
   background: var(--i-white);
   padding-inline: 2rem;
+  padding-bottom: 1.2rem;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
   position: sticky;
@@ -81,6 +82,20 @@ export const JobDetailHeader = styled.div`
       color: var(--i-rich-grey);
       text-decoration: underline;
     }
+  }
+
+  .job-applied {
+    border-radius: 4px;
+    margin-top: 16px;
+    padding-left: 12px;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    background-color: #eaf9e9;
+    font-size: 1.6rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
   }
 `;
 
@@ -186,6 +201,12 @@ export const JobDetailOverview = styled.section`
   .overview-item {
     margin-block: 1.2rem;
 
+    .rich-text {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.8 !important;
+    }
+
     h2 {
       font-size: 2.2rem;
       line-height: 3.3rem;
@@ -259,7 +280,7 @@ export const JobDetailEmployer = styled.div`
     border: 1px solid var(--i-silver-grey);
 
     img {
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 

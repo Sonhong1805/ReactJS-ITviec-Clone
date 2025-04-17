@@ -1,4 +1,4 @@
-interface IUser extends IBase {
+interface IUser extends Base {
   id: number;
   username: string;
   email: string;

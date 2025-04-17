@@ -1,4 +1,4 @@
-interface Skill extends IBase {
+interface Skill extends Base {
   id: number;
   name: string;
 }
