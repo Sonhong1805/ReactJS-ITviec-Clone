@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { FiStar } from "react-icons/fi";
 import { Fragment } from "react/jsx-runtime";
-import IconStarFill from "~/components/Icon/IconStarFill";
 import rateDescription from "~/constants/rateDescription";
 import { RatingItemWrapper } from "./styled";
 import { useTranslation } from "react-i18next";
+import { Star } from "feather-icons-react";
 
 interface IProps {
   label: string;
@@ -34,14 +33,16 @@ const RatingItem = ({ label }: IProps) => {
                   onMouseEnter={() => setHoverRating(currentRating)}
                   onMouseLeave={() => setHoverRating(0)}>
                   {currentRating <= (hoverRating || selectedRating) ? (
-                    <IconStarFill
+                    <Star
+                      fill="#ff9119"
+                      stroke="#ff9119"
                       onClick={() => {
                         setSelectedRating(0);
                         setHoverRating(0);
                       }}
                     />
                   ) : (
-                    <FiStar />
+                    <Star />
                   )}
                 </span>
               </label>

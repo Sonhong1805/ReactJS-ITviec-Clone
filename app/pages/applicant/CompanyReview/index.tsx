@@ -13,11 +13,9 @@ import {
   ReviewRight,
   ReviewWrapper,
 } from "./styled";
-import { FiChevronLeft, FiStar } from "react-icons/fi";
 import SwitchLanguage from "~/components/SwitchLanguage";
 import { useTranslation } from "react-i18next";
 import LOGO from "/assets/images/logo.png";
-import IconStarFill from "~/components/Icon/IconStarFill";
 import rateDescription from "~/constants/rateDescription";
 import InputFloating from "~/components/InputFloating";
 import { z } from "zod";
@@ -27,6 +25,7 @@ import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import RatingItem from "~/components/RatingItem";
+import { ChevronLeft, Star } from "feather-icons-react";
 
 const CompanyReview = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,7 +110,7 @@ const CompanyReview = () => {
       <ReviewContainer>
         <ReviewBranding>
           <button className="back" onClick={openModal}>
-            <FiChevronLeft />
+            <ChevronLeft />
             <span>{t("Back", { ns: "apply" })}</span>
           </button>
           <img src={LOGO} alt="logo itviec" />
@@ -149,14 +148,16 @@ const CompanyReview = () => {
                             onMouseLeave={() => setHoverRating(0)}>
                             {currentRating <=
                             (hoverRating || selectedRating) ? (
-                              <IconStarFill
+                              <Star
+                                fill="#ff9119"
+                                stroke="#ff9119"
                                 onClick={() => {
                                   setSelectedRating(0);
                                   setHoverRating(0);
                                 }}
                               />
                             ) : (
-                              <FiStar />
+                              <Star />
                             )}
                           </span>
                         </label>

@@ -1,4 +1,3 @@
-import { FiEdit, FiStar, FiTrash2 } from "react-icons/fi";
 import {
   customStyles,
   ManageReviewsTable,
@@ -6,8 +5,6 @@ import {
   ModalContainer,
   ReviewRadio,
 } from "./styled";
-import IconStarFill from "~/components/Icon/IconStarFill";
-import Pagination from "~/components/Pagination";
 import { Fragment, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
@@ -16,6 +13,7 @@ import rateDescription from "~/constants/rateDescription";
 import InputFloating from "~/components/InputFloating";
 import { useForm } from "react-hook-form";
 import RatingItem from "~/components/RatingItem";
+import { Edit, Star, Trash2 } from "feather-icons-react";
 
 const ManageReviews = () => {
   const { t } = useTranslation(["settings"]);
@@ -53,11 +51,11 @@ const ManageReviews = () => {
                 </td>
                 <td>
                   <div className="stars">
-                    <IconStarFill />
-                    <IconStarFill />
-                    <IconStarFill />
-                    <FiStar />
-                    <FiStar />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star />
+                    <Star />
                   </div>
                 </td>
                 <td>
@@ -76,8 +74,8 @@ const ManageReviews = () => {
                 </td>
                 <td>
                   <div className="icons">
-                    <FiEdit onClick={() => setIsOpen(true)} />
-                    <FiTrash2 />
+                    <Edit onClick={() => setIsOpen(true)} />
+                    <Trash2 />
                   </div>
                 </td>
               </tr>
@@ -85,7 +83,7 @@ const ManageReviews = () => {
           </tbody>
         </table>
       </ManageReviewsTable>
-      <Pagination />
+      {/* <Pagination /> */}
       <Modal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -121,14 +119,16 @@ const ManageReviews = () => {
                           onMouseEnter={() => setHoverRating(currentRating)}
                           onMouseLeave={() => setHoverRating(0)}>
                           {currentRating <= (hoverRating || selectedRating) ? (
-                            <IconStarFill
+                            <Star
+                              fill="#ff9119"
+                              stroke="#ff9119"
                               onClick={() => {
                                 setSelectedRating(0);
                                 setHoverRating(0);
                               }}
                             />
                           ) : (
-                            <FiStar />
+                            <Star />
                           )}
                         </span>
                       </label>

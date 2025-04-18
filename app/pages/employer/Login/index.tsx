@@ -4,13 +4,13 @@ import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { FiMail, FiPhoneCall } from "react-icons/fi";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import authService from "~/services/authService";
 import { useUserStore } from "~/stores/userStore";
 import IconToastError from "~/components/Icon/IconToastError";
+import { Mail, PhoneCall } from "feather-icons-react";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
@@ -112,15 +112,15 @@ const Login = () => {
         </div>
         <ul className="contact-list">
           <li>
-            <FiPhoneCall />
+            <PhoneCall />
             <span>{t("Ho Chi Minh")}: (+84) 977 460 519</span>
           </li>
           <li>
-            <FiPhoneCall />
+            <PhoneCall />
             <span>{t("Ha Noi")}: (+84) 983 131 351</span>
           </li>
           <li>
-            <FiMail />
+            <Mail />
             <span>Email: love@itviec.com</span>
           </li>
         </ul>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { CoverLetterWrapper } from "./styled";
-import { FiEdit } from "react-icons/fi";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Edit } from "feather-icons-react";
 
 const CoverLetter = () => {
   const [showArea, setShowArea] = useState(false);
@@ -68,7 +68,7 @@ const CoverLetter = () => {
               src={"/assets/svg/cover_letter_no_info.svg"}
               alt="uploaded resume"
             />
-            <FiEdit cursor={"pointer"} onClick={() => setShowArea(true)} />
+            <Edit cursor={"pointer"} onClick={() => setShowArea(true)} />
           </div>
         )}
       </div>

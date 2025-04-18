@@ -1,4 +1,4 @@
-import { FiAlertCircle } from "react-icons/fi";
+import { AlertCircle } from "feather-icons-react";
 import JobCard from "./JobCard";
 import { JobsWrapper } from "./styled";
 
@@ -7,7 +7,7 @@ const RecentViewedJobs = () => {
     <JobsWrapper>
       <div className="heading">
         <div className="info">
-          <FiAlertCircle />
+          <AlertCircle />
           <div>Only display jobs viewed in the last 3 months.</div>
         </div>
         <div className="sort">

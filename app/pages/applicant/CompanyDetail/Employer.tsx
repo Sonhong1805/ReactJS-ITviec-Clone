@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   EmployerBg,
   EmployerButtonGroup,
@@ -10,16 +10,27 @@ import {
   EmployerSticky,
 } from "./styled";
 import { Link } from "react-router";
-import { FiBriefcase, FiCheck, FiMapPin, FiX } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import { useCompanyStore } from "~/stores/companyStore";
+import companyService from "~/services/companyService";
+import showToast from "~/utils/showToast";
+import { Briefcase, Check, MapPin, X } from "feather-icons-react";
 
 interface IProps {
   data: Company;
+  jobs?: Job[];
 }
 
-const Employer = ({ data }: IProps) => {
+const Employer = ({ data, jobs }: IProps) => {
   const { t } = useTranslation(["search", "option"]);
   const [isSticky, setIsSticky] = useState(false);
+  const { isFollowing, handleSaveFollow } = useCompanyStore();
+
+  useEffect(() => {
+    if (data.follow) {
+      handleSaveFollow(data.follow);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,13 +42,29 @@ const Employer = ({ data }: IProps) => {
     };
   }, []);
 
+  const handleToglleFollow = async () => {
+    const response = await companyService.follow(data.id);
+    if (response.isSuccess) {
+      handleSaveFollow(response.data);
+      if (response.data) {
+        showToast("success", t("Follow successfully"));
+      } else {
+        showToast("success", t("Unfollow successfully"));
+      }
+    }
+  };
+
   return (
     <>
       <EmployerBg>
         <EmployerContainer>
-          <Link to={"company/" + data.slug} className="company-logo">
+          <Link to={"/company/" + data.slug} className="company-logo">
             <img
-              src={data.logo + "" || "/assets/svg/avatar-default.svg"}
+              src={
+                data.logo === null
+                  ? "/assets/svg/avatar-default.svg"
+                  : data.logo + ""
+              }
               alt="company logo"
             />
           </Link>
@@ -45,12 +72,14 @@ const Employer = ({ data }: IProps) => {
             <h1>{data.companyName}</h1>
             <EmployerGroup>
               <EmployerShow>
-                <FiMapPin />
+                <MapPin />
                 <span>{t(data.location, { ns: "option" })}</span>
               </EmployerShow>
               <EmployerShow>
-                <FiBriefcase />
-                <span className="quantity">3 {t("job openings")}</span>
+                <Briefcase />
+                <span className="quantity">
+                  {jobs?.length} {t("job openings")}
+                </span>
               </EmployerShow>
             </EmployerGroup>
             <EmployerButtonGroup>
@@ -58,19 +87,23 @@ const Employer = ({ data }: IProps) => {
                 <button>{t("Write review")}</button>
               </EmployerButtons>
               <EmployerButtons>
-                {false ? (
+                {isFollowing ? (
                   <div className="follow-group">
                     <button className="btn-followed">
-                      <FiCheck />
+                      <Check />
                       <span>{t("Following")}</span>
                     </button>
-                    <button className="btn-unfollow">
-                      <FiX />
+                    <button
+                      className="btn-unfollow"
+                      onClick={handleToglleFollow}>
+                      <X />
                       <span>{t("Unfollow")}</span>
                     </button>
                   </div>
                 ) : (
-                  <button className="btn-follow">{t("Follow")}</button>
+                  <button className="btn-follow" onClick={handleToglleFollow}>
+                    {t("Follow")}
+                  </button>
                 )}
               </EmployerButtons>
             </EmployerButtonGroup>
@@ -89,19 +122,23 @@ const Employer = ({ data }: IProps) => {
                   <button>{t("Write review")}</button>
                 </EmployerButtons>
                 <EmployerButtons>
-                  {false ? (
+                  {isFollowing ? (
                     <div className="follow-group">
                       <button className="btn-followed">
-                        <FiCheck />
+                        <Check />
                         <span>{t("Following")}</span>
                       </button>
-                      <button className="btn-unfollow">
-                        <FiX />
+                      <button
+                        className="btn-unfollow"
+                        onClick={handleToglleFollow}>
+                        <X />
                         <span>{t("Unfollow")}</span>
                       </button>
                     </div>
                   ) : (
-                    <button className="btn-follow">{t("Follow")}</button>
+                    <button className="btn-follow" onClick={handleToglleFollow}>
+                      {t("Follow")}
+                    </button>
                   )}
                 </EmployerButtons>
               </div>

@@ -9,7 +9,7 @@ import skills from "~/constants/skills";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FiAlertCircle, FiX } from "react-icons/fi";
+import { AlertCircle, X } from "feather-icons-react";
 
 const Skills = () => {
   const { t } = useTranslation(["settings"]);
@@ -105,16 +105,16 @@ const Skills = () => {
                 <div className="skill-item">
                   <div className="skill-box">
                     <h4>Excellent</h4>
-                    <FiAlertCircle />
+                    <AlertCircle />
                   </div>
                   <div className="skill-tags">
                     <div className="skill-tag">
                       <span>ReactJS</span>
-                      <FiX />
+                      <X />
                     </div>
                     <div className="skill-tag">
                       <span>NextJS</span>
-                      <FiX />
+                      <X />
                     </div>
                   </div>
                   {/* <div className="skill-display">No skills listed</div> */}
@@ -122,14 +122,14 @@ const Skills = () => {
                 <div className="skill-item">
                   <div className="skill-box">
                     <h4>Intermediate</h4>
-                    <FiAlertCircle />
+                    <AlertCircle />
                   </div>
                   <div className="skill-display">No skills listed</div>
                 </div>
                 <div className="skill-item">
                   <div className="skill-box">
                     <h4>Beginner</h4>
-                    <FiAlertCircle />
+                    <AlertCircle />
                   </div>
                   <div className="skill-display">No skills listed</div>
                 </div>

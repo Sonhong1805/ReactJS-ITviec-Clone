@@ -20,4 +20,5 @@ type Company = Base &
     location: string;
     website: string;
     jobs: Job[];
+    follow?: boolean;
   };

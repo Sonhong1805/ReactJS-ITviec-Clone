@@ -1,14 +1,14 @@
 import { NavLink } from "react-router";
 import { NavbarWrapper } from "./styled";
-import { MdWavingHand } from "react-icons/md";
 import userLinks from "~/constants/userLinks";
+import IconHandWave from "~/components/Icon/IconHandWave";
 
 const Navbar = () => {
   return (
     <NavbarWrapper>
       <div className="nav-heading">
         <div className="welcome">
-          <MdWavingHand />
+          <IconHandWave />
           <span>Xin chào</span>
         </div>
         <h3>Nguyen Hong Son</h3>

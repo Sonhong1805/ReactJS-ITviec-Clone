@@ -170,7 +170,6 @@ export const CompanyInfoContainer = styled.div`
   align-items: flex-start;
   padding-block: 3.2rem;
   margin: auto;
-  padding-left: 2.8rem;
 `;
 
 export const Tabs = styled.div`

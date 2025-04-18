@@ -3,13 +3,13 @@ import { ForgotAlert, SignInForm, ToastMessage } from "./styled";
 import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
 import { Link } from "react-router";
-import { FiChevronLeft } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import IconToastError from "~/components/Icon/IconToastError";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import authService from "~/services/authService";
+import { ChevronLeft } from "feather-icons-react";
 
 const ForgotPassword = () => {
   const { t } = useTranslation(["auth"]);
@@ -55,7 +55,7 @@ const ForgotPassword = () => {
       </div>
       <div className="login">
         <Link to="/employer/login">
-          <FiChevronLeft />
+          <ChevronLeft />
           {t("Back to Sign in")}
         </Link>
       </div>

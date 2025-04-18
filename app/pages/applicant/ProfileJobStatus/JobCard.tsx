@@ -1,5 +1,5 @@
+import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
 import { JobCardWrapper } from "./styled";
-import { LuCircleDollarSign } from "react-icons/lu";
 
 interface IProps {
   status: "pending" | "accepted" | "reject" | "expired";
@@ -21,7 +21,7 @@ const JobCard = ({ status }: IProps) => {
             <span>Remote</span>
           </p>
           <div className="job-salary">
-            <LuCircleDollarSign />
+            <IconCircleDollarSign />
             <span>You&apos;ll love it</span>
           </div>
         </div>

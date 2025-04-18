@@ -1,12 +1,7 @@
-import {
-  useEffect,
-  useState,
-  type HTMLAttributes,
-  type KeyboardEvent,
-} from "react";
+import { useEffect, useState, type KeyboardEvent } from "react";
 import { AlertError, SelectPane, SelectWrapper } from "./styled";
-import { FiChevronDown } from "react-icons/fi";
 import Options from "./Options";
+import { ChevronDown } from "feather-icons-react";
 
 interface IProps {
   placeholder?: string;
@@ -93,7 +88,7 @@ const SelectBase = ({
               disabled={disabled}
             />
           </div>
-          <FiChevronDown size={24} className="arrow-down" />
+          <ChevronDown size={24} className="arrow-down" />
         </SelectPane>
         {!disabled && isShowOptions && (
           <Options options={options} onGetOption={handleGetOption} />

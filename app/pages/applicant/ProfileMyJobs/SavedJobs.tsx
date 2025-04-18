@@ -1,4 +1,4 @@
-import { FiAlertCircle } from "react-icons/fi";
+import { AlertCircle } from "feather-icons-react";
 import JobCard from "./JobCard";
 import { JobsWrapper } from "./styled";
 
@@ -7,7 +7,7 @@ const SavedJobs = () => {
     <JobsWrapper>
       <div className="heading">
         <div className="info">
-          <FiAlertCircle />
+          <AlertCircle />
           <div>You can save up to 20 jobs.</div>
         </div>
         <div className="sort">

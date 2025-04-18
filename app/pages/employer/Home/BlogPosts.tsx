@@ -1,8 +1,8 @@
 import { BlogPostsWrapper, BlogSalaryWrapper } from "./styled";
 import { Link } from "react-router";
-import { FiChevronRight } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import posts from "~/constants/posts";
+import { ChevronRight } from "feather-icons-react";
 
 const BlogPosts = () => {
   const { t } = useTranslation(["home"]);
@@ -16,7 +16,7 @@ const BlogPosts = () => {
               "https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/?itm_campaign=category&itm_medium=blog_article&itm_source=employer_page_vi"
             }>
             {t("See more articles")}
-            <FiChevronRight />
+            <ChevronRight />
           </Link>
         </div>
         <div className="blog-posts">
@@ -34,7 +34,7 @@ const BlogPosts = () => {
                 <div className="blog-link">
                   <span>
                     {t("Start reading")}
-                    <FiChevronRight />
+                    <ChevronRight />
                   </span>
                 </div>
               </div>
@@ -59,7 +59,7 @@ const BlogPosts = () => {
               )}
             </p>
             <Link to="https://itviec.com/bao-cao/luong-it-va-thi-truong-tuyen-dung-it-vietnam">
-              {t("Download now")} <FiChevronRight />
+              {t("Download now")} <ChevronRight />
             </Link>
           </div>
         </BlogSalaryWrapper>

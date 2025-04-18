@@ -1,6 +1,6 @@
 import React from "react";
 import { CardWrapper } from "./styled";
-import { FiPlusCircle } from "react-icons/fi";
+import { PlusCircle } from "feather-icons-react";
 interface IProps {
   title: string;
   subtitle: string;
@@ -20,7 +20,7 @@ const Card = ({ title, subtitle, img, children, openModal }: IProps) => {
           <img src={img} alt={title} />
         </figure>
         <div className="add-button" onClick={openModal}>
-          <FiPlusCircle cursor={"pointer"} color="#ed1b2f" />
+          <PlusCircle cursor={"pointer"} color="#ed1b2f" />
         </div>
       </div>
       {children}

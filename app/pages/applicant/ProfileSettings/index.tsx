@@ -11,8 +11,6 @@ import {
   SettingsWrapper,
 } from "./styled";
 import { useTranslation } from "react-i18next";
-import { BsInfoCircle } from "react-icons/bs";
-import { FiEdit3 } from "react-icons/fi";
 import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
 import { ToastContainer } from "react-toastify";
@@ -21,6 +19,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputFloating from "~/components/InputFloating";
+import { AlertCircle, Edit3 } from "feather-icons-react";
 
 const ProfileSettings = () => {
   const { t } = useTranslation(["settings"]);
@@ -101,7 +100,7 @@ const ProfileSettings = () => {
             <div className="col-9 info">
               <span>hongson180503@gmail.com</span>
               <div className="tooltip">
-                <BsInfoCircle className="info-circle" />
+                <AlertCircle className="info-circle" />
                 <div className="tooltip-inner">
                   {t("You can't change your login email")}
                 </div>
@@ -129,7 +128,7 @@ const ProfileSettings = () => {
             ) : (
               <div className="col-9 info">
                 <span>Nguyen Hong Son</span>
-                <FiEdit3
+                <Edit3
                   className="info-edit"
                   onClick={() => setChangeUsername(true)}
                 />

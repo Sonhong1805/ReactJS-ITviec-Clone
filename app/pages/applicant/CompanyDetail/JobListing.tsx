@@ -1,19 +1,15 @@
 import JobCard from "~/components/JobCard";
 import { JobListingContainer, JobListingWrapper } from "./styled";
 import { useTranslation } from "react-i18next";
-import jobService from "~/services/jobService";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 
-const JobListing = () => {
+interface IProps {
+  jobs: Job[];
+  isPending: boolean;
+}
+
+const JobListing = ({ jobs, isPending }: IProps) => {
   const { t } = useTranslation(["search"]);
-  const { slug } = useParams();
-  const { data: jobs, isPending } = useQuery({
-    queryKey: ["jobsByCompany", slug],
-    queryFn: () => jobService.getByCompany(slug + ""),
-    select: ({ data }) => data as Job[],
-  });
 
   return (
     <JobListingWrapper>
@@ -27,7 +23,9 @@ const JobListing = () => {
             style={{ minHeight: "31.2rem", marginBottom: ".8rem" }}
           />
         ) : (
-          jobs?.map((job, index) => <JobCard key={index} job={job} />)
+          jobs?.map((job, index) => (
+            <JobCard key={index} job={job} isNextPage={true} />
+          ))
         )}
       </JobListingContainer>
     </JobListingWrapper>

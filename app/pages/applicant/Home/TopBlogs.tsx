@@ -1,9 +1,8 @@
-import React from "react";
 import { BackgroundBlog, MainContainer, TopBlogsWrapper } from "./styled";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import { FiChevronRight } from "react-icons/fi";
 import blogs from "~/constants/blogs";
+import { ChevronRight } from "feather-icons-react";
 
 const TopBlogs = () => {
   const { t } = useTranslation(["home"]);
@@ -15,7 +14,7 @@ const TopBlogs = () => {
             <div className="h1">{t("Featured articles")}</div>
             <Link to={"https://itviec.com/blog/"} className="link">
               {t("View all articles")}
-              <FiChevronRight />
+              <ChevronRight />
             </Link>
           </div>
           <div className="blog-posts">
@@ -35,7 +34,7 @@ const TopBlogs = () => {
                 <div className="blog-link">
                   <span className="link">
                     {t("Start reading")}
-                    <FiChevronRight />
+                    <ChevronRight />
                   </span>
                 </div>
               </Link>

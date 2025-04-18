@@ -1,10 +1,8 @@
-import { FiAlertCircle, FiStar, FiThumbsUp } from "react-icons/fi";
 import { ReviewAbout, ReviewCard, ReviewList, ReviewRating } from "./styled";
-import IconStarFill from "~/components/Icon/IconStarFill";
 import { Fragment } from "react/jsx-runtime";
 import { useState } from "react";
-import Pagination from "~/components/Pagination";
 import { useTranslation } from "react-i18next";
+import { AlertCircle, Star, ThumbsUp } from "feather-icons-react";
 
 const Reviews = () => {
   const { t } = useTranslation(["search"]);
@@ -45,9 +43,9 @@ const Reviews = () => {
                         onMouseEnter={() => setHoverRating(currentRating)}
                         onMouseLeave={() => setHoverRating(null)}>
                         {currentRating <= (hoverRating || selectedRating) ? (
-                          <IconStarFill />
+                          <Star fill="#ff9119" stroke="#ff9119" />
                         ) : (
-                          <FiStar />
+                          <Star />
                         )}
                       </span>
                     </label>
@@ -59,7 +57,7 @@ const Reviews = () => {
           </div>
           <div className="message">
             <span>
-              <FiAlertCircle />
+              <AlertCircle />
             </span>
             <span>
               {t("Your review for")} CJ OLIVENETWORKS VINA CO., LTD{" "}
@@ -80,16 +78,16 @@ const Reviews = () => {
               <div className="rating">
                 <div className="box-star">
                   <div className="stars">
-                    <IconStarFill />
-                    <IconStarFill />
-                    <IconStarFill />
-                    <IconStarFill />
-                    <FiStar />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star fill="#ff9119" stroke="#ff9119" />
+                    <Star />
                   </div>
                   <div className="number">4</div>
                 </div>
                 <div className="recommend">
-                  <FiThumbsUp />
+                  <ThumbsUp />
                   {t("Recommend")}
                 </div>
               </div>
@@ -105,7 +103,7 @@ const Reviews = () => {
           </ReviewCard>
         ))}
         {/* <p style={{ paddingTop: "3.2rem" }}></p> */}
-        <Pagination />
+        {/* <Pagination /> */}
       </ReviewList>
       <ReviewAbout>
         <div className="about">

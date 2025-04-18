@@ -1,7 +1,6 @@
-import React from "react";
+import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
 import { JobCardWrapper } from "./styled";
-import { LuCircleDollarSign } from "react-icons/lu";
-import { FaRegHeart } from "react-icons/fa";
+import { Heart } from "feather-icons-react";
 
 const JobCard = () => {
   return (
@@ -19,7 +18,7 @@ const JobCard = () => {
             <span>Remote</span>
           </p>
           <div className="job-salary">
-            <LuCircleDollarSign />
+            <IconCircleDollarSign />
             <span>You&apos;ll love it</span>
           </div>
         </div>
@@ -32,7 +31,7 @@ const JobCard = () => {
           {/* <div className="status">Applied</div> */}
           <button>Apply now</button>
           <div>
-            <FaRegHeart />
+            <Heart />
           </div>
         </div>
       </div>

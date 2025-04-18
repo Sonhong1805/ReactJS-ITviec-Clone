@@ -1,11 +1,4 @@
-import { FiChevronDown, FiX } from "react-icons/fi";
-import React, {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type MouseEventHandler,
-} from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   BoxDropdownContainer,
   BoxDropdownLabel,
@@ -18,6 +11,7 @@ import { routes } from "~/constants/routes";
 import { MAX_RANGE, MIN_RANGE } from "../SearchFilter/ModalFilter";
 import formatSalary from "~/utils/formatSalary";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
+import { ChevronDown, X } from "feather-icons-react";
 
 interface IProps {
   label: string;
@@ -142,7 +136,7 @@ const BoxDropdown = ({
       onClick={() => setIsShowDropdown(!isShowDropdown)}>
       <div className={`box ${isActive && "active"}`}>
         <span>{showLabel}</span>
-        {isActive ? <FiX onClick={handleResetSelected} /> : <FiChevronDown />}
+        {isActive ? <X onClick={handleResetSelected} /> : <ChevronDown />}
       </div>
       {isShowDropdown && (
         <BoxDropdownContainer

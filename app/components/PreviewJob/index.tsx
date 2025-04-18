@@ -78,11 +78,11 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
             <PreviewJobHeader>
               <PreviewJobCompany>
                 <Link
-                  to={`/company/${selectedJob?.company.slug}`}
+                  to={`/company/${selectedJob?.company?.slug}`}
                   className="logo-company">
                   <img
                     src={
-                      selectedJob?.company.logo + "" ||
+                      selectedJob?.company?.logo + "" ||
                       "/assets/svg/avatar-default.svg"
                     }
                     alt="logo company"
@@ -104,7 +104,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   </div>
                   <span>
                     <Link
-                      to={`/company/${selectedJob?.company.slug}`}
+                      to={`/company/${selectedJob?.company?.slug}`}
                       className="company-name">
                       {selectedJob?.company?.companyName}
                     </Link>
@@ -168,7 +168,9 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   <ul>
                     {selectedJob?.skills?.map((skill) => (
                       <li key={skill.id}>
-                        <Link to={""}>{skill.name}</Link>
+                        <Link to={"/it-jobs?keyword=" + skill.name}>
+                          {skill.name}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -208,11 +210,11 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   dụng và game cho Desktop, Mobile
                 </p>
                 <div className="company-grid">
-                  {selectedJob?.company.companyType && (
+                  {selectedJob?.company?.companyType && (
                     <div>
                       <small>{t("Introduce.Company type")}</small>
                       <p>
-                        {t(selectedJob.company.companyType, { ns: "option" })}
+                        {t(selectedJob.company?.companyType, { ns: "option" })}
                       </p>
                     </div>
                   )}
@@ -226,25 +228,27 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                       </p>
                     </div>
                   )}
-                  {selectedJob?.company.companySize && (
+                  {selectedJob?.company?.companySize && (
                     <div>
                       <small>{t("Introduce.Company size")}</small>
                       <p>
-                        {t(selectedJob.company.companySize, { ns: "option" })}
+                        {t(selectedJob?.company?.companySize, { ns: "option" })}
                       </p>
                     </div>
                   )}
-                  {selectedJob?.company.country && (
+                  {selectedJob?.company?.country && (
                     <div>
                       <small>{t("Introduce.Country")}</small>
-                      <p>{t(selectedJob.company.country, { ns: "option" })}</p>
+                      <p>
+                        {t(selectedJob?.company?.country, { ns: "option" })}
+                      </p>
                     </div>
                   )}
-                  {selectedJob?.company.workingDay && (
+                  {selectedJob?.company?.workingDay && (
                     <div>
                       <small>{t("Introduce.Working days")}</small>
                       <p>
-                        {t(selectedJob.company.workingDay, { ns: "option" })}
+                        {t(selectedJob?.company?.workingDay, { ns: "option" })}
                       </p>
                     </div>
                   )}
@@ -252,7 +256,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                     <div>
                       <small>{t("Introduce.Overtime policy")}</small>
                       <p>
-                        {t(selectedJob.company.overtimePolicy, {
+                        {t(selectedJob?.company?.overtimePolicy, {
                           ns: "option",
                         })}
                       </p>

@@ -13,39 +13,50 @@ import formatDate from "~/utils/formatDate";
 
 interface IProps {
   job: Job;
+  isNextPage?: boolean;
 }
 
-const JobCard = ({ job }: IProps) => {
+const JobCard = ({ job, isNextPage = false }: IProps) => {
   const { t } = useTranslation(["search", "option", "apply"]);
   const isAuthenticated = useUserStore((s) => s.isAuthenticated);
   const { selectedJob, handleSelectedJob } = useJobStore();
   const postedTime = getPostedTime(t, new Date(job?.createdAt + "") + "");
 
-  const previewCompany = () => {
+  const previewJob = () => {
+    if (isNextPage) {
+      return;
+    }
     handleSelectedJob(job);
   };
 
   return (
     <JobCardWrapper
-      onClick={previewCompany}
+      onClick={previewJob}
       className={selectedJob?.id === job?.id ? "active" : ""}>
       <div className="job-card-content">
         <div className="posted-time">
           {t("Posted")} {postedTime}
         </div>
         <div>
-          <Link to={"job/" + job.slug} className="job-name">
+          <Link
+            to={"/job/" + job.slug}
+            target={isNextPage ? "_blank" : undefined}
+            className={`job-name ${isNextPage ? "next-page" : ""}`}>
             {job.title}
           </Link>
         </div>
-        <div className="job-company">
-          <Link to={"/company/" + job.company?.slug} className="logo-company">
+        <div className={`job-company ${isNextPage ? "next-page" : ""}`}>
+          <Link to={"/company/" + job.company?.slug} className={`logo-company`}>
             <img
-              src={job.company?.logo + "" || "/assets/svg/avatar-default.svg"}
+              src={
+                job.company?.logo === null || job.company?.logo + "" === ""
+                  ? "/assets/svg/avatar-default.svg"
+                  : job.company?.logo + ""
+              }
               alt="company logo"
             />
           </Link>
-          <Link to={"/company/" + job.company?.slug} className="name-company">
+          <Link to={"/company/" + job.company?.slug} className={`name-company`}>
             {job.company?.companyName}
           </Link>
         </div>
@@ -58,7 +69,9 @@ const JobCard = ({ job }: IProps) => {
               {/* You&apos;ll love it */}
             </span>
           ) : (
-            <Link to={"/login"} className="salary-hide">
+            <Link
+              to={"/login"}
+              className={`salary-hide ${isNextPage ? "next-page" : ""}`}>
               <IconCircleDollarSign />
               {t("Sign in to view salary")}
             </Link>
@@ -72,8 +85,8 @@ const JobCard = ({ job }: IProps) => {
           <MapPin size={16} />
           <span>{t(job.location, { ns: "option" })}</span>
         </div>
-        <ul className="job-skills">
-          {job.skills.map((skill) => (
+        <ul className={`job-skills ${isNextPage ? "next-page" : ""}`}>
+          {job.skills?.map((skill) => (
             <li key={skill.id}>
               <Link to={"/it-jobs?keyword=" + skill.name}>{skill.name}</Link>
             </li>

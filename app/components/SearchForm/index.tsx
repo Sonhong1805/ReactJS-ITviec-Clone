@@ -1,4 +1,3 @@
-import { FiChevronDown, FiMapPin, FiSearch } from "react-icons/fi";
 import {
   Select,
   SearchBox,
@@ -11,11 +10,10 @@ import {
 import { useEffect, useState, type SyntheticEvent } from "react";
 import { createSearchParams, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { FiX } from "react-icons/fi";
-
 import SearchOptions from "./SearchOptions";
 import CityOptions from "./CityOptions";
 import { routes } from "~/constants/routes";
+import { ChevronDown, MapPin, Search, X } from "feather-icons-react";
 
 interface IProps {
   paramCity?: string;
@@ -100,10 +98,10 @@ const SearchForm = ({ paramCity, paramKeyword }: IProps) => {
           className={isShowOptions ? "select-active" : ""}>
           <SelectPane>
             <div className="select-value">
-              <FiMapPin />
+              <MapPin />
               <span>{t(optionValue, { ns: "option" })}</span>
             </div>
-            <FiChevronDown size={24} className="arrow-down" />
+            <ChevronDown size={24} className="arrow-down" />
           </SelectPane>
           {isShowOptions && <CityOptions onOptionValue={handleOptionValue} />}
         </Select>
@@ -117,7 +115,7 @@ const SearchForm = ({ paramCity, paramKeyword }: IProps) => {
                 value={keyword}
                 onFocus={() => setIsInputFocused(true)}
               />
-              <FiX
+              <X
                 className={keyword && "show"}
                 onClick={() => {
                   setKeyword("");
@@ -133,7 +131,7 @@ const SearchForm = ({ paramCity, paramKeyword }: IProps) => {
             )}
           </SearchKeyword>
           <SearchButton type="submit">
-            <FiSearch />
+            <Search />
             {t("Search")}
           </SearchButton>
         </SearchBox>

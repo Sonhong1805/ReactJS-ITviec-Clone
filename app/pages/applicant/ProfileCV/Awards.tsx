@@ -8,10 +8,10 @@ import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RichTextEditor from "~/components/RichTextEditor";
-import { FiFeather } from "react-icons/fi";
 import InputFloating from "~/components/InputFloating";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
+import { Feather } from "feather-icons-react";
 
 const Awards = () => {
   const { t } = useTranslation(["settings"]);
@@ -158,7 +158,7 @@ const Awards = () => {
                 <h4>Description</h4>
                 <div className="placeholder-tips">
                   <div className="icon">
-                    <FiFeather />
+                    <Feather />
                   </div>
                   <div className="tips">
                     <strong>Tips: </strong>

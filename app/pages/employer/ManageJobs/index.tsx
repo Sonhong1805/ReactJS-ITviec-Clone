@@ -7,8 +7,6 @@ import {
   ModalContainer,
   SalaryBox,
 } from "./styled";
-import { FiEdit, FiPlusCircle, FiTrash2 } from "react-icons/fi";
-import { LuCircleDollarSign } from "react-icons/lu";
 import Pagination from "~/components/Pagination";
 import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
@@ -24,6 +22,8 @@ import InputBase from "~/components/InputBase";
 import customSalary from "~/utils/customSalary";
 import { years } from "~/constants/dateOptions";
 import InputDate from "~/components/InputDate";
+import { Edit, PlusCircle, Trash2 } from "feather-icons-react";
+import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
 
 const ManageJobs = () => {
   const { t } = useTranslation(["settings"]);
@@ -54,12 +54,11 @@ const ManageJobs = () => {
     watch,
     setValue,
     setError,
-  } = useForm<IJob>({
+  } = useForm<Job>({
     defaultValues: {
       title: "",
       level: "",
       workingModel: "",
-      industry: "",
       minSalary: "",
       maxSalary: "",
       currencySalary: "VND",
@@ -70,7 +69,7 @@ const ManageJobs = () => {
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<IJob> = async (data: IJob) => {
+  const onSubmit: SubmitHandler<Job> = async (data: Job) => {
     console.log(data);
   };
 
@@ -79,7 +78,7 @@ const ManageJobs = () => {
   const isValidMaxSalary = watch("maxSalary") !== "" ? "success" : "";
   const isValidLevel = watch("level") !== "" ? "success" : "";
   const isValidWorkingModel = watch("workingModel") !== "" ? "success" : "";
-  const isValidIndustry = watch("industry") !== "" ? "success" : "";
+  // const isValidIndustry = watch("industry") !== "" ? "success" : "";
   const isValidStartDate = watch("startDate") !== "" ? "success" : "";
   const isValidEndDate = watch("endDate") !== "" ? "success" : "";
 
@@ -90,7 +89,7 @@ const ManageJobs = () => {
       <div className="heading">
         <h2>Quản lý việc làm</h2>
         <button onClick={() => setIsOpen(true)}>
-          <FiPlusCircle />
+          <PlusCircle />
           Thêm
         </button>
       </div>
@@ -113,7 +112,7 @@ const ManageJobs = () => {
                 <td>
                   <p>Singapore Java Fullstack Developer (Spring) Up to $3000</p>
                   <div className="salary">
-                    <LuCircleDollarSign />
+                    <IconCircleDollarSign />
                     1,000 - 2,000 USD
                   </div>
                 </td>
@@ -151,8 +150,8 @@ const ManageJobs = () => {
                 </td>
                 <td>
                   <div className="icons">
-                    <FiEdit />
-                    <FiTrash2 />
+                    <Edit />
+                    <Trash2 />
                   </div>
                 </td>
               </tr>
@@ -160,7 +159,7 @@ const ManageJobs = () => {
           </tbody>
         </table>
       </ManageJobsTable>
-      <Pagination />
+      {/* <Pagination /> */}
       <Modal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -270,7 +269,7 @@ const ManageJobs = () => {
                 <h3>
                   Job industry <abbr>*</abbr>
                 </h3>
-                <SelectBase
+                {/* <SelectBase
                   name="industry"
                   register={register}
                   placeholder={t("Select industry")}
@@ -280,7 +279,7 @@ const ManageJobs = () => {
                   className={
                     errors.industry?.message ? "error" : isValidIndustry
                   }
-                />
+                /> */}
               </div>
               <div className="form-group">
                 <div className="date-group">

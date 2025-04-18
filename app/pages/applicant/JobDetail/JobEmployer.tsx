@@ -5,8 +5,8 @@ import {
   JobDetailEmployerInfo,
   JobDetailLeft,
 } from "./styled";
-import { FiExternalLink } from "react-icons/fi";
 import { useJobStore } from "~/stores/jobStore";
+import { ExternalLink } from "feather-icons-react";
 
 const JobEmployer = () => {
   const { t, i18n } = useTranslation(["search", "option"]);
@@ -30,7 +30,7 @@ const JobEmployer = () => {
           <h3>{jobDetail?.company?.companyName}</h3>
           <Link to={jobDetail?.company?.website}>
             <span>{t("View company")}</span>
-            <FiExternalLink />
+            <ExternalLink />
           </Link>
         </div>
       </JobDetailEmployer>

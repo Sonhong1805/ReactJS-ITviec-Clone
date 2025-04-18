@@ -61,13 +61,33 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     font-weight: 700;
     margin-top: 1.2rem;
     display: inline-block;
+    transition-duration: 300ms;
+
+    &.next-page {
+      &::after {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        content: "";
+      }
+
+      &:hover {
+        color: var(--i-red);
+      }
+    }
   }
 
   .job-company {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.8rem;
     margin-block: 1.2rem;
+
+    &.next-page {
+      position: relative;
+      z-index: 1;
+      content: "";
+    }
 
     .logo-company {
       width: 4.8rem;
@@ -93,6 +113,7 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
 
   .job-salary {
     border-bottom: 1px dashed var(--i-silver-grey);
+    margin-bottom: 12px;
 
     span.salary-show {
       display: inline-flex;
@@ -114,6 +135,12 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
       font-weight: 500;
       color: var(--i-rich-grey);
       text-decoration: underline;
+
+      &.next-page {
+        position: relative;
+        z-index: 1;
+        content: "";
+      }
     }
   }
 
@@ -122,7 +149,7 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    margin-block: 1.2rem;
+    margin-top: 0.4rem;
     font-size: 1.4rem;
 
     svg {
@@ -133,12 +160,18 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
   }
 
   .job-skills {
-    display: flex;
+    display: inline-flex;
     align-items: baseline;
     gap: 4px;
     margin-top: 1.2rem;
     margin-bottom: 0.8rem;
     padding-bottom: 0.8rem;
+
+    &.next-page {
+      position: relative;
+      z-index: 1;
+      content: "";
+    }
 
     li {
       display: contents;

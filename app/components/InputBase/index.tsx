@@ -6,9 +6,9 @@ import {
   InputBaseWrapper,
   LabelWrapper,
 } from "./styled";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { Eye, EyeOff } from "feather-icons-react";
 interface IProps {
   name: string;
   type?: "text" | "email" | "password" | "number" | "salary";
@@ -73,9 +73,9 @@ const InputBase = ({
           {type === "password" && (
             <>
               {togglePassword ? (
-                <FiEye onClick={() => setTogglePassword(false)} />
+                <Eye onClick={() => setTogglePassword(false)} />
               ) : (
-                <FiEyeOff onClick={() => setTogglePassword(true)} />
+                <EyeOff onClick={() => setTogglePassword(true)} />
               )}
             </>
           )}

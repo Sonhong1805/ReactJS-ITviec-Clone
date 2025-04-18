@@ -189,7 +189,7 @@ export const BorderDash = styled.div`
 export const PreviewJobOverview = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 0.8rem;
 
   .overview-item {
     display: flex;

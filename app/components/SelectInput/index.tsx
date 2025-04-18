@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertError, SelectPane, SelectWrapper } from "./styled";
-import { FiChevronDown } from "react-icons/fi";
 import Options from "./Options";
+import { ChevronDown } from "feather-icons-react";
 
 interface IProps {
   placeholder?: string;
@@ -35,7 +35,7 @@ const SelectInput = ({
 
   const handleGetOption = (option: Option) => {
     setSelectedLabel(option.label);
-    onSetValue(option.value);
+    onSetValue(option.value + "");
     setIsShowOptions(false);
   };
 
@@ -65,7 +65,7 @@ const SelectInput = ({
               disabled={disabled}
             />
           </div>
-          <FiChevronDown size={24} className="arrow-down" />
+          <ChevronDown size={24} className="arrow-down" />
         </SelectPane>
         {!disabled && isShowOptions && (
           <Options options={options} onGetOption={handleGetOption} />

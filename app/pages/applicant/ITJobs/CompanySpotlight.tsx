@@ -10,7 +10,7 @@ import {
   CompanySpotlightWrapper,
 } from "./styled";
 import { Link } from "react-router";
-import { FiArrowRightCircle, FiChevronRight, FiMapPin } from "react-icons/fi";
+import { ArrowRightCircle, ChevronRight, MapPin } from "feather-icons-react";
 
 const CompanySpotlight = () => {
   const { t } = useTranslation(["search"]);
@@ -32,7 +32,7 @@ const CompanySpotlight = () => {
               MB Bank
             </Link>
             <div className="company-location">
-              <FiMapPin />
+              <MapPin />
               <span>Ha Noi - Ho Chi Minh</span>
             </div>
             <p>Ngân hàng TMCP Quân Đội (MB)</p>
@@ -40,22 +40,22 @@ const CompanySpotlight = () => {
               <span>
                 {t("View")} 17 {t("jobs")}
               </span>
-              <FiChevronRight />
+              <ChevronRight />
             </Link>
           </CompanySpotlightInfo>
         </CompanySpotlightItem>
         <CompanySpotlightItem>
           <CompanySpotlightJobs>
             <div className="job-item">
-              <FiArrowRightCircle />
+              <ArrowRightCircle />
               <span>AI-AI Engineer ( Python/ Django/ C++ ) - Khối CNTT</span>
             </div>
             <div className="job-item">
-              <FiArrowRightCircle />
+              <ArrowRightCircle />
               <span>Fullstack Developer (Java/ ReactJS/SQL) - All Level</span>
             </div>
             <div className="job-item">
-              <FiArrowRightCircle />
+              <ArrowRightCircle />
               <span>Backend Developer (Java/Spring/Oracle) - All Level</span>
             </div>
           </CompanySpotlightJobs>

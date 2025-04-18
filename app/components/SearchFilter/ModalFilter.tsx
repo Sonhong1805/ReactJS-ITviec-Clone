@@ -9,7 +9,6 @@ import {
 } from "./styled";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
-import { FiCheck, FiPlus } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import Slider from "rc-slider";
 import useDebounce from "~/hooks/useDebounce";
@@ -23,6 +22,7 @@ import { createSearchParams, useNavigate } from "react-router";
 import { useMemo } from "react";
 import { routes } from "~/constants/routes";
 import useGetSelectedValue from "~/hooks/useGetSelectedValue";
+import { Check, Plus } from "feather-icons-react";
 
 export const MIN_RANGE = 500;
 export const MAX_RANGE = 10000;
@@ -81,7 +81,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
   const { getValues: getIndustries, handleGetValues: handleGetIndustries } =
     useGetSelectedValue(selectedIndustries);
 
-  const handleOnSubmit = (data: { industry: string }) => {
+  const handleOnSubmit = () => {
     handleSaveLevels(getLevels.map((item) => item + ""));
     handleSaveWorkingModels(getWorkingModels.map((item) => item + ""));
     handleSaveIndustries(getIndustries.map((item) => item + ""));
@@ -167,7 +167,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Fresher">
                 Fresher
-                {getLevels.includes("Fresher") ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Fresher") ? <Check /> : <Plus />}
               </ModalLabel>
               <input
                 type="checkbox"
@@ -180,7 +180,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Junior">
                 Junior
-                {getLevels.includes("Junior") ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Junior") ? <Check /> : <Plus />}
               </ModalLabel>
               <input
                 type="checkbox"
@@ -193,7 +193,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Senior">
                 Senior
-                {getLevels.includes("Senior") ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Senior") ? <Check /> : <Plus />}
               </ModalLabel>
               <input
                 type="checkbox"
@@ -206,7 +206,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Manager">
                 Manager
-                {getLevels.includes("Manager") ? <FiCheck /> : <FiPlus />}
+                {getLevels.includes("Manager") ? <Check /> : <Plus />}
               </ModalLabel>
             </div>
           </ModalContainer>
@@ -224,11 +224,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="At office">
                 {t("At office")}
-                {getWorkingModels.includes("At office") ? (
-                  <FiCheck />
-                ) : (
-                  <FiPlus />
-                )}
+                {getWorkingModels.includes("At office") ? <Check /> : <Plus />}
               </ModalLabel>
               <input
                 type="checkbox"
@@ -241,7 +237,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Remote">
                 {t("Remote")}
-                {getWorkingModels.includes("Remote") ? <FiCheck /> : <FiPlus />}
+                {getWorkingModels.includes("Remote") ? <Check /> : <Plus />}
               </ModalLabel>
               <input
                 type="checkbox"
@@ -254,7 +250,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Hybrid">
                 {t("Hybrid")}
-                {getWorkingModels.includes("Hybrid") ? <FiCheck /> : <FiPlus />}
+                {getWorkingModels.includes("Hybrid") ? <Check /> : <Plus />}
               </ModalLabel>
             </div>
           </ModalContainer>
@@ -305,9 +301,9 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               <ModalLabel htmlFor="IT Outsourcing">
                 {t("IT Outsourcing", { ns: "option" })}
                 {selectedCompanyTypes.includes("IT Outsourcing") ? (
-                  <FiCheck />
+                  <Check />
                 ) : (
-                  <FiPlus />
+                  <Plus />
                 )}
               </ModalLabel>
               <input
@@ -322,9 +318,9 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               <ModalLabel htmlFor="IT Product">
                 {t("IT Product", { ns: "option" })}
                 {selectedCompanyTypes.includes("IT Product") ? (
-                  <FiCheck />
+                  <Check />
                 ) : (
-                  <FiPlus />
+                  <Plus />
                 )}
               </ModalLabel>
               <input
@@ -339,9 +335,9 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               <ModalLabel htmlFor="Headhunt">
                 Headhunt
                 {selectedCompanyTypes.includes("Headhunt") ? (
-                  <FiCheck />
+                  <Check />
                 ) : (
-                  <FiPlus />
+                  <Plus />
                 )}
               </ModalLabel>
               <input
@@ -362,9 +358,9 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
                 {selectedCompanyTypes.includes(
                   "IT Service and IT Consulting"
                 ) ? (
-                  <FiCheck />
+                  <Check />
                 ) : (
-                  <FiPlus />
+                  <Plus />
                 )}
               </ModalLabel>
               <input
@@ -378,11 +374,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
               />
               <ModalLabel htmlFor="Non-IT">
                 Non-IT
-                {selectedCompanyTypes.includes("Non-IT") ? (
-                  <FiCheck />
-                ) : (
-                  <FiPlus />
-                )}
+                {selectedCompanyTypes.includes("Non-IT") ? <Check /> : <Plus />}
               </ModalLabel>
             </div>
           </ModalContainer>

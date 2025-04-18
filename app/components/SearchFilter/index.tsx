@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { SearchBox, SearchFilterContainer } from "./styled";
 import { useTranslation } from "react-i18next";
-import { FiFilter } from "react-icons/fi";
 import ModalFilter from "./ModalFilter";
 import BoxFilter from "./BoxFilter";
 import Modal from "react-modal";
 import { useJobStore } from "~/stores/jobStore";
 import { useSearchParams } from "react-router";
+import { Filter } from "feather-icons-react";
 
 const SearchFilter = () => {
   const { t, i18n } = useTranslation(["search", "option"]);
@@ -95,7 +95,7 @@ const SearchFilter = () => {
       <SearchBox>
         <BoxFilter />
         <button onClick={openModal}>
-          <FiFilter />
+          <Filter />
           <span>{t("Filter")}</span>
           {countSelected > 0 && <div className="count">{countSelected}</div>}
         </button>

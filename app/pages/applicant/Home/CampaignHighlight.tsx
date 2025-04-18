@@ -1,7 +1,6 @@
-import React from "react";
+import { ArrowRightCircle } from "feather-icons-react";
 import { CampaignHighlightWrapper } from "./styled";
 import { Link } from "react-router";
-import { FiArrowRightCircle } from "react-icons/fi";
 
 const CampaignHighlight = () => {
   return (
@@ -18,7 +17,7 @@ const CampaignHighlight = () => {
               ĐỊNH HÌNH XU HƯỚNG NGÀNH IT TỪ DỮ LIỆU ĐA CHIỀU
             </p>
           </div>
-          <FiArrowRightCircle size={20} color="#ed1b2f" />
+          <ArrowRightCircle size={20} color="#ed1b2f" />
         </Link>
       </div>
     </CampaignHighlightWrapper>

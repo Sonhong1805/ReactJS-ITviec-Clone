@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavbarWrapper } from "./styled";
-import { MdWavingHand } from "react-icons/md";
 import { NavLink } from "react-router";
 import employerLinks from "~/constants/employerLinks";
-import { FiLogIn } from "react-icons/fi";
 import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 import { useUserStore } from "~/stores/userStore";
 import { useCompanyStore } from "~/stores/companyStore";
 import { useCompanyQuery } from "~/hooks/useCompanyQuery";
 import Loading from "~/components/Loading";
+import { LogIn } from "feather-icons-react";
+import IconHandWave from "~/components/Icon/IconHandWave";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
@@ -29,7 +29,7 @@ const Navbar = () => {
         <div className="nav-heading">
           <div className="welcome">
             <div className="company-name">
-              <MdWavingHand />
+              <IconHandWave />
               <span>{company?.companyName}</span>
             </div>
             {showNavbar ? (
@@ -53,7 +53,7 @@ const Navbar = () => {
             </NavLink>
           ))}
           <NavLink to={""}>
-            <FiLogIn />
+            <LogIn />
             <span>Đăng xuất</span>
           </NavLink>
         </div>

@@ -5,8 +5,8 @@ import {
 } from "./styled";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { FiGlobe } from "react-icons/fi";
 import DOMPurify from "dompurify";
+import { Globe } from "feather-icons-react";
 
 interface IProps {
   data: Company;
@@ -55,7 +55,6 @@ const Overview = ({ data }: IProps) => {
           </div>
         </div>
       </GeneralInformation>
-
       <CompanyReasons>
         <h2>{t("Company overview")}</h2>
         <div
@@ -67,13 +66,15 @@ const Overview = ({ data }: IProps) => {
       <CompanySpecialize>
         <h2>{t("Our key skills")}</h2>
         <p>{t("Our key skills")}</p>
-        <ul>
-          {data.skills?.map((skill) => (
-            <li key={skill.id}>
-              <Link to={""}>{skill.name}</Link>
-            </li>
-          ))}
-        </ul>
+        {data.skills && data.skills?.length > 0 && (
+          <ul>
+            {data.skills?.map((skill) => (
+              <li key={skill.id}>
+                <Link to={""}>{skill.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </CompanySpecialize>
       <CompanyReasons>
         <h2>{t("Why you'll love working here")}</h2>
@@ -84,7 +85,7 @@ const Overview = ({ data }: IProps) => {
           }}></div>
         <div className="company-website">
           <Link to={data.website} className="company-path">
-            <FiGlobe />
+            <Globe />
             <span>{t("Company website")}</span>
           </Link>
         </div>

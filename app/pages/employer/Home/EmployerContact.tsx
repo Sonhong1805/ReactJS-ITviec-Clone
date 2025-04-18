@@ -6,7 +6,6 @@ import {
   SubmitContact,
   SuccessCheck,
 } from "./styled";
-import { FiClock, FiPhone } from "react-icons/fi";
 import InputFloating from "~/components/InputFloating";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -21,6 +20,7 @@ import useValidation from "~/hooks/useValidation";
 import getSources from "~/constants/getSources";
 import authService from "~/services/authService";
 import showToast from "~/utils/showToast";
+import { Clock, Phone } from "feather-icons-react";
 
 const EmployerContact = () => {
   const { t } = useTranslation(["auth", "home"]);
@@ -278,21 +278,21 @@ const EmployerContact = () => {
           </div>
           <div className="contact-info">
             <div className="contact-box">
-              <FiPhone size={24} color="#ed1b2f" />
+              <Phone size={24} color="#ed1b2f" />
               <div className="text">
                 <p>Hotline {t("Ho Chi Minh")}</p>
                 <h3>0977 460 519</h3>
               </div>
             </div>
             <div className="contact-box">
-              <FiPhone size={24} color="#ed1b2f" />
+              <Phone size={24} color="#ed1b2f" />
               <div className="text">
                 <p>Hotline {t("Ha Noi")}</p>
                 <h3>0983 131 531</h3>
               </div>
             </div>
             <div className="contact-box">
-              <FiClock size={24} color="#ed1b2f" />
+              <Clock size={24} color="#ed1b2f" />
               <div className="text">
                 <p>{t("Working time")}</p>
                 <h3>{t("Mon - Fri")} | 8:30 - 17:00</h3>

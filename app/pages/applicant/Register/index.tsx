@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-
 import { Link, useNavigate } from "react-router";
-import { FiCircle, FiEye, FiEyeOff } from "react-icons/fi";
+import { Circle, Eye, EyeOff } from "feather-icons-react";
 import { FaCircle } from "react-icons/fa";
 import {
   AlreadyAccount,
@@ -139,7 +138,7 @@ const Register = () => {
   }, [isCheckedAgreementEmail]);
 
   const renderPasswordCheck = (isValid: boolean | null, message: string) => {
-    const Icon = isValid === null ? FiCircle : FaCircle;
+    const Icon = isValid === null ? Circle : FaCircle;
     const color =
       isValid === null ? undefined : isValid ? "#0ab305" : "#f60d00";
     const textClass =
@@ -260,9 +259,9 @@ const Register = () => {
                     }
                   />
                   {togglePassword ? (
-                    <FiEye onClick={() => setTogglePassword(false)} />
+                    <Eye onClick={() => setTogglePassword(false)} />
                   ) : (
-                    <FiEyeOff onClick={() => setTogglePassword(true)} />
+                    <EyeOff onClick={() => setTogglePassword(true)} />
                   )}
                 </div>
                 {(errors.password?.message?.includes("blank") ||

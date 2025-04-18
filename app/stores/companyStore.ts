@@ -7,39 +7,17 @@ interface CompanyState {
   isLoading: boolean;
   saveCompany: (payload: Company) => void;
   logout: () => void;
+  isFollowing: boolean;
+  handleSaveFollow: (payload: boolean) => void;
 }
 
 const initialState: CompanyState = {
   isLoading: true,
-  company: {
-    id: 0,
-    slug: "",
-    logo: "",
-    position: "",
-    companyName: "",
-    skills: [],
-    companyType: "",
-    industry: {
-      id: 0,
-      name: "",
-    },
-    companySize: "",
-    country: "",
-    workingDay: "",
-    overtimePolicy: "",
-    overview: "",
-    perks: "",
-    location: "",
-    website: "",
-    username: "",
-    email: "",
-    phoneNumber: "",
-    createdAt: null,
-    updatedAt: null,
-    deletedAt: null,
-  },
+  company: {} as Company,
   saveCompany: () => {},
   logout: () => {},
+  isFollowing: false,
+  handleSaveFollow: () => {},
 };
 
 export const useCompanyStore = create<CompanyState>()(
@@ -56,6 +34,11 @@ export const useCompanyStore = create<CompanyState>()(
           state.company = initialState.company;
         });
         useCompanyStore.persist.clearStorage();
+      },
+      handleSaveFollow: (payload) => {
+        set((state) => {
+          state.isFollowing = payload;
+        });
       },
     })),
     {

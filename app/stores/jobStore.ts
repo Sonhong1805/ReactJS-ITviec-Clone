@@ -28,6 +28,7 @@ interface JobState {
   selectedMaxSalary: number;
   jobDetail: Job;
   handleSelectedJob: (payload: Job) => void;
+  handleResetSelectedJob: () => void;
   handleSavePagination: (payload: Pagination) => void;
   handleSelectedLevels: (payload: string) => void;
   handleSelectedWorkingModels: (payload: string) => void;
@@ -60,6 +61,7 @@ const initialState: JobState = {
   selectedMaxSalary: +getSingleParamFromURL("maxSalary") || 10000,
   jobDetail: {} as Job,
   handleSelectedJob: () => {},
+  handleResetSelectedJob: () => {},
   handleSavePagination: () => {},
   handleSelectedLevels: () => {},
   handleSelectedWorkingModels: () => {},
@@ -87,6 +89,10 @@ export const useJobStore = create<JobState>()(
     handleSelectedJob: (payload) =>
       set((state) => {
         state.selectedJob = payload;
+      }),
+    handleResetSelectedJob: () =>
+      set((state) => {
+        state.selectedJob = initialState.selectedJob;
       }),
     handleSavePagination: (payload) =>
       set((state) => {

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { DashboardWrapper, GeneralWrapper } from "./styled";
-import { FiChevronRight, FiPlusCircle } from "react-icons/fi";
+import { ChevronRight } from "feather-icons-react";
 
 const Dashboard = () => {
   return (
@@ -28,7 +28,7 @@ const Dashboard = () => {
             <div className="box-footer">
               <Link to="">
                 Xem chi tiết
-                <FiChevronRight />
+                <ChevronRight />
               </Link>
             </div>
           </div>
@@ -49,7 +49,7 @@ const Dashboard = () => {
             <div className="box-footer">
               <Link to="">
                 Xem chi tiết
-                <FiChevronRight />
+                <ChevronRight />
               </Link>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Dashboard = () => {
             <div className="box-footer">
               <Link to="">
                 Xem chi tiết
-                <FiChevronRight />
+                <ChevronRight />
               </Link>
             </div>
           </div>
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <div className="box-footer">
               <Link to="">
                 Xem chi tiết
-                <FiChevronRight />
+                <ChevronRight />
               </Link>
             </div>
           </div>

@@ -12,15 +12,15 @@ import {
   FooterSocials,
   FooterWrapper,
 } from "./styled";
-import {
-  FiPhoneCall,
-  FiMail,
-  FiSend,
-  FiLinkedin,
-  FiFacebook,
-  FiYoutube,
-} from "react-icons/fi";
 import ExciteIt from "./ExciteIt";
+import {
+  Facebook,
+  Linkedin,
+  Mail,
+  PhoneCall,
+  Send,
+  Youtube,
+} from "feather-icons-react";
 
 const Footer = () => {
   const { t } = useTranslation(["footer"]);
@@ -36,13 +36,13 @@ const Footer = () => {
             </FooterFigure>
             <FooterSocials>
               <li>
-                <FiLinkedin />
+                <Linkedin />
               </li>
               <li>
-                <FiFacebook />
+                <Facebook />
               </li>
               <li>
-                <FiYoutube />
+                <Youtube />
               </li>
             </FooterSocials>
           </FooterColumn>
@@ -80,19 +80,19 @@ const Footer = () => {
             <h4>{t("Want to post a job?.value")}</h4>
             <FooterContact>
               <li>
-                <FiPhoneCall />
+                <PhoneCall />
                 {t("Want to post a job?.Ho Chi Minh")}
               </li>
               <li>
-                <FiPhoneCall />
+                <PhoneCall />
                 {t("Want to post a job?.Ha Noi")}
               </li>
               <li>
-                <FiMail />
+                <Mail />
                 {t("Want to post a job?.Email")}
               </li>
               <li>
-                <FiSend />
+                <Send />
                 {t("Want to post a job?.Submit")}
               </li>
             </FooterContact>

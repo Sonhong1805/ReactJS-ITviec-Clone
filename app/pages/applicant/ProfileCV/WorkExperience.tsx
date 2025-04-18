@@ -15,8 +15,8 @@ import { z } from "zod";
 import InputFloating from "~/components/InputFloating";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
-import { FiFeather } from "react-icons/fi";
 import RichTextEditor from "~/components/RichTextEditor";
+import { Feather } from "feather-icons-react";
 
 const WorkExperience = () => {
   const { t } = useTranslation(["settings"]);
@@ -225,7 +225,7 @@ const WorkExperience = () => {
                 <h4>Description</h4>
                 <div className="placeholder-tips">
                   <div className="icon">
-                    <FiFeather />
+                    <Feather />
                   </div>
                   <div className="tips">
                     <strong>Tips: </strong>
@@ -243,7 +243,7 @@ const WorkExperience = () => {
                 <h4>Project</h4>
                 <div className="placeholder-tips">
                   <div className="icon">
-                    <FiFeather />
+                    <Feather />
                   </div>
                   <div className="tips">
                     <strong>Tips: </strong>

@@ -1,4 +1,3 @@
-import { FiCheck } from "react-icons/fi";
 import {
   LoginContainer,
   LoginFeature,
@@ -23,6 +22,7 @@ import { useUserStore } from "~/stores/userStore";
 import showToast from "~/utils/showToast";
 import useValidation from "~/hooks/useValidation";
 import { GoogleLogin } from "@react-oauth/google";
+import { Check } from "feather-icons-react";
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
@@ -158,7 +158,7 @@ const Login = () => {
             </h2>
             <LoginFeatureList>
               <LoginFeatureItem>
-                <FiCheck />
+                <Check />
                 <p>
                   {t(
                     "View salary to help you negotiate your offer or pay rise"
@@ -166,7 +166,7 @@ const Login = () => {
                 </p>
               </LoginFeatureItem>
               <LoginFeatureItem>
-                <FiCheck />
+                <Check />
                 <p>
                   {t(
                     "Find out about benefits, interview, company culture via reviews"
@@ -174,11 +174,11 @@ const Login = () => {
                 </p>
               </LoginFeatureItem>
               <LoginFeatureItem>
-                <FiCheck />
+                <Check />
                 <p>{t("Easy apply with only 1 click")}</p>
               </LoginFeatureItem>
               <LoginFeatureItem>
-                <FiCheck />
+                <Check />
                 <p>{t("Manage your own profile & privacy")}</p>
               </LoginFeatureItem>
             </LoginFeatureList>

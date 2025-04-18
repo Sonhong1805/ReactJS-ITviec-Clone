@@ -8,7 +8,6 @@ interface IProps {
   primaryLinkUrl?: string;
   secondaryLinkLabel?: string;
   secondaryLinkUrl?: string;
-  viewCount?: number;
 }
 
 const Breadcrumb = ({
@@ -16,7 +15,6 @@ const Breadcrumb = ({
   primaryLinkUrl,
   secondaryLinkLabel,
   secondaryLinkUrl,
-  viewCount,
 }: IProps) => {
   const { t } = useTranslation(["home", "header"]);
   return (
@@ -36,14 +34,7 @@ const Breadcrumb = ({
               <Link to={secondaryLinkUrl}>{secondaryLinkLabel}</Link>
             </>
           )}
-          {/* <span>›</span>
-          <Link to={"/"}>Persol Career Tech Studio Vietnam</Link> */}
         </div>
-        {viewCount && (
-          <div className="views">
-            {t("Page views:")} {viewCount}
-          </div>
-        )}
       </div>
     </BreadcrumbWrapper>
   );

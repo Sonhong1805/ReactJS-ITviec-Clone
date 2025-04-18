@@ -1,4 +1,3 @@
-import { FiBriefcase, FiChevronRight, FiMail } from "react-icons/fi";
 import {
   CVAttachment,
   DashboardActivities,
@@ -9,6 +8,7 @@ import {
 import AVATAR_DEFAULT from "/assets/svg/avatar-default.svg";
 import { Link } from "react-router";
 import UPLOADED_RESUME from "/assets/svg/uploaded-resume.svg";
+import { Briefcase, ChevronRight, Mail } from "feather-icons-react";
 
 const ProfileDashboard = () => {
   return (
@@ -20,16 +20,16 @@ const ProfileDashboard = () => {
         <div className="information">
           <h1>Nguyen Hong Son</h1>
           <div className="info-text">
-            <FiBriefcase />
+            <Briefcase />
             <span>Cập nhật chức danh</span>
           </div>
           <div className="info-text mail">
-            <FiMail />
+            <Mail />
             <span>hongson180503@gmail.com</span>
           </div>
           <Link to={""} className="next-link">
             <span>Cập nhật hồ sơ</span>
-            <FiChevronRight />
+            <ChevronRight />
           </Link>
         </div>
       </DashboardInformation>
@@ -46,7 +46,7 @@ const ProfileDashboard = () => {
             <p>Cập nhật lần cuối: 22/07/2024</p>
             <Link to={""} className="next-link">
               <span>Quản lý hồ sơ đính kèm</span>
-              <FiChevronRight />
+              <ChevronRight />
             </Link>
           </div>
         </div>
@@ -74,7 +74,7 @@ const ProfileDashboard = () => {
             </p>
             <Link to={""} className="next-link">
               <span>Nâng cấp hồ sơ</span>
-              <FiChevronRight />
+              <ChevronRight />
             </Link>
           </div>
         </div>
@@ -87,7 +87,7 @@ const ProfileDashboard = () => {
               <p>Việc làm đã ứng tuyển</p>
               <div className="counter">
                 <div className="number">10</div>
-                <FiChevronRight />
+                <ChevronRight />
               </div>
             </div>
             <img src={"/assets/svg/paper-plane.svg"} alt="paper plane" />
@@ -97,7 +97,7 @@ const ProfileDashboard = () => {
               <p>Việc làm đã lưu</p>
               <div className="counter">
                 <div className="number">10</div>
-                <FiChevronRight />
+                <ChevronRight />
               </div>
             </div>
             <img src={"/assets/svg/healthcare.svg"} alt="paper plane" />
@@ -107,7 +107,7 @@ const ProfileDashboard = () => {
               <p>Lời mời công việc</p>
               <div className="counter">
                 <div className="number">10</div>
-                <FiChevronRight />
+                <ChevronRight />
               </div>
             </div>
             <img src={"/assets/svg/mail.svg"} alt="paper plane" />

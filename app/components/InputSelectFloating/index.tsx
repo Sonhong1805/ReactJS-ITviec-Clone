@@ -1,4 +1,4 @@
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDown } from "feather-icons-react";
 import {
   AlertError,
   InputSelectWrapper,
@@ -110,7 +110,7 @@ const InputSelectFloating = ({
             {label} {required && <abbr>*</abbr>}
           </label>
         </div>
-        <FiChevronDown />
+        <ChevronDown />
       </InputSelectWrapper>
       {showOptions && (
         <OptionsDropdown>

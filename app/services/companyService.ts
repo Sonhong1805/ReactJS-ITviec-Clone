@@ -18,6 +18,9 @@ const companyService = {
   }: UpdateCompanyPayload): Promise<IResponse<Company[]>> => {
     return axios.put(`/company/${id}`, body);
   },
+  follow: (id: number): Promise<IResponse<boolean>> => {
+    return axios.post(`/company/follow/${id}`);
+  },
 };
 
 export default companyService;

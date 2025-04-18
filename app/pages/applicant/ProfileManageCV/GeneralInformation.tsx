@@ -7,7 +7,6 @@ import {
   ModalHead,
   SalaryBox,
 } from "./styled";
-import { FiEdit } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
@@ -21,6 +20,7 @@ import getModels from "~/constants/getModels";
 import currencies from "~/constants/currencies";
 import InputBase from "~/components/InputBase";
 import customSalary from "~/utils/customSalary";
+import { Edit } from "feather-icons-react";
 
 export const customStyles = {
   content: {
@@ -133,7 +133,7 @@ const GeneralInformation = () => {
             <h4 className="value col-9">Add your information</h4>
           </div>
         </div>
-        <FiEdit cursor={"pointer"} onClick={openModal} />
+        <Edit cursor={"pointer"} onClick={openModal} />
       </GeneralInformationWrapper>
       <Modal
         isOpen={showModal}

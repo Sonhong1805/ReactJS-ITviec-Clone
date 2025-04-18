@@ -4,8 +4,8 @@ import Modal from "react-modal";
 import { AboutMeContent, customStyles, ModalContainer } from "./styled";
 import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-import { FiFeather } from "react-icons/fi";
 import RichTextEditor from "~/components/RichTextEditor";
+import { Feather } from "feather-icons-react";
 
 const AboutMe = () => {
   const { t } = useTranslation(["settings"]);
@@ -36,7 +36,7 @@ const AboutMe = () => {
             <AboutMeContent>
               <div className="placeholder-tips">
                 <div className="icon">
-                  <FiFeather />
+                  <Feather />
                 </div>
                 <div className="tips">
                   <strong>Tips: </strong>

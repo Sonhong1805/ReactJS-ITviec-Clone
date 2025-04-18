@@ -1,28 +1,28 @@
-import { FiBriefcase, FiFileText, FiGrid, FiUsers } from "react-icons/fi";
+import { Briefcase, FileText, Grid, Users } from "feather-icons-react";
 import { TbMessage2Star } from "react-icons/tb";
 
 const employerLinks = [
   {
     id: 1,
-    icon: <FiGrid />,
+    icon: <Grid />,
     url: "/employer/dashboard",
     label: "Tổng quan",
   },
   {
     id: 2,
-    icon: <FiFileText />,
+    icon: <FileText />,
     url: "/employer/company-info",
     label: "Hồ sơ công ty",
   },
   {
     id: 3,
-    icon: <FiBriefcase />,
+    icon: <Briefcase />,
     url: "/employer/manage-jobs",
     label: "Quản lý việc làm",
   },
   {
     id: 4,
-    icon: <FiUsers />,
+    icon: <Users />,
     url: "/employer/manage-cv",
     label: "Quản lý CV",
   },

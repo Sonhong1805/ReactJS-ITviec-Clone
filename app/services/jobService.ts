@@ -15,6 +15,10 @@ const jobService = {
     return axios.get(`/job/${slug}`);
   },
 
+  getQuantity: (): Promise<IResponse<number>> => {
+    return axios.get("/job/quantity");
+  },
+
   getByCompany: (param: string | number): Promise<IResponse<Job[]>> => {
     return axios.get(`/job/company/${param}`);
   },

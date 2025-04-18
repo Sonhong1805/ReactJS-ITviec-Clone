@@ -1,4 +1,3 @@
-import { FiEdit, FiTrash2 } from "react-icons/fi";
 import {
   customStyles,
   CVContent,
@@ -6,13 +5,14 @@ import {
   ManageCVWrapper,
   ModalContainer,
 } from "./styled";
-import { LuCircleDollarSign } from "react-icons/lu";
 import Pagination from "~/components/Pagination";
 import { useState } from "react";
 import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { Edit, Trash2 } from "feather-icons-react";
+import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
 const ManageCV = () => {
   const { t } = useTranslation(["settings"]);
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ const ManageCV = () => {
                 <td>
                   <p>Singapore Java Fullstack Developer (Spring) Up to $3000</p>
                   <div className="salary">
-                    <LuCircleDollarSign />
+                    <IconCircleDollarSign />
                     1,000 - 2,000 USD
                   </div>
                 </td>
@@ -62,8 +62,8 @@ const ManageCV = () => {
                 </td>
                 <td>
                   <div className="icons">
-                    <FiEdit onClick={() => setIsOpen(true)} />
-                    <FiTrash2 />
+                    <Edit onClick={() => setIsOpen(true)} />
+                    <Trash2 />
                   </div>
                 </td>
               </tr>
@@ -134,7 +134,7 @@ const ManageCV = () => {
           </div>
         </ModalContainer>
       </Modal>
-      <Pagination />
+      {/* <Pagination /> */}
     </ManageCVWrapper>
   );
 };

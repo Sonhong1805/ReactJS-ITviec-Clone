@@ -1,4 +1,4 @@
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDown } from "feather-icons-react";
 import {
   AlertError,
   InputSelectWrapper,
@@ -87,7 +87,7 @@ const InputSelectBase = ({
             onKeyDown={handleDeletedOption}
           />
         </div>
-        <FiChevronDown />
+        <ChevronDown />
       </InputSelectWrapper>
       {showOptions && (
         <OptionsDropdown>

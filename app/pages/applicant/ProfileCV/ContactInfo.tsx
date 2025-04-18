@@ -1,20 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ContactInfoWrapper,
   customStyles,
   ModalContainer,
   PersonalDetailsContent,
 } from "./styled";
-import {
-  FiCamera,
-  FiEdit,
-  FiGift,
-  FiGlobe,
-  FiMail,
-  FiMapPin,
-  FiPhone,
-  FiUser,
-} from "react-icons/fi";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +15,16 @@ import InputFloating from "~/components/InputFloating";
 import genders from "~/constants/genders";
 import SelectFloating from "~/components/SelectFloating";
 import InputDate from "~/components/InputDate";
+import {
+  Camera,
+  Edit,
+  Gift,
+  Globe,
+  Mail,
+  MapPin,
+  Phone,
+  User,
+} from "feather-icons-react";
 
 const ContactInfo = () => {
   const { t } = useTranslation(["settings"]);
@@ -100,32 +100,32 @@ const ContactInfo = () => {
         </div>
         <div className="grid">
           <div className="item">
-            <FiMail />
+            <Mail />
             <p className="active">hongson180503@gmail.com</p>
           </div>
           <div className="item">
-            <FiPhone />
+            <Phone />
             <p className="active">0327842451</p>
           </div>
           <div className="item">
-            <FiGift />
+            <Gift />
             <p>Your date of birth.</p>
           </div>
           <div className="item">
-            <FiUser />
+            <User />
             <p>Your gender</p>
           </div>
           <div className="item">
-            <FiMapPin />
+            <MapPin />
             <p>Your current address</p>
           </div>
           <div className="item">
-            <FiGlobe />
+            <Globe />
             <p>Your personal link</p>
           </div>
         </div>
         <div className="edit-button">
-          <FiEdit
+          <Edit
             cursor={"pointer"}
             color="#ed1b2f"
             onClick={() => setIsOpen(true)}
@@ -153,7 +153,7 @@ const ContactInfo = () => {
                 </figure>
                 <label htmlFor="avatar">
                   <input type="file" id="avatar" name="avatar" hidden />
-                  <FiCamera />
+                  <Camera />
                   <p>Edit</p>
                 </label>
               </div>

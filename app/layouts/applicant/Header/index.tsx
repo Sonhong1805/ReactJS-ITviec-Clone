@@ -15,7 +15,6 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import Logo from "/assets/images/logo.png";
-import { FiChevronDown, FiLogOut } from "react-icons/fi";
 import SwitchLanguage from "~/components/SwitchLanguage";
 import { useUserStore } from "~/stores/userStore";
 import userLinks from "~/constants/userLinks";
@@ -24,13 +23,17 @@ import cities from "~/constants/cities";
 import skillService from "~/services/skillService";
 import { useQuery } from "@tanstack/react-query";
 import { useSkillStore } from "~/stores/skillStore";
+import { useCompanyStore } from "~/stores/companyStore";
+import { ChevronDown, LogOut } from "feather-icons-react";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
-  const { isAuthenticated, user, logout } = useUserStore((s) => s);
+  const { isAuthenticated, user, logout: userLogout } = useUserStore((s) => s);
+  const { handleSaveFollow } = useCompanyStore();
+
   const saveSkills = useSkillStore((s) => s.saveSkills);
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -42,7 +45,8 @@ const Header = () => {
     const response = await authService.logout();
     if (response.isSuccess) {
       localStorage.removeItem("access_token");
-      logout();
+      userLogout();
+      handleSaveFollow(false);
     }
   };
 
@@ -69,7 +73,7 @@ const Header = () => {
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
                 {t("All Jobs.value")}{" "}
-                <FiChevronDown size={24} className="arrow-down" />
+                <ChevronDown size={24} className="arrow-down" />
               </MenuLink>
               <HeaderSubmenu className={`submenu active-${activeIndex}`}>
                 <li
@@ -146,7 +150,7 @@ const Header = () => {
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
                 {t("IT Companies.value")}{" "}
-                <FiChevronDown size={24} className="arrow-down" />
+                <ChevronDown size={24} className="arrow-down" />
               </MenuLink>
               <HeaderSubmenu className={`submenu active-${activeIndex}`}>
                 <li
@@ -172,7 +176,7 @@ const Header = () => {
             </HeaderListItem>
             <HeaderListItem onMouseEnter={() => handleMouseEnter(0)}>
               <MenuLink to={"/"}>
-                Blog <FiChevronDown size={24} className="arrow-down" />
+                Blog <ChevronDown size={24} className="arrow-down" />
               </MenuLink>
               <HeaderSubmenu className={`submenu`}>
                 <li className={`submenu-item`}>
@@ -221,7 +225,7 @@ const Header = () => {
                       </Link>
                     ))}
                     <a onClick={handleLogout}>
-                      <FiLogOut />
+                      <LogOut />
                       <span>{t("Sign out")}</span>
                     </a>
                   </ProfileSubmenu>

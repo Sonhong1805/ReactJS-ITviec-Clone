@@ -1,4 +1,4 @@
-import React, {
+import {
   useCallback,
   useEffect,
   useMemo,
@@ -16,24 +16,25 @@ import {
   Element as SlateElement,
 } from "slate";
 import { withHistory } from "slate-history";
-import {
-  FiAlignCenter,
-  FiAlignJustify,
-  FiAlignLeft,
-  FiAlignRight,
-  FiBold,
-  FiCode,
-  FiItalic,
-  FiList,
-  FiUnderline,
-} from "react-icons/fi";
-import { LuHeading1, LuHeading2 } from "react-icons/lu";
-import { TfiQuoteRight } from "react-icons/tfi";
-import { BsListOl } from "react-icons/bs";
 import { htmlToSlate } from "@slate-serializers/html";
 import countCharacters from "~/utils/countCharacters";
 import { convertHtmlToSlate, convertSlateToHtml } from "./convert";
 import { Button, Icon, Toolbar } from "./components";
+import {
+  AlignCenter,
+  AlignJustify,
+  AlignLeft,
+  AlignRight,
+  Bold,
+  Code,
+  Italic,
+  List,
+  Underline,
+} from "feather-icons-react";
+import IconHeading1 from "../Icon/IconHeading1";
+import IconHeading2 from "../Icon/IconHeading2";
+import IconQuote from "../Icon/IconQuote";
+import IconListOl from "../Icon/IconListOl";
 
 const HOTKEYS: Record<string, string> = {
   "mod+b": "bold",
@@ -96,19 +97,19 @@ const RichTextEditor = ({ content, setContent }: IProps) => {
       initialValue={slate}
       onChange={(newValue) => setSlate(newValue)}>
       <Toolbar>
-        <MarkButton format="bold" icon={<FiBold />} />
-        <MarkButton format="italic" icon={<FiItalic />} />
-        <MarkButton format="underline" icon={<FiUnderline />} />
-        <MarkButton format="code" icon={<FiCode />} />
-        <BlockButton format="heading-one" icon={<LuHeading1 />} />
-        <BlockButton format="heading-two" icon={<LuHeading2 />} />
-        <BlockButton format="block-quote" icon={<TfiQuoteRight />} />
-        <BlockButton format="numbered-list" icon={<BsListOl />} />
-        <BlockButton format="bulleted-list" icon={<FiList />} />
-        <BlockButton format="left" icon={<FiAlignLeft />} />
-        <BlockButton format="center" icon={<FiAlignCenter />} />
-        <BlockButton format="right" icon={<FiAlignRight />} />
-        <BlockButton format="justify" icon={<FiAlignJustify />} />
+        <MarkButton format="bold" icon={<Bold />} />
+        <MarkButton format="italic" icon={<Italic />} />
+        <MarkButton format="underline" icon={<Underline />} />
+        <MarkButton format="code" icon={<Code />} />
+        <BlockButton format="heading-one" icon={<IconHeading1 />} />
+        <BlockButton format="heading-two" icon={<IconHeading2 />} />
+        <BlockButton format="block-quote" icon={<IconQuote />} />
+        <BlockButton format="numbered-list" icon={<IconListOl />} />
+        <BlockButton format="bulleted-list" icon={<List />} />
+        <BlockButton format="left" icon={<AlignLeft />} />
+        <BlockButton format="center" icon={<AlignCenter />} />
+        <BlockButton format="right" icon={<AlignRight />} />
+        <BlockButton format="justify" icon={<AlignJustify />} />
       </Toolbar>
       <Editable
         renderElement={renderElement}

@@ -1,8 +1,7 @@
-import { Link } from "react-router";
 import { ProgressBarWrapper } from "./styled";
-import { FiChevronDown, FiChevronUp, FiPlusCircle } from "react-icons/fi";
 import profileButtons from "~/constants/profileButtons";
 import { useState } from "react";
+import { ChevronDown, ChevronUp, PlusCircle } from "feather-icons-react";
 
 const ProgressBar = () => {
   const [toggleButtons, setToggleButtons] = useState(false);
@@ -43,7 +42,7 @@ const ProgressBar = () => {
             style={{ maxHeight: toggleButtons ? "320px" : "120px" }}>
             {profileButtons.map((button) => (
               <div className="add-button" key={button.value}>
-                <FiPlusCircle />
+                <PlusCircle />
                 <p>{button.label}</p>
               </div>
             ))}
@@ -51,7 +50,7 @@ const ProgressBar = () => {
           <div
             className="toogle-button"
             onClick={() => setToggleButtons(!toggleButtons)}>
-            {toggleButtons ? <FiChevronUp /> : <FiChevronDown />}
+            {toggleButtons ? <ChevronUp /> : <ChevronDown />}
             <p>{toggleButtons ? "Show less" : "Add more information"}</p>
           </div>
         </div>

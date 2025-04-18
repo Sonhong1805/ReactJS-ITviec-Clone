@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   customStyles,
   ModalBody,
@@ -7,7 +7,6 @@ import {
   ModalHead,
   PersonalInformationWrapper,
 } from "./styled";
-import { FiEdit } from "react-icons/fi";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
 import { IoCloseOutline } from "react-icons/io5";
@@ -17,6 +16,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import locationService from "~/services/locationService";
+import { Edit } from "feather-icons-react";
 
 const PersonalInformation = () => {
   const [showModal, setShowModal] = useState(false);
@@ -68,22 +68,22 @@ const PersonalInformation = () => {
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<TApplyJob>({
+  } = useForm<Application>({
     defaultValues: {
-      username: "",
-      phone: "",
-      file: "",
+      fullName: "",
+      phoneNumber: "",
+      cv: "",
     },
     resolver: zodResolver(schema),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<TApplyJob> = async (data: TApplyJob) => {
+  const onSubmit: SubmitHandler<Application> = async (data: Application) => {
     console.log(data);
   };
 
-  const isValidUsername = watch("username") !== "" ? "success" : "";
-  const isValidPhone = watch("phone") !== "" ? "success" : "";
+  const isValidFullName = watch("fullName") !== "" ? "success" : "";
+  const isValidPhoneNumber = watch("phoneNumber") !== "" ? "success" : "";
 
   return (
     <>
@@ -103,7 +103,7 @@ const PersonalInformation = () => {
             <h4 className=" col-8">Hà Nội</h4>
           </div>
         </div>
-        <FiEdit cursor={"pointer"} onClick={openModal} />
+        <Edit cursor={"pointer"} onClick={openModal} />
       </PersonalInformationWrapper>
       <Modal
         isOpen={showModal}
@@ -121,25 +121,29 @@ const PersonalInformation = () => {
               label={t("Full name", { ns: "auth" })}
               required={true}
               register={register}
-              error={errors.username && "*" + t(errors.username.message + "")}
-              className={errors.username?.message ? "error" : isValidUsername}
+              error={errors.fullName && "*" + t(errors.fullName.message + "")}
+              className={errors.fullName?.message ? "error" : isValidFullName}
             />
             <InputFloating
               name="phone"
               register={register}
               label={t("Phone number", { ns: "auth" })}
               required={true}
-              error={errors.phone && "*" + t(errors.phone?.message + "")}
-              className={errors.phone?.message ? "error" : isValidPhone}
+              error={
+                errors.phoneNumber && "*" + t(errors.phoneNumber?.message + "")
+              }
+              className={
+                errors.phoneNumber?.message ? "error" : isValidPhoneNumber
+              }
             />
-            <InputSelect
+            {/* <InputSelect
               name="locations"
               label={t("Preferred work location")}
               required={true}
               options={provinceOptions}
               maxLengh={3}
               field={t("locations")}
-            />
+            /> */}
           </ModalBody>
           <ModalFoot>
             <button className="save">{t("Save")}</button>

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import "./styled";
 import { AlertError, InputFloatingWrapper, InputWrapper } from "./styled";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { Eye, EyeOff } from "feather-icons-react";
 
 interface IProps {
   name: string;
@@ -46,9 +45,9 @@ const InputFloating = ({
         {type === "password" && (
           <>
             {togglePassword ? (
-              <FiEye onClick={() => setTogglePassword(false)} />
+              <Eye onClick={() => setTogglePassword(false)} />
             ) : (
-              <FiEyeOff onClick={() => setTogglePassword(true)} />
+              <EyeOff onClick={() => setTogglePassword(true)} />
             )}
           </>
         )}

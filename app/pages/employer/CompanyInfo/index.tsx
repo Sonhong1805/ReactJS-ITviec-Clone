@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   CompanyInfoContainer,
   CompanyInfoMain,
   CompanyInfoSide,
   CompanyInfoWrapper,
 } from "./styled";
-import { FiUpload } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -33,6 +32,7 @@ import { useUserStore } from "~/stores/userStore";
 import showToast from "~/utils/showToast";
 import { useCompanyStore } from "~/stores/companyStore";
 import Loading from "~/components/Loading";
+import { Upload } from "feather-icons-react";
 
 const MAX_SKILLS = 10;
 
@@ -583,7 +583,7 @@ const CompanyInfo = () => {
                 hidden
                 onChange={handleFileChange}
               />
-              <FiUpload />
+              <Upload />
               <div className="selected-file">{t("Choose logo")}</div>
             </label>
           </div>

@@ -1,7 +1,6 @@
-import React from "react";
 import { JobsWrapper } from "./styled";
-import { FiAlertCircle, FiChevronDown } from "react-icons/fi";
 import JobCard from "./JobCard";
+import { AlertCircle, ChevronDown } from "feather-icons-react";
 
 interface IProps {
   status: "pending" | "accepted" | "reject" | "expired";
@@ -12,7 +11,7 @@ const JobsStatus = ({ status }: IProps) => {
     <JobsWrapper>
       <div className="heading">
         <div className="info">
-          <FiAlertCircle />
+          <AlertCircle />
           <div>This tab stores jobs that the company has {status}.</div>
         </div>
         <div className="sort">
@@ -21,7 +20,7 @@ const JobsStatus = ({ status }: IProps) => {
             <option value="">Date: Oldest to Newest</option>
             <option value="">Date: Newest to Oldest</option>
           </select>
-          <FiChevronDown />
+          <ChevronDown />
         </div>
       </div>
       <div className="job-list">

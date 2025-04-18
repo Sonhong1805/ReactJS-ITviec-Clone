@@ -1,8 +1,7 @@
-import React from "react";
 import UPLOADED_RESUME from "/assets/svg/uploaded-resume.svg";
 import { Link } from "react-router";
-import { FiUpload } from "react-icons/fi";
 import { YourCVWrapper } from "./styled";
+import { Upload } from "feather-icons-react";
 
 const YourCV = () => {
   return (
@@ -22,7 +21,7 @@ const YourCV = () => {
       <div className="upload-file">
         <label htmlFor="file">
           <input type="file" id="file" hidden />
-          <FiUpload />
+          <Upload />
           <div className="selected-file">Upload CV</div>
         </label>
         <div className="file-alert">
