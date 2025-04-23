@@ -96,6 +96,7 @@
   "will be submitted anonymously.": "sẽ được gửi ẩn danh.",
   "employee reviews": "đánh giá",
   "Recommend": "Khuyến khích",
+  "Doesn't recommend": "Không khuyến khích",
   "What I liked:": "Điều tôi thích:",
   "Suggestions for improvement:": "Đề nghị cải thiện:",
   "About the Company Review on ITviec": "Về chức năng Đánh giá Công ty trên ITviec",
@@ -144,5 +145,23 @@
   "Your skills and experience": "Yêu cầu công việc",
   "Oops! The job you're looking for doesn't exist.": "Không tìm thấy kết quả nào phù hợp",
   "Follow successfully": "Theo dõi thành công",
-  "Unfollow successfully": "Hủy theo dõi thành công"
+  "Unfollow successfully": "Hủy theo dõi thành công",
+  "Please give overall rating for this company": "Vui lòng đánh giá tổng thể về công ty",
+  "Please choose an answer": "Vui lòng chọn câu trả lời",
+  "Please rate this factor": "Vui lòng đánh giá yếu tố này",
+  "Reviewed": "Đã đánh giá",
+  "months": {
+    "January": "Tháng Một",
+    "February": "Tháng Hai",
+    "March": "Tháng Ba",
+    "April": "Tháng Tư",
+    "May": "Tháng Năm",
+    "June": "Tháng Sáu",
+    "July": "Tháng Bảy",
+    "August": "Tháng Tám",
+    "September": "Tháng Chín",
+    "October": "Tháng Mười",
+    "November": "Tháng Mười Một",
+    "December": "Tháng Mười Hai"
+  }
 }

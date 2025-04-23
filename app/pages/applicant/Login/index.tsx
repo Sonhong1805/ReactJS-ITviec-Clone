@@ -13,7 +13,6 @@ import {
 import LOGO_BLACK_TEXT from "/assets/images/logo_black_text.png";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import InputBase from "~/components/InputBase";
@@ -23,18 +22,13 @@ import showToast from "~/utils/showToast";
 import useValidation from "~/hooks/useValidation";
 import { GoogleLogin } from "@react-oauth/google";
 import { Check } from "feather-icons-react";
+import { schema } from "./schema";
+
+const ROLLBACK_ROUTES = ["apply", "review", "company"];
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
   const navigate = useNavigate();
-
-  const schema = z.object({
-    email: z
-      .string()
-      .nonempty({ message: t("Can't be blank") })
-      .email({ message: t("Please check your email") }),
-    password: z.string().nonempty({ message: t("Can't be blank") }),
-  });
 
   const {
     register,
@@ -47,7 +41,7 @@ const Login = () => {
       email: "",
       password: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
 
@@ -59,11 +53,8 @@ const Login = () => {
     if (response.isSuccess && response.data) {
       login(response.data.user);
       localStorage.setItem("access_token", response.data.accessToken as string);
-      if (searchParams.get("job")) {
-        navigate(`/apply/${searchParams.get("job")}`);
-      } else {
-        navigate("/");
-      }
+      const target = ROLLBACK_ROUTES.find((key) => searchParams.get(key));
+      navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
       showToast("success", t("Successfully authenticated from Email account."));
       reset();
     } else {
@@ -101,11 +92,12 @@ const Login = () => {
                       response.data.accessToken as string
                     );
                     login(response.data.user);
-                    if (searchParams.get("job")) {
-                      navigate(`/apply/${searchParams.get("job")}`);
-                    } else {
-                      navigate("/");
-                    }
+                    const target = ROLLBACK_ROUTES.find((key) =>
+                      searchParams.get(key)
+                    );
+                    navigate(
+                      target ? `/${target}/${searchParams.get(target)}` : "/"
+                    );
                     showToast(
                       "success",
                       "Successfully authenticated from Google account."

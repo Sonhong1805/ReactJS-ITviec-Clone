@@ -21,11 +21,5 @@ export const LoadingWrapper = styled.div`
       #0000 calc(100% - 8px),
       #000 0
     );
-    animation: l13 1s infinite linear;
-  }
-  @keyframes l13 {
-    100% {
-      transform: rotate(1turn);
-    }
   }
 `;

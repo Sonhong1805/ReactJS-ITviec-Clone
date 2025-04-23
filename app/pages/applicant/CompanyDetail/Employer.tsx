@@ -9,12 +9,14 @@ import {
   EmployerShow,
   EmployerSticky,
 } from "./styled";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useCompanyStore } from "~/stores/companyStore";
 import companyService from "~/services/companyService";
 import showToast from "~/utils/showToast";
 import { Briefcase, Check, MapPin, X } from "feather-icons-react";
+import { useUserStore } from "~/stores/userStore";
+import { useReviewStore } from "~/stores/reviewStore";
 
 interface IProps {
   data: Company;
@@ -24,11 +26,17 @@ interface IProps {
 const Employer = ({ data, jobs }: IProps) => {
   const { t } = useTranslation(["search", "option"]);
   const [isSticky, setIsSticky] = useState(false);
+  const { isAuthenticated } = useUserStore();
+  const navigate = useNavigate();
   const { isFollowing, handleSaveFollow } = useCompanyStore();
+  const { isReviewing, handleSaveReview } = useReviewStore();
 
   useEffect(() => {
     if (data.follow) {
       handleSaveFollow(data.follow);
+    }
+    if (data.review) {
+      handleSaveReview(data.review);
     }
   }, []);
 
@@ -43,6 +51,10 @@ const Employer = ({ data, jobs }: IProps) => {
   }, []);
 
   const handleToglleFollow = async () => {
+    if (!isAuthenticated) {
+      navigate(`/login?company=${data.slug + ""}`);
+      return;
+    }
     const response = await companyService.follow(data.id);
     if (response.isSuccess) {
       handleSaveFollow(response.data);
@@ -84,7 +96,18 @@ const Employer = ({ data, jobs }: IProps) => {
             </EmployerGroup>
             <EmployerButtonGroup>
               <EmployerButtons $review>
-                <button>{t("Write review")}</button>
+                {isReviewing ? (
+                  <button className="btn-reviewed" disabled>
+                    <Check />
+                    {t("Reviewed")}
+                  </button>
+                ) : isAuthenticated ? (
+                  <Link to={`/review/${data.slug}`}>{t("Write review")}</Link>
+                ) : (
+                  <Link to={`/login?review=${data.slug}`}>
+                    {t("Write review")}
+                  </Link>
+                )}
               </EmployerButtons>
               <EmployerButtons>
                 {isFollowing ? (
@@ -119,7 +142,14 @@ const Employer = ({ data, jobs }: IProps) => {
               </div>
               <div className="employer-buttons">
                 <EmployerButtons $review>
-                  <button>{t("Write review")}</button>
+                  {isReviewing ? (
+                    <button className="btn-reviewed" disabled>
+                      <Check />
+                      {t("Reviewed")}
+                    </button>
+                  ) : (
+                    <Link to={`/review/${data.slug}`}>{t("Write review")}</Link>
+                  )}
                 </EmployerButtons>
                 <EmployerButtons>
                   {isFollowing ? (

@@ -13,7 +13,6 @@ import {
 } from "./styled";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import Logo from "/assets/images/logo.png";
 import SwitchLanguage from "~/components/SwitchLanguage";
 import { useUserStore } from "~/stores/userStore";
@@ -24,7 +23,8 @@ import skillService from "~/services/skillService";
 import { useQuery } from "@tanstack/react-query";
 import { useSkillStore } from "~/stores/skillStore";
 import { useCompanyStore } from "~/stores/companyStore";
-import { ChevronDown, LogOut } from "feather-icons-react";
+import { ChevronDown, ChevronRight, LogOut } from "feather-icons-react";
+import { useReviewStore } from "~/stores/reviewStore";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -32,8 +32,8 @@ const Header = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
   const { isAuthenticated, user, logout: userLogout } = useUserStore((s) => s);
-  const { handleSaveFollow } = useCompanyStore();
-
+  const { handleSaveFollow, logout: companyLogout } = useCompanyStore();
+  const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
@@ -46,7 +46,9 @@ const Header = () => {
     if (response.isSuccess) {
       localStorage.removeItem("access_token");
       userLogout();
+      companyLogout();
       handleSaveFollow(false);
+      handleSaveReview(false);
     }
   };
 
@@ -82,7 +84,7 @@ const Header = () => {
                   }`}
                   onMouseEnter={() => handleMouseEnter(1)}>
                   <span>{t("All Jobs.skills")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child skills">
                     {skills?.slice(0, 32).map((skill) => (
                       <li key={skill.id}>{skill.name}</li>
@@ -98,7 +100,7 @@ const Header = () => {
                   }`}
                   onMouseEnter={() => handleMouseEnter(2)}>
                   <span>{t("All Jobs.title")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child ranks">
                     {skills?.slice(21, 42).map((skill) => (
                       <li key={skill.id}>
@@ -116,7 +118,7 @@ const Header = () => {
                   }`}
                   onMouseEnter={() => handleMouseEnter(3)}>
                   <span>{t("All Jobs.company")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child companies">
                     {/* {companyList.map((company) => (
                       <li
@@ -138,7 +140,7 @@ const Header = () => {
                   }`}
                   onMouseEnter={() => handleMouseEnter(4)}>
                   <span>{t("All Jobs.city")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child cities">
                     {cities.map((city) => (
                       <li key={city.value}>{city.label}</li>
@@ -159,7 +161,7 @@ const Header = () => {
                   }`}
                   onMouseEnter={() => handleMouseEnter(5)}>
                   <span>{t("IT Companies.Best IT Companies")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child">
                     <li>{t("IT Companies.Best IT Companies")} 2024</li>
                     <li>{t("IT Companies.Best IT Companies")} 2023</li>
@@ -181,7 +183,7 @@ const Header = () => {
               <HeaderSubmenu className={`submenu`}>
                 <li className={`submenu-item`}>
                   <span>{t("Blog.IT Salary Report")}</span>
-                  <IoIosArrowForward />
+                  <ChevronRight />
                   <ul className="submenu-child">
                     <li>{t("Blog.IT Salary Report")} 2024-2025</li>
                     <li>{t("Blog.IT Salary Report")} 2023-2024</li>
@@ -216,7 +218,7 @@ const Header = () => {
                     />
                   </figure>
                   <span className="username">{user.username}</span>
-                  <IoIosArrowDown className="arrow" />
+                  <ChevronDown className="arrow" />
                   <ProfileSubmenu className="submenu">
                     {userLinks.map((link) => (
                       <Link key={link.id} to={link.url}>

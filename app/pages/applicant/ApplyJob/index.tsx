@@ -3,8 +3,6 @@ import { Link, useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
-import { useTranslation } from "react-i18next";
 import {
   ApplyJobBox,
   ApplyJobBranding,
@@ -37,10 +35,11 @@ import { useLocationStore } from "~/stores/locationStore";
 import type { CreateApplicationPayload } from "~/services/applicationService";
 import applicationService from "~/services/applicationService";
 import { schema } from "./schema";
-import { ChevronLeft, Eye, Upload } from "feather-icons-react";
+import { ChevronLeft, Eye, Upload, X } from "feather-icons-react";
 import formatDate from "~/utils/formatDate";
 import { useJobStore } from "~/stores/jobStore";
 import Loading from "~/components/Loading";
+import { useTranslation } from "react-i18next";
 
 const ApplyJob = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +51,6 @@ const ApplyJob = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState(false);
   const {
     locations,
     handleAddLocation,
@@ -142,7 +140,6 @@ const ApplyJob = () => {
         showToast("error", message);
         return;
       }
-      setSuccess(false);
       handleAppliedSuccess(data);
       navigate(`/apply/success/${slug + ""}`, { replace: true });
       queryClient.invalidateQueries({ queryKey: ["job", slug + ""] });
@@ -151,7 +148,6 @@ const ApplyJob = () => {
   });
 
   const onSubmit: SubmitHandler<Application> = async (data: Application) => {
-    setSuccess(true);
     data.locations = locations.map((l) => l.label);
     delete data.location;
     const formData = new FormData();
@@ -215,10 +211,10 @@ const ApplyJob = () => {
 
   return (
     <ApplyJobWrapper>
-      {success && <Loading />}
+      {applyJobMutation.isPending && <Loading />}
       {applicantPending || loading || jobPending || !job ? (
         <SkeletonWrapper>
-          <Skeleton style={{ height: "100vh", borderRadius: ".8rem" }} />
+          <Skeleton style={{ height: "100vh" }} borderRadius={8} />
         </SkeletonWrapper>
       ) : (
         <ApplyJobContainer>
@@ -391,7 +387,7 @@ const ApplyJob = () => {
         <ModalForm>
           <div className="form-group">
             <h2>{t("Quit applying")}</h2>
-            <IoCloseOutline onClick={closeModal} />
+            <X onClick={closeModal} />
           </div>
           <p>
             {t(

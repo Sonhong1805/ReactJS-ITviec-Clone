@@ -19,8 +19,8 @@ import industryService from "~/services/industryService";
 import skillService from "~/services/skillService";
 import useDebounce from "~/hooks/useDebounce";
 import InputSearch from "~/components/InputSearch";
-import sizes from "~/constants/sizes";
-import types from "~/constants/types";
+import companySizes from "~/constants/companySizes";
+import companyTypes from "~/constants/companyTypes";
 import workingDays from "~/constants/workingDays";
 import overtimes from "~/constants/overtimePolicy";
 import countries from "~/constants/countries";
@@ -401,7 +401,7 @@ const CompanyInfo = () => {
                 className={
                   errors.companyType?.message ? "error" : isValidCompanyType
                 }
-                options={types}
+                options={companyTypes}
                 onSetValue={(value) => setValue("companyType", value)}
                 defaultValue={
                   watch("companyType")
@@ -443,7 +443,7 @@ const CompanyInfo = () => {
                 className={
                   errors.companySize?.message ? "error" : isValidCompanySize
                 }
-                options={sizes}
+                options={companySizes}
                 onSetValue={(value) => setValue("companySize", value)}
                 defaultValue={
                   watch("companySize")

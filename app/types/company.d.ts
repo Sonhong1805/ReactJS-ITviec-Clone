@@ -21,4 +21,5 @@ type Company = Base &
     website: string;
     jobs: Job[];
     follow?: boolean;
+    review?: boolean;
   };

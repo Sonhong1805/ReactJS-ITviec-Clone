@@ -9,10 +9,10 @@ import DOMPurify from "dompurify";
 import { Globe } from "feather-icons-react";
 
 interface IProps {
-  data: Company;
+  company: Company;
 }
 
-const Overview = ({ data }: IProps) => {
+const Overview = ({ company }: IProps) => {
   const { t, i18n } = useTranslation(["search", "option"]);
   return (
     <>
@@ -21,7 +21,7 @@ const Overview = ({ data }: IProps) => {
         <div className="general-body">
           <div>
             <div className="general-title">{t("Introduce.Company type")}</div>
-            <p>{t(data.companyType, { ns: "option" })}</p>
+            <p>{t(company.companyType, { ns: "option" })}</p>
           </div>
           <div>
             <div className="general-title">
@@ -29,7 +29,7 @@ const Overview = ({ data }: IProps) => {
             </div>
             <p>
               {t(
-                data.industry?.[
+                company.industry?.[
                   i18n.language === "en" ? "name_en" : "name_vi"
                 ] || ""
               )}
@@ -37,21 +37,21 @@ const Overview = ({ data }: IProps) => {
           </div>
           <div>
             <div className="general-title">{t("Introduce.Company size")}</div>
-            <p>{t(data.companySize, { ns: "option" })}</p>
+            <p>{t(company.companySize, { ns: "option" })}</p>
           </div>
           <div>
             <div className="general-title">{t("Introduce.Country")}</div>
-            <p>{t(data.country, { ns: "option" })}</p>
+            <p>{t(company.country, { ns: "option" })}</p>
           </div>
           <div>
             <div className="general-title">{t("Introduce.Working days")}</div>
-            <p>{t(data.workingDay, { ns: "option" })}</p>
+            <p>{t(company.workingDay, { ns: "option" })}</p>
           </div>
           <div>
             <div className="general-title">
               {t("Introduce.Overtime policy")}
             </div>
-            <p>{t(data.overtimePolicy, { ns: "option" })}</p>
+            <p>{t(company.overtimePolicy, { ns: "option" })}</p>
           </div>
         </div>
       </GeneralInformation>
@@ -60,15 +60,15 @@ const Overview = ({ data }: IProps) => {
         <div
           className="rich-text"
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(data.overview),
+            __html: DOMPurify.sanitize(company.overview),
           }}></div>
       </CompanyReasons>
       <CompanySpecialize>
         <h2>{t("Our key skills")}</h2>
         <p>{t("Our key skills")}</p>
-        {data.skills && data.skills?.length > 0 && (
+        {company.skills && company.skills?.length > 0 && (
           <ul>
-            {data.skills?.map((skill) => (
+            {company.skills?.map((skill) => (
               <li key={skill.id}>
                 <Link to={""}>{skill.name}</Link>
               </li>
@@ -81,10 +81,10 @@ const Overview = ({ data }: IProps) => {
         <div
           className="rich-text"
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(data.perks),
+            __html: DOMPurify.sanitize(company.perks),
           }}></div>
         <div className="company-website">
-          <Link to={data.website} className="company-path">
+          <Link to={company.website} className="company-path">
             <Globe />
             <span>{t("Company website")}</span>
           </Link>

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 import { NavbarWrapper } from "./styled";
 import userLinks from "~/constants/userLinks";
-import IconHandWave from "~/components/Icon/IconHandWave";
+import IconHandWave from "~/components/Icons/IconHandWave";
 
 const Navbar = () => {
   return (

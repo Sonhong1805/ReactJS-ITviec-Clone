@@ -36,6 +36,7 @@ export const EmployerSticky = styled.div`
     display: flex;
     gap: 1.2rem;
 
+    a,
     button {
       padding: 0.7rem 2rem;
       font-weight: 500;
@@ -118,6 +119,7 @@ export const EmployerButtonGroup = styled.div`
 `;
 
 export const EmployerButtons = styled.div<{ $review?: boolean }>`
+  a,
   button {
     font-size: 1.6rem;
     font-weight: 600;
@@ -137,6 +139,12 @@ export const EmployerButtons = styled.div<{ $review?: boolean }>`
     min-width: 18rem;
   }
 
+  a:hover {
+    background-color: var(--i-dark-red);
+    border-color: var(--i-dark-red);
+    color: var(--i-white);
+  }
+
   .btn-follow,
   .btn-followed,
   .btn-unfollow {
@@ -146,6 +154,12 @@ export const EmployerButtons = styled.div<{ $review?: boolean }>`
     &:hover {
       background: var(--i-white-red);
     }
+  }
+
+  .btn-reviewed {
+    background-color: var(--i-dark-grey);
+    border-color: var(--i-dark-grey);
+    pointer-events: none;
   }
 
   .follow-group {
@@ -535,6 +549,7 @@ export const ReviewCard = styled.div`
       display: flex;
       align-items: center;
       font-size: 1.6rem;
+      position: relative;
 
       svg {
         width: 1.6rem;
@@ -557,6 +572,58 @@ export const ReviewCard = styled.div`
         }
       }
 
+      .box-star:hover .detail-rating {
+        display: block;
+      }
+
+      .detail-rating {
+        position: absolute;
+        width: 386px;
+        left: 0;
+        background-color: var(--i-white);
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        list-style-type: none;
+        top: 25px;
+        z-index: 2;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 0.8rem 2.4rem;
+        display: none;
+
+        &__item {
+          display: flex;
+          padding-block: 0.8rem;
+          align-items: center;
+
+          &:not(:last-child) {
+            border-bottom: 1px dashed #dedede;
+          }
+        }
+
+        &__label {
+          width: 50%;
+          white-space: nowrap;
+        }
+
+        &__content {
+          width: 50%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+
+        &__stars {
+          width: 88px;
+          height: 16px;
+          color: #dedede;
+        }
+
+        &__score {
+          margin-left: 0.8rem;
+        }
+      }
+
       .recommend {
         color: var(--i-success-color);
         margin-left: 3rem;
@@ -566,6 +633,18 @@ export const ReviewCard = styled.div`
 
         svg {
           color: var(--i-success-color);
+        }
+      }
+
+      .unrecommend {
+        color: var(--i-error-color);
+        margin-left: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+
+        svg {
+          color: var(--i-error-color);
         }
       }
     }

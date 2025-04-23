@@ -96,6 +96,7 @@
   "will be submitted anonymously.": "will be submitted anonymously.",
   "employee reviews": "employee reviews",
   "Recommend": "Recommend",
+  "Doesn't recommend": "Doesn't recommend",
   "What I liked:": "What I liked:",
   "Suggestions for improvement:": "Suggestions for improvement:",
   "About the Company Review on ITviec": "About the Company Review on ITviec",
@@ -144,5 +145,23 @@
   "Your skills and experience": "Your skills and experience",
   "Oops! The job you're looking for doesn't exist.": "Oops! The job you're looking for doesn't exist.",
   "Follow successfully": "Follow successfully",
-  "Unfollow successfully": "Unfollow successfully"
+  "Unfollow successfully": "Unfollow successfully",
+  "Please give overall rating for this company": "Please give overall rating for this company",
+  "Please choose an answer": "Please choose an answer",
+  "Please rate this factor": "Please rate this factor",
+  "Reviewed": "Reviewed",
+  "months": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+  }
 }

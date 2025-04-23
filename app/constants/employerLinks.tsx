@@ -1,5 +1,5 @@
 import { Briefcase, FileText, Grid, Users } from "feather-icons-react";
-import { TbMessage2Star } from "react-icons/tb";
+import IconMessageStar from "~/components/Icons/IconMessageStar";
 
 const employerLinks = [
   {
@@ -28,7 +28,7 @@ const employerLinks = [
   },
   {
     id: 5,
-    icon: <TbMessage2Star />,
+    icon: <IconMessageStar />,
     url: "/employer/manage-reviews",
     label: "Quản lý đánh giá",
   },

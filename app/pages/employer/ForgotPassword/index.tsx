@@ -4,7 +4,7 @@ import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import IconToastError from "~/components/Icon/IconToastError";
+import IconToastError from "~/components/Icons/IconToastError";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

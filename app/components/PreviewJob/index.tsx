@@ -13,7 +13,7 @@ import {
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
-import IconWorkingModel from "../Icon/IconWorkingModel";
+import IconWorkingModel from "../Icons/IconWorkingModel";
 import { useJobStore } from "~/stores/jobStore";
 import formatSalary from "~/utils/formatSalary";
 import { useUserStore } from "~/stores/userStore";
@@ -26,7 +26,7 @@ import {
   Heart,
   Clock,
 } from "feather-icons-react";
-import IconCircleDollarSign from "../Icon/IconCircleDollarSign";
+import IconCircleDollarSign from "../Icons/IconCircleDollarSign";
 import formatDate from "~/utils/formatDate";
 import jobService from "~/services/jobService";
 
@@ -46,7 +46,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
 
   const handleApply = () => {
     if (!isAuthenticated) {
-      navigate(`/login?job=${selectedJob?.slug}`);
+      navigate(`/login?apply=${selectedJob?.slug}`);
     } else {
       navigate(`/apply/${selectedJob?.slug}`);
     }

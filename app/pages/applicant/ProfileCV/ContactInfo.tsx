@@ -10,7 +10,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
 import InputFloating from "~/components/InputFloating";
 import genders from "~/constants/genders";
 import SelectFloating from "~/components/SelectFloating";
@@ -24,6 +23,7 @@ import {
   MapPin,
   Phone,
   User,
+  X,
 } from "feather-icons-react";
 
 const ContactInfo = () => {
@@ -140,7 +140,7 @@ const ContactInfo = () => {
         <ModalContainer onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-head">
             <h2>Personal details</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <PersonalDetailsContent>

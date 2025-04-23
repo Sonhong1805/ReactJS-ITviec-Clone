@@ -3,7 +3,6 @@ import Card from "./Card";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
 import { AwardsContent, customStyles, ModalContainer } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +10,7 @@ import RichTextEditor from "~/components/RichTextEditor";
 import InputFloating from "~/components/InputFloating";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
-import { Feather } from "feather-icons-react";
+import { Feather, X } from "feather-icons-react";
 
 const Awards = () => {
   const { t } = useTranslation(["settings"]);
@@ -71,7 +70,7 @@ const Awards = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Awards</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <AwardsContent>

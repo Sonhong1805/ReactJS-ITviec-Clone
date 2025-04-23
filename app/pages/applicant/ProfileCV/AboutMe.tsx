@@ -2,10 +2,9 @@ import { useState } from "react";
 import Card from "./Card";
 import Modal from "react-modal";
 import { AboutMeContent, customStyles, ModalContainer } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import RichTextEditor from "~/components/RichTextEditor";
-import { Feather } from "feather-icons-react";
+import { Feather, X } from "feather-icons-react";
 
 const AboutMe = () => {
   const { t } = useTranslation(["settings"]);
@@ -30,7 +29,7 @@ const AboutMe = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>About Me</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <AboutMeContent>

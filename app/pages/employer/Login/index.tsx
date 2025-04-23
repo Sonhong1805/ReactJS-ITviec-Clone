@@ -9,7 +9,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import authService from "~/services/authService";
 import { useUserStore } from "~/stores/userStore";
-import IconToastError from "~/components/Icon/IconToastError";
+import IconToastError from "~/components/Icons/IconToastError";
 import { Mail, PhoneCall } from "feather-icons-react";
 
 const Login = () => {

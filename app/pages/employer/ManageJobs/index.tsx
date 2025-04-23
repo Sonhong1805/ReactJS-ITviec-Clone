@@ -7,9 +7,7 @@ import {
   ModalContainer,
   SalaryBox,
 } from "./styled";
-import Pagination from "~/components/Pagination";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,8 +20,8 @@ import InputBase from "~/components/InputBase";
 import customSalary from "~/utils/customSalary";
 import { years } from "~/constants/dateOptions";
 import InputDate from "~/components/InputDate";
-import { Edit, PlusCircle, Trash2 } from "feather-icons-react";
-import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import { Edit, PlusCircle, Trash2, X } from "feather-icons-react";
+import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 
 const ManageJobs = () => {
   const { t } = useTranslation(["settings"]);
@@ -168,7 +166,7 @@ const ManageJobs = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Thêm mới việc làm</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <ManageJobsContent>

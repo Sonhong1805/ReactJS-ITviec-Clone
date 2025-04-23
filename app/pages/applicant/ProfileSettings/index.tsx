@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ChangePassword,
   customStyles,
@@ -12,14 +12,13 @@ import {
 } from "./styled";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputFloating from "~/components/InputFloating";
-import { AlertCircle, Edit3 } from "feather-icons-react";
+import { AlertCircle, Edit3, X } from "feather-icons-react";
 
 const ProfileSettings = () => {
   const { t } = useTranslation(["settings"]);
@@ -207,7 +206,7 @@ const ProfileSettings = () => {
         ariaHideApp={false}>
         <ModalHead>
           <h2>{t("Are you sure you want to delete your account?")}</h2>
-          <IoCloseOutline onClick={closeModal} />
+          <X onClick={closeModal} />
         </ModalHead>
         <ModalBody>
           <p>{t("Account deletion removes")}</p>

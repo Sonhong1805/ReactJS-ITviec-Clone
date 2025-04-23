@@ -4,3 +4,9 @@ interface Pagination {
   page: number;
   limit: number;
 }
+
+interface CursorPagination {
+  totalItems: number;
+  next: number | null;
+  limit: number;
+}

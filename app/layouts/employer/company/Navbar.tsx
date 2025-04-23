@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { NavbarWrapper } from "./styled";
 import { NavLink } from "react-router";
 import employerLinks from "~/constants/employerLinks";
-import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 import { useUserStore } from "~/stores/userStore";
 import { useCompanyStore } from "~/stores/companyStore";
 import { useCompanyQuery } from "~/hooks/useCompanyQuery";
 import Loading from "~/components/Loading";
 import { LogIn } from "feather-icons-react";
-import IconHandWave from "~/components/Icon/IconHandWave";
+import IconHandWave from "~/components/Icons/IconHandWave";
+import IconPanelLeftOpen from "~/components/Icons/IconPanelLeftOpen";
+import IconPanelLeftClose from "~/components/Icons/IconPanelLeftClose";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
@@ -33,12 +34,12 @@ const Navbar = () => {
               <span>{company?.companyName}</span>
             </div>
             {showNavbar ? (
-              <LuPanelLeftOpen
+              <IconPanelLeftClose
                 className="toggle-nav"
                 onClick={() => setShowNavbar(false)}
               />
             ) : (
-              <LuPanelLeftClose
+              <IconPanelLeftOpen
                 className="toggle-nav"
                 onClick={() => setShowNavbar(true)}
               />

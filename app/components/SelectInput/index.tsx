@@ -1,77 +1,94 @@
-import { useState } from "react";
-import { AlertError, SelectPane, SelectWrapper } from "./styled";
+import {
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
+import { SelectPane, SelectWrapper } from "./styled";
 import Options from "./Options";
 import { ChevronDown } from "feather-icons-react";
+import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
-  placeholder?: string;
-  name: string;
-  register: any;
   options: Option[];
-  error?: string;
-  className?: string;
+  selectedOption: Option;
+  onSelectedOption: (option: Option) => void;
+  onRemoveSelectedOption: () => void;
   onSetValue: (value: string) => void;
-  defaultValue?: Option;
-  disabled?: boolean;
+  onGetInputValue: (value: string) => void;
+  error?: string;
 }
 
 const SelectInput = ({
-  name,
   options,
-  placeholder,
-  register,
-  error,
-  className = "",
+  selectedOption,
+  onSelectedOption,
+  onRemoveSelectedOption,
   onSetValue,
-  defaultValue,
-  disabled = false,
+  onGetInputValue,
+  error,
 }: IProps) => {
   const [isShowOptions, setIsShowOptions] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState<string>(() => {
-    if (!defaultValue) return "";
-    const foundOption = options.find((opt) => opt.value === defaultValue.value);
-    return foundOption ? foundOption.label : "";
-  });
+  const [selectedLabel, setSelectedLabel] = useState<string>("");
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (isShowOptions && !event.target.closest(".select-active")) {
+        setIsShowOptions(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isShowOptions]);
+
+  const handleClick = () => {
+    setIsShowOptions(!isShowOptions);
+  };
 
   const handleGetOption = (option: Option) => {
-    setSelectedLabel(option.label);
+    onSelectedOption(option);
     onSetValue(option.value + "");
+    setSelectedLabel("");
     setIsShowOptions(false);
   };
 
-  const handleClick = () => {
-    if (!disabled) {
-      setIsShowOptions(!isShowOptions);
+  const handleDeletedOption = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && selectedOption.value && selectedLabel === "") {
+      onRemoveSelectedOption();
+      setSelectedLabel("");
     }
+  };
+
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedLabel(e.target.value);
+    onGetInputValue(e.target.value);
   };
 
   return (
     <>
       <SelectWrapper
         onClick={handleClick}
-        className={
-          isShowOptions ? "select-active" : `select-wrapper ${className}`
-        }
-        style={disabled ? { backgroundColor: "#e9ecef" } : undefined}
+        className={isShowOptions ? "select-active" : `select-wrapper`}
         tabIndex={0}>
         <SelectPane>
           <div className="select-value">
+            {selectedOption.value && <div>{selectedOption.label}</div>}
             <input
-              id={name}
-              {...register(name)}
               value={selectedLabel}
-              readOnly
-              placeholder={placeholder}
-              disabled={disabled}
+              placeholder="Nhập tên công ty"
+              onChange={handleChangeValue}
+              onKeyDown={handleDeletedOption}
             />
           </div>
           <ChevronDown size={24} className="arrow-down" />
         </SelectPane>
-        {!disabled && isShowOptions && (
+        {isShowOptions && (
           <Options options={options} onGetOption={handleGetOption} />
         )}
       </SelectWrapper>
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </>
   );
 };

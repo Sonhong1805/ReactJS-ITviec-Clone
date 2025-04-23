@@ -1,4 +1,4 @@
-const sizes = [
+const companySizes = [
   {
     value: "10-50 employees",
     label: "10-50 employees",
@@ -17,4 +17,4 @@ const sizes = [
   },
 ];
 
-export default sizes;
+export default companySizes;

@@ -4,7 +4,7 @@ import { LoadingWrapper } from "./styled";
 const Loading = () => {
   return (
     <LoadingWrapper>
-      <div className="spinner"></div>
+      <div className="spinner loader"></div>
     </LoadingWrapper>
   );
 };

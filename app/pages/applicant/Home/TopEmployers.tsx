@@ -1,12 +1,11 @@
 import { MainContainer, MainWrapper, TopEmployersWrapper } from "./styled";
 import { Link } from "react-router";
-import { IoIosArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
-import IconOnline from "~/components/Icon/IconOnline";
+import IconOnline from "~/components/Icons/IconOnline";
 import { useQuery } from "@tanstack/react-query";
 import companyService from "~/services/companyService";
-import Loading from "~/components/Loading";
 import Skeleton from "react-loading-skeleton";
+import { ChevronRight } from "feather-icons-react";
 
 const TopEmployers = () => {
   const { t } = useTranslation(["home"]);
@@ -71,7 +70,7 @@ const TopEmployers = () => {
                       <span>
                         {company.jobs.length} {t("Jobs")}
                       </span>
-                      <IoIosArrowForward />
+                      <ChevronRight />
                     </div>
                   </div>
                 </Link>

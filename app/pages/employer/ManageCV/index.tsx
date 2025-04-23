@@ -5,14 +5,12 @@ import {
   ManageCVWrapper,
   ModalContainer,
 } from "./styled";
-import Pagination from "~/components/Pagination";
 import { useState } from "react";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { Edit, Trash2 } from "feather-icons-react";
-import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import { Edit, Trash2, X } from "feather-icons-react";
+import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 const ManageCV = () => {
   const { t } = useTranslation(["settings"]);
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +77,7 @@ const ManageCV = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Thông tin người ứng tuyển</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <CVContent>

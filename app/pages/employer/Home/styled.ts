@@ -721,7 +721,8 @@ export const SuccessCheck = styled.div`
     }
 
     span {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      font-weight: 300;
     }
   }
 

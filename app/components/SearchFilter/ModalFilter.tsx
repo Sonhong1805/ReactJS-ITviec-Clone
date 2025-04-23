@@ -9,7 +9,6 @@ import {
 } from "./styled";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
 import Slider from "rc-slider";
 import useDebounce from "~/hooks/useDebounce";
 import { useForm } from "react-hook-form";
@@ -19,10 +18,13 @@ import { useIndustriesQuery } from "~/hooks/useIndustriesQuery";
 import { useJobStore } from "~/stores/jobStore";
 import formatSalary from "~/utils/formatSalary";
 import { createSearchParams, useNavigate } from "react-router";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { routes } from "~/constants/routes";
 import useGetSelectedValue from "~/hooks/useGetSelectedValue";
-import { Check, Plus } from "feather-icons-react";
+import { Check, Plus, X } from "feather-icons-react";
+import levels from "~/constants/levels";
+import workingModels from "~/constants/workingModels";
+import companyTypes from "~/constants/companyTypes";
 
 export const MIN_RANGE = 500;
 export const MAX_RANGE = 10000;
@@ -85,6 +87,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
     handleSaveLevels(getLevels.map((item) => item + ""));
     handleSaveWorkingModels(getWorkingModels.map((item) => item + ""));
     handleSaveIndustries(getIndustries.map((item) => item + ""));
+
     const searchParams: Record<string, string | string[]> = {
       page: queryParams.page || "",
       limit: queryParams.limit || "",
@@ -150,108 +153,55 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
       <ModalForm onSubmit={handleSubmit(handleOnSubmit)}>
         <ModalHead>
           <h2>{t("Filter")}</h2>
-          <IoCloseOutline onClick={closeModal} />
+          <X onClick={closeModal} />
         </ModalHead>
         <ModalBody>
           <ModalContainer>
             <h4>{t("Level")}</h4>
             <div className="modal-group">
-              <input
-                type="checkbox"
-                hidden
-                name="level"
-                value="Fresher"
-                id="Fresher"
-                checked={getLevels.includes("Fresher")}
-                onChange={() => handleGetLevels("Fresher")}
-              />
-              <ModalLabel htmlFor="Fresher">
-                Fresher
-                {getLevels.includes("Fresher") ? <Check /> : <Plus />}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="Junior"
-                name="level"
-                value="Junior"
-                checked={getLevels.includes("Junior")}
-                onChange={() => handleGetLevels("Junior")}
-              />
-              <ModalLabel htmlFor="Junior">
-                Junior
-                {getLevels.includes("Junior") ? <Check /> : <Plus />}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="Senior"
-                name="level"
-                value="Senior"
-                checked={getLevels.includes("Senior")}
-                onChange={() => handleGetLevels("Senior")}
-              />
-              <ModalLabel htmlFor="Senior">
-                Senior
-                {getLevels.includes("Senior") ? <Check /> : <Plus />}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="Manager"
-                name="level"
-                value="Manager"
-                checked={getLevels.includes("Manager")}
-                onChange={() => handleGetLevels("Manager")}
-              />
-              <ModalLabel htmlFor="Manager">
-                Manager
-                {getLevels.includes("Manager") ? <Check /> : <Plus />}
-              </ModalLabel>
+              {levels.map((level) => (
+                <Fragment key={level.value}>
+                  <input
+                    type="checkbox"
+                    hidden
+                    name="level"
+                    value={level.value}
+                    id={level.value}
+                    checked={getLevels.includes(level.value)}
+                    onChange={() => handleGetLevels(level.value)}
+                  />
+                  <ModalLabel htmlFor={level.value}>
+                    {level.label}
+                    {getLevels.includes(level.value) ? <Check /> : <Plus />}
+                  </ModalLabel>
+                </Fragment>
+              ))}
             </div>
           </ModalContainer>
           <ModalContainer>
             <h4>{t("Working Model")}</h4>
             <div className="modal-group">
-              <input
-                type="checkbox"
-                id="At office"
-                hidden
-                name="workingModel"
-                value="At office"
-                checked={getWorkingModels.includes("At office")}
-                onChange={() => handleGetWorkingModels("At office")}
-              />
-              <ModalLabel htmlFor="At office">
-                {t("At office")}
-                {getWorkingModels.includes("At office") ? <Check /> : <Plus />}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                id="Remote"
-                hidden
-                name="workingModel"
-                value="Remote"
-                checked={getWorkingModels.includes("Remote")}
-                onChange={() => handleGetWorkingModels("Remote")}
-              />
-              <ModalLabel htmlFor="Remote">
-                {t("Remote")}
-                {getWorkingModels.includes("Remote") ? <Check /> : <Plus />}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                id="Hybrid"
-                hidden
-                name="workingModel"
-                value="Hybrid"
-                checked={getWorkingModels.includes("Hybrid")}
-                onChange={() => handleGetWorkingModels("Hybrid")}
-              />
-              <ModalLabel htmlFor="Hybrid">
-                {t("Hybrid")}
-                {getWorkingModels.includes("Hybrid") ? <Check /> : <Plus />}
-              </ModalLabel>
+              {workingModels.map((workingModel) => (
+                <Fragment key={workingModel.value}>
+                  <input
+                    type="checkbox"
+                    id={workingModel.value}
+                    hidden
+                    name="workingModel"
+                    value={workingModel.value}
+                    checked={getWorkingModels.includes(workingModel.value)}
+                    onChange={() => handleGetWorkingModels(workingModel.value)}
+                  />
+                  <ModalLabel htmlFor={workingModel.value}>
+                    {t(workingModel.label)}
+                    {getWorkingModels.includes(workingModel.value) ? (
+                      <Check />
+                    ) : (
+                      <Plus />
+                    )}
+                  </ModalLabel>
+                </Fragment>
+              ))}
             </div>
           </ModalContainer>
           <ModalContainer>
@@ -289,93 +239,29 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
           <ModalContainer>
             <h4>{t("Company Type")}</h4>
             <div className="modal-group">
-              <input
-                type="checkbox"
-                id="IT Outsourcing"
-                hidden
-                name="type"
-                value="IT Outsourcing"
-                checked={selectedCompanyTypes.includes("IT Outsourcing")}
-                onChange={() => handleSelectedCompanyTypes("IT Outsourcing")}
-              />
-              <ModalLabel htmlFor="IT Outsourcing">
-                {t("IT Outsourcing", { ns: "option" })}
-                {selectedCompanyTypes.includes("IT Outsourcing") ? (
-                  <Check />
-                ) : (
-                  <Plus />
-                )}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="IT Product"
-                name="type"
-                value="IT Product"
-                checked={selectedCompanyTypes.includes("IT Product")}
-                onChange={() => handleSelectedCompanyTypes("IT Product")}
-              />
-              <ModalLabel htmlFor="IT Product">
-                {t("IT Product", { ns: "option" })}
-                {selectedCompanyTypes.includes("IT Product") ? (
-                  <Check />
-                ) : (
-                  <Plus />
-                )}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                id="Headhunt"
-                hidden
-                name="type"
-                value="Headhunt"
-                checked={selectedCompanyTypes.includes("Headhunt")}
-                onChange={() => handleSelectedCompanyTypes("Headhunt")}
-              />
-              <ModalLabel htmlFor="Headhunt">
-                Headhunt
-                {selectedCompanyTypes.includes("Headhunt") ? (
-                  <Check />
-                ) : (
-                  <Plus />
-                )}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="IT Service and IT Consulting"
-                name="type"
-                value="IT Service and IT Consulting"
-                checked={selectedCompanyTypes.includes(
-                  "IT Service and IT Consulting"
-                )}
-                onChange={() =>
-                  handleSelectedCompanyTypes("IT Service and IT Consulting")
-                }
-              />
-              <ModalLabel htmlFor="IT Service and IT Consulting">
-                {t("IT Service and IT Consulting", { ns: "option" })}
-                {selectedCompanyTypes.includes(
-                  "IT Service and IT Consulting"
-                ) ? (
-                  <Check />
-                ) : (
-                  <Plus />
-                )}
-              </ModalLabel>
-              <input
-                type="checkbox"
-                hidden
-                id="Non-IT"
-                name="type"
-                value="Non-IT"
-                checked={selectedCompanyTypes.includes("Non-IT")}
-                onChange={() => handleSelectedCompanyTypes("Non-IT")}
-              />
-              <ModalLabel htmlFor="Non-IT">
-                Non-IT
-                {selectedCompanyTypes.includes("Non-IT") ? <Check /> : <Plus />}
-              </ModalLabel>
+              {companyTypes.map((companyType) => (
+                <Fragment key={companyType.value}>
+                  <input
+                    type="checkbox"
+                    id={companyType.value}
+                    hidden
+                    name="companyType"
+                    value={companyType.value}
+                    checked={selectedCompanyTypes.includes(companyType.value)}
+                    onChange={() =>
+                      handleSelectedCompanyTypes(companyType.value)
+                    }
+                  />
+                  <ModalLabel htmlFor={companyType.value}>
+                    {t(companyType.label, { ns: "option" })}
+                    {selectedCompanyTypes.includes(companyType.value) ? (
+                      <Check />
+                    ) : (
+                      <Plus />
+                    )}
+                  </ModalLabel>
+                </Fragment>
+              ))}
             </div>
           </ModalContainer>
         </ModalBody>

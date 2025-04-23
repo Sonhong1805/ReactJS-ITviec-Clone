@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "./Card";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
 import { CertificatesContent, customStyles, ModalContainer } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,6 +10,7 @@ import RichTextEditor from "~/components/RichTextEditor";
 import SelectBase from "~/components/SelectBase";
 import InputFloating from "~/components/InputFloating";
 import { months, years } from "~/constants/dateOptions";
+import { X } from "feather-icons-react";
 
 const Certificates = () => {
   const { t } = useTranslation(["settings"]);
@@ -81,7 +81,7 @@ const Certificates = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Certificates</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <CertificatesContent>

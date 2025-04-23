@@ -1,4 +1,4 @@
-import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 import { JobCardWrapper } from "./styled";
 
 interface IProps {

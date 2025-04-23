@@ -32,6 +32,7 @@ export default [
     route("apply/:slug", "routes/applicant/apply-job.tsx"),
     route("apply/success/:slug", "routes/applicant/apply-success.tsx"),
     route("review/:slug", "routes/applicant/company-review.tsx"),
+    route("review/success/:slug", "routes/applicant/review-success.tsx"),
   ]),
 
   layout("layouts/employer/Layout.tsx", [

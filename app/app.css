@@ -497,6 +497,10 @@ svg.css-tj5bde-Svg {
 
 /* animation */
 
+.loader {
+  animation: l13 1s infinite linear;
+}
+
 @keyframes progressCircle {
   0% {
     transform: rotate(-180deg);
@@ -506,6 +510,12 @@ svg.css-tj5bde-Svg {
   100% {
     transform: rotate(calc(var(--progress-degree) - 180deg));
     -webkit-transform: rotate(calc(var(--progress-degree) - 180deg));
+  }
+}
+
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
   }
 }
 

@@ -9,25 +9,69 @@ import { useTranslation } from "react-i18next";
 import JobListing from "./JobListing";
 import Overview from "./Overview";
 import Employer from "./Employer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Reviews from "./Reviews";
 import Breadcrumb from "~/components/Breadcrumb";
 import { useCompanyQuery } from "~/hooks/useCompanyQuery";
 import Skeleton from "react-loading-skeleton";
-import { useJobStore } from "~/stores/jobStore";
+import { useReviewsQuery } from "~/hooks/useReviewsQuery";
+import { useReviewStore } from "~/stores/reviewStore";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
-
   const { t } = useTranslation(["search", "header"]);
+  const [reviewData, setReviewData] = useState<Review[]>([]);
   const [showReviews, setShowReviews] = useState(false);
-  const { handleResetSelectedJob } = useJobStore();
+  const { pagination, cursor, handleSavePagition, handleChangeCursor } =
+    useReviewStore();
+  const lastReviewRef = useRef<HTMLDivElement | null>(null);
 
-  const { data: company, isPending, isSuccess } = useCompanyQuery(slug + "");
+  const {
+    data: company,
+    isPending: companyPending,
+    isSuccess,
+  } = useCompanyQuery(slug + "");
 
   useEffect(() => {
-    handleResetSelectedJob();
+    return () => {
+      handleChangeCursor(0);
+      setReviewData([]);
+    };
   }, []);
+
+  const { data: reviews, isPending: reviewPending } = useReviewsQuery(
+    company?.id || 0,
+    {
+      limit: pagination.limit,
+      cursor,
+    }
+  );
+
+  useEffect(() => {
+    if (!reviewPending && reviews) {
+      handleSavePagition(reviews.pagination);
+      setReviewData([...reviewData, ...reviews.data]);
+    }
+  }, [reviewPending, reviews]);
+
+  useEffect(() => {
+    if (showReviews) {
+      const offsetTopLastReview = lastReviewRef.current?.offsetTop || 0;
+
+      const handleScroll = async () => {
+        const scrollHeight = window.scrollY + window.innerHeight;
+        if (scrollHeight >= offsetTopLastReview) {
+          if (pagination.next !== null) {
+            handleChangeCursor(pagination.next);
+          }
+        }
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [showReviews, reviewData]);
 
   return (
     <CompanyDetailWrapper>
@@ -52,7 +96,10 @@ const CompanyDetail = () => {
                   <span
                     className={showReviews ? "active" : ""}
                     onClick={() => setShowReviews(true)}>
-                    {t("Reviews")} <div className="counter">6</div>
+                    {t("Reviews")}{" "}
+                    {pagination.totalItems > 0 && (
+                      <div className="counter">{pagination.totalItems}</div>
+                    )}
                   </span>
                 </li>
               </ul>
@@ -62,15 +109,20 @@ const CompanyDetail = () => {
           )}
           {company && isSuccess ? (
             !showReviews ? (
-              <Overview data={company} />
+              <Overview company={company} />
             ) : (
-              <Reviews />
+              <Reviews
+                company={company}
+                data={reviewData}
+                isPending={reviewPending}
+                ref={lastReviewRef}
+              />
             )
           ) : (
             <Skeleton height={227.8} />
           )}
         </CompanyInfoMain>
-        <JobListing jobs={company?.jobs ?? []} isPending={isPending} />
+        <JobListing jobs={company?.jobs ?? []} isPending={companyPending} />
       </CompanyInfoContainer>
       <Breadcrumb
         primaryLinkLabel={t("For Employers", { ns: "header" })}

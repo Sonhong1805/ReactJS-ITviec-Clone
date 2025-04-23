@@ -1,13 +1,57 @@
 import { ReviewAbout, ReviewCard, ReviewList, ReviewRating } from "./styled";
 import { Fragment } from "react/jsx-runtime";
-import { useState } from "react";
+import { useState, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertCircle, Star, ThumbsUp } from "feather-icons-react";
+import {
+  AlertCircle,
+  ChevronDown,
+  Loader,
+  Star,
+  ThumbsDown,
+  ThumbsUp,
+} from "feather-icons-react";
+import { useNavigate } from "react-router";
+import formatRating from "~/utils/formatRating";
+import { useReviewStore } from "~/stores/reviewStore";
+import ratingFields from "~/constants/ratingFields";
 
-const Reviews = () => {
+interface IProps {
+  company: Company;
+  data: Review[];
+  isPending: boolean;
+  ref: RefObject<HTMLDivElement | null>;
+}
+
+const Reviews = ({ company, data, isPending, ref }: IProps) => {
   const { t } = useTranslation(["search"]);
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number | null>(0);
+  const navigate = useNavigate();
+  const { pagination } = useReviewStore();
+
+  const formattedDate = (date: string): string => {
+    const convertDate = new Date(date);
+    const monthNames = [
+      "",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const month = convertDate.getUTCMonth() + 1;
+    const year = convertDate.getUTCFullYear();
+
+    return `${t("months." + monthNames[month])} ${year}`;
+  };
 
   return (
     <>
@@ -20,8 +64,8 @@ const Reviews = () => {
         </figure>
         <div className="box">
           <div className="h3">
-            {t("Please take a minute to share your work experience at")} CJ
-            OLIVENETWORKS VINA CO., LTD
+            {t("Please take a minute to share your work experience at")}{" "}
+            {company.companyName}
           </div>
           <p></p>
           <div className="rating">
@@ -36,7 +80,12 @@ const Reviews = () => {
                         id={`rate-${currentRating}`}
                         name="rate"
                         value={currentRating}
-                        onChange={() => setSelectedRating(currentRating)}
+                        onChange={() => {
+                          setSelectedRating(currentRating);
+                          navigate(
+                            `/review/${company.slug}?star=${currentRating}`
+                          );
+                        }}
                         hidden
                       />
                       <span
@@ -60,51 +109,92 @@ const Reviews = () => {
               <AlertCircle />
             </span>
             <span>
-              {t("Your review for")} CJ OLIVENETWORKS VINA CO., LTD{" "}
+              {t("Your review for")} {company.companyName}{" "}
               {t("will be submitted anonymously.")}
             </span>
           </div>
         </div>
       </ReviewRating>
-      <ReviewList>
-        <div className="heading">
-          <h2>6 {t("employee reviews")}</h2>
-        </div>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <ReviewCard key={index}>
-            <div className="box">
-              <div className="create-at">Tháng Sáu 2022</div>
-              <h3>Công ty tốt, công việc ổn định</h3>
-              <div className="rating">
-                <div className="box-star">
-                  <div className="stars">
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star />
-                  </div>
-                  <div className="number">4</div>
+      {pagination.totalItems > 0 && (
+        <ReviewList>
+          <div className="heading">
+            <h2>
+              {pagination.totalItems} {t("employee reviews")}
+            </h2>
+          </div>
+          {data.map((review, index) => (
+            <ReviewCard
+              key={index}
+              ref={(div: HTMLDivElement) => {
+                if (div) ref.current = div;
+              }}>
+              <div className="box">
+                <div className="create-at">
+                  {formattedDate(review.createdAt + "")}
                 </div>
-                <div className="recommend">
-                  <ThumbsUp />
-                  {t("Recommend")}
+                <h3>
+                  {review.id} - {review.summary}
+                </h3>
+                <div className="rating">
+                  <div className="box-star">
+                    <div className="stars">
+                      {formatRating(review.rate).map((rate, index) => (
+                        <Fragment key={index}>{rate}</Fragment>
+                      ))}
+                    </div>
+                    <ul className="detail-rating">
+                      {ratingFields.map((rate) => (
+                        <li className="detail-rating__item" key={rate.value}>
+                          <p className="detail-rating__label">
+                            {t(rate.label)}
+                          </p>
+                          <div className="detail-rating__content">
+                            <div className="detail-rating__stars">
+                              {formatRating((review as any)[rate.value]).map(
+                                (rate, index) => (
+                                  <Fragment key={index}>{rate}</Fragment>
+                                )
+                              )}
+                            </div>
+                            <p className="detail-rating__score">
+                              {(review as any)[rate.value]}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="number">{review.rate}</div>
+                    <ChevronDown stroke="#121212" />
+                  </div>
+
+                  {review.isRecommend ? (
+                    <div className="recommend">
+                      <ThumbsUp />
+                      {t("Recommend")}
+                    </div>
+                  ) : (
+                    <div className="unrecommend">
+                      <ThumbsDown />
+                      {t("Doesn't recommend")}
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-            <div className="feedback" style={{ paddingBottom: "0.8rem" }}>
-              <h4>{t("What I liked:")}</h4>
-              <p>- Công ty nước ngoài, được cho học Tiếng Anh.</p>
-            </div>
-            <div className="feedback">
-              <h4>{t("Suggestions for improvement:")}</h4>
-              <p>- Công ty nước ngoài, được cho học Tiếng Anh.</p>
-            </div>
-          </ReviewCard>
-        ))}
-        {/* <p style={{ paddingTop: "3.2rem" }}></p> */}
-        {/* <Pagination /> */}
-      </ReviewList>
+              <div className="feedback" style={{ paddingBottom: "0.8rem" }}>
+                <h4>{t("What I liked:")}</h4>
+                <p>{review.experiences}</p>
+              </div>
+              <div className="feedback">
+                <h4>{t("Suggestions for improvement:")}</h4>
+                <p>{review.suggestion}</p>
+              </div>
+            </ReviewCard>
+          ))}
+          <p style={{ paddingTop: "3.2rem", textAlign: "center" }}>
+            {isPending && <Loader className="loader" />}
+          </p>
+        </ReviewList>
+      )}
       <ReviewAbout>
         <div className="about">
           <div className="h4">{t("About the Company Review on ITviec")}</div>

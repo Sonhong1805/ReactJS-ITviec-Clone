@@ -31,10 +31,10 @@ import {
   List,
   Underline,
 } from "feather-icons-react";
-import IconHeading1 from "../Icon/IconHeading1";
-import IconHeading2 from "../Icon/IconHeading2";
-import IconQuote from "../Icon/IconQuote";
-import IconListOl from "../Icon/IconListOl";
+import IconHeading1 from "../Icons/IconHeading1";
+import IconHeading2 from "../Icons/IconHeading2";
+import IconQuote from "../Icons/IconQuote";
+import IconListOl from "../Icons/IconListOl";
 
 const HOTKEYS: Record<string, string> = {
   "mod+b": "bold",

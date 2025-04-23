@@ -6,14 +6,13 @@ import {
   ReviewRadio,
 } from "./styled";
 import { Fragment, useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
 import rateDescription from "~/constants/rateDescription";
 import InputFloating from "~/components/InputFloating";
 import { useForm } from "react-hook-form";
 import RatingItem from "~/components/RatingItem";
-import { Edit, Star, Trash2 } from "feather-icons-react";
+import { Edit, Star, Trash2, X } from "feather-icons-react";
 
 const ManageReviews = () => {
   const { t } = useTranslation(["settings"]);
@@ -92,7 +91,7 @@ const ManageReviews = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Thông tin bài đánh giá</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <div className="form-group" style={{ display: "flex" }}>
@@ -204,11 +203,11 @@ const ManageReviews = () => {
                 {t("Rating detail")} <abbr>*</abbr>
               </h3>
               <div className="rating-detail">
-                <RatingItem label={t("Salary & benefits")} />
+                {/* <RatingItem label={t("Salary & benefits")} />
                 <RatingItem label={t("Training & learning")} />
                 <RatingItem label={t("Management cares about me")} />
                 <RatingItem label={t("Culture & fun")} />
-                <RatingItem label={t("Office & workspace")} />
+                <RatingItem label={t("Office & workspace")} /> */}
               </div>
             </div>
             <div className="form-group">

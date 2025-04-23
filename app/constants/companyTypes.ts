@@ -1,4 +1,4 @@
-const types = [
+const companyTypes = [
   {
     value: "IT Outsourcing",
     label: "IT Outsourcing",
@@ -21,4 +21,4 @@ const types = [
   },
 ];
 
-export default types;
+export default companyTypes;

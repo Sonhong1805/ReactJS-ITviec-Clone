@@ -8,14 +8,14 @@ import {
   JobDetailRight,
 } from "./styled";
 import { MapPin, Heart, Clock, CheckCircle } from "feather-icons-react";
-import IconWorkingModel from "~/components/Icon/IconWorkingModel";
+import IconWorkingModel from "~/components/Icons/IconWorkingModel";
 import { useTranslation } from "react-i18next";
 import formatSalary from "~/utils/formatSalary";
 import { useUserStore } from "~/stores/userStore";
 import getPostedTime from "~/utils/getPostedTime";
 import DOMPurify from "dompurify";
 import { useJobStore } from "~/stores/jobStore";
-import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 import formatDate from "~/utils/formatDate";
 import jobService from "~/services/jobService";
 
@@ -30,7 +30,7 @@ const JobInfo = () => {
 
   const handleApply = () => {
     if (!isAuthenticated) {
-      navigate(`/login?job=${jobDetail.slug}`);
+      navigate(`/login?apply=${jobDetail.slug}`);
     } else {
       navigate(`/apply/${jobDetail.slug}`);
     }

@@ -7,7 +7,7 @@ import {
 } from "./styled";
 import LOGO from "/assets/images/logo.png";
 import ROBBY_APPLY_SUCCESS from "/assets/svg/robby-apply-success.svg";
-import IconCircleDollarSign from "~/components/Icon/IconCircleDollarSign";
+import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 import { useTranslation } from "react-i18next";
 import { useUserStore } from "~/stores/userStore";
 import { useJobQuery } from "~/hooks/useJobQuery";

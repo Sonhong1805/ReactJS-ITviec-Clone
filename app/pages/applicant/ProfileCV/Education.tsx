@@ -2,13 +2,11 @@ import { useState } from "react";
 import Card from "./Card";
 import Modal from "react-modal";
 import {
-  AboutMeContent,
   AgreementCheck,
   customStyles,
   EducationContent,
   ModalContainer,
 } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +14,7 @@ import { z } from "zod";
 import InputFloating from "~/components/InputFloating";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
+import { X } from "feather-icons-react";
 
 const Education = () => {
   const { t } = useTranslation(["settings"]);
@@ -85,7 +84,7 @@ const Education = () => {
         <ModalContainer onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-head">
             <h2>Education</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <EducationContent>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "./Card";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
@@ -8,7 +8,6 @@ import {
   ModalContainer,
   PersonalProjectContent,
 } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +15,7 @@ import RichTextEditor from "~/components/RichTextEditor";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
 import InputFloating from "~/components/InputFloating";
-import { Feather } from "feather-icons-react";
+import { Feather, X } from "feather-icons-react";
 
 const PersonalProject = () => {
   const { t } = useTranslation(["settings"]);
@@ -87,7 +86,7 @@ const PersonalProject = () => {
         <ModalContainer>
           <div className="modal-head">
             <h2>Personal Project</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <PersonalProjectContent>

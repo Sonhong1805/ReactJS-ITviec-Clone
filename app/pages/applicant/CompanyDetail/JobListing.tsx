@@ -2,6 +2,8 @@ import JobCard from "~/components/JobCard";
 import { JobListingContainer, JobListingWrapper } from "./styled";
 import { useTranslation } from "react-i18next";
 import Skeleton from "react-loading-skeleton";
+import { useJobStore } from "~/stores/jobStore";
+import { useEffect } from "react";
 
 interface IProps {
   jobs: Job[];
@@ -10,6 +12,11 @@ interface IProps {
 
 const JobListing = ({ jobs, isPending }: IProps) => {
   const { t } = useTranslation(["search"]);
+  const { handleResetSelectedJob } = useJobStore();
+
+  useEffect(() => {
+    handleResetSelectedJob();
+  }, []);
 
   return (
     <JobListingWrapper>

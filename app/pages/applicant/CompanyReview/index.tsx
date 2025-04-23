@@ -18,24 +18,38 @@ import { useTranslation } from "react-i18next";
 import LOGO from "/assets/images/logo.png";
 import rateDescription from "~/constants/rateDescription";
 import InputFloating from "~/components/InputFloating";
-import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Modal from "react-modal";
-import { IoCloseOutline } from "react-icons/io5";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import RatingItem from "~/components/RatingItem";
-import { ChevronLeft, Star } from "feather-icons-react";
+import { ChevronLeft, Star, X } from "feather-icons-react";
+import { schema } from "./schema";
+import { useCompanyQuery } from "~/hooks/useCompanyQuery";
+import Skeleton from "react-loading-skeleton";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { CreateReviewPayload } from "~/services/companyService";
+import companyService from "~/services/companyService";
+import showToast from "~/utils/showToast";
+import Loading from "~/components/Loading";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useReviewStore } from "~/stores/reviewStore";
 
 const CompanyReview = () => {
+  let { slug } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation(["search", "apply"]);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
-  const [hoverRating, setHoverRating] = useState<number>(0);
-  const [selectedOvertime, setSelectedOvertime] = useState<
-    "Satisfied" | "Unsatisfied" | null
-  >(null);
+  const [searchParams] = useSearchParams();
+  const star = searchParams.get("star");
+  const [selectedRating, setSelectedRating] = useState<number>(
+    star ? +star : 0
+  );
+  const [hoverRating, setHoverRating] = useState<number>(star ? +star : 0);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { data: company, isPending } = useCompanyQuery(slug + "");
+  const { handleReviewSuccess } = useReviewStore();
 
   function openModal() {
     setIsOpen(true);
@@ -45,59 +59,54 @@ const CompanyReview = () => {
     setIsOpen(false);
   }
 
-  const schema = z.object({
-    summary: z
-      .string()
-      .nonempty({ message: t("Please input content to this field") })
-      .min(10, { message: "From 10 to 80 characters" })
-      .max(80, { message: "From 10 to 80 characters" }),
-    reason: z
-      .string()
-      .nonempty({ message: t("Please input content to this field") })
-      .min(50, {
-        message: `${t("Limit from")} 50 ${t("to")} 140 ${t("characters")}`,
-      })
-      .max(140, {
-        message: `${t("Limit from")} 50 ${t("to")} 140 ${t("characters")}`,
-      }),
-    experiences: z
-      .string()
-      .nonempty({ message: t("Please input content to this field") })
-      .min(50, {
-        message: `${t("Limit from")} 50 ${t("to")} 100000 ${t("characters")}`,
-      })
-      .max(10000, {
-        message: `${t("Limit from")} 50 ${t("to")} 100000 ${t("characters")}`,
-      }),
-    suggestion: z
-      .string()
-      .nonempty({ message: t("Please input content to this field") })
-      .min(50, {
-        message: `${t("Limit from")} 50 ${t("to")} 100000 ${t("characters")}`,
-      })
-      .max(10000, {
-        message: `${t("Limit from")} 50 ${t("to")} 100000 ${t("characters")}`,
-      }),
-  });
-
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<IReview>({
+    setValue,
+  } = useForm<Review>({
     defaultValues: {
+      rate: star ? +star : 0,
+      overtimePolicySatisfaction: "",
       summary: "",
       reason: "",
       experiences: "",
       suggestion: "",
+      salaryBenefits: 0,
+      cultureFun: 0,
+      managementCare: 0,
+      officeWorkspace: 0,
+      trainingLearning: 0,
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<IReview> = async (data: IReview) => {
-    console.log(data);
+  const reviewCompanyMutation = useMutation({
+    mutationFn: ({ id, body }: CreateReviewPayload) =>
+      companyService.createReview({ id, body }),
+
+    onSuccess: (response) => {
+      const message = response.message as string;
+      const data = response.data as Review;
+      if (!data && message) {
+        showToast("error", message);
+        return;
+      }
+      handleReviewSuccess(true);
+      navigate(`/review/success/${slug + ""}`, { replace: true });
+      queryClient.invalidateQueries({ queryKey: ["company", slug + ""] });
+    },
+  });
+
+  const onSubmit: SubmitHandler<Review> = async (data: Review) => {
+    if (company?.review) {
+      showToast("error", "Bạn đã đánh giá công ty này");
+      return;
+    }
+    if (!company) return;
+    reviewCompanyMutation.mutate({ id: company?.id, body: data });
   };
 
   const isValidSummary = watch("summary") !== "" ? "success" : "";
@@ -107,6 +116,7 @@ const CompanyReview = () => {
 
   return (
     <ReviewWrapper>
+      {reviewCompanyMutation.isPending && <Loading />}
       <ReviewContainer>
         <ReviewBranding>
           <button className="back" onClick={openModal}>
@@ -117,221 +127,299 @@ const CompanyReview = () => {
           <SwitchLanguage />
         </ReviewBranding>
         <ReviewContent>
-          <ReviewLeft className="col-8">
-            <ReviewForm onSubmit={handleSubmit(onSubmit)}>
-              <h2>{t("Review")} CUBICSTACK SOLUTIONS</h2>
-              <p>
-                {t(
-                  "It only takes you 1 minute to complete this review form. Your opinion will be very helpful for the Developer community who are looking for a job."
-                )}
-              </p>
-              <div className="form-group" style={{ display: "flex" }}>
-                <h3 style={{ marginBottom: "0.8rem" }}>
-                  {t("Overall rating")} <abbr>*</abbr>
-                </h3>
-                <div className="stars">
-                  {[...Array(5)].map((_, index) => {
-                    const currentRating = index + 1;
-                    return (
-                      <Fragment key={currentRating}>
-                        <label htmlFor={`rate-${currentRating}`}>
-                          <input
-                            type="radio"
-                            id={`rate-${currentRating}`}
-                            name="rate"
-                            value={currentRating}
-                            onChange={() => setSelectedRating(currentRating)}
-                            hidden
-                          />
-                          <span
-                            onMouseEnter={() => setHoverRating(currentRating)}
-                            onMouseLeave={() => setHoverRating(0)}>
-                            {currentRating <=
-                            (hoverRating || selectedRating) ? (
-                              <Star
-                                fill="#ff9119"
-                                stroke="#ff9119"
-                                onClick={() => {
-                                  setSelectedRating(0);
-                                  setHoverRating(0);
+          {isPending ? (
+            <div className="col-8" style={{ display: "block" }}>
+              <Skeleton height={543} borderRadius={8} />
+            </div>
+          ) : (
+            <ReviewLeft className="col-8">
+              <ReviewForm onSubmit={handleSubmit(onSubmit)}>
+                <h2>
+                  {t("Review")} {company?.companyName}
+                </h2>
+                <p>
+                  {t(
+                    "It only takes you 1 minute to complete this review form. Your opinion will be very helpful for the Developer community who are looking for a job."
+                  )}
+                </p>
+                <div className="form-group" style={{ display: "flex" }}>
+                  <h3 style={{ marginBottom: "0.8rem" }}>
+                    {t("Overall rating")} <abbr>*</abbr>
+                  </h3>
+                  <div>
+                    <div className="stars">
+                      {[...Array(5)].map((_, index) => {
+                        const currentRating = index + 1;
+                        return (
+                          <Fragment key={currentRating}>
+                            <label htmlFor={`rate-${currentRating}`}>
+                              <input
+                                type="radio"
+                                id={`rate-${currentRating}`}
+                                {...register("rate")}
+                                value={currentRating}
+                                onChange={() => {
+                                  setSelectedRating(currentRating);
+                                  setValue("rate", currentRating);
                                 }}
+                                hidden
                               />
-                            ) : (
-                              <Star />
-                            )}
-                          </span>
-                        </label>
-                      </Fragment>
-                    );
-                  })}
-                  <span className="description">
-                    {t(rateDescription[hoverRating])}
-                  </span>
+                              <span
+                                onMouseEnter={() =>
+                                  setHoverRating(currentRating)
+                                }
+                                onMouseLeave={() => setHoverRating(0)}>
+                                {currentRating <=
+                                (hoverRating || selectedRating) ? (
+                                  <Star
+                                    fill="#ff9119"
+                                    stroke="#ff9119"
+                                    strokeWidth={1.5}
+                                    onClick={() => {
+                                      setSelectedRating(0);
+                                      setHoverRating(0);
+                                    }}
+                                  />
+                                ) : (
+                                  <Star strokeWidth={1.5} />
+                                )}
+                              </span>
+                            </label>
+                          </Fragment>
+                        );
+                      })}
+                      <span className="description">
+                        {t(rateDescription[hoverRating])}
+                      </span>
+                    </div>
+                    <AlertError style={{ marginLeft: "6rem" }}>
+                      {errors.rate?.message}
+                    </AlertError>
+                  </div>
                 </div>
-              </div>
-              <InputFloating
-                name="summary"
-                register={register}
-                label={t("Summary")}
-                required={true}
-                error={errors.summary && t(errors.summary.message + "")}
-                className={errors.summary?.message ? "error" : isValidSummary}
-              />
-              <div className="form-group">
-                <h3>
-                  {t("How do you feel about the overtime policy?")}
-                  <abbr>*</abbr>
-                </h3>
-                <div>
-                  <ReviewRadio htmlFor="satisfied">
-                    <input
-                      type="radio"
-                      id="satisfied"
-                      checked={selectedOvertime === "Satisfied"}
-                      name="overtime-recommend"
-                      onChange={() => setSelectedOvertime("Satisfied")}
-                    />
-                    <span></span>
-                    <div className="text">
-                      <span>{t("Satisfied")}</span>
-                    </div>
-                  </ReviewRadio>
-                  <ReviewRadio
-                    htmlFor="unsatisfied"
-                    style={{ marginTop: "1.6rem" }}>
-                    <input
-                      type="radio"
-                      id="unsatisfied"
-                      checked={selectedOvertime === "Unsatisfied"}
-                      name="overtime-recommend"
-                      onChange={() => setSelectedOvertime("Unsatisfied")}
-                    />
-                    <span></span>
-                    <div className="text">
-                      <span>{t("Unsatisfied")}</span>
-                    </div>
-                  </ReviewRadio>
+                <InputFloating
+                  name="summary"
+                  register={register}
+                  label={t("Summary")}
+                  required={true}
+                  error={errors.summary && t(errors.summary?.message + "")}
+                  className={errors.summary?.message ? "error" : isValidSummary}
+                />
+                <div className="form-group">
+                  <h3>
+                    {t("How do you feel about the overtime policy?")}
+                    <abbr>*</abbr>
+                  </h3>
+                  <div>
+                    <ReviewRadio htmlFor="satisfied">
+                      <input
+                        type="radio"
+                        id="satisfied"
+                        checked={
+                          watch("overtimePolicySatisfaction") === "satisfied"
+                        }
+                        value={watch("overtimePolicySatisfaction")}
+                        onChange={() =>
+                          setValue("overtimePolicySatisfaction", "satisfied")
+                        }
+                      />
+                      <span></span>
+                      <div className="text">
+                        <span>{t("Satisfied")}</span>
+                      </div>
+                    </ReviewRadio>
+                    <ReviewRadio
+                      htmlFor="unsatisfied"
+                      style={{ marginTop: "1.6rem" }}>
+                      <input
+                        type="radio"
+                        id="unsatisfied"
+                        checked={
+                          watch("overtimePolicySatisfaction") === "unsatisfied"
+                        }
+                        value={watch("overtimePolicySatisfaction")}
+                        onChange={() =>
+                          setValue("overtimePolicySatisfaction", "unsatisfied")
+                        }
+                      />
+                      <span></span>
+                      <div className="text">
+                        <span>{t("Unsatisfied")}</span>
+                      </div>
+                    </ReviewRadio>
+                    <AlertError>
+                      {errors.overtimePolicySatisfaction?.message}
+                    </AlertError>
+                    <textarea
+                      id="reason"
+                      {...register("reason")}
+                      style={{ marginTop: "2.4rem" }}
+                      className={
+                        errors.reason?.message ? "error" : isValidReason
+                      }
+                      placeholder={t("Input your reason")}></textarea>
+                    <AlertError>{errors.reason?.message}</AlertError>
+                    <p className="characters">
+                      {t("Limit from")} 50 {t("to")} 140 {t("characters")}.
+                    </p>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <h3>
+                    {t("What makes you love working here")}
+                    <abbr>*</abbr>
+                  </h3>
                   <textarea
-                    id="reason"
-                    {...register("reason")}
-                    style={{ marginTop: "2.4rem" }}
-                    className={errors.reason?.message ? "error" : isValidReason}
-                    placeholder={t("Input your reason")}></textarea>
-                  <AlertError>{errors.reason?.message}</AlertError>
+                    id="experiences"
+                    {...register("experiences")}
+                    className={
+                      errors.experiences?.message ? "error" : isValidExperiences
+                    }
+                    placeholder={t("Input your experiences")}></textarea>
+                  <AlertError>{errors.experiences?.message}</AlertError>
                   <p className="characters">
-                    {t("Limit from")} 50 {t("to")} 140 {t("characters")}.
+                    {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
                   </p>
                 </div>
-              </div>
-              <div className="form-group">
-                <h3>
-                  {t("What makes you love working here")}
-                  <abbr>*</abbr>
-                </h3>
-                <textarea
-                  id="experiences"
-                  {...register("experiences")}
-                  className={
-                    errors.experiences?.message ? "error" : isValidExperiences
-                  }
-                  placeholder={t("Input your experiences")}></textarea>
-                <AlertError>{errors.experiences?.message}</AlertError>
-                <p className="characters">
-                  {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
-                </p>
-              </div>
-              <div className="form-group">
-                <h3>
-                  {t("Suggestion for improvement")} <abbr>*</abbr>
-                </h3>
-                <textarea
-                  id="suggestion"
-                  {...register("suggestion")}
-                  className={
-                    errors.suggestion?.message ? "error" : isValidSuggestion
-                  }
-                  placeholder={t("Input your suggestion")}></textarea>
-                <AlertError>{errors.suggestion?.message}</AlertError>
-                <p className="characters">
-                  {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
-                </p>
-              </div>
-              <div className="form-group">
-                <h3>
-                  {t("Rating detail")} <abbr>*</abbr>
-                </h3>
-                <div className="rating-detail">
-                  <RatingItem label={t("Salary & benefits")} />
-                  <RatingItem label={t("Training & learning")} />
-                  <RatingItem label={t("Management cares about me")} />
-                  <RatingItem label={t("Culture & fun")} />
-                  <RatingItem label={t("Office & workspace")} />
+                <div className="form-group">
+                  <h3>
+                    {t("Suggestion for improvement")} <abbr>*</abbr>
+                  </h3>
+                  <textarea
+                    id="suggestion"
+                    {...register("suggestion")}
+                    className={
+                      errors.suggestion?.message ? "error" : isValidSuggestion
+                    }
+                    placeholder={t("Input your suggestion")}></textarea>
+                  <AlertError>{errors.suggestion?.message}</AlertError>
+                  <p className="characters">
+                    {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
+                  </p>
                 </div>
-              </div>
-              <div className="form-group">
-                <h3>
-                  {t("Do you want to recommend this company to your friends?")}
-                  <abbr>*</abbr>
-                </h3>
-                <ReviewRadio htmlFor="satisfied">
-                  <input
-                    type="radio"
-                    id="satisfied"
-                    checked={selectedOvertime === "Satisfied"}
-                    name="overtime-recommend"
-                    onChange={() => setSelectedOvertime("Satisfied")}
-                  />
-                  <span></span>
-                  <div className="text">
-                    <span>{t("Yes")}</span>
+                <div className="form-group">
+                  <h3>
+                    {t("Rating detail")} <abbr>*</abbr>
+                  </h3>
+                  <div className="rating-detail">
+                    <RatingItem
+                      label={t("Salary & benefits")}
+                      register={register}
+                      name="salaryBenefits"
+                      setValue={(value: number) =>
+                        setValue("salaryBenefits", value)
+                      }
+                      error={errors.salaryBenefits?.message}
+                    />
+                    <RatingItem
+                      label={t("Training & learning")}
+                      register={register}
+                      name="trainingLearning"
+                      setValue={(value: number) =>
+                        setValue("trainingLearning", value)
+                      }
+                      error={errors.trainingLearning?.message}
+                    />
+                    <RatingItem
+                      label={t("Management cares about me")}
+                      register={register}
+                      name="managementCare"
+                      setValue={(value: number) =>
+                        setValue("managementCare", value)
+                      }
+                      error={errors.managementCare?.message}
+                    />
+                    <RatingItem
+                      label={t("Culture & fun")}
+                      register={register}
+                      name="cultureFun"
+                      setValue={(value: number) =>
+                        setValue("cultureFun", value)
+                      }
+                      error={errors.cultureFun?.message}
+                    />
+                    <RatingItem
+                      label={t("Office & workspace")}
+                      register={register}
+                      name="officeWorkspace"
+                      setValue={(value: number) =>
+                        setValue("officeWorkspace", value)
+                      }
+                      error={errors.officeWorkspace?.message}
+                    />
                   </div>
-                </ReviewRadio>
-                <ReviewRadio
-                  htmlFor="satisfied"
-                  style={{ marginTop: "1.6rem" }}>
-                  <input
-                    type="radio"
-                    id="satisfied"
-                    checked={selectedOvertime === "Satisfied"}
-                    name="overtime-recommend"
-                    onChange={() => setSelectedOvertime("Satisfied")}
-                  />
-                  <span></span>
-                  <div className="text">
-                    <span>{t("No")}</span>
-                  </div>
-                </ReviewRadio>
-              </div>
-              <ButtonSubmit>{t("Send Review")}</ButtonSubmit>
-            </ReviewForm>
-          </ReviewLeft>
-          <ReviewRight className="col-4">
-            <h2>{t("Review Guidelines & Conditions")}</h2>
-            <div>
-              <p>
-                {t(
-                  "In order for a review to be displayed on the website, it must adhere to the Guidelines & Conditions for reviews."
-                )}
-              </p>
-              <p>{t("Please ensure that:")}</p>
-              <ul>
-                <li>{t("Do not use offensive or derogatory language")}</li>
-                <li>{t("Do not provide personal information")}</li>
-                <li>
-                  {t(
-                    "Do not provide confidential or proprietary business information"
-                  )}
-                </li>
-              </ul>
-              <p>
-                {t(
-                  "Thank you for providing the most honest reviews. For more detailed information on the Guidelines & Conditions for reviews, please visit the link provided."
-                )}
-              </p>
+                </div>
+                <div className="form-group">
+                  <h3>
+                    {t(
+                      "Do you want to recommend this company to your friends?"
+                    )}
+                    <abbr>*</abbr>
+                  </h3>
+                  <ReviewRadio htmlFor="yes">
+                    <input
+                      type="radio"
+                      id="yes"
+                      checked={watch("isRecommend") === true}
+                      onChange={() => setValue("isRecommend", true)}
+                    />
+                    <span></span>
+                    <div className="text">
+                      <span>{t("Yes")}</span>
+                    </div>
+                  </ReviewRadio>
+                  <ReviewRadio htmlFor="no" style={{ marginTop: "1.6rem" }}>
+                    <input
+                      type="radio"
+                      id="no"
+                      checked={watch("isRecommend") === false}
+                      onChange={() => setValue("isRecommend", false)}
+                    />
+                    <span></span>
+                    <div className="text">
+                      <span>{t("No")}</span>
+                    </div>
+                  </ReviewRadio>
+                  <AlertError>{errors.isRecommend?.message}</AlertError>
+                </div>
+                <ButtonSubmit>{t("Send Review")}</ButtonSubmit>
+              </ReviewForm>
+            </ReviewLeft>
+          )}
+          {isPending ? (
+            <div className="col-4" style={{ display: "block" }}>
+              <Skeleton height={543} borderRadius={8} />
             </div>
-          </ReviewRight>
+          ) : (
+            <ReviewRight className="col-4">
+              <h2>{t("Review Guidelines & Conditions")}</h2>
+              <div>
+                <p>
+                  {t(
+                    "In order for a review to be displayed on the website, it must adhere to the Guidelines & Conditions for reviews."
+                  )}
+                </p>
+                <p>{t("Please ensure that:")}</p>
+                <ul>
+                  <li>{t("Do not use offensive or derogatory language")}</li>
+                  <li>{t("Do not provide personal information")}</li>
+                  <li>
+                    {t(
+                      "Do not provide confidential or proprietary business information"
+                    )}
+                  </li>
+                </ul>
+                <p>
+                  {t(
+                    "Thank you for providing the most honest reviews. For more detailed information on the Guidelines & Conditions for reviews, please visit the link provided."
+                  )}
+                </p>
+              </div>
+            </ReviewRight>
+          )}
         </ReviewContent>
       </ReviewContainer>
+      <ToastContainer />
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -340,7 +428,7 @@ const CompanyReview = () => {
         <ModalForm>
           <div className="form-group">
             <h2>{t("Quit reviewing")}</h2>
-            <IoCloseOutline onClick={closeModal} />
+            <X onClick={closeModal} />
           </div>
           <p>
             {t(
@@ -350,7 +438,7 @@ const CompanyReview = () => {
           </p>
           <div className="button-group">
             <button onClick={closeModal}>{t("Continue reviewing")}</button>
-            <button onClick={() => navigate(-1)}>
+            <button onClick={() => navigate(`/company/${slug + ""}`)}>
               {t("Confirm", { ns: "apply" })}
             </button>
           </div>

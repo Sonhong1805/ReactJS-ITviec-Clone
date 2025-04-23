@@ -9,8 +9,7 @@ import {
 import InputFloating from "~/components/InputFloating";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { FaCheckCircle } from "react-icons/fa";
-import IconCloudflare from "~/components/Icon/IconCloudflare";
+import IconCloudflare from "~/components/Icons/IconCloudflare";
 import SelectFloating from "~/components/SelectFloating";
 import cities from "~/constants/cities";
 import { z } from "zod";
@@ -21,6 +20,7 @@ import getSources from "~/constants/getSources";
 import authService from "~/services/authService";
 import showToast from "~/utils/showToast";
 import { Clock, Phone } from "feather-icons-react";
+import IconCheckCircle from "~/components/Icons/IconCheckCircle";
 
 const EmployerContact = () => {
   const { t } = useTranslation(["auth", "home"]);
@@ -249,7 +249,7 @@ const EmployerContact = () => {
               </AgreementCheck>
               <SuccessCheck>
                 <div className="success">
-                  <FaCheckCircle color="#038127" />
+                  <IconCheckCircle />
                   <span>Thành công!</span>
                 </div>
                 <div className="cloudflare">

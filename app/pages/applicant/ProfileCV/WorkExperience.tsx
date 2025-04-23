@@ -7,7 +7,6 @@ import {
   ModalContainer,
   WorkExperienceContent,
 } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +15,7 @@ import InputFloating from "~/components/InputFloating";
 import SelectBase from "~/components/SelectBase";
 import { months, years } from "~/constants/dateOptions";
 import RichTextEditor from "~/components/RichTextEditor";
-import { Feather } from "feather-icons-react";
+import { Feather, X } from "feather-icons-react";
 
 const WorkExperience = () => {
   const { t } = useTranslation(["settings"]);
@@ -90,7 +89,7 @@ const WorkExperience = () => {
         <ModalContainer onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-head">
             <h2>Work Experience</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <WorkExperienceContent>

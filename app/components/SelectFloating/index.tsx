@@ -1,4 +1,3 @@
-import { IoIosArrowDown } from "react-icons/io";
 import {
   AlertError,
   OptionItem,
@@ -8,6 +7,7 @@ import {
 } from "./styled";
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { ChevronDown } from "feather-icons-react";
 
 interface IProps {
   name: string;
@@ -97,7 +97,7 @@ const SelectFloating = ({
           {label} {required && <abbr>*</abbr>}
         </label>
         {options && options?.length > 0 && (
-          <IoIosArrowDown
+          <ChevronDown
             color="#121212"
             cursor={"pointer"}
             className="icon-dropdown"

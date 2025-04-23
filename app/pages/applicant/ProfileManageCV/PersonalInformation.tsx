@@ -9,14 +9,12 @@ import {
 } from "./styled";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
-import { IoCloseOutline } from "react-icons/io5";
 import InputFloating from "~/components/InputFloating";
-import InputSelect from "~/components/InputSelectFloating";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import locationService from "~/services/locationService";
-import { Edit } from "feather-icons-react";
+import { Edit, X } from "feather-icons-react";
 
 const PersonalInformation = () => {
   const [showModal, setShowModal] = useState(false);
@@ -113,7 +111,7 @@ const PersonalInformation = () => {
         <ModalForm onSubmit={handleSubmit(onSubmit)}>
           <ModalHead>
             <h2>Complete personal information</h2>
-            <IoCloseOutline onClick={closeModal} />
+            <X onClick={closeModal} />
           </ModalHead>
           <ModalBody>
             <InputFloating

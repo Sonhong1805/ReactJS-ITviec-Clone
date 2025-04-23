@@ -7,7 +7,6 @@ import {
   ModalHead,
   SalaryBox,
 } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
 import SelectBase from "~/components/SelectBase";
@@ -20,7 +19,7 @@ import getModels from "~/constants/getModels";
 import currencies from "~/constants/currencies";
 import InputBase from "~/components/InputBase";
 import customSalary from "~/utils/customSalary";
-import { Edit } from "feather-icons-react";
+import { Edit, X } from "feather-icons-react";
 
 export const customStyles = {
   content: {
@@ -143,7 +142,7 @@ const GeneralInformation = () => {
         <ModalForm onSubmit={handleSubmit(onSubmit)}>
           <ModalHead>
             <h2>General Information</h2>
-            <IoCloseOutline onClick={closeModal} />
+            <X onClick={closeModal} />
           </ModalHead>
           <ModalBody>
             <div className="form-group">

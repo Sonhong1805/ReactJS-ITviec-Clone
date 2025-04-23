@@ -3,9 +3,6 @@ import Card from "./Card";
 import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
 import { customStyles, ModalContainer, SkillsContent } from "./styled";
-import { IoCloseOutline } from "react-icons/io5";
-import SelectInput from "~/components/SelectInput";
-import skills from "~/constants/skills";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,13 +54,13 @@ const Skills = () => {
         <ModalContainer onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-head">
             <h2>Skills</h2>
-            <IoCloseOutline onClick={() => setIsOpen(false)} />
+            <X onClick={() => setIsOpen(false)} />
           </div>
           <div className="modal-body">
             <SkillsContent>
               <div className="form-group">
                 <div className="form-select">
-                  <SelectInput
+                  {/* <SelectInput
                     name="skillName"
                     options={skills}
                     register={register}
@@ -75,11 +72,11 @@ const Skills = () => {
                     className={
                       errors.skillName?.message ? "error" : isValidSkillName
                     }
-                  />
+                  /> */}
                   <div className="counter">0/20 skills</div>
                 </div>
                 <div className="form-select">
-                  <SelectInput
+                  {/* <SelectInput
                     name="skillLevel"
                     options={skills}
                     register={register}
@@ -93,7 +90,7 @@ const Skills = () => {
                     className={
                       errors.skillLevel?.message ? "error" : isValidSkillLevel
                     }
-                  />
+                  /> */}
                 </div>
                 <div className="form-button">
                   <button className="add" type="button">
