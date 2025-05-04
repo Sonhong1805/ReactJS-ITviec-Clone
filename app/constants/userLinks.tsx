@@ -12,37 +12,37 @@ const userLinks = [
     id: 1,
     icon: <Grid />,
     url: "/profile/dashboard",
-    label: "Tổng quan",
+    label: "Dashboard",
   },
   {
     id: 2,
     icon: <FileText />,
     url: "/profile/manage-cv",
-    label: "Hồ sơ đính kèm",
+    label: "CV Attachment",
   },
   {
     id: 3,
     icon: <User />,
     url: "/profile/cv",
-    label: "Hồ sơ ITviec",
+    label: "ITviec Profile",
   },
   {
     id: 4,
     icon: <Briefcase />,
     url: "/profile/my-jobs",
-    label: "Việc làm của tôi",
+    label: "My Jobs",
   },
   {
     id: 5,
     icon: <Inbox />,
     url: "/profile/job-status",
-    label: "Trạng thái việc làm",
+    label: "Job status",
   },
   {
     id: 6,
     icon: <Settings />,
     url: "/profile/settings",
-    label: "Cài đặt",
+    label: "Settings",
   },
 ];
 

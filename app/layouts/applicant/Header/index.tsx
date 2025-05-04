@@ -31,7 +31,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
-  const { isAuthenticated, user, logout: userLogout } = useUserStore((s) => s);
+  const { isAuthenticated, user, logout: userLogout } = useUserStore();
   const { handleSaveFollow, logout: companyLogout } = useCompanyStore();
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
@@ -213,8 +213,8 @@ const Header = () => {
                 <HeaderAccount>
                   <figure className="avatar">
                     <img
-                      src="/assets/svg/avatar-default.svg"
-                      alt="avatar default"
+                      src={user.avatar || "/assets/svg/avatar-default.svg"}
+                      alt="avatar"
                     />
                   </figure>
                   <span className="username">{user.username}</span>
@@ -223,7 +223,7 @@ const Header = () => {
                     {userLinks.map((link) => (
                       <Link key={link.id} to={link.url}>
                         {link.icon}
-                        <span>{t(link.label)}</span>
+                        <span>{t(link.label, { ns: "profile" })}</span>
                       </Link>
                     ))}
                     <a onClick={handleLogout}>

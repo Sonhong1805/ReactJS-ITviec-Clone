@@ -1,39 +1,54 @@
-import { AlertError, InputFloatingWrapper, InputWrapper } from "./styled";
+import type { ChangeEvent } from "react";
+import ErrorMessage from "../ErrorMessage";
+import { InputFloatingWrapper, InputWrapper } from "./styled";
 
 interface IProps {
   name: string;
   label?: string;
   error?: string;
-  register?: any;
   className?: string;
   required?: boolean;
+  value: string;
+  onSetValue: (value: string) => void;
 }
 
 const InputDate = ({
   name,
   label,
   error,
-  register,
+  value,
   className,
   required,
+  onSetValue,
 }: IProps) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    onSetValue(e.target.value);
+  };
+
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "";
+    return date.toISOString().split("T")[0];
+  };
+
   return (
     <InputWrapper className="input-wrapper">
       <InputFloatingWrapper>
         <input
           type={"date"}
           id={name}
-          {...register(name)}
+          value={formatDate(value)}
           className={className}
           max={new Date().toISOString().split("T")[0]}
           placeholder={" "}
+          onChange={handleChangeInput}
         />
         <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}
         </label>
-        {/* <FiCalendar cursor="pointer" /> */}
       </InputFloatingWrapper>
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </InputWrapper>
   );
 };

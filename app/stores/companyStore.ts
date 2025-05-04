@@ -9,7 +9,6 @@ interface CompanyState {
   logout: () => void;
   isFollowing: boolean;
   handleSaveFollow: (payload: boolean) => void;
-
   selectedCompany: Option;
   handleSelectedCompany: (payload: Option) => void;
   handleRemoveSelectedCompany: () => void;
@@ -21,9 +20,7 @@ const initialState: CompanyState = {
   saveCompany: () => {},
   logout: () => {},
   isFollowing: false,
-
   handleSaveFollow: () => {},
-
   selectedCompany: {} as Option,
   handleSelectedCompany: () => {},
   handleRemoveSelectedCompany: () => {},
@@ -49,7 +46,6 @@ export const useCompanyStore = create<CompanyState>()(
           state.isFollowing = payload;
         });
       },
-
       handleSelectedCompany: (payload) => {
         set((state) => {
           state.selectedCompany = payload;

@@ -11,6 +11,21 @@ export const LayoutContainer = styled.div`
   padding: 0 3rem;
   display: flex;
   align-items: flex-start;
+
+  .skeleton-loading {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+
+    .navbar {
+      border-radius: 8px;
+    }
+
+    .outlet {
+      margin-left: 28px;
+      border-radius: 8px;
+    }
+  }
 `;
 
 export const NavbarWrapper = styled.aside`

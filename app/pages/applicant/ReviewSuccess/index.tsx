@@ -120,6 +120,8 @@ const ReviewSuccess = () => {
             </div>
             <div>
               <SelectInput
+                className=""
+                placeholder="Nhập tên công ty"
                 options={companyOptions}
                 selectedOption={selectedCompany}
                 onSetValue={handleSetValue}

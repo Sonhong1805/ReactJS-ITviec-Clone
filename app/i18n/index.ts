@@ -10,12 +10,12 @@ import SEARCH_EN from "../locales/en/Search.json";
 import SEARCH_VI from "../locales/vi/Search.json";
 import APPLY_EN from "../locales/en/Apply.json";
 import APPLY_VI from "../locales/vi/Apply.json";
-import SETTINGS_EN from "../locales/en/Settings.json";
-import SETTINGS_VI from "../locales/vi/Setttings.json";
 import AUTH_EN from "../locales/en/Auth.json";
 import AUTH_VI from "../locales/vi/Auth.json";
 import OPTION_EN from "../locales/en/Option.json";
 import OPTION_VI from "../locales/vi/Option.json";
+import PROFILE_EN from "../locales/en/Profile.json";
+import PROFILE_VI from "../locales/vi/Profile.json";
 
 const resources = {
   en: {
@@ -24,9 +24,9 @@ const resources = {
     home: HOME_EN,
     search: SEARCH_EN,
     apply: APPLY_EN,
-    settings: SETTINGS_EN,
     auth: AUTH_EN,
     option: OPTION_EN,
+    profile: PROFILE_EN,
   },
   vi: {
     header: HEADER_VI,
@@ -34,9 +34,9 @@ const resources = {
     home: HOME_VI,
     search: SEARCH_VI,
     apply: APPLY_VI,
-    settings: SETTINGS_VI,
     auth: AUTH_VI,
     option: OPTION_VI,
+    profile: PROFILE_VI,
   },
 };
 
@@ -52,9 +52,9 @@ i18n.use(initReactI18next).init({
     "home",
     "search",
     "apply",
-    "settings",
     "auth",
     "option",
+    "profile",
   ],
   defaultNS,
   interpolation: {

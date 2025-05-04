@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-const getPostedTime = (t: TFunction<["settings"]>, timestamp: string) => {
+const getPostedTime = (t: TFunction<["profile"]>, timestamp: string) => {
   const postDate = new Date(timestamp);
   const currentDate = new Date();
 

@@ -1,4 +1,4 @@
-import {
+import React, {
   useCallback,
   useEffect,
   useMemo,
@@ -16,25 +16,25 @@ import {
   Element as SlateElement,
 } from "slate";
 import { withHistory } from "slate-history";
+import {
+  FiAlignCenter,
+  FiAlignJustify,
+  FiAlignLeft,
+  FiAlignRight,
+  FiBold,
+  FiCode,
+  FiItalic,
+  FiList,
+  FiUnderline,
+} from "react-icons/fi";
+import { LuHeading1, LuHeading2 } from "react-icons/lu";
+import { TfiQuoteRight } from "react-icons/tfi";
+import { BsListOl } from "react-icons/bs";
 import { htmlToSlate } from "@slate-serializers/html";
 import countCharacters from "~/utils/countCharacters";
 import { convertHtmlToSlate, convertSlateToHtml } from "./convert";
 import { Button, Icon, Toolbar } from "./components";
-import {
-  AlignCenter,
-  AlignJustify,
-  AlignLeft,
-  AlignRight,
-  Bold,
-  Code,
-  Italic,
-  List,
-  Underline,
-} from "feather-icons-react";
-import IconHeading1 from "../Icons/IconHeading1";
-import IconHeading2 from "../Icons/IconHeading2";
-import IconQuote from "../Icons/IconQuote";
-import IconListOl from "../Icons/IconListOl";
+import { useTranslation } from "react-i18next";
 
 const HOTKEYS: Record<string, string> = {
   "mod+b": "bold",
@@ -60,10 +60,10 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
 const initialValue: Descendant[] = [
-  // {
-  //   type: "paragraph",
-  //   children: [{ text: "Nhập nội dung!" }],
-  // },
+  {
+    type: "paragraph",
+    children: [{ text: "" }],
+  },
 ] as CustomElement[];
 
 interface IProps {
@@ -71,13 +71,12 @@ interface IProps {
   setContent: Dispatch<SetStateAction<string>>;
 }
 const RichTextEditor = ({ content, setContent }: IProps) => {
-  const [slate, setSlate] = useState<Descendant[]>(initialValue);
+  const { t } = useTranslation(["search"]);
+  const serializedToSlate = htmlToSlate(content, convertHtmlToSlate);
 
-  useEffect(() => {
-    const serializedToSlate = htmlToSlate(content, convertHtmlToSlate);
-    setSlate(serializedToSlate.length > 0 ? serializedToSlate : initialValue);
-  }, [content]);
-
+  const [slate, setSlate] = useState<Descendant[]>(
+    serializedToSlate.length > 0 ? serializedToSlate : initialValue
+  );
   const renderElement = useCallback((props: any) => <Element {...props} />, []);
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -92,24 +91,23 @@ const RichTextEditor = ({ content, setContent }: IProps) => {
 
   return (
     <Slate
-      key={JSON.stringify(slate)}
       editor={editor}
       initialValue={slate}
       onChange={(newValue) => setSlate(newValue)}>
       <Toolbar>
-        <MarkButton format="bold" icon={<Bold />} />
-        <MarkButton format="italic" icon={<Italic />} />
-        <MarkButton format="underline" icon={<Underline />} />
-        <MarkButton format="code" icon={<Code />} />
-        <BlockButton format="heading-one" icon={<IconHeading1 />} />
-        <BlockButton format="heading-two" icon={<IconHeading2 />} />
-        <BlockButton format="block-quote" icon={<IconQuote />} />
-        <BlockButton format="numbered-list" icon={<IconListOl />} />
-        <BlockButton format="bulleted-list" icon={<List />} />
-        <BlockButton format="left" icon={<AlignLeft />} />
-        <BlockButton format="center" icon={<AlignCenter />} />
-        <BlockButton format="right" icon={<AlignRight />} />
-        <BlockButton format="justify" icon={<AlignJustify />} />
+        <MarkButton format="bold" icon={<FiBold />} />
+        <MarkButton format="italic" icon={<FiItalic />} />
+        <MarkButton format="underline" icon={<FiUnderline />} />
+        <MarkButton format="code" icon={<FiCode />} />
+        <BlockButton format="heading-one" icon={<LuHeading1 />} />
+        <BlockButton format="heading-two" icon={<LuHeading2 />} />
+        <BlockButton format="block-quote" icon={<TfiQuoteRight />} />
+        <BlockButton format="numbered-list" icon={<BsListOl />} />
+        <BlockButton format="bulleted-list" icon={<FiList />} />
+        <BlockButton format="left" icon={<FiAlignLeft />} />
+        <BlockButton format="center" icon={<FiAlignCenter />} />
+        <BlockButton format="right" icon={<FiAlignRight />} />
+        <BlockButton format="justify" icon={<FiAlignJustify />} />
       </Toolbar>
       <Editable
         renderElement={renderElement}
@@ -129,8 +127,9 @@ const RichTextEditor = ({ content, setContent }: IProps) => {
         className={`count-characters ${
           countCharacters(html) > 2500 && "error"
         }`}>
-        <span>{countCharacters(html)}</span> / 2500 ký tự
-        {countCharacters(html) > 2500 && ". Vui lòng giảm số lượng ký tự"}
+        <span>{countCharacters(html)}</span> / 2500 {t("characters")}
+        {countCharacters(html) > 2500 &&
+          `. ${t("Please reduce the number of characters")}`}
       </div>
     </Slate>
   );

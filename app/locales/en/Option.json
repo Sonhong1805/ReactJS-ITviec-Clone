@@ -63,5 +63,14 @@
   "France": "France",
   "Sweden": "Sweden",
   "Switzerland": "Switzerland",
-  "Germany": "Germany"
+  "Germany": "Germany",
+  "year": "year",
+  "years": "years",
+  "More than 10 year": "More than 10 year",
+  "Less than 1 year": "Less than 1 year",
+  "Male": "Male",
+  "Female": "Female",
+  "Excellent": "Excellent",
+  "Intermediate": "Intermediate",
+  "Beginner": "Beginner"
 }

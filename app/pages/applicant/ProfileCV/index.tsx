@@ -3,8 +3,8 @@ import Awards from "./Awards";
 import Certificates from "./Certificates";
 import ContactInfo from "./ContactInfo";
 import Education from "./Education";
-import PersonalProject from "./PersonalProject";
 import ProgressBar from "./ProgressBar";
+import HighlightProject from "./HighlightProject";
 import Skills from "./Skills";
 import { ProfileCVContent, ProfileCVWrapper } from "./styled";
 import WorkExperience from "./WorkExperience";
@@ -18,7 +18,7 @@ const ProfileCV = () => {
         <Education />
         <WorkExperience />
         <Skills />
-        <PersonalProject />
+        <HighlightProject />
         <Certificates />
         <Awards />
       </ProfileCVContent>

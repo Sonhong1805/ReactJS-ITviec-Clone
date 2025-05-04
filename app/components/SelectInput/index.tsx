@@ -10,6 +10,8 @@ import { ChevronDown } from "feather-icons-react";
 import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
+  placeholder: string;
+  className: string;
   options: Option[];
   selectedOption: Option;
   onSelectedOption: (option: Option) => void;
@@ -21,6 +23,8 @@ interface IProps {
 
 const SelectInput = ({
   options,
+  placeholder,
+  className,
   selectedOption,
   onSelectedOption,
   onRemoveSelectedOption,
@@ -70,14 +74,18 @@ const SelectInput = ({
     <>
       <SelectWrapper
         onClick={handleClick}
-        className={isShowOptions ? "select-active" : `select-wrapper`}
+        className={
+          isShowOptions ? "select-active" : `select-wrapper ${className}`
+        }
         tabIndex={0}>
         <SelectPane>
           <div className="select-value">
             {selectedOption.value && <div>{selectedOption.label}</div>}
             <input
               value={selectedLabel}
-              placeholder="Nhập tên công ty"
+              placeholder={
+                selectedLabel || selectedOption.label ? "" : placeholder
+              }
               onChange={handleChangeValue}
               onKeyDown={handleDeletedOption}
             />

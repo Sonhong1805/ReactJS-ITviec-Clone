@@ -1,17 +1,18 @@
-import { useState } from "react";
-import { AlertError, InputFloatingWrapper, InputWrapper } from "./styled";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { InputFloatingWrapper, InputWrapper } from "./styled";
 import { Eye, EyeOff } from "feather-icons-react";
+import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
   name: string;
   type?: "text" | "email" | "password";
   label: string;
   error?: string;
-  register?: any;
   className?: string;
   required?: boolean;
   disabled?: boolean;
-  defaultValue?: string;
+  value?: string;
+  onSetValue: (value: string) => void;
 }
 
 const InputFloating = ({
@@ -19,13 +20,18 @@ const InputFloating = ({
   type,
   label,
   error,
-  register,
   className,
   required,
   disabled = false,
-  defaultValue,
+  value,
+  onSetValue,
 }: IProps) => {
   const [togglePassword, setTogglePassword] = useState(false);
+
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    onSetValue(e.target.value);
+  };
+
   return (
     <InputWrapper className="input-wrapper">
       <InputFloatingWrapper
@@ -33,11 +39,12 @@ const InputFloating = ({
         <input
           type={togglePassword ? "text" : type}
           id={name}
-          {...(register && register(name))}
+          name={name}
           className={className}
           placeholder={" "}
           disabled={disabled}
-          defaultValue={defaultValue}
+          value={value}
+          onChange={handleChangeInput}
         />
         <label htmlFor={name}>
           {label} {required && <abbr>*</abbr>}
@@ -52,7 +59,7 @@ const InputFloating = ({
           </>
         )}
       </InputFloatingWrapper>
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </InputWrapper>
   );
 };

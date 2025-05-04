@@ -115,7 +115,7 @@ const JobInfo = () => {
           <div
             className="rich-text"
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(jobDetail?.descriptions + ""),
+              __html: DOMPurify.sanitize(jobDetail?.description),
             }}></div>
         </div>
         <BorderDash></BorderDash>
@@ -124,7 +124,7 @@ const JobInfo = () => {
           <div
             className="rich-text"
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(jobDetail?.requirement + ""),
+              __html: DOMPurify.sanitize(jobDetail?.requirement),
             }}></div>
         </div>
         <BorderDash></BorderDash>

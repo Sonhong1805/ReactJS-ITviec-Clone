@@ -1,6 +1,6 @@
 import LOGO from "/assets/images/logo.png";
 import { Link, useNavigate, useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Modal from "react-modal";
 import {
@@ -27,7 +27,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useUserStore } from "~/stores/userStore";
 import showToast from "~/utils/showToast";
 import "react-toastify/dist/ReactToastify.css";
-import applicantService from "~/services/applicantService";
 import Skeleton from "react-loading-skeleton";
 import { useJobQuery } from "~/hooks/useJobQuery";
 import useDebounce from "~/hooks/useDebounce";
@@ -40,6 +39,8 @@ import formatDate from "~/utils/formatDate";
 import { useJobStore } from "~/stores/jobStore";
 import Loading from "~/components/Loading";
 import { useTranslation } from "react-i18next";
+import { useApplicantQuery } from "~/hooks/useApplicantQuery";
+import useValidation from "~/hooks/useValidation";
 
 const ApplyJob = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +53,7 @@ const ApplyJob = () => {
   const { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const {
-    locations,
+    locationsTmp,
     handleAddLocation,
     handleRemoveLocation,
     handleAddLocations,
@@ -83,11 +84,8 @@ const ApplyJob = () => {
     }
   }, [jobPending, job]);
 
-  const { data: applicant, isPending: applicantPending } = useQuery({
-    queryKey: ["applicant", userId],
-    queryFn: () => applicantService.getDetailByUser(userId),
-    select: ({ data }) => data as Applicant,
-  });
+  const { data: applicant, isPending: applicantPending } =
+    useApplicantQuery(userId);
 
   useEffect(() => {
     setLoading(true);
@@ -109,7 +107,7 @@ const ApplyJob = () => {
     }
   }, [applicant, applicantPending]);
 
-  const schemaResolver = schema(t, selectedCV, locations.length === 0);
+  const schemaResolver = schema(t, selectedCV, locationsTmp.length === 0);
 
   const {
     register,
@@ -148,7 +146,7 @@ const ApplyJob = () => {
   });
 
   const onSubmit: SubmitHandler<Application> = async (data: Application) => {
-    data.locations = locations.map((l) => l.label);
+    data.locations = locationsTmp.map((l) => l.label);
     delete data.location;
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -170,18 +168,14 @@ const ApplyJob = () => {
     // }
   };
 
-  const isValidFullName =
-    watch("fullName") !== "" && watch("fullName") !== username ? "success" : "";
-  const isValidPhoneNumber =
-    watch("phoneNumber") !== "" && watch("phoneNumber") !== phoneNumber
-      ? "success"
-      : "";
-  const isValidCoverLetter = watch("coverLetter") !== "" ? "success" : "";
+  const isValidFullName = useValidation(watch("fullName"), username);
+  const isValidPhoneNumber = useValidation(watch("phoneNumber"), phoneNumber);
+  const isValidCoverLetter = useValidation(watch("coverLetter"));
 
   const locationDebounce = useDebounce(watch("location") + "", 1000);
 
   const { data: provinces } = useQuery({
-    queryKey: ["province", locationDebounce],
+    queryKey: ["provinces", locationDebounce],
     queryFn: () => locationService.getProvinces({ name: locationDebounce }),
     select: ({ data }) => data,
   });
@@ -194,7 +188,7 @@ const ApplyJob = () => {
           label: data.name,
         }))
         .filter((option: Option) =>
-          locations.map((location) => location.value !== option.value)
+          locationsTmp.map((location) => location.value !== option.value)
         );
       setProvinceOptions(options);
     }
@@ -253,10 +247,11 @@ const ApplyJob = () => {
                         <Eye />
                       </Link>
                     </p>
-                    <div className="time-upload">
-                      {t("Upload date:")}{" "}
-                      {job.uploadAt && formatDate(job.uploadAt)}
-                    </div>
+                    {job.uploadAt && (
+                      <div className="time-upload">
+                        {t("Upload date:")} {formatDate(job.uploadAt)}
+                      </div>
+                    )}
                   </div>
                 </ApplyJobFile>
               )}
@@ -308,15 +303,19 @@ const ApplyJob = () => {
                   name="fullName"
                   label={t("Full name", { ns: "auth" })}
                   required={true}
-                  register={register}
+                  value={watch("fullName")}
                   error={errors.fullName && t(errors.fullName.message + "")}
                   className={
                     errors.fullName?.message ? "error" : isValidFullName
                   }
+                  onSetValue={useCallback(
+                    (value: string) => setValue("fullName", value),
+                    []
+                  )}
                 />
                 <InputFloating
                   name="phoneNumber"
-                  register={register}
+                  value={watch("fullName")}
                   label={t("Phone number", { ns: "auth" })}
                   required={true}
                   error={
@@ -325,6 +324,10 @@ const ApplyJob = () => {
                   className={
                     errors.phoneNumber?.message ? "error" : isValidPhoneNumber
                   }
+                  onSetValue={useCallback(
+                    (value: string) => setValue("phoneNumber", value),
+                    []
+                  )}
                 />
                 <InputSelectFloating
                   name="location"
@@ -335,10 +338,10 @@ const ApplyJob = () => {
                   maxLengh={3}
                   field={t("locations")}
                   value={watch("location") + ""}
-                  selectedOptions={locations}
+                  selectedOptions={locationsTmp}
                   onAddOption={handleAddLocation}
                   onRemoveOption={handleRemoveLocation}
-                  error={errors.location?.message}
+                  error={errors.location && t(errors.location?.message + "")}
                   onReset={() => setValue("location", "")}
                 />
               </ApplyJobGroup>

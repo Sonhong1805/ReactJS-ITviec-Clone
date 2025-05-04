@@ -3,14 +3,18 @@ import PersonalInformation from "./PersonalInformation";
 import GeneralInformation from "./GeneralInformation";
 import CoverLetter from "./CoverLetter";
 import YourCV from "./YourCV";
+import { useTranslation } from "react-i18next";
 
 const ProfileManageCV = () => {
+  const { t } = useTranslation(["profile"]);
   return (
     <ManageCVWrapper>
       <ManageCVs>
-        <h2>Manage CVs</h2>
+        <h2>{t("Manage CVs")}</h2>
         <p className="text">
-          Upload your CV below to use it throughout your application process
+          {t(
+            "Upload your CV below to use it throughout your application process"
+          )}
         </p>
         <YourCV />
         <PersonalInformation />

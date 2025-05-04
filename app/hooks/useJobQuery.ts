@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import jobService, { type JobsPayload } from "~/services/jobService";
+import jobService from "~/services/jobService";
 
 export const useJobQuery = (slug: string) => {
   const { data, isPending, isSuccess } = useQuery({

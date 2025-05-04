@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   CompanyInfoContainer,
   CompanyInfoMain,
@@ -218,17 +218,20 @@ const CompanyInfo = () => {
     updateCompanyMutation.mutate({ id: company.id, body: formData });
   };
 
-  const isValidUsername = useValidation(watch("username"));
-  const isValidPosition = useValidation(watch("position"));
-  const isValidEmail = useValidation(watch("email"));
-  const isValidPhoneNumber = useValidation(watch("phoneNumber"));
+  const isValidUsername = useValidation(watch("username"), username);
+  const isValidPosition = useValidation(watch("position"), company?.position);
+  const isValidEmail = useValidation(watch("email"), email);
+  const isValidPhoneNumber = useValidation(watch("phoneNumber"), phoneNumber);
   const isValidCompanyType = useValidation(watch("companyType"));
   const isValidIndustryId = useValidation(watch("industryId") + "");
   const isValidCompanySize = useValidation(watch("companySize"));
   const isValidCountry = useValidation(watch("country"));
   const isValidWorkingDay = useValidation(watch("workingDay"));
   const isValidOvertimePolicy = useValidation(watch("overtimePolicy"));
-  const isValidCompanyName = useValidation(watch("companyName"));
+  const isValidCompanyName = useValidation(
+    watch("companyName"),
+    company?.companyName
+  );
   const isValidLocation = useValidation(watch("location"));
   const companyWebsiteValue = useValidation(watch("website"));
   const isValidWebsite = useMemo(() => {
@@ -281,81 +284,76 @@ const CompanyInfo = () => {
               <InputFloating
                 name="username"
                 label={t("Full name", { ns: "auth" })}
-                register={register}
+                value={watch("username")}
                 required={true}
                 error={errors.username && t(errors.username.message + "")}
-                className={
-                  errors.username?.message
-                    ? "error"
-                    : watch("username") === username
-                    ? ""
-                    : isValidUsername
-                }
+                className={errors.username?.message ? "error" : isValidUsername}
+                onSetValue={useCallback(
+                  (value: string) => setValue("username", value),
+                  []
+                )}
               />
               <InputFloating
                 name="position"
                 label={t("Work title", { ns: "auth" })}
-                register={register}
+                value={watch("position")}
                 required={true}
                 error={errors.position && t(errors.position?.message + "")}
-                className={
-                  errors.position?.message
-                    ? "error"
-                    : watch("position") === company?.position
-                    ? ""
-                    : isValidPosition
-                }
+                className={errors.position?.message ? "error" : isValidPosition}
+                onSetValue={useCallback(
+                  (value: string) => setValue("position", value),
+                  []
+                )}
               />
             </div>
             <div className="form-group input-row">
               <InputFloating
                 name="email"
-                register={register}
+                value={watch("email")}
                 type="email"
+                disabled={true}
                 label={t("Work email", { ns: "auth" })}
                 required={true}
                 error={errors.email && t(errors.email?.message + "")}
-                className={
-                  errors.email?.message
-                    ? "error"
-                    : watch("email") === email
-                    ? ""
-                    : isValidEmail
-                }
+                className={errors.email?.message ? "error" : isValidEmail}
+                onSetValue={useCallback(
+                  (value: string) => setValue("email", value),
+                  []
+                )}
               />
               <InputFloating
                 name="phoneNumber"
-                register={register}
+                value={watch("phoneNumber")}
                 label={t("Phone number", { ns: "auth" })}
                 required={true}
                 error={
                   errors.phoneNumber && t(errors.phoneNumber?.message + "")
                 }
                 className={
-                  errors.phoneNumber?.message
-                    ? "error"
-                    : watch("phoneNumber") === phoneNumber
-                    ? ""
-                    : isValidPhoneNumber
+                  errors.phoneNumber?.message ? "error" : isValidPhoneNumber
                 }
+                onSetValue={useCallback(
+                  (value: string) => setValue("phoneNumber", value),
+                  []
+                )}
               />
             </div>
             <div className="form-group">
               <InputFloating
                 name="companyName"
-                register={register}
+                value={watch("companyName")}
                 label={t("Company name", { ns: "auth" })}
                 required={true}
                 error={
                   errors.companyName && t(errors.companyName?.message + "")
                 }
                 className={
-                  errors.companyName?.message
-                    ? "error"
-                    : watch("companyName") === company?.companyName
-                    ? ""
-                    : isValidCompanyName
+                  errors.companyName?.message ? "error" : isValidCompanyName
                 }
+                onSetValue={useCallback(
+                  (value: string) => setValue("companyName", value),
+                  []
+                )}
               />
             </div>
             <div className="form-group">
@@ -378,11 +376,15 @@ const CompanyInfo = () => {
             <div className="form-group set-mb">
               <InputFloating
                 name="website"
-                register={register}
+                value={watch("website")}
                 label="Địa chỉ website"
                 required={false}
                 error={errors.website && t(errors.website?.message + "")}
                 className={isValidWebsite}
+                onSetValue={useCallback(
+                  (value: string) => setValue("website", value),
+                  []
+                )}
               />
               <div className="helper-text">
                 {t("URL includes a protocol (https), e.g: https://itviec.com", {

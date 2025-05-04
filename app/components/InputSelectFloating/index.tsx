@@ -7,7 +7,8 @@ import {
   OptionsDropdown,
 } from "./styled";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { useTranslation } from "react-i18next";
+import ErrorMessage from "../ErrorMessage";
+
 interface IProps {
   name: string;
   label: string;
@@ -40,23 +41,26 @@ const InputSelectFloating = ({
   onRemoveOption,
   onReset,
 }: IProps) => {
-  const { t } = useTranslation(["apply"]);
   const [showOptions, setShowOptions] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleClickOutside = () => {
-      if (showOptions) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
         setShowOptions(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showOptions]);
+  }, []);
 
   const handleToggle = () => {
     if (maxLengh && selectedOptions.length === maxLengh) return;
@@ -80,7 +84,7 @@ const InputSelectFloating = ({
   };
 
   return (
-    <InputWrapper className="input-wrapper">
+    <InputWrapper className="input-wrapper" ref={wrapperRef}>
       <InputSelectWrapper
         className={showOptions ? "focus" : ""}
         onClick={handleToggle}>
@@ -139,7 +143,7 @@ const InputSelectFloating = ({
           {selectedOptions.length}/{maxLengh} {field}{" "}
         </div>
       )}
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </InputWrapper>
   );
 };

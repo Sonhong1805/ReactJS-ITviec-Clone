@@ -1,4 +1,4 @@
-const customSalary = (value: any) => {
+const customSalary = (value: string) => {
   const numericValue = value.replace(/\D/g, "");
   const formattedValue = new Intl.NumberFormat("en-DE").format(
     Number(numericValue)

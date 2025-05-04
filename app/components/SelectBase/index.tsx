@@ -2,6 +2,7 @@ import { useEffect, useState, type KeyboardEvent } from "react";
 import { AlertError, SelectPane, SelectWrapper } from "./styled";
 import Options from "./Options";
 import { ChevronDown } from "feather-icons-react";
+import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
   placeholder?: string;
@@ -34,6 +35,20 @@ const SelectBase = ({
   });
 
   useEffect(() => {
+    if (defaultValue?.value) {
+      setSelectedLabel(defaultValue.label);
+      onSetValue(defaultValue.value + "");
+    }
+  }, [defaultValue?.value]);
+
+  useEffect(() => {
+    if (disabled) {
+      setSelectedLabel("");
+      onSetValue("");
+    }
+  }, [disabled]);
+
+  useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (isShowOptions && !event.target.closest(".select-active")) {
         setIsShowOptions(false);
@@ -51,15 +66,6 @@ const SelectBase = ({
     setIsShowOptions(false);
   };
 
-  const handleDeleteOption = (e: KeyboardEvent) => {
-    if (e.key === "Backspace" || e.key === "Delete") {
-      if (isShowOptions) {
-        onSetValue("");
-        setIsShowOptions(false);
-      }
-    }
-  };
-
   const handleClick = () => {
     if (!disabled) {
       setIsShowOptions(!isShowOptions);
@@ -74,7 +80,6 @@ const SelectBase = ({
           isShowOptions ? "select-active" : `select-wrapper ${className}`
         }
         style={disabled ? { backgroundColor: "#e9ecef" } : undefined}
-        onKeyDown={handleDeleteOption}
         tabIndex={0}>
         <SelectPane>
           <div className="select-value">
@@ -84,7 +89,6 @@ const SelectBase = ({
               readOnly
               value={selectedLabel}
               placeholder={placeholder}
-              onKeyDown={handleDeleteOption}
               disabled={disabled}
             />
           </div>
@@ -94,7 +98,7 @@ const SelectBase = ({
           <Options options={options} onGetOption={handleGetOption} />
         )}
       </SelectWrapper>
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </>
   );
 };

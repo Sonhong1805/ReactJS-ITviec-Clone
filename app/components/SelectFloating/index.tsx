@@ -1,13 +1,14 @@
 import {
-  AlertError,
   OptionItem,
   OptionList,
+  PendingSpinner,
   SelectFloatingWrapper,
   SelectWrapper,
 } from "./styled";
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown } from "feather-icons-react";
+import { ChevronDown, Loader } from "feather-icons-react";
+import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
   name: string;
@@ -19,6 +20,8 @@ interface IProps {
   register: any;
   onSetValue: (value: string) => void;
   defaultValue?: Option;
+  disabled?: boolean;
+  isPending?: boolean;
 }
 
 const SelectFloating = ({
@@ -31,6 +34,8 @@ const SelectFloating = ({
   register,
   onSetValue,
   defaultValue,
+  disabled,
+  isPending = false,
 }: IProps) => {
   const { t } = useTranslation(["option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
@@ -44,6 +49,13 @@ const SelectFloating = ({
       setSelectedOption(defaultValue);
     }
   }, [defaultValue]);
+
+  useEffect(() => {
+    if (disabled) {
+      setSelectedOption(null);
+      onSetValue("");
+    }
+  }, [disabled]);
 
   const handleGetOption = (option: Option) => {
     setSelectedOption(option);
@@ -69,6 +81,8 @@ const SelectFloating = ({
     };
   }, []);
 
+  const inputValue = selectedOption?.label ? t(selectedOption?.label + "") : "";
+
   return (
     <SelectWrapper
       className={`select-wrapper ${required && "required"}`}
@@ -80,7 +94,7 @@ const SelectFloating = ({
           placeholder={" "}
           checked={isShowOptions}
           {...register(name)}
-          value={t(selectedOption?.label + "")}
+          value={inputValue}
           onChange={() => {}}
           readOnly
           disabled
@@ -104,19 +118,27 @@ const SelectFloating = ({
             onClick={() => setIsShowOptions(!isShowOptions)}
           />
         )}
+
         {isShowOptions && options && (
           <OptionList>
-            {options?.map((option) => (
-              <OptionItem
-                key={option.value}
-                onClick={() => handleGetOption(option)}>
-                {t(option.label)}
-              </OptionItem>
-            ))}
+            {isPending ? (
+              <PendingSpinner>
+                <Loader className="loader" />
+                <span>Loading</span>
+              </PendingSpinner>
+            ) : (
+              options?.map((option) => (
+                <OptionItem
+                  key={option.value}
+                  onClick={() => handleGetOption(option)}>
+                  {t(option.label)}
+                </OptionItem>
+              ))
+            )}
           </OptionList>
         )}
       </SelectFloatingWrapper>
-      {!selectedOption?.label && error && <AlertError>{error}</AlertError>}
+      {!selectedOption?.label && error && <ErrorMessage message={error} />}
     </SelectWrapper>
   );
 };

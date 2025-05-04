@@ -7,9 +7,9 @@ export const useIndustriesQuery = (name: string, language: string) => {
     queryFn: () => industryService.getAll({ name }),
     select: ({ data }) =>
       data.map((item) => ({
-        value: language === "en" ? item.name_en : item.name_vi,
+        value: item.id,
         label: language === "en" ? item.name_en : item.name_vi,
-      })),
+      })) as Option[],
     placeholderData: keepPreviousData,
   });
 

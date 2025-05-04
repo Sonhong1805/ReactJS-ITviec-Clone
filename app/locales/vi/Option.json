@@ -63,5 +63,14 @@
   "France": "Pháp",
   "Sweden": "Thụy Điển",
   "Switzerland": "Thụy Sĩ",
-  "Germany": "Đức"
+  "Germany": "Đức",
+  "year": "năm",
+  "years": "năm",
+  "Less than 1 year": "Dưới 1 năm",
+  "More than 10 year": "Trên 10 năm",
+  "Male": "Nam",
+  "Female": "Nữ",
+  "Excellent": "Thành thạo",
+  "Intermediate": "Trung bình",
+  "Beginner": "Mới bắt đầu"
 }

@@ -1,59 +1,118 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import Modal from "react-modal";
-import { AboutMeContent, customStyles, ModalContainer } from "./styled";
+import { customStyles, ModalContainer } from "./styled";
 import { useTranslation } from "react-i18next";
 import RichTextEditor from "~/components/RichTextEditor";
-import { Feather, X } from "feather-icons-react";
+import { Edit, Feather, X } from "feather-icons-react";
+import { useModalStore } from "~/stores/modalStore";
+import { useMutation } from "@tanstack/react-query";
+import applicantService from "~/services/applicantService";
+import showToast from "~/utils/showToast";
+import { useApplicantStore } from "~/stores/applicantStore";
+import DOMPurify from "dompurify";
 
 const AboutMe = () => {
-  const { t } = useTranslation(["settings"]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState("");
+  const { t } = useTranslation(["profile"]);
+  const { applicant } = useApplicantStore();
+  const [content, setContent] = useState(applicant.aboutMe || "");
+  const { modal, handleOpenModal, handleCloseModal } = useModalStore();
+
+  useEffect(() => {
+    if (applicant.aboutMe) {
+      setContent(applicant.aboutMe);
+    }
+  }, [applicant.aboutMe]);
+
+  const closeModal = () => {
+    handleCloseModal("about-me");
+  };
+
+  const updateAboutMeMutation = useMutation({
+    mutationFn: (aboutMe: string) => applicantService.updateAboutMe(aboutMe),
+
+    onSuccess: (response) => {
+      const message = response.message as string;
+      const data = response.data as string;
+      if (!data && message) {
+        showToast("error", message);
+        return;
+      }
+      showToast("success", message);
+      setContent(data);
+      handleCloseModal("about-me");
+    },
+  });
 
   const handleSave = () => {
-    console.log(content);
+    if (content === "<p ></p>") {
+      closeModal();
+      return;
+    }
+    if (content.length >= 2500) return;
+    updateAboutMeMutation.mutate(content);
   };
 
   return (
     <Card
-      title="About Me"
-      subtitle="Introduce your strengths and years of experience"
-      img="/assets/svg/about_me_no_info.svg"
-      openModal={() => setIsOpen(true)}>
+      title={t("About Me")}
+      subtitle={
+        applicant.aboutMe
+          ? ""
+          : t("Introduce your strengths and years of experience")
+      }
+      img={applicant.aboutMe ? "" : "/assets/svg/about_me_no_info.svg"}
+      openModal={() => handleOpenModal("about-me")}
+      edit={!!applicant.aboutMe}>
+      {applicant.aboutMe && (
+        <>
+          <div className="devide"></div>
+          <div
+            className="rich-text"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(applicant.aboutMe),
+            }}></div>
+          <br />
+          <br />
+          <br />
+          <div className="edit-button" onClick={closeModal}>
+            <Edit cursor={"pointer"} color="#ed1b2f" />
+          </div>
+        </>
+      )}
       <Modal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
+        isOpen={modal["about-me"]}
+        onRequestClose={closeModal}
         style={customStyles}
-        ariaHideApp={false}>
+        ariaHideApp={true}>
         <ModalContainer>
           <div className="modal-head">
-            <h2>About Me</h2>
-            <X onClick={() => setIsOpen(false)} />
+            <h2>{t("About Me")}</h2>
+            <X onClick={closeModal} />
           </div>
           <div className="modal-body">
-            <AboutMeContent>
-              <div className="placeholder-tips">
-                <div className="icon">
-                  <Feather />
-                </div>
-                <div className="tips">
-                  <strong>Tips: </strong>
-                  Summarize your professional experience, highlight your skills
-                  and your strengths.
-                </div>
+            <div className="placeholder-tips">
+              <div className="icon">
+                <Feather />
               </div>
-              <RichTextEditor content={content} setContent={setContent} />
-            </AboutMeContent>
+              <div className="tips">
+                <strong>{t("Tips")}: </strong>
+                {t(
+                  "Summarize your professional experience, highlight your skills and your strengths."
+                )}
+              </div>
+            </div>
+            <RichTextEditor content={content} setContent={setContent} />
           </div>
           <div className="modal-foot">
-            <button
-              type="button"
-              className="cancel"
-              onClick={() => setIsOpen(false)}>
+            <button type="button" className="cancel" onClick={closeModal}>
               {t("Cancel")}
             </button>
-            <button className="save" type="button" onClick={handleSave}>
+            <button
+              className="save"
+              disabled={updateAboutMeMutation.isPending}
+              type="button"
+              onClick={handleSave}>
               {t("Save")}
             </button>
           </div>

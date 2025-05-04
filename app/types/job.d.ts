@@ -10,7 +10,7 @@ interface Job extends Base {
   minSalary: string;
   maxSalary: string;
   currencySalary: string;
-  descriptions: string;
+  description: string;
   requirement: string;
   reasons: string;
   quantity: number;

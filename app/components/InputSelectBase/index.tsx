@@ -7,15 +7,24 @@ import {
   OptionsDropdown,
 } from "./styled";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import ErrorMessage from "../ErrorMessage";
+import { useTranslation } from "react-i18next";
+
 interface IProps {
   name: string;
   placeholder: string;
   error?: string;
   className?: string;
-  required?: boolean;
   options: Option[];
   maxLengh?: number;
   field?: string;
+  register?: any;
+  value: string;
+  selectedOptions: Option[];
+  onAddOption: (option: Option) => void;
+  onRemoveOption: () => void;
+  onReset?: () => void;
+  translations?: string[];
 }
 const InputSelectBase = ({
   name,
@@ -25,64 +34,70 @@ const InputSelectBase = ({
   options,
   maxLengh,
   field,
+  register,
+  value,
+  selectedOptions,
+  onAddOption,
+  onRemoveOption,
+  onReset,
+  translations,
 }: IProps) => {
+  const { t } = useTranslation(translations);
   const [showOptions, setShowOptions] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (
-        showOptions &&
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
       ) {
         setShowOptions(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showOptions]);
+  }, []);
 
   const handleToggle = () => {
-    setShowOptions((prev) => {
-      const newState = !prev;
-      if (newState) {
-        inputRef.current?.focus();
-      } else {
-        inputRef.current?.blur();
-      }
-      return newState;
-    });
+    if (maxLengh && selectedOptions.length === maxLengh) return;
+    setShowOptions(!showOptions);
   };
 
   const handleSeletedOption = (option: Option) => {
-    console.log(option);
-    setShowOptions(false);
+    if (maxLengh && selectedOptions.length === maxLengh) return;
+    onAddOption(option);
+    if (onReset) onReset();
   };
 
   const handleDeletedOption = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace") {
-      console.log("Bạn vừa ấn Backspace!");
+    if (e.key !== "Backspace") return;
+    if (value === "") {
+      onRemoveOption();
     }
   };
 
   return (
-    <InputWrapper className="input-wrapper">
+    <InputWrapper className="input-wrapper" ref={wrapperRef}>
       <InputSelectWrapper
-        className={showOptions ? "focus" : ""}
+        className={showOptions ? `focus ${className}` : className}
         onClick={handleToggle}>
         <div className="selected-options">
-          {/* <div className="option">At office</div>
-          <div className="option">Remote</div>
-          <div className="option">Hybrid</div> */}
+          {selectedOptions?.map((option) => (
+            <div className="option" key={option.value}>
+              {t(option.label)}
+            </div>
+          ))}
           <input
             ref={inputRef}
             type="text"
             id={name}
             placeholder={placeholder}
+            {...register(name)}
             className={className}
             onKeyDown={handleDeletedOption}
           />
@@ -91,21 +106,32 @@ const InputSelectBase = ({
       </InputSelectWrapper>
       {showOptions && (
         <OptionsDropdown>
-          {options.map((option) => (
-            <Option
-              key={option.value}
-              onClick={() => handleSeletedOption(option)}>
-              <span>{option.label}</span>
-            </Option>
-          ))}
+          {options.length ? (
+            options.map((option) => (
+              <Option
+                key={option.value}
+                className={
+                  selectedOptions.some(
+                    (location) => location.value === option.value
+                  )
+                    ? "disabled"
+                    : ""
+                }
+                onClick={() => handleSeletedOption(option)}>
+                <span>{option.label}</span>
+              </Option>
+            ))
+          ) : (
+            <p className="not-found">No results found</p>
+          )}
         </OptionsDropdown>
       )}
       {maxLengh && (
         <div className="counter">
-          0/{maxLengh} {field}{" "}
+          {selectedOptions.length}/{maxLengh} {field}{" "}
         </div>
       )}
-      {error && <AlertError>{error}</AlertError>}
+      <ErrorMessage message={error} />
     </InputWrapper>
   );
 };

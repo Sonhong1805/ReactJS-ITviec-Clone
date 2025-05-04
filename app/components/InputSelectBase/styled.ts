@@ -36,13 +36,31 @@ export const InputSelectWrapper = styled.div`
 
   &.focus {
     border-radius: 0.4rem;
-    border: 1px solid transparent;
-    box-shadow: 0px 0px 2px 2px var(--i-light-red);
+
+    &.error {
+      border: 1px solid var(--i-error-color);
+      box-shadow: 0px 0px 2px 2px var(--i-light-red);
+    }
+
+    &.success {
+      border: 1px solid var(--i-success-color);
+      box-shadow: 0px 0px 2px 2px var(--i-shadow-success);
+    }
+  }
+
+  &.error {
+    border: 1px solid var(--i-error-color);
+  }
+
+  &.success {
+    border: 1px solid var(--i-success-color);
   }
 
   .selected-options {
     display: flex;
+    flex-wrap: wrap;
     flex: 1;
+    max-width: 860px;
 
     .option {
       border: 0px solid var(--i-gray-300);
@@ -84,10 +102,15 @@ export const OptionsDropdown = styled.div`
   padding-block: 5px;
   z-index: 1001;
   background-color: var(--i-white);
-  overflow: auto;
   position: absolute;
   left: 0;
   right: 0;
+  overflow: auto;
+
+  .not-found {
+    font-size: 1.6rem;
+    padding: 3px 12px;
+  }
 `;
 
 export const Option = styled.div`

@@ -3,32 +3,24 @@ import { immer } from "zustand/middleware/immer";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface UserState {
-  user: IUser;
+  user: User;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (payload: IUser) => void;
+  login: (payload: User) => void;
   logout: () => void;
+  handleSaveUser: (payload: User) => void;
   updateCompanyInfo: (
-    payload: Pick<IUser, "username" | "email" | "phoneNumber">
+    payload: Pick<User, "username" | "email" | "phoneNumber">
   ) => void;
 }
 
 const initialState: UserState = {
-  user: {
-    id: 0,
-    username: "",
-    email: "",
-    phoneNumber: "",
-    loginType: "EMAIL",
-    role: "APPLICANT",
-    createdAt: null,
-    updatedAt: null,
-    deletedAt: null,
-  },
+  user: {} as User,
   isAuthenticated: false,
   isLoading: true,
   login: () => {},
   logout: () => {},
+  handleSaveUser: () => {},
   updateCompanyInfo: () => {},
 };
 
@@ -48,6 +40,11 @@ export const useUserStore = create<UserState>()(
           state.user = initialState.user;
         });
         useUserStore.persist.clearStorage();
+      },
+      handleSaveUser: (payload) => {
+        set((state) => {
+          state.user = { ...state.user, ...payload };
+        });
       },
       updateCompanyInfo: (payload) => {
         set((state) => {

@@ -30,7 +30,7 @@ export const ManageCVWrapper = styled.div`
   p {
     font-size: 1.6rem;
     margin-bottom: 24px;
-    color: var(--i-dark-grey) !important;
+    color: var(--i-dark-grey);
   }
 `;
 
@@ -52,6 +52,16 @@ export const YourCVWrapper = styled.div`
     justify-content: flex-start;
     padding-bottom: 12px !important;
     border-bottom: 1px dotted var(--i-silver-grey);
+
+    p.no-resume {
+      margin-bottom: 0 !important;
+      color: #a6a6a6;
+      margin-left: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
 
     figure {
       img {
@@ -78,8 +88,8 @@ export const YourCVWrapper = styled.div`
 
       p {
         font-size: 1.4rem;
-        margin: 0 !important;
         color: var(--i-dark-grey);
+        margin: 0 !important;
       }
     }
   }
@@ -103,6 +113,13 @@ export const YourCVWrapper = styled.div`
       border: 1px solid transparent;
       border-color: var(--i-red);
       gap: 0.8rem;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--i-red);
+        background-color: var(--i-white-red);
+        border-color: var(--i-red);
+      }
     }
 
     .file-alert {
@@ -120,7 +137,20 @@ export const PersonalInformationWrapper = styled.div`
   margin-top: 16px !important;
   position: relative;
 
-  svg {
+  .text-warning {
+    color: var(--i-warning-color);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    p {
+      all: unset;
+      color: var(--i-warning-color);
+      font-weight: 400;
+    }
+  }
+
+  svg.edit {
     position: absolute;
     top: 1.6rem;
     right: 1.6rem;
@@ -133,6 +163,7 @@ export const PersonalInformationWrapper = styled.div`
       color: var(--i-rich-grey);
       font-size: 1.6rem;
       margin-top: 16px !important;
+      gap: 4.8rem;
     }
   }
 `;
@@ -156,6 +187,10 @@ export const GeneralInformationWrapper = styled.section`
     color: var(--i-red);
   }
 
+  strong {
+    color: var(--i-black);
+  }
+
   .list {
     .row {
       display: flex;
@@ -170,6 +205,29 @@ export const GeneralInformationWrapper = styled.section`
       .value {
         color: var(--i-dark-grey);
         font-weight: 400;
+      }
+    }
+  }
+
+  .tag-list {
+    display: inline-block;
+
+    .tag-item {
+      display: inline-block;
+      background-color: #f7f7f7;
+      color: #414042;
+      padding: 2px 8px;
+      font-size: 14px;
+      border-radius: 16px;
+      margin-right: 12px;
+
+      &.industry {
+        margin-bottom: 16px;
+      }
+
+      span {
+        padding: 6px 12px;
+        font-size: 16px;
       }
     }
   }
@@ -193,13 +251,22 @@ export const CoverLetterWrapper = styled.section`
 
   p {
     margin: 0;
+
+    &.value {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--i-black);
+      border-top: 1px solid #dedede;
+      padding-top: 16px;
+    }
   }
 
   svg {
     top: 1.6rem;
     right: 1.6rem;
     position: absolute;
-    top: calc(50% - 10px);
+    top: 0;
     right: 0;
     color: var(--i-red);
   }
@@ -442,6 +509,13 @@ export const SalaryBox = styled.div`
 
   .salary-currency {
     display: flex;
+
+    .select-wrapper {
+      input {
+        max-width: 6rem !important;
+        min-width: 0 !important;
+      }
+    }
   }
 
   .input-base-wrapper,
@@ -453,11 +527,6 @@ export const SalaryBox = styled.div`
   .select-active {
     width: 108px !important;
     margin-right: 8px !important;
-
-    input {
-      max-width: 6rem !important;
-      min-width: 0 !important;
-    }
   }
 
   .field-wrapper {

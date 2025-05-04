@@ -1,5 +1,5 @@
-import React from "react";
 import { OptionItem, OptionList } from "./styled";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   options: Option[];
@@ -7,11 +7,12 @@ interface IProps {
 }
 
 const Options = ({ options, onGetOption }: IProps) => {
+  const { t } = useTranslation(["option"]);
   return (
     <OptionList>
       {options.map((option) => (
         <OptionItem key={option.value} onClick={() => onGetOption(option)}>
-          {option.label}
+          {t(option.label)}
         </OptionItem>
       ))}
     </OptionList>

@@ -2,8 +2,10 @@ import { NavLink } from "react-router";
 import { NavbarWrapper } from "./styled";
 import userLinks from "~/constants/userLinks";
 import IconHandWave from "~/components/Icons/IconHandWave";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation(["profile"]);
   return (
     <NavbarWrapper>
       <div className="nav-heading">
@@ -17,7 +19,7 @@ const Navbar = () => {
         {userLinks.map((link) => (
           <NavLink to={link.url} key={link.id}>
             {link.icon}
-            <span>{link.label}</span>
+            <span>{t(link.label)}</span>
           </NavLink>
         ))}
       </div>

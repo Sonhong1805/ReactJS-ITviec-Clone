@@ -1,5 +1,4 @@
 import type { TFunction } from "i18next";
-import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;

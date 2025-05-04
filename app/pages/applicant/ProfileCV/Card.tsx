@@ -7,21 +7,33 @@ interface IProps {
   img: string;
   children: React.ReactNode;
   openModal: () => void;
+  edit: boolean;
 }
-const Card = ({ title, subtitle, img, children, openModal }: IProps) => {
+const Card = ({
+  title,
+  subtitle,
+  img,
+  children,
+  openModal,
+  edit = false,
+}: IProps) => {
   return (
     <CardWrapper>
       <div className="content">
         <div className="title">
           <h2>{title}</h2>
-          <p>{subtitle}</p>
+          {subtitle && <p>{subtitle}</p>}
         </div>
-        <figure>
-          <img src={img} alt={title} />
-        </figure>
-        <div className="add-button" onClick={openModal}>
-          <PlusCircle cursor={"pointer"} color="#ed1b2f" />
-        </div>
+        {img && (
+          <figure>
+            <img src={img} alt={title} />
+          </figure>
+        )}
+        {edit || (
+          <div className="add-button" onClick={openModal}>
+            <PlusCircle cursor={"pointer"} color="#ed1b2f" />
+          </div>
+        )}
       </div>
       {children}
     </CardWrapper>

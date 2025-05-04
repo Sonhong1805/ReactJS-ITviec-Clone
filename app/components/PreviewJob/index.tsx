@@ -182,7 +182,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                 <div
                   className="rich-text"
                   dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(selectedJob?.descriptions),
+                    __html: DOMPurify.sanitize(selectedJob?.description),
                   }}></div>{" "}
               </PreviewJobReasons>
               <BorderDash></BorderDash>
@@ -191,7 +191,7 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                 <div
                   className="rich-text"
                   dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(selectedJob?.descriptions),
+                    __html: DOMPurify.sanitize(selectedJob?.requirement),
                   }}></div>{" "}
               </PreviewJobReasons>
               <BorderDash></BorderDash>
