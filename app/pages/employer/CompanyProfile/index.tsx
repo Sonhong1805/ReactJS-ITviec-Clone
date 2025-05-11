@@ -33,94 +33,22 @@ import showToast from "~/utils/showToast";
 import { useCompanyStore } from "~/stores/companyStore";
 import Loading from "~/components/Loading";
 import { Upload } from "feather-icons-react";
+import { schema } from "./schema";
 
 const MAX_SKILLS = 10;
 
-const CompanyInfo = () => {
+const CompanyProfile = () => {
+  const { t, i18n } = useTranslation(["search"]);
   const [previewLogo, setPreviewLogo] = useState<string>("");
   const [overview, setOverview] = useState("");
   const [perks, setPerks] = useState("");
-  const { t } = useTranslation(["search", "auth"]);
 
   const { selectedSkillIds, handleSelectedSkillIds, saveSelectedSkillIds } =
-    useSkillStore((s) => s);
+    useSkillStore();
   const { email, phoneNumber, username } = useUserStore((s) => s.user);
-  const { updateCompanyInfo } = useUserStore((s) => s);
-  const { company, isLoading } = useCompanyStore((s) => s);
-
-  const schema = z.object({
-    username: z
-      .string()
-      .nonempty({ message: t("Please enter your name", { ns: "auth" }) })
-      .min(4, t("Please enter at least 4 characters", { ns: "auth" })),
-    position: z
-      .string()
-      .nonempty({ message: t("Please enter your title", { ns: "auth" }) })
-      .min(3, t("Please enter at least 3 characters", { ns: "auth" })),
-    email: z
-      .string()
-      .nonempty({
-        message: t("Please provide your work email address", { ns: "auth" }),
-      })
-      .email({
-        message: t("Please enter a valid email address", { ns: "auth" }),
-      }),
-    phoneNumber: z
-      .string()
-      .nonempty({
-        message: t("Please provide your phone number", { ns: "auth" }),
-      })
-      .regex(/^(0[1-9][0-9]{8,9})$/, {
-        message: t("Please enter a valid phone number", { ns: "auth" }),
-      }),
-    companyType: z.string().nonempty({
-      message: t("Please enter your company type", { ns: "auth" }),
-    }),
-    industryId: z.union([
-      z.string().nonempty({
-        message: t("Please enter your company industry", { ns: "auth" }),
-      }),
-      z.number(),
-    ]),
-    companySize: z.string().nonempty({
-      message: t("Please enter your company size", { ns: "auth" }),
-    }),
-    country: z
-      .string()
-      .nonempty({ message: t("Please enter your country", { ns: "auth" }) }),
-    workingDay: z.string().nonempty({
-      message: t("Please enter your working days", { ns: "auth" }),
-    }),
-    overtimePolicy: z.string().nonempty({
-      message: t("Please enter your overtime policy", { ns: "auth" }),
-    }),
-    companyName: z
-      .string()
-      .nonempty({
-        message: t("Please enter your company name", { ns: "auth" }),
-      })
-      .min(4, t("Please enter at least 4 characters", { ns: "auth" })),
-    location: z
-      .string()
-      .nonempty({ message: t("Please select a city", { ns: "auth" }) }),
-    website: z
-      .string()
-      .optional()
-      .refine(
-        (value) =>
-          !value ||
-          /^(https?:\/\/)([\w-]+(\.[\w-]+)+)(\/[\w-./?%&=]*)?$/.test(value),
-        {
-          message: t("Please enter a valid URL, i.e https://itviec.com", {
-            ns: "auth",
-          }),
-        }
-      ),
-    skillIds: z.string().optional(),
-    overview: z.string().optional(),
-    perks: z.string().optional(),
-    logo: z.any().optional(),
-  });
+  const { updateCompanyInfo } = useUserStore();
+  const { company, isLoading, handleSaveCompany } = useCompanyStore();
+  console.log(company);
 
   const {
     register,
@@ -131,53 +59,36 @@ const CompanyInfo = () => {
     reset,
     watch,
   } = useForm<Company>({
-    defaultValues: {
-      username: "",
-      position: "",
-      email: "",
-      phoneNumber: "",
-      companyType: "",
-      industryId: "",
-      companySize: "",
-      country: "",
-      workingDay: "",
-      overtimePolicy: "",
-      companyName: "",
-      location: "",
-      website: "",
-      skillIds: "",
-      logo: "",
-    },
-    resolver: zodResolver(schema),
+    defaultValues: {},
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
 
   useEffect(() => {
     if (!isLoading && company) {
-      setValue("id", company.id);
-      setValue("username", username);
-      setValue("email", email);
-      setValue("phoneNumber", phoneNumber);
-      setValue("companyName", company.companyName);
-      setValue("position", company.position);
-      setValue("location", company.location);
-      setValue("website", company.website);
-      setValue("companyType", company.companyType);
-      setValue("companySize", company.companySize);
-      setValue("industryId", company?.industry?.id + "");
-      setValue("country", company.country);
-      setValue("workingDay", company.workingDay);
-      setValue("overtimePolicy", company.overtimePolicy);
-      setValue("overview", company.overview);
-      setValue("perks", company.perks);
-      saveSelectedSkillIds(
-        company?.skills
-          ? company.skills.map((skill) => +skill.id).filter(Boolean)
-          : []
-      );
-      setValue("logo", company.logo);
+      reset({
+        username: username || "",
+        email: email || "",
+        phoneNumber: phoneNumber || "",
+        tagline: company.tagline || "",
+        position: company.position || "",
+        companyType: company.companyType || "",
+        industryId: company?.industry?.id ? company?.industry?.id + "" : "",
+        companySize: company.companySize || "",
+        country: company.country || "",
+        workingDay: company.workingDay || "",
+        overtimePolicy: company.overtimePolicy || "",
+        companyName: company.companyName || "",
+        location: company.location || "",
+        website: company.website || "",
+        overview: company.overview || "",
+        perks: company.perks || "",
+        skillIds: "",
+        logo: company.logo || "",
+        id: company.id || 0,
+      });
     }
-  }, [isLoading, company]);
+  }, [company, isLoading, reset]);
 
   const updateCompanyMutation = useMutation({
     mutationFn: ({ id, body }: UpdateCompanyPayload) =>
@@ -190,8 +101,12 @@ const CompanyInfo = () => {
         showToast("error", message);
         return;
       }
-      const { username, email, phoneNumber } = data;
+      const { username, email, phoneNumber, ...companyResponse } = data;
       updateCompanyInfo({ username, email, phoneNumber });
+      handleSaveCompany({ ...company, ...companyResponse });
+      saveSelectedSkillIds(
+        selectedSkillIds?.map((skill) => +skill).filter(Boolean) ?? []
+      );
       showToast("success", "Thành công");
     },
   });
@@ -214,6 +129,9 @@ const CompanyInfo = () => {
         formData.append(key, value as string);
       }
     });
+    // for (let pair of formData.entries()) {
+    //   console.log(`${pair[0]}: ${pair[1]}`);
+    // }
     if (!company) return;
     updateCompanyMutation.mutate({ id: company.id, body: formData });
   };
@@ -222,18 +140,40 @@ const CompanyInfo = () => {
   const isValidPosition = useValidation(watch("position"), company?.position);
   const isValidEmail = useValidation(watch("email"), email);
   const isValidPhoneNumber = useValidation(watch("phoneNumber"), phoneNumber);
-  const isValidCompanyType = useValidation(watch("companyType"));
+  const isValidCompanyType = useValidation(
+    watch("companyType"),
+    `${company.companyType}`
+  );
   const isValidIndustryId = useValidation(watch("industryId") + "");
-  const isValidCompanySize = useValidation(watch("companySize"));
-  const isValidCountry = useValidation(watch("country"));
-  const isValidWorkingDay = useValidation(watch("workingDay"));
-  const isValidOvertimePolicy = useValidation(watch("overtimePolicy"));
+  const isValidCompanySize = useValidation(
+    watch("companySize") + "",
+    `${company.companySize}`
+  );
+  const isValidCountry = useValidation(
+    watch("country") + "",
+    `${company.country}`
+  );
+  const isValidWorkingDay = useValidation(
+    watch("workingDay") + "",
+    `${company.workingDay}`
+  );
+  const isValidOvertimePolicy = useValidation(
+    watch("overtimePolicy") + "",
+    `${company.overtimePolicy}`
+  );
   const isValidCompanyName = useValidation(
     watch("companyName"),
     company?.companyName
   );
-  const isValidLocation = useValidation(watch("location"));
-  const companyWebsiteValue = useValidation(watch("website"));
+
+  const isValidLocation = useValidation(
+    watch("location"),
+    `${company?.location}`
+  );
+  const companyWebsiteValue = useValidation(
+    watch("website"),
+    `${company?.website}`
+  );
   const isValidWebsite = useMemo(() => {
     return submitCount > 0 && !companyWebsiteValue
       ? "success"
@@ -248,7 +188,7 @@ const CompanyInfo = () => {
     select: ({ data }) =>
       data.map((item) => ({
         value: item.id,
-        label: item.name_en,
+        label: i18n.language === "en" ? item.name_en : item.name_vi,
       })),
   });
 
@@ -275,7 +215,7 @@ const CompanyInfo = () => {
     <CompanyInfoWrapper>
       {(isLoading || updateCompanyMutation.isPending) && <Loading />}
       <div className="heading">
-        <h2>Hồ sơ công ty</h2>
+        <h2>{t("Company Profile", { ns: "header" })}</h2>
       </div>
       <CompanyInfoContainer>
         <CompanyInfoMain>
@@ -393,6 +333,18 @@ const CompanyInfo = () => {
               </div>
             </div>
             <h3>{t("General information")}</h3>
+            <div className="form-group">
+              <InputFloating
+                name="tagline"
+                value={watch("tagline")}
+                label={t("Tag line", { ns: "auth" })}
+                required={false}
+                onSetValue={useCallback(
+                  (value: string) => setValue("tagline", value),
+                  []
+                )}
+              />
+            </div>
             <div className="form-group input-row">
               <SelectFloating
                 name="companyType"
@@ -429,7 +381,10 @@ const CompanyInfo = () => {
                   watch("industryId")
                     ? {
                         value: company?.industry?.id + "",
-                        label: company?.industry?.name_en + "",
+                        label:
+                          i18n.language === "en"
+                            ? company?.industry?.name_en + ""
+                            : company?.industry?.name_vi + "",
                       }
                     : undefined
                 }
@@ -559,7 +514,9 @@ const CompanyInfo = () => {
               />
             </div>
             <div className="form-submit">
-              <button type="submit">Cập nhật thông tin</button>
+              <button type="submit" disabled={updateCompanyMutation.isPending}>
+                {t("Update Profile")}
+              </button>
             </div>
           </form>
         </CompanyInfoMain>
@@ -586,7 +543,7 @@ const CompanyInfo = () => {
                 onChange={handleFileChange}
               />
               <Upload />
-              <div className="selected-file">{t("Choose logo")}</div>
+              <div className="selected-file">{t("Upload Logo")}</div>
             </label>
           </div>
         </CompanyInfoSide>
@@ -595,4 +552,4 @@ const CompanyInfo = () => {
   );
 };
 
-export default CompanyInfo;
+export default CompanyProfile;

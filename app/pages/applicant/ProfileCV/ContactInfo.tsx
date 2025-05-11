@@ -35,14 +35,7 @@ import { Link } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import applicantService from "~/services/applicantService";
 import showToast from "~/utils/showToast";
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+import { formatTime } from "~/utils/formatTime";
 
 const ContactInfo = () => {
   const { t } = useTranslation(["profile"]);
@@ -239,7 +232,7 @@ const ContactInfo = () => {
           <div className="item">
             <Gift />
             {applicant.dob ? (
-              <p className="active">{formatDate(applicant.dob)}</p>
+              <p className="active">{formatTime(applicant.dob)}</p>
             ) : (
               <p>{t("Your date of birth")}</p>
             )}
@@ -404,6 +397,7 @@ const ContactInfo = () => {
                       (value: string) => setValue("dob", value),
                       []
                     )}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   <SelectFloating
                     name="gender"

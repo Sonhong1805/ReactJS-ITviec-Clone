@@ -10,3 +10,10 @@ interface CursorPagination {
   next: number | null;
   limit: number;
 }
+
+interface CustomPagination {
+  totalCount: number;
+  pageSize: number;
+  siblingCount: number;
+  currentPage: number;
+}

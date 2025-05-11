@@ -35,13 +35,10 @@ interface IProps {
   isPending: boolean;
 }
 const PreviewJob = ({ jobs, isPending }: IProps) => {
-  const { t } = useTranslation(["search", "option", "apply"]);
+  const { t, i18n } = useTranslation(["search"]);
   const isAuthenticated = useUserStore((s) => s.isAuthenticated);
   const { selectedJob, handleWishlist } = useJobStore();
-  const postedTime = getPostedTime(
-    t,
-    new Date(selectedJob?.createdAt + "") + ""
-  );
+  const postedTime = getPostedTime(t, selectedJob?.startDate);
   const navigate = useNavigate();
 
   const handleApply = () => {
@@ -116,7 +113,6 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                         {formatSalary(+selectedJob?.minSalary)} -{" "}
                         {formatSalary(+selectedJob?.maxSalary)}{" "}
                         {selectedJob?.currencySalary}
-                        {/* You&apos;ll love it */}
                       </span>
                     ) : (
                       <Link to={"/login"} className="salary-hide">
@@ -152,16 +148,19 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                 <div className="overview-item">
                   <MapPin />
                   <div>
-                    <span>{t(selectedJob?.location, { ns: "option" })}</span>
+                    <span>
+                      {selectedJob?.address && selectedJob.address + ", "}
+                      {t(selectedJob?.location, { ns: "option" })}
+                    </span>
                   </div>
                 </div>
                 <div className="overview-item">
                   <IconWorkingModel />
-                  <span>{t(selectedJob?.workingModel)}</span>
+                  <span>{t(selectedJob?.workingModel, { ns: "option" })}</span>
                 </div>
                 <div className="overview-item">
                   <Clock />
-                  <span>{postedTime}</span>
+                  <span>{`${t("Posted")} ${postedTime}`}</span>
                 </div>
                 <div className="overview-item">
                   <span>{t("Skills")}:</span>
@@ -195,20 +194,20 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                   }}></div>{" "}
               </PreviewJobReasons>
               <BorderDash></BorderDash>
+              <PreviewJobReasons>
+                <h2>{t("Why you'll love working here")}</h2>
+                <div
+                  className="rich-text"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(selectedJob?.reason),
+                  }}></div>{" "}
+              </PreviewJobReasons>
+              <hr style={{ marginBlock: "2.4rem" }} />
               <PreviewCompanyInfo>
                 <div className="company-name">
                   <h2>{selectedJob?.company?.companyName}</h2>
-                  {/* {job?.company.website && (
-                    <Link to={job.company.website}>
-                      <span>{t("View company")}</span>
-                      <ExternalLink />
-                    </Link>
-                  )} */}
                 </div>
-                <p className="company-intro">
-                  Tower Hanoi hoạt động trong lĩnh vực phát triển phần mềm, ứng
-                  dụng và game cho Desktop, Mobile
-                </p>
+                <p className="company-intro">{selectedJob?.company?.tagline}</p>
                 <div className="company-grid">
                   {selectedJob?.company?.companyType && (
                     <div>
@@ -218,13 +217,17 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
                       </p>
                     </div>
                   )}
-                  {selectedJob?.company?.industry?.name_en && (
+                  {selectedJob?.company?.industry?.[
+                    i18n.language === "en" ? "name_en" : "name_vi"
+                  ] && (
                     <div>
                       <small>{t("Introduce.Company industry")}</small>
                       <p>
-                        {t(selectedJob.company.industry.name_en, {
-                          ns: "option",
-                        })}
+                        {
+                          selectedJob.company.industry?.[
+                            i18n.language === "en" ? "name_en" : "name_vi"
+                          ]
+                        }
                       </p>
                     </div>
                   )}

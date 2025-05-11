@@ -10,6 +10,7 @@ interface IProps {
   required?: boolean;
   value: string;
   onSetValue: (value: string) => void;
+  max?: string;
 }
 
 const InputDate = ({
@@ -20,6 +21,7 @@ const InputDate = ({
   className,
   required,
   onSetValue,
+  max,
 }: IProps) => {
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     onSetValue(e.target.value);
@@ -40,7 +42,7 @@ const InputDate = ({
           id={name}
           value={formatDate(value)}
           className={className}
-          max={new Date().toISOString().split("T")[0]}
+          max={max}
           placeholder={" "}
           onChange={handleChangeInput}
         />

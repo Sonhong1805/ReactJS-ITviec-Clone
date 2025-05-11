@@ -6,7 +6,7 @@ export interface JobsPayload {
 }
 
 const jobService = {
-  getAll: (params: any): Promise<IResponse<JobsPayload>> => {
+  getAll: (params: {}): Promise<IResponse<JobsPayload>> => {
     return axios.get("/job", {
       params,
     });
@@ -25,6 +25,17 @@ const jobService = {
 
   wishlist: (jobId: number): Promise<IResponse<boolean>> => {
     return axios.post(`/job/wishlist/${jobId}`);
+  },
+
+  create: (body: CompanyJob): Promise<IResponse<CompanyJob>> => {
+    return axios.post(`/job`, body);
+  },
+
+  update: (id: number, body: CompanyJob): Promise<IResponse<CompanyJob>> => {
+    return axios.put(`/job/${id}`, body);
+  },
+  delete: (id: number): Promise<IResponse<string>> => {
+    return axios.delete(`/job/${id}`);
   },
 };
 

@@ -1,4 +1,4 @@
-const formatDate = (time: Date) => {
+const formatDate = (time: string) => {
   const formattedDate = new Date(time).toLocaleDateString("vi-VN", {
     day: "2-digit",
     month: "2-digit",

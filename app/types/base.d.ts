@@ -1,5 +1,5 @@
 interface Base {
-  createdAt: Date | null;
-  updatedAt: Date | null;
-  deletedAt: Date | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  deletedAt: string | null;
 }

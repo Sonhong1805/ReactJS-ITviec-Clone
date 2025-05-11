@@ -32,7 +32,7 @@ const Header = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
   const { isAuthenticated, user, logout: userLogout } = useUserStore();
-  const { handleSaveFollow, logout: companyLogout } = useCompanyStore();
+  const { handleSaveFollow } = useCompanyStore();
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
 
@@ -46,7 +46,6 @@ const Header = () => {
     if (response.isSuccess) {
       localStorage.removeItem("access_token");
       userLogout();
-      companyLogout();
       handleSaveFollow(false);
       handleSaveReview(false);
     }

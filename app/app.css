@@ -263,9 +263,9 @@ tr {
   border-bottom: 1px solid var(--i-silver-grey);
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: var(--i-light-grey);
-}
+} */
 
 th,
 td {
@@ -282,7 +282,6 @@ td .icons {
   display: flex;
   justify-content: center;
   gap: 0.8rem;
-  color: var(--i-red);
   cursor: pointer;
 }
 
@@ -541,22 +540,27 @@ div[role="textbox"] {
 ul[data-slate-node="element"],
 .textediter-content ul,
 ol[data-slate-node="element"],
-.textediter-content ol {
+.textediter-content ol,
+.rich-text ul,
+.rich-text ol {
   padding-left: 16px;
 }
 
 ul li[data-slate-node="element"],
-.textediter-content ul li {
+.textediter-content ul li,
+.rich-text ul li {
   list-style-type: disc;
 }
 
 ol li[data-slate-node="element"],
-.textediter-content ol li {
+.textediter-content ol li,
+.rich-text ol li {
   list-style-type: decimal;
 }
 
 ul li[data-slate-node="element"]::marker,
-.textediter-content ul li::marker {
+.textediter-content ul li::marker,
+.rich-text ul li::marker {
   color: var(--i-red);
 }
 

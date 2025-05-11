@@ -3,6 +3,7 @@ import { AlertError, SelectPane, SelectWrapper } from "./styled";
 import Options from "./Options";
 import { ChevronDown } from "feather-icons-react";
 import ErrorMessage from "../ErrorMessage";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   placeholder?: string;
@@ -27,6 +28,7 @@ const SelectBase = ({
   defaultValue,
   disabled = false,
 }: IProps) => {
+  const { t } = useTranslation(["option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState<string>(() => {
     if (!defaultValue) return "";
@@ -87,7 +89,7 @@ const SelectBase = ({
               id={name}
               {...register(name)}
               readOnly
-              value={selectedLabel}
+              value={t(selectedLabel)}
               placeholder={placeholder}
               disabled={disabled}
             />

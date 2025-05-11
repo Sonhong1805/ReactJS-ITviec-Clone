@@ -1,30 +1,37 @@
+interface JobSkill {
+  id: number;
+  name: string;
+}
+
 interface Job extends Base {
   id: number;
   title: string;
+  label: string;
   slug: string;
   level: string;
   workingModel: string;
   location: string;
   startDate: string;
   endDate: string;
-  minSalary: string;
-  maxSalary: string;
+  minSalary: string | number;
+  maxSalary: string | number;
   currencySalary: string;
   description: string;
   requirement: string;
-  reasons: string;
-  quantity: number;
-  status: "active" | "inactive";
-  countView: number;
+  reason: string;
   company: Company;
-  skills: {
-    id: number;
-    name: string;
-  }[];
+  address: string;
+  skills: JobSkill[];
   hasApplied?: Application;
   uploadAt?: Date;
   wishlist?: boolean;
+  skill?: string;
 }
+
+type CompanyJob = Omit<
+  Job,
+  "company" | "hasApplied" | "uploadAt" | "wishlist"
+> & { skillIds: number[] };
 
 interface JobQueries {
   page?: number;

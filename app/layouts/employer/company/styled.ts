@@ -43,6 +43,7 @@ export const NavbarWrapper = styled.aside`
     padding-left: 8px;
     padding-right: 8px;
     overflow: hidden;
+    height: calc(100vh-6.1rem);
   }
 
   .nav-heading {
@@ -58,6 +59,7 @@ export const NavbarWrapper = styled.aside`
 
       .company-name {
         white-space: nowrap;
+        display: flex;
       }
 
       svg {
@@ -77,7 +79,7 @@ export const NavbarWrapper = styled.aside`
       }
 
       span {
-        margin-left: 4px;
+        margin-left: 12px;
         font-size: 14px;
         font-weight: 400;
         white-space: nowrap;
@@ -108,6 +110,7 @@ export const NavbarWrapper = styled.aside`
       background: transparent;
       display: flex !important;
       align-items: center;
+      cursor: pointer;
 
       &:hover {
         background: var(--i-border-icon);

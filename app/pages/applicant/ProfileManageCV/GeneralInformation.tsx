@@ -469,7 +469,7 @@ const GeneralInformation = () => {
                       )}
                       defaultValue={
                         applicantTmp.salaryFrom
-                          ? applicantTmp.salaryFrom + ""
+                          ? customSalary(applicantTmp.salaryFrom + "")
                           : ""
                       }
                     />
@@ -495,7 +495,9 @@ const GeneralInformation = () => {
                         [setValue]
                       )}
                       defaultValue={
-                        applicantTmp.salaryTo ? applicantTmp.salaryTo + "" : ""
+                        applicantTmp.salaryTo
+                          ? customSalary(applicantTmp.salaryTo + "")
+                          : ""
                       }
                     />
                   </div>
@@ -546,7 +548,7 @@ const GeneralInformation = () => {
                     )}
                     defaultValue={
                       applicantTmp.currentSalary
-                        ? applicantTmp.currentSalary + ""
+                        ? customSalary(applicantTmp.currentSalary + "")
                         : ""
                     }
                   />

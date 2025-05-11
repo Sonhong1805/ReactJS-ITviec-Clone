@@ -6,31 +6,31 @@ const employerLinks = [
     id: 1,
     icon: <Grid />,
     url: "/employer/dashboard",
-    label: "Tổng quan",
+    label: "Dashboard",
   },
   {
     id: 2,
     icon: <FileText />,
-    url: "/employer/company-info",
-    label: "Hồ sơ công ty",
+    url: "/employer/company-profile",
+    label: "Company Profile",
   },
   {
     id: 3,
     icon: <Briefcase />,
     url: "/employer/manage-jobs",
-    label: "Quản lý việc làm",
+    label: "Manage Jobs",
   },
   {
     id: 4,
     icon: <Users />,
     url: "/employer/manage-cv",
-    label: "Quản lý CV",
+    label: "Manage CV",
   },
   {
     id: 5,
     icon: <IconMessageStar />,
     url: "/employer/manage-reviews",
-    label: "Quản lý đánh giá",
+    label: "Manage Reviews",
   },
 ];
 

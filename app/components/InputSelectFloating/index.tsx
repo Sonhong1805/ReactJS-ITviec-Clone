@@ -1,10 +1,10 @@
-import { ChevronDown } from "feather-icons-react";
+import { ChevronDown, Loader } from "feather-icons-react";
 import {
-  AlertError,
   InputSelectWrapper,
   InputWrapper,
   Option,
   OptionsDropdown,
+  PendingSpinner,
 } from "./styled";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import ErrorMessage from "../ErrorMessage";
@@ -24,6 +24,7 @@ interface IProps {
   onAddOption: (option: Option) => void;
   onRemoveOption: () => void;
   onReset?: () => void;
+  isPending?: boolean;
 }
 const InputSelectFloating = ({
   name,
@@ -40,11 +41,14 @@ const InputSelectFloating = ({
   onAddOption,
   onRemoveOption,
   onReset,
+  isPending,
 }: IProps) => {
   const [showOptions, setShowOptions] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isFocused, setIsFocused] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -68,13 +72,13 @@ const InputSelectFloating = ({
   };
 
   const handleSeletedOption = (option: Option) => {
-    if (maxLengh && selectedOptions.length === maxLengh) return;
+    if (maxLengh && selectedOptions.length === maxLengh) {
+      return;
+    }
+    setShowOptions(false);
     onAddOption(option);
     if (onReset) onReset();
   };
-
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
 
   const handleDeletedOption = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Backspace") return;
@@ -95,7 +99,6 @@ const InputSelectFloating = ({
             </div>
           ))}
           <input
-            ref={inputRef}
             type="text"
             id={name}
             {...register(name)}
@@ -114,11 +117,16 @@ const InputSelectFloating = ({
             {label} {required && <abbr>*</abbr>}
           </label>
         </div>
-        <ChevronDown />
+        <ChevronDown className="chevron" />
       </InputSelectWrapper>
       {showOptions && (
         <OptionsDropdown>
-          {options.length ? (
+          {isPending ? (
+            <PendingSpinner>
+              <Loader className="loader" />
+              <span>Loading</span>
+            </PendingSpinner>
+          ) : options.length > 0 ? (
             options.map((option) => (
               <Option
                 key={option.value}

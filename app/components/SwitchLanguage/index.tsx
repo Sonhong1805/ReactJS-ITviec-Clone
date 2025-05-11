@@ -1,4 +1,3 @@
-import React from "react";
 import { SwitchWrapper } from "./styled";
 import { useTranslation } from "react-i18next";
 import {

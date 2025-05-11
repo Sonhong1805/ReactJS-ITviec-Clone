@@ -37,7 +37,7 @@ const SelectFloating = ({
   disabled,
   isPending = false,
 }: IProps) => {
-  const { t } = useTranslation(["option"]);
+  const { t, i18n } = useTranslation(["option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
   const selectWrapperRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState<Option | null>(
@@ -45,10 +45,10 @@ const SelectFloating = ({
   );
 
   useEffect(() => {
-    if (defaultValue && !selectedOption) {
+    if (defaultValue) {
       setSelectedOption(defaultValue);
     }
-  }, [defaultValue]);
+  }, [defaultValue, i18n.language]);
 
   useEffect(() => {
     if (disabled) {

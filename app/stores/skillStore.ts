@@ -4,19 +4,25 @@ import { immer } from "zustand/middleware/immer";
 interface SkillState {
   skills: Skill[];
   skillOptions: Option[];
+  skillOptionsTmp: Option[];
   selectedSkillIds: (string | number)[];
   selectedSkill: Option;
+
   saveSkills: (payload: Skill[]) => void;
   saveSkillOptions: (payload: Option[]) => void;
   saveSelectedSkillIds: (payload: number[]) => void;
   handleSelectedSkillIds: (payload: string | number) => void;
   handleSelectedSkill: (payload: Option) => void;
   handleRemoveSelectedSkill: () => void;
+  handleAddSkillOption: (payload: Option) => void;
+  handleAddSkillOptions: (payload: Option[]) => void;
+  handleRemoveSkillOption: () => void;
 }
 
 const initialState: SkillState = {
   skills: [],
   skillOptions: [],
+  skillOptionsTmp: [],
   selectedSkillIds: [],
   selectedSkill: {} as Option,
   saveSkills: () => {},
@@ -25,6 +31,9 @@ const initialState: SkillState = {
   handleSelectedSkillIds: () => {},
   handleSelectedSkill: () => {},
   handleRemoveSelectedSkill: () => {},
+  handleAddSkillOption: () => {},
+  handleAddSkillOptions: () => {},
+  handleRemoveSkillOption: () => {},
 };
 
 export const useSkillStore = create<SkillState>()(
@@ -62,5 +71,18 @@ export const useSkillStore = create<SkillState>()(
         state.selectedSkill = initialState.selectedSkill;
       });
     },
+    handleAddSkillOption: (payload) =>
+      set((state) => {
+        state.skillOptionsTmp.push(payload);
+      }),
+    handleAddSkillOptions: (payload) =>
+      set((state) => {
+        state.skillOptions = payload;
+        state.skillOptionsTmp = payload;
+      }),
+    handleRemoveSkillOption: () =>
+      set((state) => {
+        state.skillOptionsTmp.pop();
+      }),
   }))
 );

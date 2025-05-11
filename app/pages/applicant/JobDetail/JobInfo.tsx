@@ -128,7 +128,7 @@ const JobInfo = () => {
             }}></div>
         </div>
         <BorderDash></BorderDash>
-        {jobDetail?.reasons && (
+        {jobDetail?.reason && (
           <div className="overview-item">
             <h2>
               {" "}
@@ -141,7 +141,7 @@ const JobInfo = () => {
             <div
               className="rich-text"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(jobDetail?.reasons + ""),
+                __html: DOMPurify.sanitize(jobDetail?.reason + ""),
               }}></div>
           </div>
         )}

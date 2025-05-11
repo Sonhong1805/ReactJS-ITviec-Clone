@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { RememberMeCheck, SignInForm, ToastMessage } from "./styled";
 import Logo from "/assets/images/logo_black_text.png";
 import InputFloating from "~/components/InputFloating";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -24,7 +24,7 @@ const Login = () => {
     password: z.string().optional(),
   });
 
-  const { register, handleSubmit, reset } = useForm<ILogin>({
+  const { handleSubmit, reset, watch, setValue } = useForm<ILogin>({
     defaultValues: {
       email: "",
       password: "",
@@ -66,19 +66,27 @@ const Login = () => {
         <div className="form-group">
           <InputFloating
             name="email"
-            register={register}
+            value={watch("email")}
             type="email"
             label={t("Email")}
             required={false}
+            onSetValue={useCallback(
+              (value: string) => setValue("email", value),
+              []
+            )}
           />
         </div>
         <div className="form-group">
           <InputFloating
             name="password"
             type="password"
-            register={register}
+            value={watch("password")}
             label={t("Password")}
             required={false}
+            onSetValue={useCallback(
+              (value: string) => setValue("password", value),
+              []
+            )}
           />
         </div>
         <div className="form-group">

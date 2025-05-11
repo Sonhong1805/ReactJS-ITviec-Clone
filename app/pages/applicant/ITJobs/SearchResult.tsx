@@ -4,29 +4,37 @@ import PreviewJob from "~/components/PreviewJob";
 import SearchFilter from "~/components/SearchFilter";
 import { JobContainer, SearchResultContainer } from "./styled";
 import { useJobsQuery } from "~/hooks/useJobsQuery";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useJobStore } from "~/stores/jobStore";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
 
 const SearchResult = () => {
-  const { handleSavePagination } = useJobStore();
+  const { pagination, handleSavePagination } = useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
     useQueriesParams();
+
+  const queriesParams = useMemo(() => {
+    return {
+      ...queryParams,
+      page: pagination.page || 1,
+      limit: pagination.limit || 10,
+    };
+  }, [queryParams, pagination.page, pagination.limit]);
   const { data, isPending, isSuccess } = useJobsQuery(
-    queryParams,
+    queriesParams,
     levels,
     workingModels,
     industries,
     companyTypes
   );
-  const pagination = data?.pagination;
+  const paginationJobs = data?.pagination;
   const jobs = data?.data ?? [];
 
   useEffect(() => {
-    if (pagination) {
-      handleSavePagination(pagination);
+    if (paginationJobs) {
+      handleSavePagination(paginationJobs);
     }
-  }, [pagination]);
+  }, [paginationJobs]);
 
   return (
     <SearchResultContainer>
@@ -35,7 +43,12 @@ const SearchResult = () => {
         <JobList jobs={jobs} isPending={isPending} />
         <PreviewJob jobs={jobs} isPending={isPending} />
       </JobContainer>
-      {isSuccess && pagination && <Pagination pagination={pagination} />}
+      {isSuccess && pagination && (
+        <Pagination
+          pagination={pagination}
+          onChangePagination={handleSavePagination}
+        />
+      )}
     </SearchResultContainer>
   );
 };

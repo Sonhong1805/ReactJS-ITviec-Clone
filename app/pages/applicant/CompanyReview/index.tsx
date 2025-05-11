@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import {
   AlertError,
   ButtonSubmit,
@@ -199,11 +199,15 @@ const CompanyReview = () => {
                 </div>
                 <InputFloating
                   name="summary"
-                  register={register}
+                  value={watch("summary")}
                   label={t("Summary")}
                   required={true}
                   error={errors.summary && t(errors.summary?.message + "")}
                   className={errors.summary?.message ? "error" : isValidSummary}
+                  onSetValue={useCallback(
+                    (value: string) => setValue("summary", value),
+                    []
+                  )}
                 />
                 <div className="form-group">
                   <h3>

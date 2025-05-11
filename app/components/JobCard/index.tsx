@@ -17,10 +17,10 @@ interface IProps {
 }
 
 const JobCard = ({ job, isNextPage = false }: IProps) => {
-  const { t } = useTranslation(["search", "option", "apply"]);
+  const { t } = useTranslation(["search"]);
   const isAuthenticated = useUserStore((s) => s.isAuthenticated);
   const { selectedJob, handleSelectedJob } = useJobStore();
-  const postedTime = getPostedTime(t, new Date(job?.createdAt + "") + "");
+  const postedTime = getPostedTime(t, job?.startDate);
 
   const previewJob = () => {
     if (isNextPage) {
@@ -66,7 +66,6 @@ const JobCard = ({ job, isNextPage = false }: IProps) => {
               <IconCircleDollarSign />
               {formatSalary(+job.minSalary)} - {formatSalary(+job.maxSalary)}{" "}
               {job.currencySalary}
-              {/* You&apos;ll love it */}
             </span>
           ) : (
             <Link
@@ -79,7 +78,7 @@ const JobCard = ({ job, isNextPage = false }: IProps) => {
         </div>
         <div className="form-of-work">
           <IconWorkingModel />
-          <span>{t(job.workingModel)}</span>
+          <span>{t(job.workingModel, { ns: "option" })}</span>
         </div>
         <div className="job-address">
           <MapPin size={16} />
@@ -92,12 +91,28 @@ const JobCard = ({ job, isNextPage = false }: IProps) => {
             </li>
           ))}
         </ul>
-        <JobLabel>
-          <div className="label-content">
-            {false && <IconFire />}
-            <span>{false ? "super hot" : "hot"}</span>
-          </div>
-        </JobLabel>
+        {job.label === "HOT" && (
+          <JobLabel className="hot">
+            <div className="label-content">
+              <span>HOT</span>
+            </div>
+          </JobLabel>
+        )}
+        {job.label === "SUPER HOT" && (
+          <JobLabel className="super-hot">
+            <div className="label-content">
+              <IconFire />
+              <span>SUPER HOT</span>
+            </div>
+          </JobLabel>
+        )}
+        {job.label === "NEW" && (
+          <JobLabel className="new">
+            <div className="label-content">
+              <span>NEW</span>
+            </div>
+          </JobLabel>
+        )}
       </div>
       {job.hasApplied && job.hasApplied.createdAt && (
         <div className="job-applied">

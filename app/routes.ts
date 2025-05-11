@@ -40,7 +40,7 @@ export default [
       index("routes/employer/home.tsx"),
       layout("layouts/employer/company/Layout.tsx", [
         route("dashboard", "routes/employer/dashboard.tsx"),
-        route("company-info", "routes/employer/company-info.tsx"),
+        route("company-profile", "routes/employer/company-profile.tsx"),
         route("manage-jobs", "routes/employer/manage-jobs.tsx"),
         route("manage-cv", "routes/employer/manage-cv.tsx"),
         route("manage-reviews", "routes/employer/manage-reviews.tsx"),

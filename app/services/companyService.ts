@@ -15,6 +15,11 @@ export interface GetAllReviewResonse {
   pagination: CursorPagination;
 }
 
+export interface GetCompanyJobsResonse {
+  data: CompanyJob[];
+  pagination: Pagination;
+}
+
 const companyService = {
   getDetail: (param: string | number): Promise<IResponse<Company>> => {
     return axios.get(`/company/${param}`);
@@ -42,6 +47,10 @@ const companyService = {
     params: any
   ): Promise<IResponse<GetAllReviewResonse>> => {
     return axios.get(`/company/review/${id}`, { params });
+  },
+
+  getJobs: (params: {}): Promise<IResponse<GetCompanyJobsResonse>> => {
+    return axios.get(`/company/jobs`, { params });
   },
 };
 

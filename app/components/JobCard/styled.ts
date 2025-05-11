@@ -207,7 +207,7 @@ export const JobCardWrapper = styled.div<{ $superhot?: boolean }>`
   }
 `;
 
-export const JobLabel = styled.div<{ $superhot?: boolean }>`
+export const JobLabel = styled.div`
   position: absolute;
   top: 0.8rem;
   right: 0;
@@ -218,8 +218,33 @@ export const JobLabel = styled.div<{ $superhot?: boolean }>`
   color: var(--i-white);
   font-weight: 600;
   text-transform: uppercase;
-  background: ${(props) =>
-    props.$superhot ? "var(--i-red)" : "var(--i-warning-color)"};
+
+  &.super-hot {
+    background: var(--i-red);
+    .label-content {
+      &::after {
+        border-top: 0.8rem solid var(--i-red);
+      }
+    }
+  }
+
+  &.hot {
+    background: var(--i-warning-color);
+    .label-content {
+      &::after {
+        border-top: 0.8rem solid var(--i-warning-color);
+      }
+    }
+  }
+
+  &.new {
+    background: var(--i-rich-grey);
+    .label-content {
+      &::after {
+        border-top: 0.8rem solid var(--i-rich-grey);
+      }
+    }
+  }
 
   .label-content {
     position: relative;
@@ -235,9 +260,6 @@ export const JobLabel = styled.div<{ $superhot?: boolean }>`
       width: 0;
       height: 0;
       border-left: 0.8rem solid transparent;
-      border-top: 0.8rem solid
-        ${(props) =>
-          props.$superhot ? "var(--i-red)" : "var(--i-warning-color)"};
     }
   }
 

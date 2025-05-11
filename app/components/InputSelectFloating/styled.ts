@@ -4,7 +4,7 @@ export const InputWrapper = styled.div`
   position: relative;
   margin-bottom: 2.4rem;
 
-  svg {
+  svg.chevron {
     position: absolute;
     top: 50%;
     right: 1.8rem;
@@ -93,12 +93,6 @@ export const InputSelectWrapper = styled.div`
   }
 `;
 
-export const AlertError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
-`;
-
 export const OptionsDropdown = styled.div`
   max-height: 20rem;
   border: 1px solid var(--i-silver-grey);
@@ -133,4 +127,13 @@ export const Option = styled.div`
   &:hover {
     background-color: var(--i-white-red);
   }
+`;
+
+export const PendingSpinner = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  padding: 0.3rem 1.2rem;
+  line-height: 2.4rem;
 `;

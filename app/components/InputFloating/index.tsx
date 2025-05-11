@@ -43,7 +43,7 @@ const InputFloating = ({
           className={className}
           placeholder={" "}
           disabled={disabled}
-          value={value}
+          value={value ?? ""}
           onChange={handleChangeInput}
         />
         <label htmlFor={name}>
