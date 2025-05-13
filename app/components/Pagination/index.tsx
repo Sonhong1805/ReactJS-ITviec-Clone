@@ -42,13 +42,17 @@ const Pagination = ({ pagination, onChangePagination }: IProps) => {
           </PageItem>
         );
       })}
-      <PageItem
-        className={pagination.page === pagination.totalPages ? "hide" : "show"}
-        onClick={() =>
-          onChangePagination({ ...pagination, page: pagination.page + 1 })
-        }>
-        <ChevronRight />
-      </PageItem>
+      {pagination.totalPages > 0 && (
+        <PageItem
+          className={
+            pagination.page === pagination.totalPages ? "hide" : "show"
+          }
+          onClick={() =>
+            onChangePagination({ ...pagination, page: pagination.page + 1 })
+          }>
+          <ChevronRight />
+        </PageItem>
+      )}
     </PaginationWrapper>
   );
 };

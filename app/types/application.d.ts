@@ -7,3 +7,14 @@ interface Application extends Base {
   locations: string[];
   cv: File | string;
 }
+
+type ApplicationStatus = "pending" | "accepted" | "reject" | "expired";
+
+interface MyJobStatus extends MyJob {
+  status: ApplicationStatus;
+}
+
+interface MyJobStatusWithPagination {
+  pagination: Pagination;
+  data: MyJobStatus[];
+}

@@ -125,7 +125,7 @@ const JobCard = ({
       )}
       {new Date(myJob.job.endDate) < new Date() && (
         <div className="expired">
-          <span>{t("Expired", { ns: "profile" })}</span>
+          <span>{t("Expired application", { ns: "profile" })}</span>
         </div>
       )}
     </JobCardWrapper>

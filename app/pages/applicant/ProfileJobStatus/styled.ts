@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { styled } from "styled-components";
 
 export const JobStatusWrapper = styled.div`
@@ -138,33 +137,58 @@ export const JobsWrapper = styled.section`
     }
   }
 
-  .list {
+  .job-list {
     border-radius: 4px;
-    margin-bottom: 160px !important;
-    padding-bottom: 40px !important;
     background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity)) !important;
+  }
 
-    .empty {
-      padding-top: 36px !important;
-      text-align: center !important;
+  .no-jobs {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+    background-color: var(--i-white);
+    text-align: center;
 
-      img {
-        width: 153px;
-        height: 153px;
-        object-fit: contain;
-      }
+    img {
+      width: 80px;
+    }
+    .text {
+      margin-top: 24px !important;
+      margin-bottom: 24px !important;
+      color: #a6a6a6;
+      font-size: 16px;
+      font-weight: 400;
+    }
 
-      p {
-        color: #a6a6a6 !important;
-        font-size: 16px;
-        font-weight: 400;
-        margin-top: 20px !important;
+    a {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 11px 24px;
+      min-width: 180px;
+      border-radius: 4px;
+      color: var(--i-red);
+      background-color: var(--i-white);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.5;
+      user-select: none;
+      border: 1px solid transparent;
+      border-color: var(--i-red);
+      gap: 8px;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--i-red);
+        background-color: var(--i-white-red);
+        border-color: var(--i-red);
       }
     }
   }
 `;
 
-export const JobCardWrapper = styled(Link)`
+export const JobCardWrapper = styled.div`
   border: 0.1rem solid transparent;
   border-bottom: 0.1rem solid var(--i-silver-grey);
   background-color: rgba(var(--i-white-rgb), var(--i-bg-opacity));
@@ -178,12 +202,14 @@ export const JobCardWrapper = styled(Link)`
   justify-content: space-between;
   padding-top: 0.8rem;
   position: relative;
+  cursor: pointer;
 
   &:first-child {
     border-radius: 0.8rem 0.8rem 0 0;
   }
   &:last-child {
     border-radius: 0 0 0.8rem 0.8rem;
+    border-bottom: none;
   }
 
   &:hover {
@@ -293,6 +319,8 @@ export const JobCardWrapper = styled(Link)`
         justify-content: center;
         align-items: center;
         max-width: 14rem;
+        flex: 1;
+        white-space: nowrap;
 
         &.pending {
           background-color: var(--i-light-warning-color);

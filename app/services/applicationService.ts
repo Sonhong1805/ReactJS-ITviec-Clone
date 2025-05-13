@@ -12,6 +12,9 @@ const applicationService = {
   }: CreateApplicationPayload): Promise<IResponse<Application>> => {
     return axios.post(`/application/${slug}`, body);
   },
+  getJobStatus: (params: {}): Promise<IResponse<MyJobStatusWithPagination>> => {
+    return axios.get(`/application/job-status`, { params });
+  },
 };
 
 export default applicationService;
