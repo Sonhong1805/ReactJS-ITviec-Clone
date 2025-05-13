@@ -9,7 +9,8 @@ import { useJobStore } from "~/stores/jobStore";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
 
 const SearchResult = () => {
-  const { pagination, handleSavePagination } = useJobStore();
+  const { jobs, pagination, handleSaveJobs, handleSavePagination } =
+    useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
     useQueriesParams();
 
@@ -28,7 +29,12 @@ const SearchResult = () => {
     companyTypes
   );
   const paginationJobs = data?.pagination;
-  const jobs = data?.data ?? [];
+
+  useEffect(() => {
+    if (data?.data) {
+      handleSaveJobs(data?.data || []);
+    }
+  }, [data?.data]);
 
   useEffect(() => {
     if (paginationJobs) {

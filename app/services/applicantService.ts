@@ -132,6 +132,17 @@ const applicantService = {
   deleteSkill: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/skill/${id}`);
   },
+  getSavedJobs: (params: {}): Promise<IResponse<MyJob[]>> => {
+    return axios.get(`/applicant/saved-jobs`, { params });
+  },
+  getRecentViewedJobs: (params: {}): Promise<
+    IResponse<MyJobWithPagination>
+  > => {
+    return axios.get(`/applicant/resent-viewed-jobs`, { params });
+  },
+  getAppliedJobs: (params: {}): Promise<IResponse<MyJobWithPagination>> => {
+    return axios.get(`/applicant/applied-jobs`, { params });
+  },
 };
 
 export default applicantService;

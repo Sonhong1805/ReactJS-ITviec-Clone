@@ -73,6 +73,7 @@
   "Input your experiences": "Input your experiences",
   "Limit from": "Limit from",
   "to": "to",
+  "in": "in",
   "characters": "characters",
   "What makes you love working here": "What makes you love working here",
   "Input your suggestion": "Input your suggestion",
@@ -149,5 +150,6 @@
   "Start": "Start",
   "End": "End",
   "Update Profile": "Update Profile",
-  "Upload Logo": "Upload Logo"
+  "Upload Logo": "Upload Logo",
+  "Applied on": "Applied on"
 }

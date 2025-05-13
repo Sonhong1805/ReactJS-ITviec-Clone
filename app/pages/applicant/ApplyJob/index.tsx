@@ -47,7 +47,7 @@ const ApplyJob = () => {
   const [filename, setFilename] = useState<string>("");
   const [selectedCV, setSelectedCV] = useState(true);
   const [provinceOptions, setProvinceOptions] = useState<Option[]>([]);
-  const { t, i18n } = useTranslation(["apply", "auth"]);
+  const { t, i18n } = useTranslation(["apply"]);
   const language = i18n.language;
   const navigate = useNavigate();
   const { slug } = useParams();
@@ -98,11 +98,13 @@ const ApplyJob = () => {
       setLoading(false);
       setSelectedCV(!!applicant?.cv);
       setValue("cv", applicant?.cv + "");
+      setValue("coverLetter", applicant?.coverLetter + "");
       const locations =
         applicant?.locations.map(({ location }) => ({
           value: location,
           label: location,
         })) || [];
+
       handleAddLocations(locations);
     }
   }, [applicant, applicantPending]);
@@ -119,7 +121,7 @@ const ApplyJob = () => {
     defaultValues: {
       fullName: username || "",
       phoneNumber: phoneNumber || "",
-      coverLetter: "",
+      coverLetter: applicant?.coverLetter || "",
       cv: "",
       location: "",
     },
@@ -170,18 +172,21 @@ const ApplyJob = () => {
 
   const isValidFullName = useValidation(watch("fullName"), username);
   const isValidPhoneNumber = useValidation(watch("phoneNumber"), phoneNumber);
-  const isValidCoverLetter = useValidation(watch("coverLetter"));
+  const isValidCoverLetter = useValidation(
+    watch("coverLetter"),
+    applicant?.coverLetter
+  );
 
   const locationDebounce = useDebounce(watch("location") + "", 1000);
 
-  const { data: provinces } = useQuery({
+  const { data: provinces, isPending } = useQuery({
     queryKey: ["provinces", locationDebounce],
     queryFn: () => locationService.getProvinces({ name: locationDebounce }),
     select: ({ data }) => data,
   });
 
   useEffect(() => {
-    if (provinces) {
+    if (!isPending && provinces) {
       const options = provinces?.data
         .map((data: any) => ({
           value: data.name,
@@ -192,7 +197,7 @@ const ApplyJob = () => {
         );
       setProvinceOptions(options);
     }
-  }, [provinces]);
+  }, [isPending, provinces]);
 
   const handleGetFileCV = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
@@ -308,14 +313,11 @@ const ApplyJob = () => {
                   className={
                     errors.fullName?.message ? "error" : isValidFullName
                   }
-                  onSetValue={useCallback(
-                    (value: string) => setValue("fullName", value),
-                    []
-                  )}
+                  onSetValue={(value: string) => setValue("fullName", value)}
                 />
                 <InputFloating
                   name="phoneNumber"
-                  value={watch("fullName")}
+                  value={watch("phoneNumber")}
                   label={t("Phone number", { ns: "auth" })}
                   required={true}
                   error={
@@ -324,10 +326,7 @@ const ApplyJob = () => {
                   className={
                     errors.phoneNumber?.message ? "error" : isValidPhoneNumber
                   }
-                  onSetValue={useCallback(
-                    (value: string) => setValue("phoneNumber", value),
-                    []
-                  )}
+                  onSetValue={(value: string) => setValue("phoneNumber", value)}
                 />
                 <InputSelectFloating
                   name="location"
@@ -341,8 +340,9 @@ const ApplyJob = () => {
                   selectedOptions={locationsTmp}
                   onAddOption={handleAddLocation}
                   onRemoveOption={handleRemoveLocation}
-                  error={errors.location && t(errors.location?.message + "")}
+                  error={errors.location?.message}
                   onReset={() => setValue("location", "")}
+                  isPending={isPending}
                 />
               </ApplyJobGroup>
               <ApplyJobLetter>

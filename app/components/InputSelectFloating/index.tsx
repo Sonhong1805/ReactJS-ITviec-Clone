@@ -87,6 +87,8 @@ const InputSelectFloating = ({
     }
   };
 
+  console.log(error);
+
   return (
     <InputWrapper className="input-wrapper" ref={wrapperRef}>
       <InputSelectWrapper
@@ -151,7 +153,7 @@ const InputSelectFloating = ({
           {selectedOptions.length}/{maxLengh} {field}{" "}
         </div>
       )}
-      <ErrorMessage message={error} />
+      {error && <ErrorMessage message={error} />}
     </InputWrapper>
   );
 };

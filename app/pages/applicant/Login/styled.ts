@@ -148,6 +148,7 @@ export const LoginRegister = styled.div`
   font-size: 1.6rem;
   font-weight: 400;
   text-align: center;
+  margin-bottom: 1.6rem;
 
   a {
     color: var(--i-hyperlink);

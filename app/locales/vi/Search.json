@@ -73,6 +73,7 @@
   "Input your experiences": "Nhập nội dung",
   "Limit from": "Giới hạn từ",
   "to": "đến",
+  "in": "trong",
   "characters": "ký tự",
   "What makes you love working here": "Điều làm bạn thích làm việc tại đây",
   "Input your suggestion": "Nhập nội dung",
@@ -150,5 +151,6 @@
   "Start": "Bắt đầu",
   "End": "Kết thúc",
   "Update Profile": "Cập nhật hồ sơ",
-  "Upload Logo": "Tải Logo lên"
+  "Upload Logo": "Tải Logo lên",
+  "Applied on": "Ứng tuyển vào"
 }

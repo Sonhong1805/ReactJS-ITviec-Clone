@@ -60,7 +60,7 @@ const CoverLetter = () => {
   );
   useEffect(() => {
     if (applicant.coverLetter !== undefined) {
-      reset({ coverLetter: applicant.coverLetter });
+      reset({ coverLetter: applicant.coverLetter || "" });
     }
   }, [applicant.coverLetter, reset]);
 

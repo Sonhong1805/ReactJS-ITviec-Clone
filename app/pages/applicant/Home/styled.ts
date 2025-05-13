@@ -137,7 +137,7 @@ export const TopEmployersWrapper = styled.div`
           width: 16rem;
           height: 16rem;
           margin: auto;
-          background: var(--white);
+          background: var(--i-white);
           box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12);
           margin-top: 3.2rem;
           border-radius: 0.8rem;

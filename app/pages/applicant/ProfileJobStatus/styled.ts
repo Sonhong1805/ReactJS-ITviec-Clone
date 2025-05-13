@@ -118,13 +118,13 @@ export const JobsWrapper = styled.section`
         font-size: 1.6rem;
         font-weight: 500;
         padding-inline: 0.6rem 3rem;
-        padding-block: 7px;
-        background: var(--i-white);
         border: 1px solid #cecece;
-        min-height: calc(2.4rem + 24px);
         line-height: 1.5;
         border-radius: 4px;
         appearance: none;
+        background: transparent;
+        border: none;
+        height: auto;
 
         option {
           padding: 0.3rem 1.2rem;

@@ -25,6 +25,7 @@ import { useSkillStore } from "~/stores/skillStore";
 import { useCompanyStore } from "~/stores/companyStore";
 import { ChevronDown, ChevronRight, LogOut } from "feather-icons-react";
 import { useReviewStore } from "~/stores/reviewStore";
+import { useJobStore } from "~/stores/jobStore";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -35,6 +36,7 @@ const Header = () => {
   const { handleSaveFollow } = useCompanyStore();
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
+  const { handleResetJobs } = useJobStore();
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (index: number) => {
@@ -46,6 +48,7 @@ const Header = () => {
     if (response.isSuccess) {
       localStorage.removeItem("access_token");
       userLogout();
+      handleResetJobs();
       handleSaveFollow(false);
       handleSaveReview(false);
     }

@@ -18,6 +18,7 @@ const getSingleParamFromURL = (param: string): string => {
 };
 
 interface JobState {
+  jobs: Job[];
   pagination: Pagination;
   selectedJob: Job;
   selectedLevels: string[];
@@ -27,6 +28,8 @@ interface JobState {
   selectedMinSalary: number;
   selectedMaxSalary: number;
   jobDetail: Job;
+  handleSaveJobs: (payload: Job[]) => void;
+  handleResetJobs: () => void;
   handleSelectedJob: (payload: Job) => void;
   handleResetSelectedJob: () => void;
   handleSavePagination: (payload: Pagination) => void;
@@ -51,6 +54,7 @@ interface JobState {
 }
 
 const initialState: JobState = {
+  jobs: [],
   pagination: {} as Pagination,
   selectedJob: {} as Job,
   selectedLevels: getArrayParamsFromURL("levels"),
@@ -60,6 +64,8 @@ const initialState: JobState = {
   selectedMinSalary: +getSingleParamFromURL("minSalary") || 500,
   selectedMaxSalary: +getSingleParamFromURL("maxSalary") || 10000,
   jobDetail: {} as Job,
+  handleSaveJobs: () => {},
+  handleResetJobs: () => {},
   handleSelectedJob: () => {},
   handleResetSelectedJob: () => {},
   handleSavePagination: () => {},
@@ -86,6 +92,16 @@ const initialState: JobState = {
 export const useJobStore = create<JobState>()(
   immer((set) => ({
     ...initialState,
+    handleSaveJobs: (payload) =>
+      set((state) => {
+        state.jobs = payload;
+      }),
+    handleResetJobs: () =>
+      set((state) => {
+        state.jobs = state.jobs.map((job) => {
+          return { ...(job as Job), wishlist: false, hasApplied: undefined };
+        });
+      }),
     handleSelectedJob: (payload) =>
       set((state) => {
         state.selectedJob = payload;
