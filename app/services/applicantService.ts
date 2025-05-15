@@ -28,10 +28,8 @@ const applicantService = {
   updateAboutMe: (aboutMe: string): Promise<IResponse<string>> => {
     return axios.patch(`/applicant/about-me`, { aboutMe });
   },
-  getEducations: (
-    applicantId: number
-  ): Promise<IResponse<ApplicantEducation[]>> => {
-    return axios.get(`/applicant/educations/${applicantId}`);
+  getEducations: (): Promise<IResponse<ApplicantEducation[]>> => {
+    return axios.get(`/applicant/educations`);
   },
   createEducation: (
     body: ApplicantEducation
@@ -47,10 +45,8 @@ const applicantService = {
   deleteEducation: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/education/${id}`);
   },
-  getExperiences: (
-    applicantId: number
-  ): Promise<IResponse<ApplicantExperience[]>> => {
-    return axios.get(`/applicant/experiences/${applicantId}`);
+  getExperiences: (): Promise<IResponse<ApplicantExperience[]>> => {
+    return axios.get(`/applicant/experiences`);
   },
   createExperience: (
     body: ApplicantExperience
@@ -66,10 +62,8 @@ const applicantService = {
   deleteExperience: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/experience/${id}`);
   },
-  getProjects: (
-    applicantId: number
-  ): Promise<IResponse<ApplicantProject[]>> => {
-    return axios.get(`/applicant/projects/${applicantId}`);
+  getProjects: (): Promise<IResponse<ApplicantProject[]>> => {
+    return axios.get(`/applicant/projects`);
   },
   createProject: (
     body: ApplicantProject
@@ -85,10 +79,8 @@ const applicantService = {
   deleteProject: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/project/${id}`);
   },
-  getCertificates: (
-    applicantId: number
-  ): Promise<IResponse<ApplicantCertificate[]>> => {
-    return axios.get(`/applicant/certificates/${applicantId}`);
+  getCertificates: (): Promise<IResponse<ApplicantCertificate[]>> => {
+    return axios.get(`/applicant/certificates`);
   },
   createCertificate: (
     body: ApplicantCertificate
@@ -104,8 +96,8 @@ const applicantService = {
   deleteCertificate: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/certificate/${id}`);
   },
-  getAwards: (applicantId: number): Promise<IResponse<ApplicantAward[]>> => {
-    return axios.get(`/applicant/awards/${applicantId}`);
+  getAwards: (): Promise<IResponse<ApplicantAward[]>> => {
+    return axios.get(`/applicant/awards`);
   },
   createAward: (body: ApplicantAward): Promise<IResponse<ApplicantAward>> => {
     return axios.post(`/applicant/award`, body);
@@ -126,8 +118,8 @@ const applicantService = {
   }): Promise<IResponse<ApplicantSkill[]>> => {
     return axios.post(`/applicant/skills`, { skills });
   },
-  getSkills: (applicantId: number): Promise<IResponse<ApplicantSkill[]>> => {
-    return axios.get(`/applicant/skills/${applicantId}`);
+  getSkills: (): Promise<IResponse<ApplicantSkill[]>> => {
+    return axios.get(`/applicant/skills`);
   },
   deleteSkill: (id: number): Promise<IResponse<number>> => {
     return axios.delete(`/applicant/skill/${id}`);

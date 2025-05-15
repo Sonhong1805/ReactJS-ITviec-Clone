@@ -16,6 +16,9 @@ import { useApplicantStore } from "~/stores/applicantStore";
 import { useEffect } from "react";
 import { useApplicantQueries } from "~/hooks/useApplicantQueries";
 import { useTranslation } from "react-i18next";
+import { useSavedJobsQuery } from "~/hooks/useSavedJobs";
+import { useRecentViewedJobsQuery } from "~/hooks/useResentViewedJobsQuery";
+import { useAppliedJobsQuery } from "~/hooks/useAppliedJobsQuery";
 
 const ProfileDashboard = () => {
   const { t, i18n } = useTranslation(["profile"]);
@@ -37,7 +40,7 @@ const ProfileDashboard = () => {
     certificateData,
     awardData,
     applicantSkills,
-  } = useApplicantQueries(applicant.id);
+  } = useApplicantQueries();
 
   useEffect(() => {
     if (educationData) {
@@ -77,6 +80,10 @@ const ProfileDashboard = () => {
       handleSaveSkills(skills);
     }
   }, [applicantSkills]);
+
+  const { data: savedJobs } = useSavedJobsQuery("");
+  const { data: recentViewedJobs } = useRecentViewedJobsQuery("");
+  const { data: appliedJobs } = useAppliedJobsQuery("");
 
   return (
     <DashboardWrapper>
@@ -170,31 +177,35 @@ const ProfileDashboard = () => {
       <DashboardActivities>
         <h2>{t("Your Activities")}</h2>
         <div className="infos">
-          <Link to={""} className="blue">
+          <Link to={"/profile/my-jobs"} className="blue">
             <div className="content">
               <p>{t("Applied Jobs")}</p>
               <div className="counter">
-                <div className="number">10</div>
+                <div className="number">
+                  {appliedJobs?.pagination.totalItems || 0}
+                </div>
                 <ChevronRight />
               </div>
             </div>
             <img src={"/assets/svg/paper-plane.svg"} alt="paper plane" />
           </Link>
-          <Link to={""} className="red">
+          <Link to={"/profile/my-jobs"} className="red">
             <div className="content">
               <p>{t("Saved Jobs")}</p>
               <div className="counter">
-                <div className="number">10</div>
+                <div className="number">{savedJobs?.length || 0}</div>
                 <ChevronRight />
               </div>
             </div>
             <img src={"/assets/svg/healthcare.svg"} alt="paper plane" />
           </Link>
-          <Link to={""} className="green">
+          <Link to={"/profile/my-jobs"} className="green">
             <div className="content">
               <p>{t("Recent Viewed Jobs")}</p>
               <div className="counter">
-                <div className="number">10</div>
+                <div className="number">
+                  {recentViewedJobs?.pagination.totalItems || 0}
+                </div>
                 <ChevronRight />
               </div>
             </div>

@@ -14,7 +14,7 @@ import DOMPurify from "dompurify";
 
 const AboutMe = () => {
   const { t } = useTranslation(["profile"]);
-  const { applicant } = useApplicantStore();
+  const { applicant, handleSaveAboutMe } = useApplicantStore();
   const [content, setContent] = useState(applicant.aboutMe || "");
   const { modal, handleOpenModal, handleCloseModal } = useModalStore();
 
@@ -39,6 +39,7 @@ const AboutMe = () => {
         return;
       }
       showToast("success", message);
+      handleSaveAboutMe(data);
       setContent(data);
       handleCloseModal("about-me");
     },

@@ -1,6 +1,6 @@
 import LOGO from "/assets/images/logo.png";
 import { Link, useNavigate, useParams } from "react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Modal from "react-modal";
 import {

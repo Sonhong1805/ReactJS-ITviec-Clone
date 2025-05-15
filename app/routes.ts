@@ -33,6 +33,7 @@ export default [
     route("apply/success/:slug", "routes/applicant/apply-success.tsx"),
     route("review/:slug", "routes/applicant/company-review.tsx"),
     route("review/success/:slug", "routes/applicant/review-success.tsx"),
+    route("delete-account", "routes/applicant/delete-account.tsx"),
   ]),
 
   layout("layouts/employer/Layout.tsx", [

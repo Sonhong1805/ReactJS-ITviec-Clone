@@ -136,7 +136,7 @@ const Education = () => {
     selectedEducation?.toYear
   );
 
-  const { data: educationData } = useEducationsQuery(applicant.id);
+  const { data: educationData } = useEducationsQuery();
 
   useEffect(() => {
     if (educationData) {

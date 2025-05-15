@@ -31,7 +31,6 @@ const Awards = () => {
   const [description, setDescription] = useState("");
   const [selectedAward, setSelectedAward] = useState<ApplicantAward>();
   const {
-    applicant,
     awards,
     handleSaveAwards,
     handleAddAward,
@@ -116,7 +115,7 @@ const Awards = () => {
   const isValidMonth = useValidation(watch("month"), selectedAward?.month);
   const isValidYear = useValidation(watch("year"), selectedAward?.year);
 
-  const { data: awardData } = useAwardsQuery(applicant.id);
+  const { data: awardData } = useAwardsQuery();
 
   useEffect(() => {
     if (awardData) {

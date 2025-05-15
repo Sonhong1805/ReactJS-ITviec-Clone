@@ -33,7 +33,6 @@ const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] =
     useState<ApplicantCertificate>();
   const {
-    applicant,
     certificates,
     handleSaveCertificates,
     handleAddCertificate,
@@ -126,7 +125,7 @@ const Certificates = () => {
   const isValidYear = useValidation(watch("year"), selectedCertificate?.year);
   const isValidUrl = useValidation(watch("url"), selectedCertificate?.url);
 
-  const { data: certificateData } = useCertificatesQuery(applicant.id);
+  const { data: certificateData } = useCertificatesQuery();
 
   useEffect(() => {
     if (certificateData) {

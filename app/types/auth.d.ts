@@ -25,3 +25,7 @@ interface TRegisterEmployer extends IUser {
   location: string;
   website: string;
 }
+
+interface DeleteAccount {
+  code: string;
+}

@@ -1,9 +1,12 @@
 import axios from "~/utils/axiosCustom";
 
+export interface LoginResponse {
+  accessToken: string;
+  user: User;
+}
+
 const authService = {
-  login: (
-    body: ILogin
-  ): Promise<IResponse<{ accessToken: string; user: IUser }>> => {
+  login: (body: ILogin): Promise<IResponse<LoginResponse>> => {
     return axios.post("/auth/login", body);
   },
   register: (body: IRegister): Promise<IResponse<null>> => {
@@ -15,12 +18,12 @@ const authService = {
   refresh: () => {
     return axios.get("/auth/refresh");
   },
-  account: (): Promise<IResponse<IUser>> => {
+  account: (): Promise<IResponse<User>> => {
     return axios.get("/auth/account");
   },
   loginGoogle: (
     credential: string
-  ): Promise<IResponse<{ accessToken: string; user: IUser }>> => {
+  ): Promise<IResponse<{ accessToken: string; user: User }>> => {
     return axios.post("/auth/login-google", { token: credential });
   },
   logout: (): Promise<IResponse<null>> => {
@@ -43,6 +46,15 @@ const authService = {
       email,
       password,
     });
+  },
+  changePassword: (body: IChangePassword): Promise<IResponse<boolean>> => {
+    return axios.post("/auth/change-password", body);
+  },
+  createDeleteCode: (): Promise<IResponse<boolean>> => {
+    return axios.get("/auth/delete-code");
+  },
+  deleteAccount: (code: string): Promise<IResponse<boolean>> => {
+    return axios.post("/auth/delete-account", { code });
   },
 };
 

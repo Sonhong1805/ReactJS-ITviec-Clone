@@ -37,6 +37,7 @@ interface ApplicantState {
   handleSaveSkills: (payload: ApplicantSkill[]) => void;
   handleAddSkill: (payload: ApplicantSkill) => void;
   handleRemoveSkill: (payload: number) => void;
+  handleSaveAboutMe: (payload: string) => void;
 }
 
 const initialState: ApplicantState = {
@@ -75,6 +76,7 @@ const initialState: ApplicantState = {
   handleSaveSkills: () => {},
   handleAddSkill: () => {},
   handleRemoveSkill: () => {},
+  handleSaveAboutMe: () => {},
 };
 
 export const useApplicantStore = create<ApplicantState>()(
@@ -247,6 +249,10 @@ export const useApplicantStore = create<ApplicantState>()(
         if (index !== -1) {
           skills.splice(index, 1);
         }
+      }),
+    handleSaveAboutMe: (payload) =>
+      set((state) => {
+        state.applicant.aboutMe = payload;
       }),
   }))
 );

@@ -1,47 +1,41 @@
 import { useQueries } from "@tanstack/react-query";
 import applicantService from "~/services/applicantService";
 
-export const useApplicantQueries = (applicantId: number) => {
+export const useApplicantQueries = () => {
   const results = useQueries({
     queries: [
       {
-        queryKey: ["educations", applicantId],
-        queryFn: () => applicantService.getEducations(applicantId),
+        queryKey: ["educations"],
+        queryFn: () => applicantService.getEducations(),
         select: (response) =>
           (response as IResponse<ApplicantEducation[]>).data,
-        enabled: !!applicantId,
       },
       {
-        queryKey: ["experiences", applicantId],
-        queryFn: () => applicantService.getExperiences(applicantId),
+        queryKey: ["experiences"],
+        queryFn: () => applicantService.getExperiences(),
         select: (response) =>
           (response as IResponse<ApplicantExperience[]>).data,
-        enabled: !!applicantId,
       },
       {
-        queryKey: ["projects", applicantId],
-        queryFn: () => applicantService.getProjects(applicantId),
+        queryKey: ["projects"],
+        queryFn: () => applicantService.getProjects(),
         select: (response) => (response as IResponse<ApplicantProject[]>).data,
-        enabled: !!applicantId,
       },
       {
-        queryKey: ["certificates", applicantId],
-        queryFn: () => applicantService.getCertificates(applicantId),
+        queryKey: ["certificates"],
+        queryFn: () => applicantService.getCertificates(),
         select: (response) =>
           (response as IResponse<ApplicantCertificate[]>).data,
-        enabled: !!applicantId,
       },
       {
-        queryKey: ["awards", applicantId],
-        queryFn: () => applicantService.getAwards(applicantId),
+        queryKey: ["awards"],
+        queryFn: () => applicantService.getAwards(),
         select: (response) => (response as IResponse<ApplicantAward[]>).data,
-        enabled: !!applicantId,
       },
       {
-        queryKey: ["applicantSkill", applicantId],
-        queryFn: () => applicantService.getSkills(applicantId),
+        queryKey: ["applicant-skills"],
+        queryFn: () => applicantService.getSkills(),
         select: (response) => (response as IResponse<ApplicantSkill[]>).data,
-        enabled: !!applicantId,
       },
     ],
   });

@@ -142,6 +142,12 @@ export const LoginSubmit = styled.button`
   &:hover {
     background: var(--i-dark-red);
   }
+
+  &:disabled {
+    background-color: var(--i-dark-grey);
+    border-color: var(--i-dark-grey);
+    pointer-events: none;
+  }
 `;
 
 export const LoginRegister = styled.div`

@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import applicantService from "~/services/applicantService";
 
-export const useEducationsQuery = (applicantId: number) => {
+export const useEducationsQuery = () => {
   const { data, isPending, isSuccess } = useQuery({
-    queryKey: ["educations", applicantId],
-    queryFn: () => applicantService.getEducations(applicantId),
+    queryKey: ["educations"],
+    queryFn: () => applicantService.getEducations(),
     select: ({ data }) => data as ApplicantEducation[],
-    enabled: !!applicantId,
   });
 
   return { data, isPending, isSuccess };

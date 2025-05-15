@@ -30,7 +30,6 @@ const WorkExperience = () => {
   const { t } = useTranslation(["profile"]);
   const { modal, handleOpenModal, handleCloseModal } = useModalStore();
   const {
-    applicant,
     experiences,
     handleAddExperience,
     handleSaveExperiences,
@@ -146,7 +145,7 @@ const WorkExperience = () => {
     selectedExperience?.toYear
   );
 
-  const { data: experienceData } = useExperiencesQuery(applicant.id);
+  const { data: experienceData } = useExperiencesQuery();
 
   useEffect(() => {
     if (experienceData) {

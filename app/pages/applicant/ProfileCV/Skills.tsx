@@ -36,13 +36,8 @@ const Skills = () => {
     handleRemoveSelectedSkill,
   } = useSkillStore();
   const [skillValue, setSkillValue] = useState("");
-  const {
-    applicant,
-    skills,
-    handleSaveSkills,
-    handleAddSkill,
-    handleRemoveSkill,
-  } = useApplicantStore();
+  const { skills, handleSaveSkills, handleAddSkill, handleRemoveSkill } =
+    useApplicantStore();
 
   const skillDebounce = useDebounce(skillValue, 1000);
   const { data: skillData, isPending } = useSkillsQuery(skillDebounce);
@@ -115,10 +110,9 @@ const Skills = () => {
   };
 
   const { data: applicantSkills } = useQuery({
-    queryKey: ["applicantSkill", applicant.id],
-    queryFn: () => applicantService.getSkills(applicant.id),
+    queryKey: ["applicant-skills"],
+    queryFn: () => applicantService.getSkills(),
     select: ({ data }) => data as ApplicantSkill[],
-    enabled: !!applicant.id,
   });
 
   useEffect(() => {

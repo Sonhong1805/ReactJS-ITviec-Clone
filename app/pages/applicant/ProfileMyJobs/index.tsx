@@ -34,7 +34,9 @@ const ProfileMyJobs = () => {
               className={`tab-name ${tab === "applied" && "active"}`}
               onClick={() => setTab("applied")}>
               {t("Applied Jobs")}{" "}
-              <div className="counter">{appliedJobs?.data.length || 0}</div>
+              <div className="counter">
+                {appliedJobs?.pagination.totalItems || 0}
+              </div>
             </div>
           </li>
           <li className="tab-item">

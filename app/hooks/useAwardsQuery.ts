@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import applicantService from "~/services/applicantService";
 
-export const useAwardsQuery = (applicantId: number) => {
+export const useAwardsQuery = () => {
   const { data, isPending, isSuccess } = useQuery({
-    queryKey: ["awards", applicantId],
-    queryFn: () => applicantService.getAwards(applicantId),
+    queryKey: ["awards"],
+    queryFn: () => applicantService.getAwards(),
     select: ({ data }) => data as ApplicantCertificate[],
-    enabled: !!applicantId,
   });
 
   return { data, isPending, isSuccess };

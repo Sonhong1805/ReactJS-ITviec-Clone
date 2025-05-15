@@ -9,9 +9,8 @@ export const InputWrapper = styled.div`
     top: 50%;
     right: 1.8rem;
     transform: translateY(-50%);
-    width: 1.6rem;
-    height: 1.6rem;
-    color: var(--i-rich-grey);
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
   }
 `;

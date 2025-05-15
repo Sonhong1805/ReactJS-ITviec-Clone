@@ -35,7 +35,6 @@ const HighlightProject = () => {
   const [description, setDescription] = useState("");
   const [selectedProject, setSelectedProject] = useState<ApplicantProject>();
   const {
-    applicant,
     projects,
     handleSaveProjects,
     handleAddProject,
@@ -136,7 +135,7 @@ const HighlightProject = () => {
   const isValidToYear = useValidation(watch("toYear"), selectedProject?.toYear);
   const isValidUrl = useValidation(watch("url"), selectedProject?.url);
 
-  const { data: projectData } = useProjectsQuery(applicant.id);
+  const { data: projectData } = useProjectsQuery();
 
   useEffect(() => {
     if (projectData) {

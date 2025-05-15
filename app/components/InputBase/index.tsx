@@ -21,7 +21,6 @@ interface IProps {
   className?: string;
   required?: boolean;
   isForgot?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultValue?: string;
   onSetValue?: any;
 }
@@ -33,10 +32,9 @@ const InputBase = ({
   label,
   error,
   register,
-  className,
+  className = "",
   required,
   isForgot = false,
-  onChange,
   defaultValue,
   onSetValue,
 }: IProps) => {

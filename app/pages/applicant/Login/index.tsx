@@ -16,13 +16,14 @@ import { Link, useNavigate, useSearchParams } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import InputBase from "~/components/InputBase";
-import authService from "~/services/authService";
+import authService, { type LoginResponse } from "~/services/authService";
 import { useUserStore } from "~/stores/userStore";
 import showToast from "~/utils/showToast";
 import useValidation from "~/hooks/useValidation";
 import { GoogleLogin } from "@react-oauth/google";
 import { Check } from "feather-icons-react";
 import { schema } from "./schema";
+import { useMutation } from "@tanstack/react-query";
 
 const ROLLBACK_ROUTES = ["apply", "review", "company"];
 
@@ -45,21 +46,30 @@ const Login = () => {
     mode: "onTouched",
   });
 
-  const { login } = useUserStore((s) => s);
+  const { login } = useUserStore();
   const [searchParams] = useSearchParams();
 
-  const onSubmit: SubmitHandler<ILogin> = async (data: ILogin) => {
-    const response = await authService.login(data);
-    if (response.isSuccess && response.data) {
-      login(response.data.user);
-      localStorage.setItem("access_token", response.data.accessToken as string);
+  const loginMutation = useMutation({
+    mutationFn: (body: ILogin) => authService.login(body),
+
+    onSuccess: (response) => {
+      const message = response.message as string;
+      const data = response.data as LoginResponse;
+      if (!data && message) {
+        showToast("error", t(message + ""));
+        return;
+      }
+      login(data.user);
+      localStorage.setItem("access_token", data.accessToken as string);
       const target = ROLLBACK_ROUTES.find((key) => searchParams.get(key));
       navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
       showToast("success", t("Successfully authenticated from Email account."));
       reset();
-    } else {
-      showToast("error", t("Email or password is incorrect"));
-    }
+    },
+  });
+
+  const onSubmit: SubmitHandler<ILogin> = async (data: ILogin) => {
+    loginMutation.mutate(data);
   };
 
   const isValidEmail = useValidation(watch("email"));
@@ -135,7 +145,11 @@ const Login = () => {
                 error={errors.password?.message}
                 isForgot={true}
               />
-              <LoginSubmit type="submit">{t("Sign In with Email")}</LoginSubmit>
+              <LoginSubmit type="submit" disabled={loginMutation.isPending}>
+                {loginMutation.isPending
+                  ? t("Signing in...")
+                  : t("Sign In with Email")}
+              </LoginSubmit>
             </form>
             <LoginRegister>
               {t("Do not have an account?")}{" "}

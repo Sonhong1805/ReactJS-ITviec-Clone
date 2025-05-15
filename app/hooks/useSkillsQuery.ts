@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import skillService from "~/services/skillService";
 
 export const useSkillsQuery = (name: string) => {
@@ -6,7 +6,6 @@ export const useSkillsQuery = (name: string) => {
     queryKey: ["skills", name],
     queryFn: () => skillService.getAll({ name }),
     select: ({ data }) => data as Skill[],
-    // placeholderData: keepPreviousData,
   });
 
   return { data, isPending, isSuccess };
