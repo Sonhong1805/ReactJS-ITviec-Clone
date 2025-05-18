@@ -550,9 +550,6 @@ const ManageJobs = () => {
                         className={
                           errors.minSalary?.message ? "error" : isValidMinSalary
                         }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          e.target.value = customSalary(e.target.value);
-                        }}
                         defaultValue={
                           watch("minSalary")
                             ? customSalary(watch("minSalary") + "")
@@ -571,9 +568,6 @@ const ManageJobs = () => {
                         className={
                           errors.maxSalary?.message ? "error" : isValidMaxSalary
                         }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          e.target.value = customSalary(e.target.value);
-                        }}
                         defaultValue={
                           watch("maxSalary")
                             ? customSalary(watch("maxSalary") + "")
@@ -766,7 +760,7 @@ const ManageJobs = () => {
               }
               className="cancel"
               onClick={closeModal}>
-              {t("Cancel")}
+              {t("Cancel", { ns: "profile" })}
             </button>
             <button
               className="save"
@@ -774,7 +768,7 @@ const ManageJobs = () => {
               disabled={
                 updateJobMutation.isPending || createJobMutation.isPending
               }>
-              {t("Save")}
+              {t("Save", { ns: "profile" })}
             </button>
           </div>
         </ModalContainer>

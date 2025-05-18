@@ -42,10 +42,12 @@ import { useTranslation } from "react-i18next";
 import { useApplicantQuery } from "~/hooks/useApplicantQuery";
 import useValidation from "~/hooks/useValidation";
 
+export type CVSelectionStatus = "SELECTED" | "NOT_SELECTED" | "UNSET";
+
 const ApplyJob = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filename, setFilename] = useState<string>("");
-  const [selectedCV, setSelectedCV] = useState(true);
+  const [selectedCV, setSelectedCV] = useState<CVSelectionStatus>("UNSET");
   const [provinceOptions, setProvinceOptions] = useState<Option[]>([]);
   const { t, i18n } = useTranslation(["apply"]);
   const language = i18n.language;
@@ -61,7 +63,12 @@ const ApplyJob = () => {
   const { handleAppliedSuccess } = useJobStore();
   const queryClient = useQueryClient();
 
-  const { id: userId, username, phoneNumber } = useUserStore((s) => s.user);
+  const {
+    id: userId,
+    username,
+    phoneNumber,
+    email,
+  } = useUserStore((s) => s.user);
 
   function openModal() {
     setIsOpen(true);
@@ -96,7 +103,7 @@ const ApplyJob = () => {
       }, 1500);
     } else {
       setLoading(false);
-      setSelectedCV(!!applicant?.cv);
+      setSelectedCV(applicant?.cv ? "SELECTED" : "UNSET");
       setValue("cv", applicant?.cv + "");
       setValue("coverLetter", applicant?.coverLetter + "");
       const locations =
@@ -120,6 +127,7 @@ const ApplyJob = () => {
   } = useForm<Application>({
     defaultValues: {
       fullName: username || "",
+      email: email || "",
       phoneNumber: phoneNumber || "",
       coverLetter: applicant?.coverLetter || "",
       cv: "",
@@ -152,7 +160,7 @@ const ApplyJob = () => {
     delete data.location;
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (key === "cv" && value instanceof File && !selectedCV) {
+      if (key === "cv") {
         formData.append("cv", value || "");
       } else if (Array.isArray(value)) {
         for (let i = 0; i < value.length; i++) {
@@ -162,7 +170,7 @@ const ApplyJob = () => {
         formData.append(key, value as string);
       }
     });
-    if (selectedCV) formData.delete("cv");
+    if (selectedCV === "SELECTED") formData.delete("cv");
     if (!job) return;
     applyJobMutation.mutate({ slug: job?.slug, body: formData });
     // for (let pair of formData.entries()) {
@@ -234,12 +242,12 @@ const ApplyJob = () => {
               {applicant?.cv && (
                 <ApplyJobFile
                   htmlFor="current-file"
-                  className={selectedCV ? "active" : ""}
-                  onClick={() => setSelectedCV(true)}>
+                  className={selectedCV === "SELECTED" ? "active" : ""}
+                  onClick={() => setSelectedCV("SELECTED")}>
                   <input
                     type="radio"
                     id="current-file"
-                    checked={selectedCV}
+                    checked={selectedCV === "SELECTED"}
                     name="selected-cv"
                     onChange={() => {}}
                   />
@@ -262,13 +270,15 @@ const ApplyJob = () => {
               )}
               <ApplyJobFile
                 htmlFor="my-cv"
-                className={!selectedCV ? `active` : ""}
-                onClick={() => setSelectedCV(false)}>
+                className={
+                  selectedCV === "NOT_SELECTED" ? `active` : selectedCV
+                }
+                onClick={() => setSelectedCV("NOT_SELECTED")}>
                 <input
                   type="radio"
                   id="my-cv"
                   name="selected-cv"
-                  checked={!selectedCV}
+                  checked={selectedCV === "NOT_SELECTED"}
                   onChange={() => {}}
                 />
                 <span></span>

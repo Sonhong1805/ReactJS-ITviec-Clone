@@ -23,13 +23,14 @@ import useValidation from "~/hooks/useValidation";
 import { GoogleLogin } from "@react-oauth/google";
 import { Check } from "feather-icons-react";
 import { schema } from "./schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ROLLBACK_ROUTES = ["apply", "review", "company"];
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -64,6 +65,7 @@ const Login = () => {
       const target = ROLLBACK_ROUTES.find((key) => searchParams.get(key));
       navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
       showToast("success", t("Successfully authenticated from Email account."));
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
       reset();
     },
   });

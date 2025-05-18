@@ -20,6 +20,11 @@ export interface GetCompanyJobsResonse {
   pagination: Pagination;
 }
 
+export interface GetAllCVResonse {
+  data: CVApplication[];
+  pagination: Pagination;
+}
+
 const companyService = {
   getDetail: (param: string | number): Promise<IResponse<Company>> => {
     return axios.get(`/company/${param}`);
@@ -51,6 +56,9 @@ const companyService = {
 
   getJobs: (params: {}): Promise<IResponse<GetCompanyJobsResonse>> => {
     return axios.get(`/company/jobs`, { params });
+  },
+  getAllCV: (): Promise<IResponse<GetAllCVResonse>> => {
+    return axios.get(`/company/all-cv`);
   },
 };
 

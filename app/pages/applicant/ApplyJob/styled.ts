@@ -111,6 +111,11 @@ export const ApplyJobFile = styled.label`
   position: relative;
   cursor: pointer;
 
+  &.UNSET {
+    background-color: #fff5f5;
+    border: 1px solid #ed1b2f;
+  }
+
   input {
     width: 4.8rem;
     height: 4.8rem;

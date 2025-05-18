@@ -3,6 +3,7 @@ import companyService, {
   type GetCompanyJobsResonse,
 } from "~/services/companyService";
 import jobService, { type JobsPayload } from "~/services/jobService";
+import { useUserStore } from "~/stores/userStore";
 
 export const useJobsQuery = (
   params: Object,
@@ -11,7 +12,7 @@ export const useJobsQuery = (
   industries: string[],
   companyTypes: string[]
 ) => {
-  const { data, isPending, isSuccess } = useQuery({
+  const { data, isPending, isSuccess, refetch } = useQuery({
     queryKey: ["jobs", params, levels, workingModels, industries, companyTypes],
     queryFn: () =>
       jobService.getAll({
@@ -25,7 +26,7 @@ export const useJobsQuery = (
     staleTime: 1000 * 30,
   });
 
-  return { data, isPending, isSuccess };
+  return { data, isPending, isSuccess, refetch };
 };
 
 interface CompanyJobsQueryParams {
@@ -36,7 +37,7 @@ interface CompanyJobsQueryParams {
 export const useCompanyJobsQuery = (params: CompanyJobsQueryParams) => {
   const { page, limit } = params;
   const { data, isPending, isSuccess } = useQuery({
-    queryKey: ["jobs", page, limit],
+    queryKey: ["company-jobs", page, limit],
     queryFn: () => companyService.getJobs(params),
     select: ({ data }) => data as GetCompanyJobsResonse,
     staleTime: 1000 * 30,

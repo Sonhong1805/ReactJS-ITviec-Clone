@@ -87,8 +87,6 @@ const InputSelectFloating = ({
     }
   };
 
-  console.log(error);
-
   return (
     <InputWrapper className="input-wrapper" ref={wrapperRef}>
       <InputSelectWrapper

@@ -12,8 +12,17 @@ const applicationService = {
   }: CreateApplicationPayload): Promise<IResponse<Application>> => {
     return axios.post(`/application/${slug}`, body);
   },
+  delete: (id: number): Promise<IResponse<string>> => {
+    return axios.delete(`/application/${id}`);
+  },
   getJobStatus: (params: {}): Promise<IResponse<MyJobStatusWithPagination>> => {
     return axios.get(`/application/job-status`, { params });
+  },
+  changeStatus: (
+    id: number,
+    body: RequestChangeStatus
+  ): Promise<IResponse<ApplicationStatus>> => {
+    return axios.patch(`/application/${id}/status`, body);
   },
 };
 

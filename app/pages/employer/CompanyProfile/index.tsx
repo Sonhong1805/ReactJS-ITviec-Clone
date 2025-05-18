@@ -492,7 +492,7 @@ const CompanyProfile = () => {
                   options={skills ?? []}
                   max={MAX_SKILLS}
                   isPending={isPending}
-                  placeholder={t("Search skills")}
+                  placeholder={t("Search skills", { ns: "profile" })}
                   selectedIds={selectedSkillIds}
                   handleSelectedIds={handleSelectedSkillIds}
                 />

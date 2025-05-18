@@ -1,25 +1,24 @@
-import React from "react";
 import { ModalDeleteWrapper } from "./styled";
 import { X } from "feather-icons-react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
-import jobService from "~/services/jobService";
 import showToast from "~/utils/showToast";
 import { useModalStore } from "~/stores/modalStore";
 import { useCompanyStore } from "~/stores/companyStore";
+import applicationService from "~/services/applicationService";
 
 interface IProps {
-  selectedJob: CompanyJob | null;
-  onClose: () => void;
+  selectedApplication: CVApplication | null;
+  onClose: (modal: string) => void;
 }
 
-const ModalDelete = ({ selectedJob, onClose }: IProps) => {
+const ModalDelete = ({ selectedApplication, onClose }: IProps) => {
   const { t } = useTranslation(["apply"]);
   const { modal } = useModalStore();
-  const { handleRemoveJob } = useCompanyStore();
+  const { handleRemoveApplication } = useCompanyStore();
 
-  const deleteJobMutation = useMutation({
-    mutationFn: (id: number) => jobService.delete(id),
+  const deleteApplicationMutation = useMutation({
+    mutationFn: (id: number) => applicationService.delete(id),
 
     onSuccess: (response) => {
       const message = response.message as string;
@@ -29,49 +28,49 @@ const ModalDelete = ({ selectedJob, onClose }: IProps) => {
         return;
       }
       showToast("success", message);
-      if (selectedJob) {
-        handleRemoveJob({ id: selectedJob?.id, deletedAt: data });
+      if (selectedApplication) {
+        handleRemoveApplication({
+          id: selectedApplication?.id,
+          deletedAt: data,
+        });
       }
-      onClose();
+      onClose("delete");
     },
   });
 
   const handleDeleteJob = () => {
-    if (selectedJob) {
-      deleteJobMutation.mutate(selectedJob.id);
+    if (selectedApplication) {
+      deleteApplicationMutation.mutate(selectedApplication.id);
     }
   };
 
-  if (modal["confirm-delete"]) {
+  if (modal["delete"]) {
     return (
       <ModalDeleteWrapper>
         <div className="content">
           <div className="content__head">
             <div className="content__head-title">
-              <h2>{t("Confirm Job Deletion", { ns: "search" })}</h2>
+              <h2>{t("Confirm deletion of applied CV")}</h2>
             </div>
             <button>
-              <X color="#a6a6a6" onClick={onClose} />
+              <X color="#a6a6a6" onClick={() => onClose("delete")} />
             </button>
           </div>
           <div className="content__body">
-            <p>
-              {t("Are you sure you want to delete the job")}{" "}
-              <strong>{selectedJob?.title}</strong>?
-            </p>
+            <p>{t("Are you sure you want to delete your CV for this job?")}?</p>
           </div>
           <div className="content__foot">
             <button
               type="button"
-              disabled={deleteJobMutation.isPending}
+              disabled={deleteApplicationMutation.isPending}
               className="cancel"
-              onClick={onClose}>
+              onClick={() => onClose("delete")}>
               {t("Cancel", { ns: "profile" })}
             </button>
             <button
               className="save"
               onClick={handleDeleteJob}
-              disabled={deleteJobMutation.isPending}>
+              disabled={deleteApplicationMutation.isPending}>
               {t("Confirm")}
             </button>
           </div>

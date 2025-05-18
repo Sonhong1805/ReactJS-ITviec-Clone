@@ -7,10 +7,17 @@ import { useJobsQuery } from "~/hooks/useJobsQuery";
 import { useEffect, useMemo } from "react";
 import { useJobStore } from "~/stores/jobStore";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
+import { useUserStore } from "~/stores/userStore";
 
 const SearchResult = () => {
-  const { jobs, pagination, handleSaveJobs, handleSavePagination } =
-    useJobStore();
+  const { isAuthenticated, login } = useUserStore();
+  const {
+    jobs,
+    pagination,
+    handleSaveJobs,
+    handleSavePagination,
+    handleAppliedSuccess,
+  } = useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
     useQueriesParams();
 
@@ -21,26 +28,26 @@ const SearchResult = () => {
       limit: pagination.limit || 10,
     };
   }, [queryParams, pagination.page, pagination.limit]);
-  const { data, isPending, isSuccess } = useJobsQuery(
+  const { data, isPending, isSuccess, refetch } = useJobsQuery(
     queriesParams,
     levels,
     workingModels,
     industries,
     companyTypes
   );
-  const paginationJobs = data?.pagination;
 
   useEffect(() => {
-    if (data?.data) {
-      handleSaveJobs(data?.data || []);
+    if (isSuccess && data) {
+      handleSaveJobs(data.data || []);
+      handleSavePagination(data.pagination);
     }
-  }, [data?.data]);
+  }, [data, isSuccess]);
 
   useEffect(() => {
-    if (paginationJobs) {
-      handleSavePagination(paginationJobs);
+    if (isAuthenticated) {
+      refetch();
     }
-  }, [paginationJobs]);
+  }, [isAuthenticated, login, handleAppliedSuccess]);
 
   return (
     <SearchResultContainer>
@@ -49,7 +56,7 @@ const SearchResult = () => {
         <JobList jobs={jobs} isPending={isPending} />
         <PreviewJob jobs={jobs} isPending={isPending} />
       </JobContainer>
-      {isSuccess && pagination && (
+      {data && data?.data.length > 0 && (
         <Pagination
           pagination={pagination}
           onChangePagination={handleSavePagination}

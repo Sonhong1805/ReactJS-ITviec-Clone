@@ -121,11 +121,11 @@ const Login = () => {
         <ul className="contact-list">
           <li>
             <PhoneCall />
-            <span>{t("Ho Chi Minh")}: (+84) 977 460 519</span>
+            <span>{t("Ho Chi Minh", { ns: "option" })}: (+84) 977 460 519</span>
           </li>
           <li>
             <PhoneCall />
-            <span>{t("Ha Noi")}: (+84) 983 131 351</span>
+            <span>{t("Ha Noi", { ns: "option" })}: (+84) 983 131 351</span>
           </li>
           <li>
             <Mail />

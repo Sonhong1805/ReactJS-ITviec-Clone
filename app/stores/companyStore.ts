@@ -7,8 +7,10 @@ interface CompanyState {
   isFollowing: boolean;
   selectedCompany: Option;
   jobs: CompanyJob[];
+  CVApplications: CVApplication[];
   pagination: Pagination;
   handleSaveJobs: (payload: CompanyJob[]) => void;
+  handleSaveCVApplications: (payload: CVApplication[]) => void;
   handleSavePagination: (payload: Pagination) => void;
   handleSaveCompany: (payload: Company) => void;
   handleSaveFollow: (payload: boolean) => void;
@@ -17,6 +19,11 @@ interface CompanyState {
   handleCreateJob: (payload: CompanyJob) => void;
   handleUpdateJob: (payload: CompanyJob) => void;
   handleRemoveJob: (payload: { id: number; deletedAt: string }) => void;
+  handleRemoveApplication: (payload: { id: number; deletedAt: string }) => void;
+  handleChangeStatus: (payload: {
+    id: number;
+    status: ApplicationStatus;
+  }) => void;
 }
 
 const initialState: CompanyState = {
@@ -25,8 +32,10 @@ const initialState: CompanyState = {
   company: {} as Company,
   selectedCompany: {} as Option,
   jobs: [],
+  CVApplications: [],
   pagination: {} as Pagination,
   handleSaveJobs: () => {},
+  handleSaveCVApplications: () => {},
   handleSavePagination: () => {},
   handleSaveCompany: () => {},
   handleSaveFollow: () => {},
@@ -35,6 +44,8 @@ const initialState: CompanyState = {
   handleCreateJob: () => {},
   handleUpdateJob: () => {},
   handleRemoveJob: () => {},
+  handleRemoveApplication: () => {},
+  handleChangeStatus: () => {},
 };
 
 export const useCompanyStore = create<CompanyState>()(
@@ -52,6 +63,10 @@ export const useCompanyStore = create<CompanyState>()(
     handleSaveJobs: (payload) =>
       set((state) => {
         state.jobs = payload;
+      }),
+    handleSaveCVApplications: (payload) =>
+      set((state) => {
+        state.CVApplications = payload;
       }),
     handleSaveFollow: (payload) => {
       set((state) => {
@@ -93,11 +108,32 @@ export const useCompanyStore = create<CompanyState>()(
         }
       });
     },
+
     handleRemoveJob: (payload) => {
       set((state) => {
         const job = state.jobs.find((job) => job.id === payload.id);
         if (job) {
           job.deletedAt = payload.deletedAt;
+        }
+      });
+    },
+    handleRemoveApplication: (payload) => {
+      set((state) => {
+        const application = state.CVApplications.find(
+          (application) => application.id === payload.id
+        );
+        if (application) {
+          application.deletedAt = payload.deletedAt;
+        }
+      });
+    },
+    handleChangeStatus: (payload) => {
+      set((state) => {
+        const application = state.CVApplications.find(
+          (application) => application.id === payload.id
+        );
+        if (application) {
+          application.status = payload.status;
         }
       });
     },
