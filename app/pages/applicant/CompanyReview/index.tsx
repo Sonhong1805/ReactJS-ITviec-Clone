@@ -35,11 +35,12 @@ import Loading from "~/components/Loading";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useReviewStore } from "~/stores/reviewStore";
+import useValidation from "~/hooks/useValidation";
 
 const CompanyReview = () => {
   let { slug } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation(["search", "apply"]);
+  const { t } = useTranslation(["search"]);
   const [searchParams] = useSearchParams();
   const star = searchParams.get("star");
   const [selectedRating, setSelectedRating] = useState<number>(
@@ -109,10 +110,10 @@ const CompanyReview = () => {
     reviewCompanyMutation.mutate({ id: company?.id, body: data });
   };
 
-  const isValidSummary = watch("summary") !== "" ? "success" : "";
-  const isValidReason = watch("reason") !== "" ? "success" : "";
-  const isValidExperiences = watch("experiences") !== "" ? "success" : "";
-  const isValidSuggestion = watch("suggestion") !== "" ? "success" : "";
+  const isValidSummary = useValidation(watch("summary"));
+  const isValidReason = useValidation(watch("reason"));
+  const isValidExperiences = useValidation(watch("experiences"));
+  const isValidSuggestion = useValidation(watch("suggestion"));
 
   return (
     <ReviewWrapper>

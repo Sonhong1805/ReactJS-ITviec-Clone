@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { formatTimestamp } from "~/utils/formatTimestamp";
 
 interface CompanyState {
   company: Company;
@@ -19,6 +20,7 @@ interface CompanyState {
   handleCreateJob: (payload: CompanyJob) => void;
   handleUpdateJob: (payload: CompanyJob) => void;
   handleRemoveJob: (payload: { id: number; deletedAt: string }) => void;
+
   handleRemoveApplication: (payload: { id: number; deletedAt: string }) => void;
   handleChangeStatus: (payload: {
     id: number;
@@ -114,9 +116,11 @@ export const useCompanyStore = create<CompanyState>()(
         const job = state.jobs.find((job) => job.id === payload.id);
         if (job) {
           job.deletedAt = payload.deletedAt;
+          job.updatedAt = payload.deletedAt;
         }
       });
     },
+
     handleRemoveApplication: (payload) => {
       set((state) => {
         const application = state.CVApplications.find(
@@ -124,6 +128,7 @@ export const useCompanyStore = create<CompanyState>()(
         );
         if (application) {
           application.deletedAt = payload.deletedAt;
+          application.updatedAt = payload.deletedAt;
         }
       });
     },
@@ -134,6 +139,7 @@ export const useCompanyStore = create<CompanyState>()(
         );
         if (application) {
           application.status = payload.status;
+          application.updatedAt = formatTimestamp(new Date());
         }
       });
     },

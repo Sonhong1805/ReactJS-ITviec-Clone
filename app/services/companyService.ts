@@ -10,7 +10,7 @@ export interface CreateReviewPayload {
   body: Review;
 }
 
-export interface GetAllReviewResonse {
+export interface GetReviewsResonse {
   data: Review[];
   pagination: CursorPagination;
 }
@@ -22,6 +22,10 @@ export interface GetCompanyJobsResonse {
 
 export interface GetAllCVResonse {
   data: CVApplication[];
+  pagination: Pagination;
+}
+export interface GetAllReviewResonse {
+  data: Review[];
   pagination: Pagination;
 }
 
@@ -47,18 +51,31 @@ const companyService = {
   }: CreateReviewPayload): Promise<IResponse<Review>> => {
     return axios.post(`/company/review/${id}`, body);
   },
-  getAllReview: (
+  getReviews: (
     id: number,
     params: any
-  ): Promise<IResponse<GetAllReviewResonse>> => {
+  ): Promise<IResponse<GetReviewsResonse>> => {
     return axios.get(`/company/review/${id}`, { params });
   },
-
   getJobs: (params: {}): Promise<IResponse<GetCompanyJobsResonse>> => {
     return axios.get(`/company/jobs`, { params });
   },
-  getAllCV: (): Promise<IResponse<GetAllCVResonse>> => {
-    return axios.get(`/company/all-cv`);
+  getAllCV: (params: Pagination): Promise<IResponse<GetAllCVResonse>> => {
+    return axios.get(`/company/all-cv`, { params });
+  },
+  getAllReview: (
+    params: Pagination
+  ): Promise<IResponse<GetAllReviewResonse>> => {
+    return axios.get(`/company/all-review`, { params });
+  },
+  deleteReview: (id: number): Promise<IResponse<string>> => {
+    return axios.delete(`/company/review/${id}`);
+  },
+  changeStatusReview: (
+    id: number,
+    status: ReviewStatus
+  ): Promise<IResponse<string>> => {
+    return axios.patch(`/company/review/${id}/status`, { status });
   },
 };
 

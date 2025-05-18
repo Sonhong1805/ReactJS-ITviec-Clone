@@ -127,9 +127,9 @@ export const ManageJobsTable = styled.div`
       color: var(--i-dark-grey);
     }
 
-    &.error {
-      background-color: var(--i-light-error-color);
-      color: var(--i-error-color);
+    &.deleted {
+      background-color: var(--i-light-red);
+      color: var(--i-red);
     }
   }
 `;

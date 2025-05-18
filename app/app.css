@@ -6,14 +6,6 @@
   box-sizing: border-box;
 }
 
-/* 
-  --menu-link: #a6a6a6;
-  --footer-head: #dedede;
-  --border-icon: rgba(255, 255, 255, 0.1);
-  --border-tag: #414042;
-  --button-active: #c82222;
-  --input-control: #e8f0fe; */
-
 :root {
   --i-body-font-family: "Lexend", sans-serif;
   --i-body-line-height: 1.5;

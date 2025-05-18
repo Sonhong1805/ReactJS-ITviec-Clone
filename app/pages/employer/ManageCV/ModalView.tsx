@@ -6,24 +6,25 @@ import { X } from "feather-icons-react";
 import { Link } from "react-router";
 import { formatTime } from "~/utils/formatTime";
 
-const ModalView = ({
-  selectedApplication,
-}: {
+interface IProps {
   selectedApplication: CVApplication | null;
-}) => {
+  onClose: () => void;
+}
+
+const ModalView = ({ selectedApplication, onClose }: IProps) => {
   const { modal, handleCloseModal } = useModalStore();
   const { t } = useTranslation(["apply"]);
 
   return (
     <Modal
       isOpen={modal["view"]}
-      onRequestClose={() => handleCloseModal("view")}
+      onRequestClose={onClose}
       style={customStyles}
       ariaHideApp={false}>
       <ModalContainer>
         <div className="modal-head">
           <h2>{t("Application CV Information")}</h2>
-          <X onClick={() => handleCloseModal("view")} />
+          <X onClick={onClose} />
         </div>
         <div className="modal-body">
           <CVContent>

@@ -1,3 +1,5 @@
+type ReviewStatus = "Show" | "Hide";
+
 interface Review extends Base {
   id: number;
   rate: number;
@@ -12,4 +14,6 @@ interface Review extends Base {
   cultureFun: number;
   officeWorkspace: number;
   isRecommend: boolean;
+  status: ReviewStatus;
+  user: User;
 }

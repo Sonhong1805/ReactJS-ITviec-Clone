@@ -1,263 +1,217 @@
-import {
-  customStyles,
-  ManageReviewsTable,
-  ManageReviewsWrapper,
-  ModalContainer,
-  ReviewRadio,
-} from "./styled";
-import { Fragment, useState } from "react";
-import Modal from "react-modal";
+import { ManageReviewsTable, ManageReviewsWrapper } from "./styled";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import rateDescription from "~/constants/rateDescription";
-import InputFloating from "~/components/InputFloating";
-import { useForm } from "react-hook-form";
-import RatingItem from "~/components/RatingItem";
-import { Edit, Star, Trash2, X } from "feather-icons-react";
+import { ChevronDown, Edit, Eye, Trash2, X } from "feather-icons-react";
+import { useGetAllReviewQuery } from "~/hooks/useGetAllReviewQuery";
+import { useReviewStore } from "~/stores/reviewStore";
+import formatRating from "~/utils/formatRating";
+import ratingFields from "~/constants/ratingFields";
+import Pagination from "~/components/Pagination";
+import { formatTime } from "~/utils/formatTime";
+import { useModalStore } from "~/stores/modalStore";
+import ModalView from "./ModalView";
+import ModalDelete from "./ModalDelete";
+import ModalEdit from "./ModalEdit";
 
 const ManageReviews = () => {
-  const { t } = useTranslation(["settings"]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
-  const [hoverRating, setHoverRating] = useState<number>(0);
+  const { t } = useTranslation(["search"]);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const { handleOpenModal, handleCloseModal } = useModalStore();
+  const {
+    reviews,
+    reviewPagination,
+    handleSaveReviews,
+    handleSaveReviewPagination,
+  } = useReviewStore();
 
-  const { register } = useForm();
+  const params = useMemo(() => {
+    return {
+      limit: reviewPagination.limit || 10,
+      page: reviewPagination.page || 1,
+    };
+  }, [reviewPagination.limit, reviewPagination.page]);
+
+  const { data, isPending } = useGetAllReviewQuery(params as Pagination);
+
+  useEffect(() => {
+    if (!isPending && data) {
+      handleSaveReviews(data.data || []);
+      handleSaveReviewPagination(data.pagination);
+    }
+  }, [data, isPending]);
+
+  const handleOpenModalAction = (review: Review, modal: string) => {
+    setSelectedReview(review);
+    handleOpenModal(modal);
+  };
+  const handleCloseModalAction = useCallback((modal: string) => {
+    setSelectedReview(null);
+    handleCloseModal(modal);
+  }, []);
 
   return (
     <ManageReviewsWrapper>
       <div className="heading">
-        <h2>Quản lý đánh giá</h2>
+        <h2>{t("Manage Reviews", { ns: "header" })}</h2>
       </div>
       <ManageReviewsTable>
         <table>
           <thead>
             <tr>
-              <th>Tiêu đề</th>
-              <th>Đánh giá</th>
+              <th>{t("No.")}</th>
+              <th style={{ width: "20%" }}>{t("Summary")}</th>
+              <th>{t("Overall rating")}</th>
               <th>Email</th>
-              <th>Thời gian</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
+              <th style={{ width: "20%" }}>{t("Time.label")}</th>
+              <th>{t("Status")}</th>
+              <th>{t("Actions")}</th>
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <tr key={index}>
-                <td>
-                  <p>
-                    Môi trường thân thiện, có nhiều cơ hội để học hỏi và phát
-                    triển và vui chơi
-                  </p>
-                </td>
-                <td>
-                  <div className="stars">
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star fill="#ff9119" stroke="#ff9119" />
-                    <Star />
-                    <Star />
-                  </div>
-                </td>
-                <td>
-                  <p>sophiamiller@email.com</p>
-                </td>
-                <td style={{ width: "20%" }}>
-                  <div className="time">
-                    <p>
-                      <span className="col-5">Ngày gửi:</span>
-                      <span className="col-7">03-01-2024</span>{" "}
-                    </p>
-                  </div>
-                </td>
-                <td>
-                  <div className="status success">Hiển thị</div>
-                </td>
-                <td>
-                  <div className="icons">
-                    <Edit onClick={() => setIsOpen(true)} />
-                    <Trash2 />
+            {reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <tr key={review.id}>
+                  <td>
+                    {(reviewPagination.page - 1) * reviewPagination.limit +
+                      index +
+                      1}
+                  </td>
+                  <td>
+                    <p className="summary">{review.summary}</p>
+                  </td>
+                  <td>
+                    <div className="rating">
+                      <div className="box-star">
+                        <div className="stars">{formatRating(review.rate)}</div>
+                        <ul className="detail-rating">
+                          {ratingFields.map((rate) => (
+                            <li
+                              className="detail-rating__item"
+                              key={rate.value}>
+                              <p className="detail-rating__label">
+                                {t(rate.label)}
+                              </p>
+                              <div className="detail-rating__content">
+                                <div className="detail-rating__stars">
+                                  {formatRating((review as any)[rate.value])}
+                                </div>
+                                <p className="detail-rating__score">
+                                  {(review as any)[rate.value]}
+                                </p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="number">{review.rate}</div>
+                        <ChevronDown stroke="#121212" />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p>{review.user.email}</p>
+                  </td>
+                  <td style={{ width: "20%" }}>
+                    <div className="time">
+                      <div className="time-label">
+                        <span className="col-5">{t("Updated at")}:</span>
+                        <span className="col-7 time-value">
+                          {formatTime(review.updatedAt + "")}
+                          <ChevronDown
+                            color="#121212"
+                            style={{ marginLeft: "4px" }}
+                          />
+                        </span>
+                      </div>
+                      <div className="time-detail">
+                        {review.deletedAt && (
+                          <p>
+                            <span className="col-5">{t("Deleted at")}:</span>
+                            <span className="col-7 time-value">
+                              {formatTime(review.deletedAt + "", true)}
+                            </span>
+                          </p>
+                        )}
+                        <p>
+                          <span className="col-5">{t("Updated at")}:</span>
+                          <span className="col-7 time-value">
+                            {formatTime(review.updatedAt + "", true)}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="col-5">{t("Created at")}:</span>
+                          <span className="col-7 time-value">
+                            {formatTime(review.createdAt + "", true)}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {review.deletedAt ? (
+                      <div className="status deleted">{t("Deleted")}</div>
+                    ) : (
+                      <>
+                        {review.status === "Show" && (
+                          <div className="status show">{t("Show")}</div>
+                        )}
+                        {review.status === "Hide" && (
+                          <div className="status hide">{t("Hide")}</div>
+                        )}
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    <div className="icons">
+                      <Eye
+                        color="#0ab305"
+                        onClick={() => handleOpenModalAction(review, "view")}
+                      />
+                      <Edit
+                        color="#ed1b2f"
+                        onClick={() => handleOpenModalAction(review, "edit")}
+                      />
+                      {!review.deletedAt && (
+                        <Trash2
+                          color="#414042"
+                          onClick={() =>
+                            handleOpenModalAction(review, "delete")
+                          }
+                        />
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>
+                  <div style={{ textAlign: "center" }}>
+                    {t("No reviews available")}
                   </div>
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </ManageReviewsTable>
-      {/* <Pagination /> */}
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-        style={customStyles}
-        ariaHideApp={false}>
-        <ModalContainer>
-          <div className="modal-head">
-            <h2>Thông tin bài đánh giá</h2>
-            <X onClick={() => setIsOpen(false)} />
-          </div>
-          <div className="modal-body">
-            <div className="form-group" style={{ display: "flex" }}>
-              <h3 style={{ marginBottom: "0.8rem" }}>
-                {t("Overall rating")} <abbr>*</abbr>
-              </h3>
-              <div className="stars">
-                {[...Array(5)].map((_, index) => {
-                  const currentRating = index + 1;
-                  return (
-                    <Fragment key={currentRating}>
-                      <label htmlFor={`rate-${currentRating}`}>
-                        <input
-                          type="radio"
-                          disabled
-                          readOnly
-                          id={`rate-${currentRating}`}
-                          name="rate"
-                          value={currentRating}
-                          onChange={() => setSelectedRating(currentRating)}
-                          hidden
-                        />
-                        <span
-                          onMouseEnter={() => setHoverRating(currentRating)}
-                          onMouseLeave={() => setHoverRating(0)}>
-                          {currentRating <= (hoverRating || selectedRating) ? (
-                            <Star
-                              fill="#ff9119"
-                              stroke="#ff9119"
-                              onClick={() => {
-                                setSelectedRating(0);
-                                setHoverRating(0);
-                              }}
-                            />
-                          ) : (
-                            <Star />
-                          )}
-                        </span>
-                      </label>
-                    </Fragment>
-                  );
-                })}
-                <span className="description">
-                  {t(rateDescription[hoverRating])}
-                </span>
-              </div>
-            </div>
-            <InputFloating
-              name="summary"
-              label={t("Summary")}
-              required={true}
-            />
-            <div className="form-group">
-              <h3>
-                {t("How do you feel about the overtime policy?")}
-                <abbr>*</abbr>
-              </h3>
-              <div>
-                <ReviewRadio htmlFor="satisfied">
-                  <input
-                    type="radio"
-                    disabled
-                    readOnly
-                    id="satisfied"
-                    checked={true}
-                    name="overtime-recommend"
-                  />
-                  <span></span>
-                  <div className="text">
-                    <span>{t("Satisfied")}</span>
-                  </div>
-                </ReviewRadio>
-                <ReviewRadio
-                  htmlFor="unsatisfied"
-                  style={{ marginTop: "1.6rem" }}>
-                  <input
-                    type="radio"
-                    disabled
-                    readOnly
-                    id="unsatisfied"
-                    checked={false}
-                    name="overtime-recommend"
-                  />
-                  <span></span>
-                  <div className="text">
-                    <span>{t("Unsatisfied")}</span>
-                  </div>
-                </ReviewRadio>
-                <div className="normal-text" style={{ marginTop: "1.2rem" }}>
-                  Lý do:{" "}
-                </div>
-              </div>
-            </div>
-            <div className="form-group">
-              <h3>
-                {t("What makes you love working here")}
-                <abbr>*</abbr>
-              </h3>
-              <div className="normal-text">Cải thiện: </div>
-            </div>
-            <div className="form-group">
-              <h3>
-                {t("Suggestion for improvement")} <abbr>*</abbr>
-              </h3>
-              <div className="normal-text">Lý do: </div>
-            </div>
-            <div className="form-group">
-              <h3>
-                {t("Rating detail")} <abbr>*</abbr>
-              </h3>
-              <div className="rating-detail">
-                {/* <RatingItem label={t("Salary & benefits")} />
-                <RatingItem label={t("Training & learning")} />
-                <RatingItem label={t("Management cares about me")} />
-                <RatingItem label={t("Culture & fun")} />
-                <RatingItem label={t("Office & workspace")} /> */}
-              </div>
-            </div>
-            <div className="form-group">
-              <h3>
-                {t("Do you want to recommend this company to your friends?")}
-                <abbr>*</abbr>
-              </h3>
-              <ReviewRadio htmlFor="satisfied">
-                <input
-                  type="radio"
-                  disabled
-                  readOnly
-                  id="satisfied"
-                  checked={true}
-                  name="overtime-recommend"
-                />
-                <span></span>
-                <div className="text">
-                  <span>{t("Yes")}</span>
-                </div>
-              </ReviewRadio>
-              <ReviewRadio htmlFor="satisfied" style={{ marginTop: "1.6rem" }}>
-                <input
-                  type="radio"
-                  disabled
-                  readOnly
-                  id="satisfied"
-                  checked={false}
-                  name="overtime-recommend"
-                />
-                <span></span>
-                <div className="text">
-                  <span>{t("No")}</span>
-                </div>
-              </ReviewRadio>
-            </div>
-          </div>
-          <div className="modal-foot">
-            <button
-              type="button"
-              className="cancel"
-              onClick={() => setIsOpen(false)}>
-              {t("Cancel")}
-            </button>
-            <button className="save" type="submit">
-              {t("Save")}
-            </button>
-          </div>
-        </ModalContainer>
-      </Modal>
+      <ModalView
+        selectedReview={selectedReview}
+        onClose={() => handleCloseModalAction("view")}
+      />
+      <ModalEdit
+        selectedReview={selectedReview}
+        onClose={() => handleCloseModalAction("edit")}
+      />
+      <ModalDelete
+        selectedReview={selectedReview}
+        onClose={() => handleCloseModalAction("delete")}
+      />
+      {reviews.length > 0 && (
+        <Pagination
+          pagination={reviewPagination}
+          onChangePagination={handleSaveReviewPagination}
+        />
+      )}
     </ManageReviewsWrapper>
   );
 };

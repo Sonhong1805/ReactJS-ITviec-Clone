@@ -137,11 +137,7 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
                 </h3>
                 <div className="rating">
                   <div className="box-star">
-                    <div className="stars">
-                      {formatRating(review.rate).map((rate, index) => (
-                        <Fragment key={index}>{rate}</Fragment>
-                      ))}
-                    </div>
+                    <div className="stars">{formatRating(review.rate)}</div>
                     <ul className="detail-rating">
                       {ratingFields.map((rate) => (
                         <li className="detail-rating__item" key={rate.value}>
@@ -150,11 +146,7 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
                           </p>
                           <div className="detail-rating__content">
                             <div className="detail-rating__stars">
-                              {formatRating((review as any)[rate.value]).map(
-                                (rate, index) => (
-                                  <Fragment key={index}>{rate}</Fragment>
-                                )
-                              )}
+                              {formatRating((review as any)[rate.value])}
                             </div>
                             <p className="detail-rating__score">
                               {(review as any)[rate.value]}
@@ -166,7 +158,6 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
                     <div className="number">{review.rate}</div>
                     <ChevronDown stroke="#121212" />
                   </div>
-
                   {review.isRecommend ? (
                     <div className="recommend">
                       <ThumbsUp />

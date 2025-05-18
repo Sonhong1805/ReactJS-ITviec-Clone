@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import companyService, {
-  type GetAllCVResonse,
+  type GetAllReviewResonse,
 } from "~/services/companyService";
 
-export const useGetAllCVQuery = (params: Pagination) => {
+export const useGetAllReviewQuery = (params: Pagination) => {
   const { data, isPending, isSuccess } = useQuery({
-    queryKey: ["all-cv", params],
-    queryFn: () => companyService.getAllCV(params),
-    select: ({ data }) => data as GetAllCVResonse,
+    queryKey: ["all-review", params],
+    queryFn: () => companyService.getAllReview(params),
+    select: ({ data }) => data as GetAllReviewResonse,
     staleTime: 1000 * 30,
   });
 

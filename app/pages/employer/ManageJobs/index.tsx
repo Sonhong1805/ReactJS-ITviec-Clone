@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   customStyles,
   LabelRadio,
@@ -395,7 +395,7 @@ const ManageJobs = () => {
                     </td>
                     <td>
                       {job.deletedAt ? (
-                        <div className="status error">{t("Deleted")}</div>
+                        <div className="status deleted">{t("Deleted")}</div>
                       ) : job.endDate && new Date(job.endDate) < new Date() ? (
                         <div className="status expired">{t("Expired")}</div>
                       ) : (

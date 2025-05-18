@@ -102,16 +102,16 @@ export const ManageCVTable = styled.div`
       color: var(--i-success-color);
     }
     &.reject {
-      background-color: var(--i-light-red);
-      color: var(--i-red);
+      background-color: var(--i-light-error-color);
+      color: var(--i-error-color);
     }
     &.expired {
       background-color: var(--i-light-grey);
       color: var(--i-dark-grey);
     }
     &.deleted {
-      background-color: var(--i-light-error-color);
-      color: var(--i-error-color);
+      background-color: var(--i-light-red);
+      color: var(--i-red);
     }
   }
 `;

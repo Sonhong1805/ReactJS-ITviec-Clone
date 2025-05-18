@@ -8,15 +8,25 @@ import ErrorMessage from "../ErrorMessage";
 
 interface IProps {
   label: string;
-  register: any;
-  name: string;
-  setValue: (value: number) => void;
+  register?: any;
+  name?: string;
+  setValue?: (value: number) => void;
   error?: string;
+  defaultValue?: number;
+  disabled?: boolean;
 }
-const RatingItem = ({ label, register, name, setValue, error }: IProps) => {
+const RatingItem = ({
+  label,
+  register,
+  name,
+  setValue,
+  error,
+  defaultValue = 0,
+  disabled = false,
+}: IProps) => {
   const { t } = useTranslation(["search"]);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
-  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [selectedRating, setSelectedRating] = useState<number>(defaultValue);
+  const [hoverRating, setHoverRating] = useState<number>(defaultValue);
 
   return (
     <RatingItemWrapper>
@@ -31,25 +41,33 @@ const RatingItem = ({ label, register, name, setValue, error }: IProps) => {
                   <input
                     type="radio"
                     id={`${name}-${currentRating}`}
-                    {...register(name)}
+                    {...(register && register(name))}
                     value={currentRating}
                     onChange={() => {
+                      if (disabled) return;
                       setSelectedRating(currentRating);
-                      setValue(currentRating);
+                      if (setValue) setValue(currentRating);
                     }}
                     hidden
+                    disabled={disabled}
                   />
                   <span
-                    onMouseEnter={() => setHoverRating(currentRating)}
-                    onMouseLeave={() => setHoverRating(0)}>
+                    onMouseEnter={() => {
+                      if (!disabled) setHoverRating(currentRating);
+                    }}
+                    onMouseLeave={() => {
+                      if (!disabled) setHoverRating(0);
+                    }}>
                     {currentRating <= (hoverRating || selectedRating) ? (
                       <Star
                         fill="#ff9119"
                         stroke="#ff9119"
                         strokeWidth={1.5}
                         onClick={() => {
-                          setSelectedRating(0);
-                          setHoverRating(0);
+                          if (!disabled) {
+                            setSelectedRating(0);
+                            setHoverRating(0);
+                          }
                         }}
                       />
                     ) : (

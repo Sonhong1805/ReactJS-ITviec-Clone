@@ -4,21 +4,21 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import showToast from "~/utils/showToast";
 import { useModalStore } from "~/stores/modalStore";
-import { useCompanyStore } from "~/stores/companyStore";
-import applicationService from "~/services/applicationService";
+import companyService from "~/services/companyService";
+import { useReviewStore } from "~/stores/reviewStore";
 
 interface IProps {
-  selectedApplication: CVApplication | null;
+  selectedReview: Review | null;
   onClose: () => void;
 }
 
-const ModalDelete = ({ selectedApplication, onClose }: IProps) => {
+const ModalDelete = ({ selectedReview, onClose }: IProps) => {
   const { t } = useTranslation(["apply"]);
   const { modal } = useModalStore();
-  const { handleRemoveApplication } = useCompanyStore();
+  const { handleRemoveReview } = useReviewStore();
 
-  const deleteApplicationMutation = useMutation({
-    mutationFn: (id: number) => applicationService.delete(id),
+  const deleteReviewMutation = useMutation({
+    mutationFn: (id: number) => companyService.deleteReview(id),
 
     onSuccess: (response) => {
       const message = response.message as string;
@@ -28,19 +28,16 @@ const ModalDelete = ({ selectedApplication, onClose }: IProps) => {
         return;
       }
       showToast("success", message);
-      if (selectedApplication) {
-        handleRemoveApplication({
-          id: selectedApplication?.id,
-          deletedAt: data,
-        });
+      if (selectedReview) {
+        handleRemoveReview({ id: selectedReview?.id, deletedAt: data });
       }
       onClose();
     },
   });
 
-  const handleDeleteJob = () => {
-    if (selectedApplication) {
-      deleteApplicationMutation.mutate(selectedApplication.id);
+  const handleDeleteReview = () => {
+    if (selectedReview) {
+      deleteReviewMutation.mutate(selectedReview.id);
     }
   };
 
@@ -50,27 +47,27 @@ const ModalDelete = ({ selectedApplication, onClose }: IProps) => {
         <div className="content">
           <div className="content__head">
             <div className="content__head-title">
-              <h2>{t("Confirm deletion of applied CV")}</h2>
+              <h2>{t("Confirm delete review", { ns: "search" })}</h2>
             </div>
             <button>
               <X color="#a6a6a6" onClick={onClose} />
             </button>
           </div>
           <div className="content__body">
-            <p>{t("Are you sure you want to delete your CV for this job?")}?</p>
+            <p>{t("Are you sure you want to delete this review?")}?</p>
           </div>
           <div className="content__foot">
             <button
               type="button"
-              disabled={deleteApplicationMutation.isPending}
+              disabled={deleteReviewMutation.isPending}
               className="cancel"
               onClick={onClose}>
               {t("Cancel", { ns: "profile" })}
             </button>
             <button
               className="save"
-              onClick={handleDeleteJob}
-              disabled={deleteApplicationMutation.isPending}>
+              onClick={handleDeleteReview}
+              disabled={deleteReviewMutation.isPending}>
               {t("Confirm")}
             </button>
           </div>

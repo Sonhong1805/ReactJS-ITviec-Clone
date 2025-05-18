@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import companyService, {
-  type GetAllReviewResonse,
+  type GetReviewsResonse,
 } from "~/services/companyService";
 
 interface ReviewParams {
@@ -13,8 +13,8 @@ export const useReviewsQuery = (
 ) => {
   const { data, isPending, isSuccess } = useQuery({
     queryKey: ["reviews", limit, cursor],
-    queryFn: () => companyService.getAllReview(id, { limit, cursor }),
-    select: ({ data }) => data as GetAllReviewResonse,
+    queryFn: () => companyService.getReviews(id, { limit, cursor }),
+    select: ({ data }) => data as GetReviewsResonse,
     enabled: !!id,
   });
 
