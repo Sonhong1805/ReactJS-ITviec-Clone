@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Circle, Eye, EyeOff } from "feather-icons-react";
-import { FaCircle } from "react-icons/fa";
 import {
   AlreadyAccount,
   AuthenticationError,
@@ -14,9 +13,8 @@ import {
   RegisterWrapper,
   UserRegister,
 } from "./styled";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useValidation from "~/hooks/useValidation";
@@ -24,6 +22,7 @@ import showToast from "~/utils/showToast";
 import authService from "~/services/authService";
 import { GoogleLogin } from "@react-oauth/google";
 import { useUserStore } from "~/stores/userStore";
+import { schema } from "./schema";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -34,22 +33,6 @@ const Register = () => {
 
   const { t, i18n } = useTranslation(["auth"]);
   const language = i18n.language;
-
-  const schema = z.object({
-    username: z.string().nonempty({ message: t("Can't be blank") }),
-    email: z
-      .string()
-      .nonempty({ message: t("Can't be blank") })
-      .email({ message: t("Please check your email") }),
-    password: z
-      .string()
-      .nonempty({ message: t("Can't be blank") })
-      .min(12, "12 characters")
-      .regex(/[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]/, "1 symbol")
-      .regex(/\d/, "1 number")
-      .regex(/[A-Z]/, "1 UPPERCASE")
-      .regex(/[a-z]/, "1 lowercase"),
-  });
 
   const {
     register,
@@ -63,7 +46,7 @@ const Register = () => {
       username: "",
       password: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
   const onSubmit: SubmitHandler<IRegister> = async (data: IRegister) => {
@@ -138,7 +121,6 @@ const Register = () => {
   }, [isCheckedAgreementEmail]);
 
   const renderPasswordCheck = (isValid: boolean | null, message: string) => {
-    const Icon = isValid === null ? Circle : FaCircle;
     const color =
       isValid === null ? undefined : isValid ? "#0ab305" : "#f60d00";
     const textClass =
@@ -146,7 +128,11 @@ const Register = () => {
 
     return (
       <div className="password-check">
-        <Icon color={color} />
+        {isValid === null ? (
+          <Circle color={color} />
+        ) : (
+          <Circle color={color} fill={color} />
+        )}
         <div className={`text-verify ${textClass}`}>{message}</div>
       </div>
     );

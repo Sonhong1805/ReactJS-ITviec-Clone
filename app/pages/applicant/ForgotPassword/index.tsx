@@ -19,6 +19,7 @@ import InputBase from "~/components/InputBase";
 import useValidation from "~/hooks/useValidation";
 import { useState } from "react";
 import authService from "~/services/authService";
+import { schema } from "./schema";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -26,12 +27,6 @@ const ForgotPassword = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
 
-  const schema = z.object({
-    email: z
-      .string()
-      .nonempty({ message: t("Can't be blank") })
-      .email({ message: t("Please check your email") }),
-  });
   const {
     register,
     formState: { errors },
@@ -41,7 +36,7 @@ const ForgotPassword = () => {
     defaultValues: {
       email: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
   const onSubmit: SubmitHandler<TForgotPassword> = async (

@@ -152,6 +152,9 @@ input,
 select {
   outline: none;
   border: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   /* color: rgba(0, 0, 0, 0);
@@ -239,6 +242,187 @@ hr:not([size]) {
   padding-inline: 1.2rem;
 } */
 
+.ic-sort {
+  display: flex;
+  flex-direction: column;
+  line-height: 0;
+}
+
+.ic-sort svg {
+  width: 12px;
+  height: 10px;
+  cursor: pointer;
+}
+
+.ic-sort label:first-child {
+  transform: rotate(-90deg);
+}
+
+.ic-sort label:last-child {
+  transform: rotate(90deg);
+}
+
+.ic-sort input:checked + svg {
+  fill: var(--i-red);
+  stroke: var(--i-red);
+}
+
+.filter-box {
+  line-height: 0;
+  position: relative;
+}
+
+.filter-box .dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: -10px;
+  margin: 0px;
+  transform: translate3d(0px, 40px, 0px);
+  width: 320px;
+  max-height: 296px;
+  display: block;
+  box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-bottom: 16px !important;
+  padding-top: 4px !important;
+  z-index: 998;
+  min-width: 100%;
+  font-size: 1.6rem;
+  font-weight: normal;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.filter-box .dropdown-menu label.label {
+  z-index: 0;
+  position: relative;
+  font-size: 16px;
+  margin-top: 12px !important;
+  display: block !important;
+}
+
+.filter-box .dropdown-menu label.label > input {
+  width: 4.8rem;
+  height: 4.8rem;
+  z-index: -1;
+  position: absolute;
+  left: -1.2rem;
+  top: -1.2rem;
+  display: block;
+  margin: 0;
+  border-radius: 50%;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  transform: scale(1);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.filter-box .dropdown-menu label.label > input.input:checked {
+  background-color: #ed1b2f;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.filter-box .dropdown-menu label.label > input.input:not(:disabled):hover {
+  background-color: #a6a6a6;
+  opacity: 0.2;
+  transition: 0.3s;
+}
+
+.filter-box
+  .dropdown-menu
+  label.label
+  > input.input:not(:disabled):checked:hover {
+  background-color: #ed1b2f;
+  opacity: 0.06;
+  transition: 0.3s;
+}
+
+.filter-box
+  .dropdown-menu
+  label.label
+  > input.input:checked
+  + span.text::before {
+  border-color: #ed1b2f;
+  background-color: #ed1b2f;
+}
+
+.filter-box
+  .dropdown-menu
+  label.label
+  > input.input:not(:disabled):hover
+  + span.text::before {
+  border-color: #414042;
+}
+
+.filter-box
+  .dropdown-menu
+  label
+  > input.input:not(:disabled):hover:checked
+  + span.text::before {
+  background-color: #ed1b2f;
+}
+.filter-box
+  .dropdown-menu
+  label.label
+  > input.input:checked
+  + span.text::after {
+  border-color: #fff;
+  transform: translate(0.6rem, 0.8rem) rotate(-45deg);
+}
+
+.filter-box
+  .dropdown-menu
+  label.label
+  > input.input:not(:disabled):hover:checked
+  + span.text::before {
+  border-color: #ed1b2f;
+}
+
+.filter-box .dropdown-menu label.label > span.text {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.filter-box .dropdown-menu label.label span.text::before {
+  content: "";
+  display: inline-block;
+  box-sizing: border-box;
+  margin-right: 8px;
+  border: 2px solid #a6a6a6;
+  border-radius: 4px;
+  width: 2.4rem;
+  height: 2.4rem;
+  vertical-align: top;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.filter-box .dropdown-menu label.label span.text::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 1.2rem;
+  height: 0.6rem;
+  border: solid 2px transparent;
+  border-right: none;
+  border-top: none;
+  transform: translate(0.6rem, 0.8rem) rotate(-45deg);
+}
+
 abbr {
   color: var(--i-red);
 }
@@ -264,6 +448,15 @@ td {
   text-align: start;
   padding: 0.8rem 1.2rem;
   font-size: 1.6rem;
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.space-between .space-top {
+  margin-top: 12px;
 }
 
 th:last-child {

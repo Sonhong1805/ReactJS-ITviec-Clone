@@ -130,3 +130,30 @@ export const GeneralWrapper = styled.div`
     }
   }
 `;
+
+export const BoxLoading = styled.div`
+  display: flex;
+  gap: 1.6rem;
+
+  span {
+    display: block;
+    width: 100%;
+  }
+`;
+
+export const ApplicationChart = styled.div`
+  width: 100%;
+  height: 400px;
+  text-align: center;
+  margin-top: 48px;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  margin-bottom: 50px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+`;

@@ -4,12 +4,14 @@ import { formatTimestamp } from "~/utils/formatTimestamp";
 
 interface CompanyState {
   company: Company;
+  companies: Company[];
   isLoading: boolean;
   isFollowing: boolean;
   selectedCompany: Option;
   jobs: CompanyJob[];
   CVApplications: CVApplication[];
   pagination: Pagination;
+  handleSaveCompanies: (payload: Company[]) => void;
   handleSaveJobs: (payload: CompanyJob[]) => void;
   handleSaveCVApplications: (payload: CVApplication[]) => void;
   handleSavePagination: (payload: Pagination) => void;
@@ -32,10 +34,12 @@ const initialState: CompanyState = {
   isLoading: true,
   isFollowing: false,
   company: {} as Company,
+  companies: [],
   selectedCompany: {} as Option,
   jobs: [],
   CVApplications: [],
   pagination: {} as Pagination,
+  handleSaveCompanies: () => {},
   handleSaveJobs: () => {},
   handleSaveCVApplications: () => {},
   handleSavePagination: () => {},
@@ -57,6 +61,11 @@ export const useCompanyStore = create<CompanyState>()(
       set((state) => {
         state.isLoading = false;
         state.company = payload;
+      }),
+    handleSaveCompanies: (payload) =>
+      set((state) => {
+        state.isLoading = false;
+        state.companies = payload;
       }),
     handleSavePagination: (payload) =>
       set((state) => {

@@ -132,11 +132,11 @@ export const HeaderSubmenu = styled.ul`
   }
 
   &.active-3 {
-    height: 36.56rem;
+    height: 18.3rem;
   }
 
   &.active-5 {
-    height: 22.9rem;
+    height: 320.5px;
   }
 
   li {

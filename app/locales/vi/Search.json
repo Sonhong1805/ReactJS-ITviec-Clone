@@ -158,5 +158,19 @@
   "No reviews available": "Chưa có đánh giá nào",
   "Show this review?": "Hiển thị bài đánh giá này?",
   "Confirm delete review": "Xác nhận xoá đánh giá",
-  "Are you sure you want to delete this review?": "Bạn có chắc muốn xoá bài đánh giá này không?"
+  "Are you sure you want to delete this review?": "Bạn có chắc muốn xoá bài đánh giá này không?",
+  "Number of jobs:": "Số lượng việc làm:",
+  "Active jobs:": "Việc làm đang hoạt động:",
+  "Job has expired:": "Việc làm đã hết hạn:",
+  "View details": "Xem chi tiết",
+  "Number of CVs:": "Số lượng CV:",
+  "CV accepted:": "CV đã chấp nhận:",
+  "CV pending:": "CV đang chờ duyệt:",
+  "Number of reviews": "Số lượng đánh giá:",
+  "There are": "Đã có",
+  "Number of followers:": "Số lượng theo dõi:",
+  "people followed": "người theo dõi",
+  "Number of applications per month (Year 2024)": "Số lượng ứng tuyển theo tháng (Năm 2024)",
+  "Min salary": "Mức lương tối thiểu",
+  "Max salary": "Mức lương tối đa"
 }

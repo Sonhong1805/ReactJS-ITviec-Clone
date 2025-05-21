@@ -57,15 +57,13 @@ const companyService = {
   ): Promise<IResponse<GetReviewsResonse>> => {
     return axios.get(`/company/review/${id}`, { params });
   },
-  getJobs: (params: {}): Promise<IResponse<GetCompanyJobsResonse>> => {
-    return axios.get(`/company/jobs`, { params });
+  getAllJob: (params: any): Promise<IResponse<GetCompanyJobsResonse>> => {
+    return axios.get(`/company/all-job`, { params });
   },
-  getAllCV: (params: Pagination): Promise<IResponse<GetAllCVResonse>> => {
+  getAllCV: (params: any): Promise<IResponse<GetAllCVResonse>> => {
     return axios.get(`/company/all-cv`, { params });
   },
-  getAllReview: (
-    params: Pagination
-  ): Promise<IResponse<GetAllReviewResonse>> => {
+  getAllReview: (params: any): Promise<IResponse<GetAllReviewResonse>> => {
     return axios.get(`/company/all-review`, { params });
   },
   deleteReview: (id: number): Promise<IResponse<string>> => {
@@ -76,6 +74,9 @@ const companyService = {
     status: ReviewStatus
   ): Promise<IResponse<string>> => {
     return axios.patch(`/company/review/${id}/status`, { status });
+  },
+  dashboard: (): Promise<IResponse<CompanyDashboard>> => {
+    return axios.get(`/company/dashboard`);
   },
 };
 

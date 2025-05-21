@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Navigate, NavLink, useNavigate } from "react-router";
 import { NavbarWrapper } from "./styled";
 import userLinks from "~/constants/userLinks";
 import IconHandWave from "~/components/Icons/IconHandWave";
@@ -7,7 +7,12 @@ import { useUserStore } from "~/stores/userStore";
 
 const Navbar = () => {
   const { t } = useTranslation(["profile"]);
-  const { username } = useUserStore((s) => s.user);
+  const { username, role } = useUserStore((s) => s.user);
+
+  if (role !== "APPLICANT") {
+    return <Navigate to={"/"} replace={true} />;
+  }
+
   return (
     <NavbarWrapper>
       <div className="nav-heading">

@@ -26,6 +26,8 @@ import { useCompanyStore } from "~/stores/companyStore";
 import { ChevronDown, ChevronRight, LogOut } from "feather-icons-react";
 import { useReviewStore } from "~/stores/reviewStore";
 import { useJobStore } from "~/stores/jobStore";
+import employerLinks from "~/constants/employerLinks";
+import companyService from "~/services/companyService";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -33,7 +35,8 @@ const Header = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
   const { isAuthenticated, user, logout: userLogout } = useUserStore();
-  const { handleSaveFollow } = useCompanyStore();
+  const { companies, handleSaveFollow, handleSaveCompanies } =
+    useCompanyStore();
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
   const { handleResetJobs } = useJobStore();
@@ -66,6 +69,29 @@ const Header = () => {
     }
   }, [isSuccess, skills, saveSkills]);
 
+  const { data: companiesData } = useQuery({
+    queryKey: ["companies"],
+    queryFn: companyService.getAll,
+    select: ({ data }) => data as Company[],
+  });
+
+  useEffect(() => {
+    if (companiesData) {
+      handleSaveCompanies(companiesData);
+    }
+  }, [companiesData]);
+
+  const handleSubmenuItem = (
+    field: "keyword" | "city" | "company",
+    value: string
+  ) => {
+    if (field === "keyword" || field === "city") {
+      navigate(`/it-jobs?${field}=${value}`);
+    } else if (field === "company") {
+      navigate(`/${field}/${value}`);
+    }
+  };
+
   return (
     <StyledHeader>
       <HeaderContainer ref={headerContainerRef}>
@@ -89,7 +115,13 @@ const Header = () => {
                   <ChevronRight />
                   <ul className="submenu-child skills">
                     {skills?.slice(0, 32).map((skill) => (
-                      <li key={skill.id}>{skill.name}</li>
+                      <li
+                        key={skill.id}
+                        onClick={() =>
+                          handleSubmenuItem("keyword", skill.name)
+                        }>
+                        {skill.name}
+                      </li>
                     ))}
                     <li onClick={() => navigate("/find-job/skill")}>
                       {t("View all Jobs by skill")}
@@ -121,19 +153,19 @@ const Header = () => {
                   onMouseEnter={() => handleMouseEnter(3)}>
                   <span>{t("All Jobs.company")}</span>
                   <ChevronRight />
-                  <ul className="submenu-child companies">
-                    {/* {companyList.map((company) => (
+                  <ul className="submenu-child cities">
+                    {companies.slice(0, 4).map((company) => (
                       <li
                         key={company.id}
                         onClick={() =>
-                          handleSubmenuItem("company", company.id)
+                          handleSubmenuItem("company", company.slug)
                         }>
-                        {company.name}
+                        {company.companyName}
                       </li>
-                    ))} */}
-                    <li onClick={() => navigate("/find-job/company")}>
+                    ))}
+                    {/* <li onClick={() => navigate("/find-job/company")}>
                       {t("View all Jobs by company")}
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
                 <li
@@ -145,7 +177,11 @@ const Header = () => {
                   <ChevronRight />
                   <ul className="submenu-child cities">
                     {cities.map((city) => (
-                      <li key={city.value}>{city.label}</li>
+                      <li
+                        key={city.value}
+                        onClick={() => handleSubmenuItem("city", city.label)}>
+                        {t(city.label, { ns: "option" })}
+                      </li>
                     ))}
                   </ul>
                 </li>
@@ -165,6 +201,7 @@ const Header = () => {
                   <span>{t("IT Companies.Best IT Companies")}</span>
                   <ChevronRight />
                   <ul className="submenu-child">
+                    <li>{t("IT Companies.Best IT Companies")} 2025</li>
                     <li>{t("IT Companies.Best IT Companies")} 2024</li>
                     <li>{t("IT Companies.Best IT Companies")} 2023</li>
                     <li>{t("IT Companies.Best IT Companies")} 2022</li>
@@ -222,12 +259,19 @@ const Header = () => {
                   <span className="username">{user.username}</span>
                   <ChevronDown className="arrow" />
                   <ProfileSubmenu className="submenu">
-                    {userLinks.map((link) => (
-                      <Link key={link.id} to={link.url}>
-                        {link.icon}
-                        <span>{t(link.label, { ns: "profile" })}</span>
-                      </Link>
-                    ))}
+                    {user.role === "COMPANY"
+                      ? employerLinks.map((link) => (
+                          <Link key={link.id} to={link.url}>
+                            {link.icon}
+                            <span>{t(link.label, { ns: "header" })}</span>
+                          </Link>
+                        ))
+                      : userLinks.map((link) => (
+                          <Link key={link.id} to={link.url}>
+                            {link.icon}
+                            <span>{t(link.label, { ns: "profile" })}</span>
+                          </Link>
+                        ))}
                     <a onClick={handleLogout}>
                       <LogOut />
                       <span>{t("Sign out")}</span>

@@ -132,9 +132,7 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
                 <div className="create-at">
                   {formattedDate(review.createdAt + "")}
                 </div>
-                <h3>
-                  {review.id} - {review.summary}
-                </h3>
+                <h3>{review.summary}</h3>
                 <div className="rating">
                   <div className="box-star">
                     <div className="stars">{formatRating(review.rate)}</div>
@@ -171,11 +169,18 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
                   )}
                 </div>
               </div>
-              <div className="feedback" style={{ paddingBottom: "0.8rem" }}>
+              <div
+                className={`feedback ${
+                  review.status === "Hide" ? "hidden" : ""
+                }`}
+                style={{ paddingBottom: "0.8rem" }}>
                 <h4>{t("What I liked:")}</h4>
                 <p>{review.experiences}</p>
               </div>
-              <div className="feedback">
+              <div
+                className={`feedback ${
+                  review.status === "Hide" ? "hidden" : ""
+                }`}>
                 <h4>{t("Suggestions for improvement:")}</h4>
                 <p>{review.suggestion}</p>
               </div>

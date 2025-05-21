@@ -653,6 +653,14 @@ export const ReviewCard = styled.div`
   .feedback {
     font-size: 1.6rem;
 
+    &.hidden {
+      color: transparent;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.75);
+      line-height: 1.8;
+      cursor: pointer;
+    }
+
     h4 {
       font-weight: 600;
       line-height: 1.5;

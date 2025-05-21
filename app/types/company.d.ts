@@ -23,3 +23,22 @@ type Company = Base &
     follow?: boolean;
     review?: boolean;
   };
+
+interface CompanyDashboard {
+  job: {
+    totalJobs: number;
+    jobActive: number;
+    jobExpired: number;
+  };
+  cv: {
+    totalCVs: number;
+    cvAccepted: number;
+    cvPending: number;
+  };
+  review: {
+    totalReviews: number;
+  };
+  follow: {
+    totalFollows: number;
+  };
+}

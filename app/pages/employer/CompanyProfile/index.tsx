@@ -34,6 +34,8 @@ import { useCompanyStore } from "~/stores/companyStore";
 import Loading from "~/components/Loading";
 import { Upload } from "feather-icons-react";
 import { schema } from "./schema";
+import { useModalStore } from "~/stores/modalStore";
+import ChangePassword from "./ChangePassword";
 
 const MAX_SKILLS = 10;
 
@@ -48,7 +50,6 @@ const CompanyProfile = () => {
   const { email, phoneNumber, username } = useUserStore((s) => s.user);
   const { updateCompanyInfo } = useUserStore();
   const { company, isLoading, handleSaveCompany } = useCompanyStore();
-  console.log(company);
 
   const {
     register,
@@ -546,6 +547,7 @@ const CompanyProfile = () => {
               <div className="selected-file">{t("Upload Logo")}</div>
             </label>
           </div>
+          <ChangePassword />
         </CompanyInfoSide>
       </CompanyInfoContainer>
     </CompanyInfoWrapper>

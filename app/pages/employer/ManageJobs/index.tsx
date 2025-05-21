@@ -23,13 +23,13 @@ import {
   ChevronDown,
   Edit,
   Eye,
+  Play,
   PlusCircle,
   Trash2,
   X,
 } from "feather-icons-react";
 import IconCircleDollarSign from "~/components/Icons/IconCircleDollarSign";
 import { schema } from "./schema";
-import { useCompanyJobsQuery } from "~/hooks/useJobsQuery";
 import { useCompanyStore } from "~/stores/companyStore";
 import formatSalary from "~/utils/formatSalary";
 import { formatTime } from "~/utils/formatTime";
@@ -51,6 +51,8 @@ import ModalView from "./ModalView";
 import ModalDelete from "./ModalDelete";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import FilterBox from "~/components/FilterBox";
+import { useGetAllJobQuery } from "~/hooks/useGetAllJobQuery";
 
 const ManageJobs = () => {
   const { t } = useTranslation(["search"]);
@@ -60,6 +62,11 @@ const ManageJobs = () => {
   const [reason, setReason] = useState("");
   const [skillOptions, setSkillOptions] = useState<Option[]>([]);
   const [selectedJob, setSelectedJob] = useState<CompanyJob | null>(null);
+  const [sortValue, setSortValue] = useState<string[]>([]);
+  const [statusValue, setStatusValue] = useState<string[]>([]);
+  const [levelValue, setLevelValue] = useState<string[]>([]);
+  const [currencyValue, setCurrencyValue] = useState<string[]>([]);
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const {
     jobs,
     pagination,
@@ -189,12 +196,23 @@ const ManageJobs = () => {
     () => ({
       page: pagination.page || 1,
       limit: pagination.limit || 10,
+      ...(sortValue.length > 0 ? { sort: sortValue.join(",") } : {}),
+      ...(statusValue.length > 0 ? { status: statusValue } : {}),
+      ...(levelValue.length > 0 ? { levels: levelValue } : {}),
+      ...(currencyValue.length > 0 ? { currencies: currencyValue } : {}),
     }),
-    [pagination.page, pagination.limit]
+    [
+      pagination.page,
+      pagination.limit,
+      sortValue,
+      statusValue,
+      levelValue,
+      currencyValue,
+    ]
   );
 
   const { data: companyJobs, isPending: companyJobsPending } =
-    useCompanyJobsQuery(params);
+    useGetAllJobQuery(params as any);
 
   useEffect(() => {
     if (!companyJobsPending && companyJobs) {
@@ -279,6 +297,53 @@ const ManageJobs = () => {
     handleCloseModal("job-view");
   }, []);
 
+  const handleGetValueSort = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
+    const combinedValue = name + value;
+    if (selectedValue === value) {
+      setSelectedValue(null);
+      setSortValue((prev) => prev.filter((item) => item !== combinedValue));
+    } else {
+      setSelectedValue(value);
+      setSortValue((prev) => {
+        const filtered = prev.filter((item) => !item.startsWith(name));
+        if (selectedValue === value) return filtered;
+        return [...filtered, combinedValue];
+      });
+    }
+  };
+
+  const handleGetValueStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setStatusValue((prev) => {
+      const exits = prev.find((item) => item === value);
+      if (exits) {
+        return prev.filter((item) => item !== value);
+      }
+      return [...prev, value];
+    });
+  };
+  const handleGetValueLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setLevelValue((prev) => {
+      const exits = prev.find((item) => item === value);
+      if (exits) {
+        return prev.filter((item) => item !== value);
+      }
+      return [...prev, value];
+    });
+  };
+  const handleGetValueCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setCurrencyValue((prev) => {
+      const exits = prev.find((item) => item === value);
+      if (exits) {
+        return prev.filter((item) => item !== value);
+      }
+      return [...prev, value];
+    });
+  };
+
   return (
     <ManageJobsWrapper>
       {companyJobsPending ? (
@@ -303,12 +368,266 @@ const ManageJobs = () => {
             <thead>
               <tr>
                 <th>{t("No.")}</th>
-                <th style={{ width: "20%" }}>{t("Job title")}</th>
-                <th>{t("Salary")}</th>
-                <th>{t("Model")}</th>
-                <th>{t("Level")}</th>
-                <th style={{ width: "20%" }}>{t("Time.label")}</th>
-                <th>{t("Status")}</th>
+                <th style={{ width: "20%" }}>
+                  <div className="space-between">
+                    {t("Job title")}
+                    <div className="ic-sort">
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="title"
+                          value=":ASC"
+                          hidden
+                          onChange={handleGetValueSort}
+                          checked={sortValue.includes("title:ASC")}
+                        />
+                        <Play fill="#414042" />
+                      </label>
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="title"
+                          value=":DESC"
+                          hidden
+                          onChange={handleGetValueSort}
+                          checked={sortValue.includes("title:DESC")}
+                        />
+                        <Play fill="#414042" />
+                      </label>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div className="space-between">
+                    {t("Salary")}
+                    <FilterBox>
+                      <>
+                        <div className="space-between space-top">
+                          {t("Min salary")}
+                          <div className="ic-sort">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="minSalary"
+                                value=":ASC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("minSalary:ASC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="minSalary"
+                                value=":DESC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("minSalary:DESC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                          </div>
+                        </div>
+                        <div className="space-between space-top">
+                          {t("Max salary")}
+                          <div className="ic-sort">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="maxSalary"
+                                value=":ASC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("maxSalary:ASC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="maxSalary"
+                                value=":DESC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("maxSalary:DESC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="label" htmlFor="usd">
+                            <input
+                              type="checkbox"
+                              id="usd"
+                              name="currency"
+                              value="USD"
+                              hidden
+                              className="input"
+                              onChange={handleGetValueCurrency}
+                              checked={currencyValue.includes("USD")}
+                            />
+                            <span className="text">USD</span>
+                          </label>
+                          <label className="label" htmlFor="vnd">
+                            <input
+                              type="checkbox"
+                              id="vnd"
+                              name="currency"
+                              value="VND"
+                              hidden
+                              className="input"
+                              onChange={handleGetValueCurrency}
+                              checked={currencyValue.includes("VND")}
+                            />
+                            <span className="text">VND</span>
+                          </label>
+                        </div>
+                      </>
+                    </FilterBox>
+                  </div>
+                </th>
+                <th>
+                  <div className="space-between">
+                    {t("Level")}
+                    <FilterBox>
+                      <>
+                        {levels.map((level) => (
+                          <label
+                            className="label"
+                            key={level.value}
+                            htmlFor={level.value}>
+                            <input
+                              type="checkbox"
+                              id={level.value}
+                              name="level"
+                              value={level.value}
+                              hidden
+                              className="input"
+                              onChange={handleGetValueLevel}
+                              checked={levelValue.includes(level.value)}
+                            />
+                            <span className="text">{level.label}</span>
+                          </label>
+                        ))}
+                      </>
+                    </FilterBox>
+                  </div>
+                </th>
+                <th style={{ width: "20%" }}>
+                  <div className="space-between">
+                    {t("Time.label")}
+                    <FilterBox>
+                      <>
+                        <div className="space-between space-top">
+                          {t("Created at")}
+                          <div className="ic-sort">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="createdAt"
+                                value=":ASC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("createdAt:ASC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="createdAt"
+                                value=":DESC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("createdAt:DESC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                          </div>
+                        </div>
+                        <div className="space-between space-top">
+                          {t("Updated at", { ns: "search" })}
+                          <div className="ic-sort">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="updatedAt"
+                                value=":ASC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("updatedAt:ASC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="updatedAt"
+                                value=":DESC"
+                                hidden
+                                onChange={handleGetValueSort}
+                                checked={sortValue.includes("updatedAt:DESC")}
+                              />
+                              <Play fill="#414042" />
+                            </label>
+                          </div>
+                        </div>
+                      </>
+                    </FilterBox>
+                  </div>
+                </th>
+                <th className="space-between">
+                  {t("Status")}
+                  <FilterBox>
+                    <>
+                      <label className="label" htmlFor="active">
+                        <input
+                          type="checkbox"
+                          id="active"
+                          name="status"
+                          value="active"
+                          hidden
+                          className="input"
+                          onChange={handleGetValueStatus}
+                          checked={statusValue.includes("active")}
+                        />
+                        <span className="text">{t("Active")}</span>
+                      </label>
+                      <label className="label" htmlFor="expired">
+                        <input
+                          type="checkbox"
+                          id="expired"
+                          name="status"
+                          value="expired"
+                          hidden
+                          className="input"
+                          onChange={handleGetValueStatus}
+                          checked={statusValue.includes("expired")}
+                        />
+                        <span className="text">
+                          {t("Expired", { ns: "profile" })}
+                        </span>
+                      </label>
+                      <label className="label" htmlFor="deleted">
+                        <input
+                          type="checkbox"
+                          id="deleted"
+                          name="status"
+                          value="deleted"
+                          hidden
+                          className="input"
+                          onChange={handleGetValueStatus}
+                          checked={statusValue.includes("deleted")}
+                        />
+                        <span className="text">
+                          {t("Deleted", { ns: "search" })}
+                        </span>
+                      </label>
+                    </>
+                  </FilterBox>
+                </th>
                 <th>{t("Actions")}</th>
               </tr>
             </thead>
@@ -334,9 +653,6 @@ const ManageJobs = () => {
                           </>
                         )}
                       </div>
-                    </td>
-                    <td>
-                      <p>{t(job.workingModel, { ns: "option" })}</p>
                     </td>
                     <td>
                       <p>{t(job.level)}</p>

@@ -160,6 +160,12 @@ export const CompanyInfoSide = styled.div`
       border-color: var(--i-red);
       gap: 0.8rem;
       cursor: pointer;
+
+      &:hover {
+        color: var(--i-red);
+        background-color: var(--i-white-red);
+        border-color: var(--i-red);
+      }
     }
   }
 
@@ -175,3 +181,142 @@ export const CompanyInfoSide = styled.div`
     color: var(--i-dark-grey);
   }
 `;
+
+export const SettingsPassword = styled.div`
+  text-align: center;
+
+  button {
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1.1rem 2.4rem;
+    min-width: 18rem;
+    border-radius: 0.4rem;
+    color: var(--i-red);
+    background-color: var(--i-white);
+    border: 1px solid var(--i-red);
+    margin-top: 2.4rem;
+    min-height: 4.76rem;
+
+    &:hover {
+      color: var(--i-red);
+      background-color: var(--i-white-red);
+      border-color: var(--i-red);
+    }
+  }
+`;
+
+export const ModalContainer = styled.form`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .modal-head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 16px 12px 32px;
+
+    h2 {
+      flex: 1;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    svg {
+      width: 3.2rem;
+      height: 3.2rem;
+      color: var(--i-dark-grey);
+      cursor: pointer;
+    }
+  }
+  .modal-body {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 12px;
+    overflow-y: auto;
+    max-height: 50rem;
+
+    .form-group {
+      position: relative;
+      font-size: 16px;
+      padding-bottom: 1.6rem;
+
+      .input-wrapper {
+        margin: 0;
+      }
+    }
+  }
+
+  .modal-foot {
+    padding-bottom: 24px;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+
+    button {
+      font-size: 16px;
+      font-weight: 500;
+      padding: 7px 20px;
+      min-width: 140px;
+      border-radius: 4px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.5;
+      user-select: none;
+      border: 1px solid transparent;
+      gap: 8px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+
+      &.cancel {
+        color: var(--i-rich-grey);
+        background-color: var(--i-white);
+        border-color: var(--i-white);
+        margin-right: 20px;
+
+        &:hover {
+          background-color: var(--i-light-grey);
+          border-color: var(--i-light-grey);
+        }
+      }
+
+      &.update {
+        color: var(--i-white);
+        background-color: var(--i-red);
+        border-color: var(--i-red);
+
+        &:hover {
+          background-color: var(--i-dark-red);
+          border-color: var(--i-dark-red);
+        }
+      }
+    }
+  }
+`;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    padding: "0",
+    border: "none",
+    borderRadius: ".7rem",
+    maxWidth: "60rem",
+    width: "100%",
+  },
+};

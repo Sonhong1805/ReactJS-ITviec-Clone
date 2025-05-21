@@ -17,6 +17,7 @@ import InputBase from "~/components/InputBase";
 import useValidation from "~/hooks/useValidation";
 import authService from "~/services/authService";
 import showToast from "~/utils/showToast";
+import { schema } from "./schema";
 
 const ResetPassword = () => {
   const { t } = useTranslation(["auth"]);
@@ -28,32 +29,6 @@ const ResetPassword = () => {
   if (!emailParams || emailParams !== emailStorage)
     return <Navigate to={"/login"} replace />;
 
-  const schema = z
-    .object({
-      newPassword: z
-        .string()
-        .nonempty({ message: t("Can't be blank") })
-        .min(12, t("Minimum 12 characters"))
-        .regex(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]).{12,}$/,
-          t(
-            "Password must contain at least 12 characters. Combination of symbols, numbers, uppercase letters, lowercase letters."
-          )
-        ),
-      confirmPassword: z
-        .string()
-        .nonempty({ message: t("Can't be blank") })
-        .min(12, t("Minimum 12 characters")),
-    })
-    .superRefine(({ confirmPassword, newPassword }, ctx) => {
-      if (confirmPassword !== newPassword) {
-        ctx.addIssue({
-          code: "custom",
-          message: t("Confirm password is different from New password"),
-          path: ["confirmPassword"],
-        });
-      }
-    });
   const {
     register,
     formState: { errors },
@@ -64,7 +39,7 @@ const ResetPassword = () => {
       newPassword: "",
       confirmPassword: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
   const onSubmit: SubmitHandler<IResetPassword> = async (

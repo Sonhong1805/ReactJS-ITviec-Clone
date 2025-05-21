@@ -10,6 +10,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import authService from "~/services/authService";
 import { ChevronLeft } from "feather-icons-react";
+import useValidation from "~/hooks/useValidation";
 
 const ForgotPassword = () => {
   const { t } = useTranslation(["auth"]);
@@ -26,6 +27,7 @@ const ForgotPassword = () => {
     handleSubmit,
     reset,
     watch,
+    setValue,
   } = useForm<TForgotPassword>({
     defaultValues: {
       email: "",
@@ -42,11 +44,14 @@ const ForgotPassword = () => {
       setShowAlert(true);
       setShowError(false);
       localStorage.setItem("email-company", data.email);
+      reset();
     } else {
       setShowAlert(false);
       setShowError(true);
     }
   };
+
+  const isValidEmail = useValidation(watch("email"));
   return (
     <SignInForm>
       <div className="logo">
@@ -83,10 +88,12 @@ const ForgotPassword = () => {
         <div className="form-group">
           <InputFloating
             name="email"
-            register={register}
+            value={watch("email")}
             type="email"
             label={t("Email")}
             required={false}
+            className={errors.email?.message ? "error" : isValidEmail}
+            onSetValue={(value: string) => setValue("email", value)}
           />
         </div>
         <div className="form-submit">

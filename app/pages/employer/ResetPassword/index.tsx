@@ -9,6 +9,7 @@ import { Navigate, useNavigate, useSearchParams } from "react-router";
 import showToast from "~/utils/showToast";
 import authService from "~/services/authService";
 import useValidation from "~/hooks/useValidation";
+import { schema } from "./schema";
 
 const ForgotPassword = () => {
   const { t } = useTranslation(["auth"]);
@@ -21,44 +22,18 @@ const ForgotPassword = () => {
   if (!emailParams || emailParams !== emailStorage)
     return <Navigate to={"employer/login"} replace />;
 
-  const schema = z
-    .object({
-      newPassword: z
-        .string()
-        .nonempty({ message: t("Can't be blank") })
-        .min(12, t("Minimum 12 characters"))
-        .regex(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+~`|}{[\]\\:;?><,./-=]).{12,}$/,
-          t(
-            "Password must contain at least 12 characters. Combination of symbols, numbers, uppercase letters, lowercase letters."
-          )
-        ),
-      confirmPassword: z
-        .string()
-        .nonempty({ message: t("Can't be blank") })
-        .min(12, t("Minimum 12 characters")),
-    })
-    .superRefine(({ confirmPassword, newPassword }, ctx) => {
-      if (confirmPassword !== newPassword) {
-        ctx.addIssue({
-          code: "custom",
-          message: t("Confirm password is different from New password"),
-          path: ["confirmPassword"],
-        });
-      }
-    });
-
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
+    setValue,
   } = useForm<IResetPassword>({
     defaultValues: {
       newPassword: "",
       confirmPassword: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
 
@@ -99,26 +74,28 @@ const ForgotPassword = () => {
           <InputFloating
             name="newPassword"
             type="password"
-            register={register}
+            value={watch("newPassword")}
             label={t("New Password")}
             required={true}
             className={
               errors.newPassword?.message ? "error" : isValidNewPassword
             }
             error={errors.newPassword?.message}
+            onSetValue={(value: string) => setValue("newPassword", value)}
           />
         </div>
         <div className="form-group">
           <InputFloating
             name="confirmPassword"
             type="password"
-            register={register}
+            value={watch("confirmPassword")}
             label={t("Confirm Password")}
             required={true}
             className={
               errors.confirmPassword?.message ? "error" : isValidConfirmPassword
             }
             error={errors.confirmPassword?.message}
+            onSetValue={(value: string) => setValue("confirmPassword", value)}
           />
         </div>
         <NoteAccount>
