@@ -4,4 +4,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths()],
+  resolve: {
+    alias: {
+      "slate-dom": "/src/fake-slate-dom.js",
+    },
+  },
 });
