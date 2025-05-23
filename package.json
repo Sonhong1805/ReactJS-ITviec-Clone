@@ -35,6 +35,7 @@
     "react-toastify": "^11.0.3",
     "recharts": "^2.15.3",
     "slate": "^0.114.0",
+    "slate-dom": "^0.114.0",
     "slate-history": "^0.110.3",
     "slate-hyperscript": "^0.100.0",
     "slate-react": "^0.114.2",
