@@ -26,7 +26,8 @@ import { useUserStore } from "~/stores/userStore";
 const ProfileSettings = () => {
   const { t } = useTranslation(["profile"]);
   const { modal, handleOpenModal, handleCloseModal } = useModalStore();
-  const { username, email } = useUserStore((s) => s.user);
+  const { username, email, loginType } = useUserStore((s) => s.user);
+
   const navigate = useNavigate();
 
   const {
@@ -121,9 +122,21 @@ const ProfileSettings = () => {
       </AccountInformation>
       <SettingsPassword>
         <h2>{t("Password", { ns: "auth" })}</h2>
-        <button onClick={() => handleOpenModal("change-password")}>
-          {t("Change Password")}
-        </button>
+        {loginType === "GOOGLE" ? (
+          <div className="note">
+            <Info className="icon" />
+            <div className="message">
+              {t(
+                "You signed up with Google, so your account doesn't have a password."
+              )}
+            </div>
+          </div>
+        ) : (
+          <button onClick={() => handleOpenModal("change-password")}>
+            {t("Change Password")}
+          </button>
+        )}
+
         <Modal
           isOpen={modal["change-password"]}
           onRequestClose={closeModal}

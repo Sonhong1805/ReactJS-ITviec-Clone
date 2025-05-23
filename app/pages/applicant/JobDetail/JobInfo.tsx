@@ -37,9 +37,13 @@ const JobInfo = () => {
   };
 
   const handleToggleWishlist = async () => {
-    const response = await jobService.wishlist(jobDetail?.id);
-    if (response.isSuccess) {
-      handleWishlist(response.data);
+    if (!isAuthenticated) {
+      navigate(`/login?job=${jobDetail.slug}`);
+    } else {
+      const response = await jobService.wishlist(jobDetail?.id);
+      if (response.isSuccess) {
+        handleWishlist(response.data);
+      }
     }
   };
 

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import HBS_Logo from "/assets/images/HBS-Logo.jpg";
+import HRS_Logo from "/assets/images/HBS-Logo.jpg";
 import {
   CompanySpotlightContainer,
   CompanySpotlightInfo,
@@ -23,22 +23,22 @@ const CompanySpotlight = () => {
             <figcaption>{t("Company Spotlight")}</figcaption>
           </CompanySpotlightThumbnail>
           <CompanySpotlightLogo>
-            <img src={HBS_Logo} alt="company-logo" />
+            <img src={HRS_Logo} alt="company-logo" />
           </CompanySpotlightLogo>
         </CompanySpotlightItem>
         <CompanySpotlightItem>
           <CompanySpotlightInfo>
             <Link to={""} className="company-name">
-              MB Bank
+              HRS Group
             </Link>
             <div className="company-location">
               <MapPin />
-              <span>Ha Noi - Ho Chi Minh</span>
+              <span>{t("Da Nang", { ns: "option" })}</span>
             </div>
-            <p>Ngân hàng TMCP Quân Đội (MB)</p>
-            <Link to={"/company/9"} className="quantity-jobs">
+            <p>WE REINVENT HOW BUSINESSES STAY, WORK AND PAY</p>
+            <Link to={"/company/hrs-group"} className="quantity-jobs">
               <span>
-                {t("View")} 17 {t("jobs")}
+                {t("View")} 24 {t("jobs")}
               </span>
               <ChevronRight />
             </Link>

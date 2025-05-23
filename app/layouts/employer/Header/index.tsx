@@ -13,7 +13,7 @@ import Logo from "/assets/images/logo.png";
 import SwitchLanguage from "~/components/SwitchLanguage";
 
 const Header = () => {
-  const { t, i18n } = useTranslation(["header"]);
+  const { t } = useTranslation(["header"]);
   const location = useLocation();
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);

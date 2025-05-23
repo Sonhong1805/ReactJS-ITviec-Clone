@@ -90,14 +90,15 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <RememberMeCheck htmlFor="remember-me-check">
+          {/* <RememberMeCheck htmlFor="remember-me-check">
             <input
               type="checkbox"
               id="remember-me-check"
               onChange={() => setIsRememberMe((prev) => !prev)}
             />
             <span>{t("Remember me")}</span>
-          </RememberMeCheck>
+          </RememberMeCheck> */}
+          <span></span>
           <Link to="/employer/forgot-password">{t("Forgot password?")}</Link>
         </div>
         <div className="policy">

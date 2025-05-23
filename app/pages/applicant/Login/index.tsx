@@ -25,7 +25,7 @@ import { Check } from "feather-icons-react";
 import { schema } from "./schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const ROLLBACK_ROUTES = ["apply", "review", "company"];
+const ROLLBACK_ROUTES = ["apply", "review", "company", "job"];
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
@@ -66,6 +66,7 @@ const Login = () => {
       navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
       showToast("success", t("Successfully authenticated from Email account."));
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      //removeQueries không tác dụng
       reset();
     },
   });

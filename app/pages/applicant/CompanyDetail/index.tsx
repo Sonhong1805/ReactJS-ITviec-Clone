@@ -16,6 +16,7 @@ import { useCompanyQuery } from "~/hooks/useCompanyQuery";
 import Skeleton from "react-loading-skeleton";
 import { useReviewsQuery } from "~/hooks/useReviewsQuery";
 import { useReviewStore } from "~/stores/reviewStore";
+import { useCompanyStore } from "~/stores/companyStore";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
@@ -25,12 +26,19 @@ const CompanyDetail = () => {
   const { pagination, cursor, handleSavePagition, handleChangeCursor } =
     useReviewStore();
   const lastReviewRef = useRef<HTMLDivElement | null>(null);
+  const { handleSaveCompanyDetail } = useCompanyStore();
 
   const {
     data: company,
     isPending: companyPending,
     isSuccess,
   } = useCompanyQuery(slug + "");
+
+  useEffect(() => {
+    if (!companyPending && company) {
+      handleSaveCompanyDetail(company);
+    }
+  }, [company, companyPending]);
 
   useEffect(() => {
     return () => {

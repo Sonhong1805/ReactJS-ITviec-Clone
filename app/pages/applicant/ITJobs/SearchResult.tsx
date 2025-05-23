@@ -7,8 +7,10 @@ import { useJobsQuery } from "~/hooks/useJobsQuery";
 import { useEffect, useMemo } from "react";
 import { useJobStore } from "~/stores/jobStore";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
+import { useUserStore } from "~/stores/userStore";
 
 const SearchResult = () => {
+  const { isAuthenticated } = useUserStore();
   const { jobs, pagination, handleSaveJobs, handleSavePagination } =
     useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
@@ -26,7 +28,8 @@ const SearchResult = () => {
     levels,
     workingModels,
     industries,
-    companyTypes
+    companyTypes,
+    isAuthenticated
   );
 
   useEffect(() => {

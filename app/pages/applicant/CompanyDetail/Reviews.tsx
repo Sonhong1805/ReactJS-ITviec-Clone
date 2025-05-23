@@ -1,4 +1,10 @@
-import { ReviewAbout, ReviewCard, ReviewList, ReviewRating } from "./styled";
+import {
+  HasReview,
+  ReviewAbout,
+  ReviewCard,
+  ReviewList,
+  ReviewRating,
+} from "./styled";
 import { Fragment } from "react/jsx-runtime";
 import { useState, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +33,7 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number | null>(0);
   const navigate = useNavigate();
-  const { pagination } = useReviewStore();
+  const { pagination, isReviewing } = useReviewStore();
 
   const formattedDate = (date: string): string => {
     const convertDate = new Date(date);
@@ -55,66 +61,110 @@ const Reviews = ({ company, data, isPending, ref }: IProps) => {
 
   return (
     <>
-      <ReviewRating>
-        <figure>
-          <img
-            src="/assets/svg/robby-apply-success.svg"
-            alt="robby apply success"
-          />
-        </figure>
-        <div className="box">
-          <div className="h3">
-            {t("Please take a minute to share your work experience at")}{" "}
-            {company.companyName}
-          </div>
-          <p></p>
-          <div className="rating">
-            <div className="stars">
-              {[...Array(5)].map((_, index) => {
-                const currentRating = index + 1;
-                return (
-                  <Fragment key={currentRating}>
-                    <label htmlFor={`rate-${currentRating}`}>
-                      <input
-                        type="radio"
-                        id={`rate-${currentRating}`}
-                        name="rate"
-                        value={currentRating}
-                        onChange={() => {
-                          setSelectedRating(currentRating);
-                          navigate(
-                            `/review/${company.slug}?star=${currentRating}`
-                          );
-                        }}
-                        hidden
-                      />
-                      <span
-                        onMouseEnter={() => setHoverRating(currentRating)}
-                        onMouseLeave={() => setHoverRating(null)}>
-                        {currentRating <= (hoverRating || selectedRating) ? (
-                          <Star fill="#ff9119" stroke="#ff9119" />
-                        ) : (
-                          <Star />
-                        )}
-                      </span>
-                    </label>
-                  </Fragment>
-                );
-              })}
+      {isReviewing ? (
+        <HasReview>
+          <div className="company-review-icon">
+            <div className="toast-icon">
+              <svg
+                fill="none"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_2058_2196)" id="state-success">
+                  <path
+                    clip-rule="evenodd"
+                    d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20ZM15.5993 7.61499C16.0224 7.19192 16.0224 6.50599 15.5993 6.08293C15.1762 5.65986 14.4903 5.65986 14.0672 6.08293L8.53117 11.619L6.43262 9.52043C6.00955 9.09736 5.32362 9.09736 4.90055 9.52043C4.47749 9.94349 4.47749 10.6294 4.90055 11.0525L7.76514 13.9171C8.1882 14.3401 8.87413 14.3401 9.2972 13.9171L15.5993 7.61499Z"
+                    fill="#0AB305"
+                    fill-rule="evenodd"
+                    id="Subtract"></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_2058_2196">
+                    <rect fill="white" height="20" width="20"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
             </div>
-            <div className="text">{t("Select star to start reviewing")}</div>
+            <div className="company-review-message">
+              <h3 className="company-review-message__title">
+                {t("You have submitted a review for this company")}
+              </h3>
+              <div className="company-review-message__description">
+                {t(
+                  "The review will be published once it is approved and the company has received the required minimum number of reviews."
+                )}
+              </div>
+              <div className="company-review-message__note">
+                {t(
+                  "Note: You can only submit a review to the same company once per year."
+                )}
+              </div>
+            </div>
           </div>
-          <div className="message">
-            <span>
-              <AlertCircle />
-            </span>
-            <span>
-              {t("Your review for")} {company.companyName}{" "}
-              {t("will be submitted anonymously.")}
-            </span>
+        </HasReview>
+      ) : (
+        <ReviewRating>
+          <figure>
+            <img
+              src="/assets/svg/robby-apply-success.svg"
+              alt="robby apply success"
+            />
+          </figure>
+          <div className="box">
+            <div className="h3">
+              {t("Please take a minute to share your work experience at")}{" "}
+              {company.companyName}
+            </div>
+            <p></p>
+            <div className="rating">
+              <div className="stars">
+                {[...Array(5)].map((_, index) => {
+                  const currentRating = index + 1;
+                  return (
+                    <Fragment key={currentRating}>
+                      <label htmlFor={`rate-${currentRating}`}>
+                        <input
+                          type="radio"
+                          id={`rate-${currentRating}`}
+                          name="rate"
+                          value={currentRating}
+                          onChange={() => {
+                            setSelectedRating(currentRating);
+                            navigate(
+                              `/review/${company.slug}?star=${currentRating}`
+                            );
+                          }}
+                          hidden
+                        />
+                        <span
+                          onMouseEnter={() => setHoverRating(currentRating)}
+                          onMouseLeave={() => setHoverRating(null)}>
+                          {currentRating <= (hoverRating || selectedRating) ? (
+                            <Star fill="#ff9119" stroke="#ff9119" />
+                          ) : (
+                            <Star />
+                          )}
+                        </span>
+                      </label>
+                    </Fragment>
+                  );
+                })}
+              </div>
+              <div className="text">{t("Select star to start reviewing")}</div>
+            </div>
+            <div className="message">
+              <span>
+                <AlertCircle />
+              </span>
+              <span>
+                {t("Your review for")} {company.companyName}{" "}
+                {t("will be submitted anonymously.")}
+              </span>
+            </div>
           </div>
-        </div>
-      </ReviewRating>
+        </ReviewRating>
+      )}
       {pagination.totalItems > 0 && (
         <ReviewList>
           <div className="heading">

@@ -115,6 +115,27 @@ export const SettingsPassword = styled.div`
       border-color: var(--i-red);
     }
   }
+
+  .note {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    margin-top: 2.4rem;
+
+    .icon {
+      width: 16px;
+      min-width: 16px;
+      height: 16px;
+      color: #a6a6a6;
+    }
+
+    .message {
+      font-size: 14px;
+      font-weight: 400;
+      margin-left: 4px;
+      color: #414042;
+    }
+  }
 `;
 
 export const SettingsDelete = styled.div`

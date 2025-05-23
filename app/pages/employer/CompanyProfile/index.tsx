@@ -36,6 +36,7 @@ import { Upload } from "feather-icons-react";
 import { schema } from "./schema";
 import { useModalStore } from "~/stores/modalStore";
 import ChangePassword from "./ChangePassword";
+import { useIndustriesQuery } from "~/hooks/useIndustriesQuery";
 
 const MAX_SKILLS = 10;
 
@@ -108,7 +109,7 @@ const CompanyProfile = () => {
       saveSelectedSkillIds(
         selectedSkillIds?.map((skill) => +skill).filter(Boolean) ?? []
       );
-      showToast("success", "Thành công");
+      showToast("success", "Cập nhật hồ sơ thành công");
     },
   });
 
@@ -183,15 +184,7 @@ const CompanyProfile = () => {
       : "";
   }, [companyWebsiteValue, submitCount]);
 
-  const { data: industries } = useQuery({
-    queryKey: ["indutries"],
-    queryFn: industryService.getAll,
-    select: ({ data }) =>
-      data.map((item) => ({
-        value: item.id,
-        label: i18n.language === "en" ? item.name_en : item.name_vi,
-      })),
-  });
+  const { data: industries } = useIndustriesQuery("", i18n.language);
 
   const skillIdsDebounce = useDebounce(watch("skillIds") + "", 1000);
 

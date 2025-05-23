@@ -5,7 +5,7 @@ import {
   SelectFloatingWrapper,
   SelectWrapper,
 } from "./styled";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronDown, Loader } from "feather-icons-react";
 import ErrorMessage from "../ErrorMessage";
@@ -34,21 +34,19 @@ const SelectFloating = ({
   register,
   onSetValue,
   defaultValue,
-  disabled,
+  disabled = false,
   isPending = false,
 }: IProps) => {
-  const { t, i18n } = useTranslation(["option"]);
+  const { t } = useTranslation(["option"]);
   const [isShowOptions, setIsShowOptions] = useState(false);
   const selectWrapperRef = useRef<HTMLDivElement>(null);
-  const [selectedOption, setSelectedOption] = useState<Option | null>(
-    defaultValue || null
-  );
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
   useEffect(() => {
     if (defaultValue) {
       setSelectedOption(defaultValue);
     }
-  }, [defaultValue, i18n.language]);
+  }, [defaultValue?.label]);
 
   useEffect(() => {
     if (disabled) {
@@ -81,7 +79,7 @@ const SelectFloating = ({
     };
   }, []);
 
-  const inputValue = selectedOption?.label ? t(selectedOption?.label + "") : "";
+  const inputValue = selectedOption?.label ? t(selectedOption.label) : "";
 
   return (
     <SelectWrapper
@@ -97,7 +95,7 @@ const SelectFloating = ({
           value={inputValue}
           onChange={() => {}}
           readOnly
-          disabled
+          disabled={disabled}
           className={`${className} ${isShowOptions && "isFocus"} ${
             selectedOption?.label && "isValid"
           }`}
@@ -143,4 +141,4 @@ const SelectFloating = ({
   );
 };
 
-export default SelectFloating;
+export default memo(SelectFloating);

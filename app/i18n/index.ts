@@ -16,6 +16,8 @@ import OPTION_EN from "../locales/en/Option.json";
 import OPTION_VI from "../locales/vi/Option.json";
 import PROFILE_EN from "../locales/en/Profile.json";
 import PROFILE_VI from "../locales/vi/Profile.json";
+import TITLE_EN from "../locales/en/Title.json";
+import TITLE_VI from "../locales/vi/Title.json";
 
 const resources = {
   en: {
@@ -27,6 +29,7 @@ const resources = {
     auth: AUTH_EN,
     option: OPTION_EN,
     profile: PROFILE_EN,
+    title: TITLE_EN,
   },
   vi: {
     header: HEADER_VI,
@@ -37,6 +40,7 @@ const resources = {
     auth: AUTH_VI,
     option: OPTION_VI,
     profile: PROFILE_VI,
+    title: TITLE_VI,
   },
 };
 
@@ -55,6 +59,7 @@ i18n.use(initReactI18next).init({
     "auth",
     "option",
     "profile",
+    "title",
   ],
   defaultNS,
   interpolation: {

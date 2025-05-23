@@ -20,7 +20,7 @@ import userLinks from "~/constants/userLinks";
 import authService from "~/services/authService";
 import cities from "~/constants/cities";
 import skillService from "~/services/skillService";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSkillStore } from "~/stores/skillStore";
 import { useCompanyStore } from "~/stores/companyStore";
 import { ChevronDown, ChevronRight, LogOut } from "feather-icons-react";
@@ -28,6 +28,7 @@ import { useReviewStore } from "~/stores/reviewStore";
 import { useJobStore } from "~/stores/jobStore";
 import employerLinks from "~/constants/employerLinks";
 import companyService from "~/services/companyService";
+import { useSkillsQuery } from "~/hooks/useSkillsQuery";
 
 const Header = () => {
   const { t, i18n } = useTranslation(["header"]);
@@ -40,6 +41,7 @@ const Header = () => {
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
   const { handleResetJobs } = useJobStore();
+  const queryClient = useQueryClient();
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (index: number) => {
@@ -54,14 +56,11 @@ const Header = () => {
       handleResetJobs();
       handleSaveFollow(false);
       handleSaveReview(false);
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
     }
   };
 
-  const { data: skills, isSuccess } = useQuery({
-    queryKey: ["skills"],
-    queryFn: skillService.getAll,
-    select: ({ data }) => data,
-  });
+  const { data: skills, isSuccess } = useSkillsQuery("");
 
   useEffect(() => {
     if (isSuccess && skills) {
@@ -163,9 +162,6 @@ const Header = () => {
                         {company.companyName}
                       </li>
                     ))}
-                    {/* <li onClick={() => navigate("/find-job/company")}>
-                      {t("View all Jobs by company")}
-                    </li> */}
                   </ul>
                 </li>
                 <li
@@ -252,8 +248,13 @@ const Header = () => {
                 <HeaderAccount>
                   <figure className="avatar">
                     <img
-                      src={user.avatar || "/assets/svg/avatar-default.svg"}
+                      src={
+                        user.avatar
+                          ? user.avatar
+                          : "/assets/svg/avatar-default.svg"
+                      }
                       alt="avatar"
+                      referrerPolicy="no-referrer"
                     />
                   </figure>
                   <span className="username">{user.username}</span>

@@ -21,47 +21,12 @@ import authService from "~/services/authService";
 import showToast from "~/utils/showToast";
 import { Clock, Phone } from "feather-icons-react";
 import IconCheckCircle from "~/components/Icons/IconCheckCircle";
+import { schema } from "./schema";
 
 const EmployerContact = () => {
-  const { t } = useTranslation(["auth", "home"]);
+  const { t } = useTranslation(["auth"]);
   const [agreementCheck, setAgreementCheck] = useState(false);
   const sources = getSources(t);
-
-  const schema = z.object({
-    username: z
-      .string()
-      .nonempty({ message: t("Please let us know your name") })
-      .min(4, t("Please enter at least 4 characters")),
-    position: z
-      .string()
-      .nonempty({ message: t("Please let us know your title") })
-      .min(3, t("Please enter at least 3 characters")),
-    email: z
-      .string()
-      .nonempty({ message: t("Please provide your work email address") })
-      .email({ message: t("Please enter a valid email address") }),
-    phoneNumber: z
-      .string()
-      .nonempty({ message: t("Please provide your phone number") })
-      .regex(/^(0[1-9][0-9]{8,9})$/, {
-        message: t("Please enter a valid phone number"),
-      }),
-    source: z.string(),
-    companyName: z
-      .string()
-      .nonempty({ message: t("Please let us know your company name") })
-      .min(4, t("Please enter at least 4 characters")),
-    location: z.string().nonempty({ message: t("Please select a city") }),
-    website: z
-      .string()
-      .optional()
-      .refine(
-        (value) =>
-          !value ||
-          /^(https?:\/\/)([\w-]+(\.[\w-]+)+)(\/[\w-./?%&=]*)?$/.test(value),
-        { message: t("Please enter a valid URL, i.e https://itviec.com") }
-      ),
-  });
 
   const {
     register,
@@ -70,7 +35,7 @@ const EmployerContact = () => {
     setValue,
     reset,
     watch,
-  } = useForm<TRegisterEmployer>({
+  } = useForm<RegisterEmployer>({
     defaultValues: {
       username: "",
       position: "",
@@ -80,12 +45,12 @@ const EmployerContact = () => {
       location: "",
       website: "",
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<TRegisterEmployer> = async (
-    data: TRegisterEmployer
+  const onSubmit: SubmitHandler<RegisterEmployer> = async (
+    data: RegisterEmployer
   ) => {
     const response = await authService.registerCompany(data);
     if (response.isSuccess) {
@@ -134,37 +99,40 @@ const EmployerContact = () => {
                 <InputFloating
                   name="username"
                   label={t("Full name")}
-                  register={register}
+                  value={watch("username")}
                   required={true}
                   error={errors.username && t(errors.username.message + "")}
                   className={
                     errors.username?.message ? "error" : isValidUsername
                   }
+                  onSetValue={(value: string) => setValue("username", value)}
                 />
                 <InputFloating
                   name="position"
                   label={t("Work title")}
-                  register={register}
+                  value={watch("position")}
                   required={true}
                   error={errors.position && t(errors.position?.message + "")}
                   className={
                     errors.position?.message ? "error" : isValidPosition
                   }
+                  onSetValue={(value: string) => setValue("position", value)}
                 />
               </div>
               <div className="form-group space">
                 <InputFloating
                   name="email"
-                  register={register}
+                  value={watch("email")}
                   type="email"
                   label={t("Work email")}
                   required={true}
                   error={errors.email && t(errors.email?.message + "")}
                   className={errors.email?.message ? "error" : isValidEmail}
+                  onSetValue={(value: string) => setValue("email", value)}
                 />
                 <InputFloating
                   name="phoneNumber"
-                  register={register}
+                  value={watch("phoneNumber")}
                   label={t("Phone number")}
                   required={true}
                   error={
@@ -173,6 +141,7 @@ const EmployerContact = () => {
                   className={
                     errors.phoneNumber?.message ? "error" : isValidPhoneNumber
                   }
+                  onSetValue={(value: string) => setValue("phoneNumber", value)}
                 />
               </div>
               <div className="form-group">
@@ -183,14 +152,14 @@ const EmployerContact = () => {
                   required={false}
                   options={sources}
                   onSetValue={(value) => setValue("source", value)}
-                  defaultValue={{ value: "", label: "" }}
+                  defaultValue={undefined}
                 />
               </div>
               <h3>{t("Company information")}</h3>
               <div className="form-group">
                 <InputFloating
                   name="companyName"
-                  register={register}
+                  value={watch("companyName")}
                   label={t("Company name")}
                   required={true}
                   error={
@@ -199,6 +168,7 @@ const EmployerContact = () => {
                   className={
                     errors.companyName?.message ? "error" : isValidCompanyName
                   }
+                  onSetValue={(value: string) => setValue("companyName", value)}
                 />
               </div>
               <div className="form-group">
@@ -213,17 +183,18 @@ const EmployerContact = () => {
                   }
                   options={cities}
                   onSetValue={(value) => setValue("location", value)}
-                  defaultValue={{ value: "", label: "" }}
+                  defaultValue={undefined}
                 />
               </div>
               <div className="form-group set-mb">
                 <InputFloating
                   name="website"
-                  register={register}
+                  value={watch("website")}
                   label="Địa chỉ website"
                   required={false}
                   error={errors.website && t(errors.website?.message + "")}
                   className={isValidwebsite}
+                  onSetValue={(value: string) => setValue("website", value)}
                 />
                 <div className="helper-text">
                   {t(
@@ -280,14 +251,14 @@ const EmployerContact = () => {
             <div className="contact-box">
               <Phone size={24} color="#ed1b2f" />
               <div className="text">
-                <p>Hotline {t("Ho Chi Minh")}</p>
+                <p>Hotline {t("Ho Chi Minh", { ns: "option" })}</p>
                 <h3>0977 460 519</h3>
               </div>
             </div>
             <div className="contact-box">
               <Phone size={24} color="#ed1b2f" />
               <div className="text">
-                <p>Hotline {t("Ha Noi")}</p>
+                <p>Hotline {t("Ha Noi", { ns: "option" })}</p>
                 <h3>0983 131 531</h3>
               </div>
             </div>

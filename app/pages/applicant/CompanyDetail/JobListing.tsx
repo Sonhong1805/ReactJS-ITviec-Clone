@@ -20,9 +20,12 @@ const JobListing = ({ jobs, isPending }: IProps) => {
 
   return (
     <JobListingWrapper>
-      <h2>
-        {jobs?.length || 0} {t("job openings")}
-      </h2>
+      {isPending || (
+        <h2>
+          {jobs?.length || 0} {t("job openings")}
+        </h2>
+      )}
+
       <JobListingContainer>
         {isPending ? (
           <Skeleton

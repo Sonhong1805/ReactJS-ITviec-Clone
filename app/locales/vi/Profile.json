@@ -233,6 +233,5 @@
   "Password must be at least 12 characters, including at least 1 symbol (! @ # $ ...), 1 number, 1 UPPERCASE letter, 1 lowercase letter.": "Mật khẩu phải có ít nhất 12 kí tự, gồm ít nhất 1 kí tự đặc biệt (! @ # $ ...), 1 số, 1 chữ viết HOA, 1 chữ viết thường.",
   "Update": "Cập nhật",
   "Accept": "Chấp nhận",
-  "": "",
-  "": ""
+  "You signed up with Google, so your account doesn't have a password.": "Không có mật khẩu đối với tài khoản đăng ký bằng Google."
 }

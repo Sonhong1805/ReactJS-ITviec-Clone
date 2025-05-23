@@ -1,13 +1,16 @@
 import Home from "~/pages/applicant/Home";
 import type { Route } from "./+types/home";
+import { useTranslation } from "react-i18next";
 
 export function meta({}: Route.MetaArgs) {
+  const { t } = useTranslation(["title"]);
   return [
-    { title: 'ITviec | Việc làm IT "Chất" Nhất Dành Cho Bạn' },
+    { title: t("ITviec | Top IT Jobs for You") },
     {
       name: "description",
-      content:
-        "1000+ việc làm IT chất nhất, tin tuyển dụng IT tại các công ty tập đoàn hàng đầu với mức lương thưởng hấp dẫn dành cho bạn. Xem và ứng tuyển ngay hôm nay.",
+      content: t(
+        "The best IT and software developer jobs in Vietnam – high salary and top companies. Get your new job today on ITviec.com."
+      ),
     },
   ];
 }

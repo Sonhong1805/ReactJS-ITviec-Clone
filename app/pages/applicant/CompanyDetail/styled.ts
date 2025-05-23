@@ -430,6 +430,46 @@ export const JobListingContainer = styled.div`
   }
 `;
 
+export const HasReview = styled.section`
+  .company-review-icon {
+    box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 24px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+
+    .toast-icon {
+      transform: scale(1.6);
+    }
+  }
+
+  .company-review-message {
+    &__title {
+      line-height: 1.5;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    &__description {
+      font-weight: 400;
+      line-height: 1.8;
+      color: #414042;
+      font-size: 16px;
+    }
+    &__note {
+      margin-top: 12px;
+      color: #a6a6a6;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+`;
+
 export const ReviewRating = styled.section`
   background: var(--i-white);
   border-radius: 0.8rem;

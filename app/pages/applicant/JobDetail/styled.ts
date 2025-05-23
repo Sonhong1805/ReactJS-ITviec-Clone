@@ -28,6 +28,7 @@ export const JobDetailContainer = styled.div`
   align-items: flex-start;
   position: relative;
   z-index: 998;
+  margin-bottom: 20px;
 `;
 
 export const JobDetailRight = styled.div`

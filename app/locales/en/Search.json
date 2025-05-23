@@ -171,5 +171,8 @@
   "people followed": "people followed",
   "Number of applications per month (Year 2024)": "Number of applications per month (Year 2024)",
   "Min salary": "Min salary",
-  "Max salary": "Max salary"
+  "Max salary": "Max salary",
+  "You have submitted a review for this company": "You have submitted a review for this company",
+  "The review will be published once it is approved and the company has received the required minimum number of reviews.": "The review will be published once it is approved and the company has received the required minimum number of reviews.",
+  "Note: You can only submit a review to the same company once per year.": "Note: You can only submit a review to the same company once per year."
 }

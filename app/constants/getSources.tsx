@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-const getSources = (t: TFunction<["search"], undefined>) => [
+const getSources = (t: TFunction) => [
   {
     value: "Google",
     label: t("Google"),
@@ -19,11 +19,11 @@ const getSources = (t: TFunction<["search"], undefined>) => [
   },
   {
     value: "ITviec's Sales Team",
-    label: t("ITviec's Sales Team"),
+    label: t("ITviec's Sales Team", { ns: "option" }),
   },
   {
     value: "Referral",
-    label: t("Referral"),
+    label: t("Referral", { ns: "option" }),
   },
   {
     value: "Others",

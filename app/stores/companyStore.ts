@@ -11,6 +11,7 @@ interface CompanyState {
   jobs: CompanyJob[];
   CVApplications: CVApplication[];
   pagination: Pagination;
+  companyDetail: Company;
   handleSaveCompanies: (payload: Company[]) => void;
   handleSaveJobs: (payload: CompanyJob[]) => void;
   handleSaveCVApplications: (payload: CVApplication[]) => void;
@@ -22,12 +23,12 @@ interface CompanyState {
   handleCreateJob: (payload: CompanyJob) => void;
   handleUpdateJob: (payload: CompanyJob) => void;
   handleRemoveJob: (payload: { id: number; deletedAt: string }) => void;
-
   handleRemoveApplication: (payload: { id: number; deletedAt: string }) => void;
   handleChangeStatus: (payload: {
     id: number;
     status: ApplicationStatus;
   }) => void;
+  handleSaveCompanyDetail: (payload: Company) => void;
 }
 
 const initialState: CompanyState = {
@@ -39,6 +40,7 @@ const initialState: CompanyState = {
   jobs: [],
   CVApplications: [],
   pagination: {} as Pagination,
+  companyDetail: {} as Company,
   handleSaveCompanies: () => {},
   handleSaveJobs: () => {},
   handleSaveCVApplications: () => {},
@@ -52,6 +54,7 @@ const initialState: CompanyState = {
   handleRemoveJob: () => {},
   handleRemoveApplication: () => {},
   handleChangeStatus: () => {},
+  handleSaveCompanyDetail: () => {},
 };
 
 export const useCompanyStore = create<CompanyState>()(
@@ -61,6 +64,10 @@ export const useCompanyStore = create<CompanyState>()(
       set((state) => {
         state.isLoading = false;
         state.company = payload;
+      }),
+    handleSaveCompanyDetail: (payload) =>
+      set((state) => {
+        state.companyDetail = payload;
       }),
     handleSaveCompanies: (payload) =>
       set((state) => {

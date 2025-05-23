@@ -1,5 +1,5 @@
-import { useEffect, useState, type KeyboardEvent } from "react";
-import { AlertError, SelectPane, SelectWrapper } from "./styled";
+import { useEffect, useState } from "react";
+import { SelectPane, SelectWrapper } from "./styled";
 import Options from "./Options";
 import { ChevronDown } from "feather-icons-react";
 import ErrorMessage from "../ErrorMessage";

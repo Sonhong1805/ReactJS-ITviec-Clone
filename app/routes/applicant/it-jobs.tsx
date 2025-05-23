@@ -1,13 +1,16 @@
 import ITJobs from "~/pages/applicant/ITJobs";
 import type { Route } from "./+types/it-jobs";
+import { useTranslation } from "react-i18next";
 
 export function meta({}: Route.MetaArgs) {
+  const { t } = useTranslation(["title"]);
   return [
-    { title: "Việc làm IT, tuyển dụng IT tại Viet Nam | ITviec" },
+    { title: "IT Jobs in Viet Nam | ITviec" },
     {
       name: "description",
-      content:
-        "Tuyển dụng việc làm IT mới và chất nhất từ các nhà tuyển dụng hàng đầu tại Viet Nam. ITviec - kênh tuyển dụng uy tín nhất Việt Nam cập nhật mới 24h.",
+      content: t(
+        "92 top IT jobs for you in Viet Nam on ITviec.com. Leading companies, high salary. Get your new job now!"
+      ),
     },
   ];
 }

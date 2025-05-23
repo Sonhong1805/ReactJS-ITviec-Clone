@@ -51,22 +51,26 @@ const PreviewJob = ({ jobs, isPending }: IProps) => {
   };
 
   const handleToggleWishlist = async () => {
-    const response = await jobService.wishlist(selectedJob?.id);
-    const message = response.message;
-    if (message) {
-      if (message === "You unsaved a job.") {
-        showToast("info", response.message + "");
-      } else if (
-        message ===
-        "You have reached the limit of 20 Saved Jobs. If you want to create a new one, please manage your Saved Jobs."
-      ) {
-        showToast("warning", response.message + "");
-      } else {
-        showToast("success", response.message + "");
+    if (!isAuthenticated) {
+      navigate(`/login`);
+    } else {
+      const response = await jobService.wishlist(selectedJob?.id);
+      const message = response.message;
+      if (message) {
+        if (message === "You unsaved a job.") {
+          showToast("info", response.message + "");
+        } else if (
+          message ===
+          "You have reached the limit of 20 Saved Jobs. If you want to create a new one, please manage your Saved Jobs."
+        ) {
+          showToast("warning", response.message + "");
+        } else {
+          showToast("success", response.message + "");
+        }
       }
-    }
-    if (response.isSuccess) {
-      handleWishlist(response.data);
+      if (response.isSuccess) {
+        handleWishlist(response.data);
+      }
     }
   };
 
