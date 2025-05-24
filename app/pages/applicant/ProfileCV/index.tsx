@@ -14,8 +14,8 @@ const ProfileCV = () => {
     <ProfileCVWrapper>
       <ProfileCVContent>
         <ContactInfo />
-        {/* <AboutMe />
-        <Education />
+        <AboutMe />
+        {/* <Education />
         <WorkExperience />
         <Skills />
         <HighlightProject />
