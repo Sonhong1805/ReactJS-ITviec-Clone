@@ -15,7 +15,7 @@ const ProfileCV = () => {
       <ProfileCVContent>
         <ContactInfo />
         {/* <AboutMe /> */}
-        <Education />
+        {/* <Education /> */}
         <WorkExperience />
         {/* <Skills />
         <HighlightProject />
