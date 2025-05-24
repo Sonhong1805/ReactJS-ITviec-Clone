@@ -36,6 +36,14 @@ export const SignInForm = styled.div`
   }
 
   .form-group {
+    .account-demo {
+      .account {
+        display: flex;
+        gap: 5px;
+        font-size: 14px;
+      }
+    }
+
     &:nth-child(2) {
       .input-wrapper {
         margin-bottom: 1.6rem;

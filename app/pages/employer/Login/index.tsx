@@ -100,7 +100,17 @@ const Login = () => {
             />
             <span>{t("Remember me")}</span>
           </RememberMeCheck> */}
-          <span></span>
+          <div className="account-demo">
+            <div className="account">
+              <div>Demo: </div>
+              <div>
+                <div>{t("Email")}: fptsoftware@yopmail.com</div>
+                <div>
+                  {t("Password")}: {"d<M0~Sj6.bDW"}
+                </div>
+              </div>
+            </div>
+          </div>
           <Link to="/employer/forgot-password">{t("Forgot password?")}</Link>
         </div>
         <div className="policy">

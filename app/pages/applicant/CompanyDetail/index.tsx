@@ -17,16 +17,19 @@ import Skeleton from "react-loading-skeleton";
 import { useReviewsQuery } from "~/hooks/useReviewsQuery";
 import { useReviewStore } from "~/stores/reviewStore";
 import { useCompanyStore } from "~/stores/companyStore";
+import { useUserStore } from "~/stores/userStore";
 
 const CompanyDetail = () => {
   let { slug } = useParams();
-  const { t } = useTranslation(["search", "header"]);
+  const { t } = useTranslation(["search"]);
+  const { isAuthenticated } = useUserStore();
   const [reviewData, setReviewData] = useState<Review[]>([]);
   const [showReviews, setShowReviews] = useState(false);
   const { pagination, cursor, handleSavePagition, handleChangeCursor } =
     useReviewStore();
   const lastReviewRef = useRef<HTMLDivElement | null>(null);
   const { handleSaveCompanyDetail } = useCompanyStore();
+  const [jobListing, setJobListing] = useState<Job[]>([]);
 
   const {
     data: company,
@@ -37,8 +40,17 @@ const CompanyDetail = () => {
   useEffect(() => {
     if (!companyPending && company) {
       handleSaveCompanyDetail(company);
+      setJobListing(company.jobs);
     }
   }, [company, companyPending]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setJobListing((prev) =>
+        prev.map((job) => ({ ...job, hasApplied: undefined }))
+      );
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     return () => {
@@ -130,7 +142,7 @@ const CompanyDetail = () => {
             <Skeleton height={227.8} />
           )}
         </CompanyInfoMain>
-        <JobListing jobs={company?.jobs ?? []} isPending={companyPending} />
+        <JobListing jobs={jobListing} isPending={companyPending} />
       </CompanyInfoContainer>
       <Breadcrumb
         primaryLinkLabel={t("For Employers", { ns: "header" })}
