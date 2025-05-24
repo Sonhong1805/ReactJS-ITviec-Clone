@@ -12,16 +12,16 @@ import WorkExperience from "./WorkExperience";
 const ProfileCV = () => {
   return (
     <ProfileCVWrapper>
-      {/* <ProfileCVContent>
+      <ProfileCVContent>
         <ContactInfo />
         <AboutMe />
-        <Education />
+        {/* <Education />
         <WorkExperience />
         <Skills />
         <HighlightProject />
         <Certificates />
-        <Awards />
-      </ProfileCVContent> */}
+        <Awards /> */}
+      </ProfileCVContent>
       <ProgressBar />
     </ProfileCVWrapper>
   );
