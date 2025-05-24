@@ -19,8 +19,7 @@ import { useUserStore } from "~/stores/userStore";
 import userLinks from "~/constants/userLinks";
 import authService from "~/services/authService";
 import cities from "~/constants/cities";
-import skillService from "~/services/skillService";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useSkillStore } from "~/stores/skillStore";
 import { useCompanyStore } from "~/stores/companyStore";
 import { ChevronDown, ChevronRight, LogOut } from "feather-icons-react";
@@ -41,7 +40,6 @@ const Header = () => {
   const { handleSaveReview } = useReviewStore();
   const saveSkills = useSkillStore((s) => s.saveSkills);
   const { handleResetJobs } = useJobStore();
-  const queryClient = useQueryClient();
 
   const headerContainerRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = (index: number) => {
@@ -56,7 +54,6 @@ const Header = () => {
       handleResetJobs();
       handleSaveFollow(false);
       handleSaveReview(false);
-      queryClient.invalidateQueries({ queryKey: ["jobs"] });
     }
   };
 
