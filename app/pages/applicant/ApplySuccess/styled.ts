@@ -123,13 +123,12 @@ export const ApplySucsessBox = styled.div`
           border: 1px solid var(--i-silver-grey);
           border-radius: 0.4rem;
           overflow: hidden;
-          min-width: 4.8rem;
-          max-height: 4.8rem;
-          flex: 1;
+          width: 4.8rem;
+          height: 4.8rem;
 
           img {
-            min-width: 4.8rem;
-            max-height: 4.8rem;
+            width: 4.8rem;
+            height: 4.8rem;
             object-fit: contain;
           }
         }

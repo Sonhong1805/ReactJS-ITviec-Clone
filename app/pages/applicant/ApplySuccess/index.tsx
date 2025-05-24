@@ -15,6 +15,37 @@ import Loading from "~/components/Loading";
 import { useJobStore } from "~/stores/jobStore";
 import { useEffect } from "react";
 
+const similarJobs = [
+  {
+    id: 1,
+    title: "PHP Developer (Laravel, MySQL)",
+    slug: "php-developer-laravel-mysql",
+    companyLogo: "/assets/images/MB-Logo.png",
+    salary: "1000 - 1800 USD",
+  },
+  {
+    id: 2,
+    title: "Bridge Software Engineer (BrSE)",
+    slug: "bridge-software-engineer-brse",
+    companyLogo: "/assets/images/FSOFT-Logo.png",
+    salary: "2000 - 3500 USD",
+  },
+  {
+    id: 3,
+    title: "Middle QA (Manual Tester)",
+    slug: "middle-qa-manual-tester",
+    companyLogo: "/assets/images/Thankslab-Logo.png",
+    salary: "1000 - 1600 USD",
+  },
+  {
+    id: 4,
+    title: "Senior GCP Engineer (Cloud/ Linux/ SQL)",
+    slug: "senior-gcp-engineer-cloud-linux-sql",
+    companyLogo: "/assets/images/HBS-Logo.jpg",
+    salary: "1000 - 2500 USD",
+  },
+];
+
 const ApplySuccess = () => {
   const { slug } = useParams();
   const { t } = useTranslation(["apply"]);
@@ -72,21 +103,18 @@ const ApplySuccess = () => {
           <div className="similar-jobs">
             <h2> {t("Have you seen these jobs?")}</h2>
             <div className="job-list">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index} className="job-item">
+              {similarJobs.map((job) => (
+                <div key={job.id} className="job-item">
                   <figure>
-                    <img
-                      src={"/assets/images/Thankslab-Logo.png"}
-                      alt="robby apply success"
-                    />
+                    <img src={job.companyLogo} alt="robby apply success" />
                   </figure>
                   <div style={{ paddingLeft: "1.2rem" }}>
-                    <Link to={""} className="job-name">
-                      Remote Senior Fullstack Developer (NodeJS, ReactJS)
+                    <Link to={`/job/${job.slug}`} className="job-name">
+                      {job.title}
                     </Link>
                     <div className="job-salary">
                       <IconCircleDollarSign />
-                      <span>You&apos;ll love it</span>
+                      <span>{job.salary}</span>
                     </div>
                   </div>
                 </div>

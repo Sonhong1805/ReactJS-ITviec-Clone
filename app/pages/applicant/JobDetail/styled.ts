@@ -274,14 +274,14 @@ export const JobDetailEmployer = styled.div`
   gap: 1.2rem;
 
   .company-logo {
-    max-width: 12rem;
-    max-height: 12rem;
+    width: 12rem;
+    height: 12rem;
     border-radius: 0.4rem;
     overflow: hidden;
     border: 1px solid var(--i-silver-grey);
 
     img {
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 

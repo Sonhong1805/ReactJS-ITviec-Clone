@@ -29,8 +29,6 @@ const JobCard = ({ job, isNextPage = false }: IProps) => {
     handleSelectedJob(job);
   };
 
-  console.log(job);
-
   return (
     <JobCardWrapper
       onClick={previewJob}
