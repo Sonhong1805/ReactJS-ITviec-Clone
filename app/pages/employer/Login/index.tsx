@@ -38,7 +38,9 @@ const Login = () => {
     if (response.isSuccess && response.data) {
       login(response.data.user);
       localStorage.setItem("access_token", response.data.accessToken as string);
-      navigate("/employer/dashboard");
+      // navigate("/employer/dashboard");
+      const redirectUrl = "/employer/dashboard";
+      window.location.href = redirectUrl;
       reset();
     } else {
       setShowError(true);
