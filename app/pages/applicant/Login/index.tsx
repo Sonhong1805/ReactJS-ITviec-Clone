@@ -23,14 +23,13 @@ import useValidation from "~/hooks/useValidation";
 import { GoogleLogin } from "@react-oauth/google";
 import { Check } from "feather-icons-react";
 import { schema } from "./schema";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const ROLLBACK_ROUTES = ["apply", "review", "company", "job"];
 
 const Login = () => {
   const { t } = useTranslation(["auth"]);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -63,14 +62,14 @@ const Login = () => {
       login(data.user);
       localStorage.setItem("access_token", data.accessToken as string);
       const target = ROLLBACK_ROUTES.find((key) => searchParams.get(key));
-      // navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
       const redirectUrl = target
         ? `/${target}/${searchParams.get(target)}`
         : "/";
-      window.location.href = redirectUrl;
+      // navigate(redirectUrl);
       showToast("success", t("Successfully authenticated from Email account."));
-      queryClient.invalidateQueries({ queryKey: ["jobs"] });
-      //removeQueries không tác dụng
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 2000);
       reset();
     },
   });
@@ -112,13 +111,17 @@ const Login = () => {
                     const target = ROLLBACK_ROUTES.find((key) =>
                       searchParams.get(key)
                     );
-                    navigate(
-                      target ? `/${target}/${searchParams.get(target)}` : "/"
-                    );
+                    const redirectUrl = target
+                      ? `/${target}/${searchParams.get(target)}`
+                      : "/";
                     showToast(
                       "success",
                       "Successfully authenticated from Google account."
                     );
+
+                    setTimeout(() => {
+                      window.location.href = redirectUrl;
+                    }, 2000);
                   }
                 }}
                 onError={() => {

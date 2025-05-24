@@ -6,19 +6,10 @@ export const useJobsQuery = (
   levels: string[],
   workingModels: string[],
   industries: string[],
-  companyTypes: string[],
-  isAuthenticated: boolean
+  companyTypes: string[]
 ) => {
   const { data, isPending, isSuccess, refetch } = useQuery({
-    queryKey: [
-      "jobs",
-      params,
-      levels,
-      workingModels,
-      industries,
-      companyTypes,
-      isAuthenticated,
-    ],
+    queryKey: ["jobs", params, levels, workingModels, industries, companyTypes],
     queryFn: () =>
       jobService.getAll({
         ...params,

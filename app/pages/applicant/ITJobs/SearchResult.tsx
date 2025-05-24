@@ -11,8 +11,13 @@ import { useUserStore } from "~/stores/userStore";
 
 const SearchResult = () => {
   const { isAuthenticated } = useUserStore();
-  const { jobs, pagination, handleSaveJobs, handleSavePagination } =
-    useJobStore();
+  const {
+    jobs,
+    pagination,
+    handleSaveJobs,
+    handleSavePagination,
+    handleResetJobs,
+  } = useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
     useQueriesParams();
 
@@ -23,21 +28,20 @@ const SearchResult = () => {
       limit: pagination.limit || 10,
     };
   }, [queryParams, pagination.page, pagination.limit]);
-  const { data, isPending, isSuccess } = useJobsQuery(
+  const { data, isPending } = useJobsQuery(
     queriesParams,
     levels,
     workingModels,
     industries,
-    companyTypes,
-    isAuthenticated
+    companyTypes
   );
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (!isPending && data) {
       handleSaveJobs(data.data || []);
       handleSavePagination(data.pagination);
     }
-  }, [data, isSuccess]);
+  }, [data, isPending]);
 
   return (
     <SearchResultContainer>
