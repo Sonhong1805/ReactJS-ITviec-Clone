@@ -13,14 +13,14 @@ const ProfileCV = () => {
   return (
     <ProfileCVWrapper>
       <ProfileCVContent>
-        <ContactInfo />
+        {/* <ContactInfo /> */}
         <AboutMe />
-        {/* <Education />
+        <Education />
         <WorkExperience />
         <Skills />
         <HighlightProject />
         <Certificates />
-        <Awards /> */}
+        <Awards />
       </ProfileCVContent>
       <ProgressBar />
     </ProfileCVWrapper>
