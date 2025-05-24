@@ -12,7 +12,7 @@ import WorkExperience from "./WorkExperience";
 const ProfileCV = () => {
   return (
     <ProfileCVWrapper>
-      <ProfileCVContent>
+      {/* <ProfileCVContent>
         <ContactInfo />
         <AboutMe />
         <Education />
@@ -21,7 +21,7 @@ const ProfileCV = () => {
         <HighlightProject />
         <Certificates />
         <Awards />
-      </ProfileCVContent>
+      </ProfileCVContent> */}
       <ProgressBar />
     </ProfileCVWrapper>
   );
