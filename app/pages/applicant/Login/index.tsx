@@ -63,7 +63,11 @@ const Login = () => {
       login(data.user);
       localStorage.setItem("access_token", data.accessToken as string);
       const target = ROLLBACK_ROUTES.find((key) => searchParams.get(key));
-      navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
+      // navigate(target ? `/${target}/${searchParams.get(target)}` : "/");
+      const redirectUrl = target
+        ? `/${target}/${searchParams.get(target)}`
+        : "/";
+      window.location.href = redirectUrl;
       showToast("success", t("Successfully authenticated from Email account."));
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       //removeQueries không tác dụng

@@ -16,11 +16,11 @@ const ProfileCV = () => {
         <ContactInfo />
         {/* <AboutMe /> */}
         <Education />
-        {/* <WorkExperience />
+        <WorkExperience />
         <Skills />
         <HighlightProject />
         <Certificates />
-        <Awards /> */}
+        <Awards />
       </ProfileCVContent>
       <ProgressBar />
     </ProfileCVWrapper>
