@@ -321,7 +321,7 @@ const ContactInfo = () => {
                       className="btn-delete"
                       type="button"
                       onClick={handleDeleteAvatar}>
-                      <Trash2 /> <p>{t("Xoá")}</p>
+                      <Trash2 /> <p>{t("Delete")}</p>
                     </button>
                   )}
                 </div>

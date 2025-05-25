@@ -18,23 +18,20 @@ import { useIndustriesQuery } from "~/hooks/useIndustriesQuery";
 import { useJobStore } from "~/stores/jobStore";
 import formatSalary from "~/utils/formatSalary";
 import { createSearchParams, useNavigate } from "react-router";
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { routes } from "~/constants/routes";
 import useGetSelectedValue from "~/hooks/useGetSelectedValue";
 import { Check, Plus, X } from "feather-icons-react";
 import levels from "~/constants/levels";
 import workingModels from "~/constants/workingModels";
 import companyTypes from "~/constants/companyTypes";
+import { useModalStore } from "~/stores/modalStore";
 
 export const MIN_RANGE = 500;
 export const MAX_RANGE = 10000;
 
-interface IProps {
-  showModal: boolean;
-  closeModal: () => void;
-}
-
-const ModalFilter = ({ showModal, closeModal }: IProps) => {
+const ModalFilter = () => {
+  const { modal, handleCloseModal } = useModalStore();
   const navigate = useNavigate();
   const { queryParams } = useQueriesParams();
   const {
@@ -51,7 +48,13 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
     handleSaveWorkingModels,
     handleSaveIndustries,
     handleResetAllSelected,
+    getMinSalary,
+    getMaxSalary,
+    handleGetMinSalary,
+    handleGetMaxSalary,
   } = useJobStore();
+
+  const closeModal = () => handleCloseModal("filter");
 
   const { t, i18n } = useTranslation(["search", "option"]);
   const language = i18n.language;
@@ -69,17 +72,19 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
   const handleSliderChange = (e: number | number[]) => {
     if (Array.isArray(e)) {
       const [min, max] = e;
-      handleSelectedMinSalary(min);
-      handleSelectedMaxSalary(max);
+      handleGetMinSalary(min);
+      handleGetMaxSalary(max);
     }
   };
 
   const { getValues: getLevels, handleGetValues: handleGetLevels } =
     useGetSelectedValue(selectedLevels);
+
   const {
     getValues: getWorkingModels,
     handleGetValues: handleGetWorkingModels,
   } = useGetSelectedValue(selectedWorkingModels);
+
   const { getValues: getIndustries, handleGetValues: handleGetIndustries } =
     useGetSelectedValue(selectedIndustries);
 
@@ -87,6 +92,8 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
     handleSaveLevels(getLevels.map((item) => item + ""));
     handleSaveWorkingModels(getWorkingModels.map((item) => item + ""));
     handleSaveIndustries(getIndustries.map((item) => item + ""));
+    handleSelectedMinSalary(getMinSalary);
+    handleSelectedMaxSalary(getMaxSalary);
 
     const searchParams: Record<string, string | string[]> = {
       page: queryParams.page || "",
@@ -97,10 +104,8 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
       industries: getIndustries.map((item) => item + ""),
       workingModels: getWorkingModels.map((item) => item + ""),
       companyTypes: selectedCompanyTypes,
-      minSalary:
-        selectedMinSalary === MIN_RANGE ? "" : selectedMinSalary.toString(),
-      maxSalary:
-        selectedMaxSalary === MAX_RANGE ? "" : selectedMaxSalary.toString(),
+      minSalary: getMinSalary === MIN_RANGE ? "" : getMinSalary.toString(),
+      maxSalary: getMaxSalary === MAX_RANGE ? "" : getMaxSalary.toString(),
     };
 
     const filteredParams = Object.fromEntries(
@@ -146,7 +151,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
 
   return (
     <Modal
-      isOpen={showModal}
+      isOpen={modal["filter"]}
       onRequestClose={closeModal}
       style={customStyles}
       contentLabel="Example Modal">
@@ -208,8 +213,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
             <h4>{t("Salary")}</h4>
             <div className="modal-group">
               <span className="salary">
-                {formatSalary(selectedMinSalary)}$ -{" "}
-                {formatSalary(selectedMaxSalary)}$
+                {formatSalary(getMinSalary)}$ - {formatSalary(getMaxSalary)}$
               </span>
               <div className="range">
                 <Slider
@@ -217,7 +221,7 @@ const ModalFilter = ({ showModal, closeModal }: IProps) => {
                   min={MIN_RANGE}
                   max={MAX_RANGE}
                   step={MIN_RANGE}
-                  defaultValue={[selectedMinSalary, selectedMaxSalary]}
+                  defaultValue={[getMinSalary, getMaxSalary]}
                   pushable={true}
                   onChange={handleSliderChange}
                 />

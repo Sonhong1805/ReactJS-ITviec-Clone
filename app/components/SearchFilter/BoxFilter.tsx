@@ -75,7 +75,7 @@ const BoxFilter = () => {
   return (
     <BoxFilterWrapper>
       <BoxDropdown
-        label={t("Level")}
+        label="Level"
         options={levels}
         selectedIds={selectedLevels}
         onSelectedIds={handleSelectedLevels}
@@ -83,7 +83,7 @@ const BoxFilter = () => {
         onResetSelected={handleResetSelectedLevels}
       />
       <BoxDropdown
-        label={t("Working Model")}
+        label="Working Model"
         options={workingModels}
         selectedIds={selectedWorkingModels}
         onSelectedIds={handleSelectedWorkingModels}
@@ -91,7 +91,7 @@ const BoxFilter = () => {
         onResetSelected={handleResetSelectedWorkingModels}
       />
       <BoxDropdown
-        label={t("Salary")}
+        label="Salary"
         isActive={
           selectedMinSalary > MIN_RANGE || selectedMaxSalary < MAX_RANGE
         }
@@ -100,7 +100,7 @@ const BoxFilter = () => {
       </BoxDropdown>
       <BoxIndustry>
         <BoxDropdown
-          label={t("Industry.label")}
+          label="Company Industry"
           selectedIds={selectedIndustries.map((item) => item + "")}
           isActive={selectedIndustries && selectedIndustries.length > 0}
           onResetSelected={handleResetSelectedIndustries}>
@@ -118,7 +118,7 @@ const BoxFilter = () => {
       {countSelected > 0 && (
         <ClearFilter>
           <Link to={"/it-jobs"} onClick={handleResetFilter}>
-            Xoá
+            {t("Clear")}
           </Link>
         </ClearFilter>
       )}

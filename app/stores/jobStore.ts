@@ -27,6 +27,8 @@ interface JobState {
   selectedIndustries: (string | number)[];
   selectedMinSalary: number;
   selectedMaxSalary: number;
+  getMinSalary: number;
+  getMaxSalary: number;
   jobDetail: Job;
   handleSaveJobs: (payload: Job[]) => void;
   handleResetJobs: () => void;
@@ -51,6 +53,8 @@ interface JobState {
   handleSaveJobDetail: (payload: Job) => void;
   handleAppliedSuccess: (payload: Application) => void;
   handleWishlist: (payload: boolean) => void;
+  handleGetMinSalary: (payload: number) => void;
+  handleGetMaxSalary: (payload: number) => void;
 }
 
 const initialState: JobState = {
@@ -63,6 +67,8 @@ const initialState: JobState = {
   selectedIndustries: getArrayParamsFromURL("industries"),
   selectedMinSalary: +getSingleParamFromURL("minSalary") || 500,
   selectedMaxSalary: +getSingleParamFromURL("maxSalary") || 10000,
+  getMinSalary: +getSingleParamFromURL("minSalary") || 500,
+  getMaxSalary: +getSingleParamFromURL("maxSalary") || 10000,
   jobDetail: {} as Job,
   handleSaveJobs: () => {},
   handleResetJobs: () => {},
@@ -87,6 +93,8 @@ const initialState: JobState = {
   handleSaveJobDetail: () => {},
   handleAppliedSuccess: () => {},
   handleWishlist: () => {},
+  handleGetMinSalary: () => {},
+  handleGetMaxSalary: () => {},
 };
 
 export const useJobStore = create<JobState>()(
@@ -207,6 +215,8 @@ export const useJobStore = create<JobState>()(
         state.selectedCompanyTypes = initialState.selectedCompanyTypes;
         state.selectedMinSalary = initialState.selectedMinSalary;
         state.selectedMaxSalary = initialState.selectedMaxSalary;
+        state.getMinSalary = initialState.getMinSalary;
+        state.getMaxSalary = initialState.getMaxSalary;
       }),
     handleSaveJobDetail: (payload) =>
       set((state) => {
@@ -221,6 +231,14 @@ export const useJobStore = create<JobState>()(
       set((state) => {
         state.selectedJob.wishlist = payload;
         state.jobDetail.wishlist = payload;
+      }),
+    handleGetMinSalary: (payload) =>
+      set((state) => {
+        state.getMinSalary = payload;
+      }),
+    handleGetMaxSalary: (payload) =>
+      set((state) => {
+        state.getMaxSalary = payload;
       }),
   }))
 );

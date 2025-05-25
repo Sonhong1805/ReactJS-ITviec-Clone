@@ -32,7 +32,7 @@ const BoxDropdown = ({
   onSelectedIds,
   onResetSelected,
 }: IProps) => {
-  const { t } = useTranslation(["search"]);
+  const { t } = useTranslation(["option"]);
   const { queryParams } = useQueriesParams();
   const [isShowDropdown, setIsShowDropdown] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
@@ -135,7 +135,7 @@ const BoxDropdown = ({
       ref={boxRef}
       onClick={() => setIsShowDropdown(!isShowDropdown)}>
       <div className={`box ${isActive && "active"}`}>
-        <span>{showLabel}</span>
+        <span>{t(showLabel)}</span>
         {isActive ? <X onClick={handleResetSelected} /> : <ChevronDown />}
       </div>
       {isShowDropdown && (

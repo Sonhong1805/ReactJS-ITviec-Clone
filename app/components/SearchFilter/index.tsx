@@ -7,11 +7,12 @@ import Modal from "react-modal";
 import { useJobStore } from "~/stores/jobStore";
 import { useSearchParams } from "react-router";
 import { Filter } from "feather-icons-react";
+import { useModalStore } from "~/stores/modalStore";
 
 const SearchFilter = () => {
-  const { t, i18n } = useTranslation(["search", "option"]);
+  const { t, i18n } = useTranslation(["search"]);
   const language = i18n.language;
-  const [showModal, setShowModal] = useState(false);
+  const { handleOpenModal } = useModalStore();
   const { pagination } = useJobStore();
   const [searchParams] = useSearchParams();
 
@@ -27,16 +28,6 @@ const SearchFilter = () => {
   useEffect(() => {
     Modal.setAppElement(document.body);
   }, []);
-
-  const openModal = () => {
-    setShowModal(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    document.body.style.overflow = "";
-  };
 
   const countSelected = useMemo(() => {
     let countSalary = 0;
@@ -94,13 +85,13 @@ const SearchFilter = () => {
       </h1>
       <SearchBox>
         <BoxFilter />
-        <button onClick={openModal}>
+        <button onClick={() => handleOpenModal("filter")}>
           <Filter />
           <span>{t("Filter")}</span>
           {countSelected > 0 && <div className="count">{countSelected}</div>}
         </button>
       </SearchBox>
-      <ModalFilter showModal={showModal} closeModal={closeModal} />
+      <ModalFilter />
     </SearchFilterContainer>
   );
 };

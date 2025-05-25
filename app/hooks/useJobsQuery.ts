@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import jobService, { type JobsPayload } from "~/services/jobService";
 
 export const useJobsQuery = (
@@ -20,6 +20,7 @@ export const useJobsQuery = (
       }),
     select: ({ data }) => data as JobsPayload,
     staleTime: 1000 * 30,
+    placeholderData: keepPreviousData,
   });
 
   return { data, isPending, isSuccess, refetch };
