@@ -24,7 +24,7 @@ interface IProps {
 }
 
 const Employer = ({ data, jobs }: IProps) => {
-  const { t } = useTranslation(["search", "option"]);
+  const { t } = useTranslation(["search"]);
   const [isSticky, setIsSticky] = useState(false);
   const { isAuthenticated } = useUserStore();
   const navigate = useNavigate();
@@ -38,6 +38,10 @@ const Employer = ({ data, jobs }: IProps) => {
     if (data.review) {
       handleSaveReview(data.review);
     }
+    return () => {
+      handleSaveFollow(false);
+      handleSaveReview(false);
+    };
   }, []);
 
   useEffect(() => {

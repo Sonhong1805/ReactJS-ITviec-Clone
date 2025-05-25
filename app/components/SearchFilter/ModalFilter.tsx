@@ -18,7 +18,7 @@ import { useIndustriesQuery } from "~/hooks/useIndustriesQuery";
 import { useJobStore } from "~/stores/jobStore";
 import formatSalary from "~/utils/formatSalary";
 import { createSearchParams, useNavigate } from "react-router";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useMemo } from "react";
 import { routes } from "~/constants/routes";
 import useGetSelectedValue from "~/hooks/useGetSelectedValue";
 import { Check, Plus, X } from "feather-icons-react";
@@ -198,7 +198,7 @@ const ModalFilter = () => {
                     onChange={() => handleGetWorkingModels(workingModel.value)}
                   />
                   <ModalLabel htmlFor={workingModel.value}>
-                    {t(workingModel.label)}
+                    {t(workingModel.label, { ns: "option" })}
                     {getWorkingModels.includes(workingModel.value) ? (
                       <Check />
                     ) : (

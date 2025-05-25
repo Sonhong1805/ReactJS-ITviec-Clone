@@ -1,6 +1,5 @@
 import { Fragment, useCallback, useState } from "react";
 import {
-  AlertError,
   ButtonSubmit,
   customStyles,
   ModalForm,
@@ -36,6 +35,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useReviewStore } from "~/stores/reviewStore";
 import useValidation from "~/hooks/useValidation";
+import ErrorMessage from "~/components/ErrorMessage";
 
 const CompanyReview = () => {
   let { slug } = useParams();
@@ -193,9 +193,10 @@ const CompanyReview = () => {
                         {t(rateDescription[hoverRating])}
                       </span>
                     </div>
-                    <AlertError style={{ marginLeft: "6rem" }}>
-                      {errors.rate?.message}
-                    </AlertError>
+                    <ErrorMessage
+                      style={{ marginLeft: "6rem" }}
+                      message={errors.rate?.message}
+                    />
                   </div>
                 </div>
                 <InputFloating
@@ -252,9 +253,9 @@ const CompanyReview = () => {
                         <span>{t("Unsatisfied")}</span>
                       </div>
                     </ReviewRadio>
-                    <AlertError>
-                      {errors.overtimePolicySatisfaction?.message}
-                    </AlertError>
+                    <ErrorMessage
+                      message={errors.overtimePolicySatisfaction?.message}
+                    />
                     <textarea
                       id="reason"
                       {...register("reason")}
@@ -263,7 +264,7 @@ const CompanyReview = () => {
                         errors.reason?.message ? "error" : isValidReason
                       }
                       placeholder={t("Input your reason")}></textarea>
-                    <AlertError>{errors.reason?.message}</AlertError>
+                    <ErrorMessage message={errors.reason?.message} />
                     <p className="characters">
                       {t("Limit from")} 50 {t("to")} 140 {t("characters")}.
                     </p>
@@ -281,7 +282,7 @@ const CompanyReview = () => {
                       errors.experiences?.message ? "error" : isValidExperiences
                     }
                     placeholder={t("Input your experiences")}></textarea>
-                  <AlertError>{errors.experiences?.message}</AlertError>
+                  <ErrorMessage message={errors.experiences?.message} />
                   <p className="characters">
                     {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
                   </p>
@@ -297,7 +298,7 @@ const CompanyReview = () => {
                       errors.suggestion?.message ? "error" : isValidSuggestion
                     }
                     placeholder={t("Input your suggestion")}></textarea>
-                  <AlertError>{errors.suggestion?.message}</AlertError>
+                  <ErrorMessage message={errors.suggestion?.message} />
                   <p className="characters">
                     {t("Limit from")} 50 {t("to")} 10000 {t("characters")}
                   </p>
@@ -385,7 +386,7 @@ const CompanyReview = () => {
                       <span>{t("No")}</span>
                     </div>
                   </ReviewRadio>
-                  <AlertError>{errors.isRecommend?.message}</AlertError>
+                  <ErrorMessage message={errors.isRecommend?.message} />
                 </div>
                 <ButtonSubmit>{t("Send Review")}</ButtonSubmit>
               </ReviewForm>

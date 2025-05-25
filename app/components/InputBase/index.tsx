@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styled";
-import {
-  AlertError,
-  FieldWrapper,
-  InputBaseWrapper,
-  LabelWrapper,
-} from "./styled";
+import { FieldWrapper, InputBaseWrapper, LabelWrapper } from "./styled";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Eye, EyeOff } from "feather-icons-react";

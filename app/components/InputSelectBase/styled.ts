@@ -87,12 +87,6 @@ export const InputSelectWrapper = styled.div`
   }
 `;
 
-export const AlertError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
-`;
-
 export const OptionsDropdown = styled.div`
   max-height: 20rem;
   border: 1px solid var(--i-silver-grey);

@@ -1,6 +1,5 @@
 import { ChevronDown } from "feather-icons-react";
 import {
-  AlertError,
   InputSelectWrapper,
   InputWrapper,
   Option,
@@ -122,7 +121,9 @@ const InputSelectBase = ({
               </Option>
             ))
           ) : (
-            <p className="not-found">No results found</p>
+            <p className="not-found">
+              {t("No results found", { ns: "option" })}
+            </p>
           )}
         </OptionsDropdown>
       )}

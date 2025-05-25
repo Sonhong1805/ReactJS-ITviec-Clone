@@ -31,9 +31,17 @@ export const ForbiddenWrapper = styled.div`
     margin-left: 34px;
   }
 
-  h3 {
+  h2 {
     color: var(--i-white);
     font-size: 32px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  h4 {
+    color: var(--i-white);
+    font-size: 24px;
     font-weight: 600;
     line-height: 1;
   }

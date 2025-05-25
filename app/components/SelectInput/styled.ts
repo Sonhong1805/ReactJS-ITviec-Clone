@@ -100,9 +100,3 @@ export const OptionItem = styled.li`
     background-color: var(--i-white-red);
   }
 `;
-
-export const AlertError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
-`;

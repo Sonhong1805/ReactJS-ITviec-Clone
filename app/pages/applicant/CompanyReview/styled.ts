@@ -298,12 +298,6 @@ export const ReviewRight = styled.aside`
   }
 `;
 
-export const AlertError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
-`;
-
 export const ButtonSubmit = styled.button`
   width: 100%;
   background: var(--i-red);

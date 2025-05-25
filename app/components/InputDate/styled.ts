@@ -72,9 +72,3 @@ export const InputFloatingWrapper = styled.div`
     }
   }
 `;
-
-export const AlertError = styled.div`
-  font-size: 1.4rem;
-  margin-top: 0.4rem;
-  color: var(--i-error-color);
-`;
