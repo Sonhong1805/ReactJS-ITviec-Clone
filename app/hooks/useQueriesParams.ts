@@ -8,6 +8,7 @@ export const useQueriesParams = () => {
   const companyTypes = searchParams.getAll("companyTypes");
   const keyword = searchParams.get("keyword") || "";
   const queryParams = Object.fromEntries([...searchParams]);
+
   return {
     keyword,
     setSearchParams,

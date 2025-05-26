@@ -59,7 +59,10 @@ interface JobState {
 
 const initialState: JobState = {
   jobs: [],
-  pagination: {} as Pagination,
+  pagination: {
+    page: +getSingleParamFromURL("page") || 1,
+    limit: +getSingleParamFromURL("limit") || 10,
+  } as Pagination,
   selectedJob: {} as Job,
   selectedLevels: getArrayParamsFromURL("levels"),
   selectedWorkingModels: getArrayParamsFromURL("workingModels"),

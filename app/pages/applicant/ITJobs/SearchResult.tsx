@@ -7,20 +7,24 @@ import { useJobsQuery } from "~/hooks/useJobsQuery";
 import { useEffect, useMemo } from "react";
 import { useJobStore } from "~/stores/jobStore";
 import { useQueriesParams } from "~/hooks/useQueriesParams";
+import { createSearchParams, useNavigate } from "react-router";
+import { routes } from "~/constants/routes";
 
 const SearchResult = () => {
   const { jobs, pagination, handleSaveJobs, handleSavePagination } =
     useJobStore();
   const { levels, workingModels, industries, companyTypes, queryParams } =
     useQueriesParams();
+  const navigate = useNavigate();
 
   const queriesParams = useMemo(() => {
     return {
       ...queryParams,
-      page: pagination.page || 1,
-      limit: pagination.limit || 10,
+      page: queryParams.page || 1,
+      limit: queryParams.limit || 10,
     };
-  }, [queryParams, pagination.page, pagination.limit]);
+  }, [queryParams]);
+
   const { data, isPending } = useJobsQuery(
     queriesParams,
     levels,
@@ -36,6 +40,17 @@ const SearchResult = () => {
     }
   }, [data, isPending]);
 
+  const handleChangePagination = (data: Pagination) => {
+    const searchParams: Record<string, string> = {
+      page: data.page + "",
+    };
+
+    navigate({
+      pathname: routes.ITJobs,
+      search: createSearchParams(searchParams).toString(),
+    });
+  };
+
   return (
     <SearchResultContainer>
       <SearchFilter />
@@ -46,7 +61,7 @@ const SearchResult = () => {
       {data && data?.data.length > 0 && (
         <Pagination
           pagination={pagination}
-          onChangePagination={handleSavePagination}
+          onChangePagination={handleChangePagination}
         />
       )}
     </SearchResultContainer>

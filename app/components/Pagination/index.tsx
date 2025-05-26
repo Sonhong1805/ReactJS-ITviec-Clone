@@ -14,6 +14,7 @@ const Pagination = ({ pagination, onChangePagination }: IProps) => {
     totalCount: pagination.totalItems,
     pageSize: pagination.limit,
   });
+
   return (
     <PaginationWrapper className="pagination-wrapper">
       <PageItem

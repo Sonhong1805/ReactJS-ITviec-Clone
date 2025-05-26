@@ -75,6 +75,7 @@ const SearchForm = ({ paramCity, paramKeyword }: IProps) => {
     const searchParams: Record<string, string> = {
       city,
       keyword,
+      page: "1",
     };
 
     const filteredParams = Object.fromEntries(

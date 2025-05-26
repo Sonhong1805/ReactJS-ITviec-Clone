@@ -3,14 +3,12 @@ import type { Route } from "./+types/it-jobs";
 import { useTranslation } from "react-i18next";
 
 export function meta({}: Route.MetaArgs) {
-  const { t } = useTranslation(["title"]);
   return [
     { title: "IT Jobs in Viet Nam | ITviec" },
     {
       name: "description",
-      content: t(
-        "92 top IT jobs for you in Viet Nam on ITviec.com. Leading companies, high salary. Get your new job now!"
-      ),
+      content:
+        "92 top IT jobs for you in Viet Nam on ITviec.com. Leading companies, high salary. Get your new job now!",
     },
   ];
 }
